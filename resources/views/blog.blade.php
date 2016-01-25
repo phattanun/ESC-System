@@ -4,7 +4,7 @@
     ประกาศข่าวสาร
 @endsection
 @section('body-attribute')
-
+    style ="background-color:#F6F6F6;"
 @endsection
 @section('newsNavToggle')
     active
