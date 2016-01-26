@@ -1,16 +1,43 @@
-.blog-container{
+.news-head{
+    text-align: center;
+    margin: 20px;
+    margin-bottom: 30px;
+}
+
+.news-container{
     margin-left: auto;
     margin-right: auto;
     max-width: 940px;
 }
 
-.tab-button-bar{
+.news-box {
+    background-color: black;
     width: 100%;
-    display: block;
+    box-shadow: 0px 1px 20px -8px #636463;
+    cursor: pointer;
     margin-top: 10px;
-    margin-bottom: 30px;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.news-box-card{
+    background-color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    max-width: 100%;
+    box-shadow: #636463 0 1px 5px -8px;
+    opacity: 1;
+    padding-top: 50px;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-bottom: 50px;
+}
+
+.tab-button-bar{
+    margin-top: -45px;
+    margin-right: -50px;
 }
 
 .tab-button {
@@ -43,94 +70,81 @@
     background: radial-gradient(#E9EAEA, #DDD 99%); /* Standard syntax (must be last) */
 }
 
-.blog-box {
-    background-color: black;
-    width: 100%;
-    box-shadow: 0px 1px 20px -8px #636463;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: block;
-    height:350px; 
-    background-position:center;
-    background-size: cover;
-    padding-top: 100px;
-}
 
-.blog-box-card{
-    background-color: white;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    height: 250px;
-    max-width: 860px;
-    box-shadow: #636463 0 1px 20px -8px;
-    opacity: 0.9;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.blog-box-head{
+.news-box-head{
     margin: 0px;
 }
 
-.blog-box-content{
+.news-box-head .label {
+    font-size: 15px;
+}
+
+.news-box-head h2 {
+    margin-top: 12px;
+    margin-bottom: 0px;
+}
+
+.news-box-content{
     margin: 0px;
     font-size: 18px;
     min-height: 129.6px;
     /*overflow: hidden;
     max-width: 7ch;*/
-      text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 7.2em;
-  line-height: 1.8em;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    /*max-height: 7.2em;*/
+    line-height: 1.8em;
 }
 
-.blog-box-foot{
+.news-box-date{
     margin: 0px;
-    margin-top: 10px;
+    margin-bottom: 35px;
+    font-size: 14px;
 }
 
-.blog-box > img{
-    display: none;
+.created{
+    margin-right: 20px;
+}
+
+.updated{
+    margin-left: 20px;
+}
+
+.news-image{
+    max-width: 100%;
+    height: 350px;
+    background-size: cover;
+    background-position: center center;
 }
 
 @media (max-width: 991px){
-    .blog-container{
+    .news-container{
         max-width: 728px;
     }
-    .blog-box-card{
+    .news-box-card{
         margin-left: auto;
         margin-right: auto;
         max-width: 728px;
         height: 100%;
         opacity: 1;
     }
-    .blog-box{
+    .news-box{
         padding-top: 0px;
         height: 100%;
     }
-    .blog-box > img{
-        display: inline;
-        max-width: 100%;
-    }
-    .blog-box-foot{
-        margin: 0px;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .news-image{
+        height: 250px;
     }
 }
 
 @media (max-width: 767px){
-    .blog-container{
+    .news-container{
         padding-right: 20px;
         padding-left: 20px;
     }
-    .blog-box > img{
-        padding-right: 0px;
-        padding-left: 0px;
+    .news-image{
+        height: 180px;
     }
 }
 
@@ -156,7 +170,8 @@
 
 .pagination-nav ul li a {
     display: block;
-    background-color: #f7f7f7;
+    background-color: #CCC;
+    color: rgb(120,0,0);
     height: 36px;
     width: 36px;
     line-height: 36px;

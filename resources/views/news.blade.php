@@ -10,82 +10,69 @@
     active
 @endsection
 @section('content')
-    <div class="margin-bottom-60"></div>
-    <div class="blog-container">
-        <div class="blog-all">
-            <div class="blog-box" style="background-image:url(assets/images/backgrounds/blue.jpg);">
-                <img src="img/blog/cover.jpg" alt="" />
-                <div class="blog-box-card">
-                    <div class="row blog-box-head">
-                        <h2>ชื่อเรื่อง</h2>
+
+    <div class="news-head">
+        <h1>ข่าวสาร</h1>
+    </div>
+
+    <div class="news-container">
+        <div class="news-all">
+            <div class="news-box" id="1">
+                <div class="news-image" style="background-image:url({{asset('assets/images/news/cover.jpg')}}); "></div>
+                <div class="news-box-card">
+                    <div class="row news-box-head">
+                        <h2>ชื่อกิจกรรม1</h2>
                     </div>
-                    <div class="row blog-box-content">
+                    <div class="row news-box-date">
+                        <div><span class="created">Created at : 22/1/59</span>|<span class="updated">Updated at : 27/1/59</span></div>
+                    </div>
+                    <div class="row news-box-content">
                         เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา
                     </div>
-                    <div class="row blog-box-foot">
-                        <div>1 days ago&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150 Views</div>
-                    </div>
-
                 </div>
             </div>
 
-            <div class="blog-box" style="background-image:url(assets/images/backgrounds/bg2-min.jpg);">
-                <img src="img/blog/cover.jpg" alt="" />
-                <div class="blog-box-card">
-                    <div class="row blog-box-head">
-                        <h2>ชื่อเรื่อง</h2>
+            <div class="news-box" id="1">
+                <div class="news-image" style="background-image:url({{asset('assets/images/news/test1.jpg')}}); "></div>
+                <div class="news-box-card">
+                    <div class="tab-button-bar row">
+                        <button class="col-xs-1 tab-button tab-button-first col-xs-offset-9"><i class="fa fa-lg fa-trash"></i></button>
+                        <button class="col-xs-1 tab-button"><i class="fa fa-lg fa-cogs"></i></button>
+                        <button class="col-xs-1 tab-button"><i class="fa fa-lg fa-home"></i></button>
                     </div>
-                    <div class="row blog-box-content">
-                        เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา
+                    <div class="row news-box-head">
+                        <h2>ชื่อกิจกรรม2</h2>
                     </div>
-                    <div class="row blog-box-foot">
-                        <div>1 days ago&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150 Views</div>
+                    <div class="row news-box-date">
+                        <div><span class="created">Created at : 22/1/59</span>|<span class="updated">Updated at : 27/1/59</span></div>
                     </div>
-
-                </div>
-            </div>
-
-            <div class="blog-box" style="background-image:url(assets/images/backgrounds/default.jpg);">
-                <img src="img/blog/cover.jpg" alt="" />
-                <div class="blog-box-card">
-                    <div class="row blog-box-head">
-                        <h2>ชื่อเรื่อง</h2>
-                    </div>
-                    <div class="row blog-box-content">
+                    <div class="row news-box-content">
                         เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา
                     </div>
-                    <div class="row blog-box-foot">
-                        <div>1 days ago&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150 Views</div>
-                    </div>
-
                 </div>
             </div>
 
-        </div>
-
-        <div class="pagination-nav margin-bottom-60">
-            <ul>
-                <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-                <li><a href="#">7</a></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">10</a></li>
-                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-            </ul>
         </div>
     </div>
+
+    <div class="pagination-nav mtb-30 margin-bottom-60">
+        <ul>
+            <li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
+            <li><a href=""><i class="fa fa-angle-left"></i></a></li>
+
+                <li id="p1"><a href="">1</a></li>
+
+            <li><a href=""><i class="fa fa-angle-right"></i></a></li>
+            <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+        </ul>
+    </div>
+
 @endsection
 
 @section('css')
-    <link href="assets/css/blog.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/news.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('js')
-    <script src="assets/js/blog.js" type="text/javascript"></script>
+    <script src="assets/js/news.js" type="text/javascript"></script>
 @endsection
