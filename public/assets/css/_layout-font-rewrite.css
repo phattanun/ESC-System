@@ -131,16 +131,16 @@ h3,
 h4,
 h5,
 h6 {
-	font-family:'Raleway','Open Sans',Arial,Helvetica,sans-serif,'Sukhumvit Set';
+	font-family:'Sukhumvit Set';
 }
 .ribbon-inner {
-	font-family: "Open Sans",Helvetica,Arial,sans-serif,'Sukhumvit Set';
+	font-family: 'Sukhumvit Set';
 }
 div.mega-price-table .pricing-head small {
-	font-family:'Open Sans', Arial, Hevletica, sans-serif,'Sukhumvit Set';
+	font-family:'Sukhumvit Set';
 }
 .datepicker.dropdown-menu {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif,'Sukhumvit Set';
+	font-family: 'Sukhumvit Set';
 }
 .time_pick .time,
 .time_pick .mins,
@@ -150,14 +150,14 @@ div.mega-price-table .pricing-head small {
 	font-family: Arial, Helvetica, sans-serif,Sukhumvit Set;
 }
 .daterangepicker .calendar th, .daterangepicker .calendar td {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif,'Sukhumvit Set';
+	font-family: 'Sukhumvit Set';
 }
 
 .flex-caption {
-	font-family:'Lato',Arial,Helvetica,sans-serif,'Sukhumvit Set';
+	font-family:'Sukhumvit Set';
 }
 .switch > .switch-label {
-	font-family:Helvetica, Arial, sans-serif,'Sukhumvit Set';
+	font-family:'Sukhumvit Set';
 }
 
 
@@ -175,26 +175,26 @@ div.mega-price-table .pricing-head small {
 /** layout.css 
  *********************** **/
 body {
-	font-family:'Open Sans',Arial,Helvetica,sans-serif,'Sukhumvit Set';
+	font-family:'Sukhumvit Set';
 }
 small { 
-	font-family: 'Lato', sans-serif,'Sukhumvit Set';
+	font-family: 'Sukhumvit Set';
 }
 
 /* fonts */
 .font-open-sans {
-	font-family:'Open Sans',Arial,Helvetica,sans-serif,'Sukhumvit Set' !important;
+	font-family:'Sukhumvit Set' !important;
 }
 .timeline .timeline-entry,
 .font-lato {
-	font-family:'Lato',Arial,Helvetica,sans-serif,'Sukhumvit Set' !important;
+	font-family:'Sukhumvit Set' !important;
 }
 .font-raleway {
-	font-family:'Raleway',Arial,Helvetica,sans-serif,'Sukhumvit Set' !important;
+	font-family:'Sukhumvit Set' !important;
 }
 	/* elastic slider */
 	.ei-title h3 {
-		font-family: 'Open Sans', sans-serif,'Sukhumvit Set';
+		font-family: 'Sukhumvit Set';
 	}
 
 .maintenance,
@@ -203,5 +203,5 @@ small {
 .comments small,
 h1.blog-post-title,
 .blog-post-item h2 {
-	font-family:'Open Sans',Arial,Helvetica,sans-serif,'Sukhumvit Set';
+	font-family:'Sukhumvit Set';
 }
