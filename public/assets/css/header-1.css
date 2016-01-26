@@ -58,13 +58,13 @@
 
 
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
 	#topMain.nav-pills>li>a {
 		font-size:13px;
 	}
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1200px) {
 	/* Force 60px */
 	#header {
 		height:60px !important;
@@ -99,4 +99,12 @@
 			background-color:#fff;
 			border-top:rgba(0,0,0,0.1) 1px solid;
 		}
+}
+@media only screen and (max-width: 436px) {
+	#header a.logo>img:last-child {
+		display:none; !important;
+	}
+	#header.fixed a.logo>img:last-child {
+		display:none; !important;
+	}
 }

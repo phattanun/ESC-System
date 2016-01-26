@@ -65,13 +65,37 @@
                         </div>
                     </li>
                     <!-- /SEARCH -->
+                    <!-- LOGIN -->
+                    <li class="login">
+                        <a href="javascript:;">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        {{--<div class="form-group">--}}
+                            {{--<label>Email</label>--}}
+                            {{--<label class="input margin-bottom-10">--}}
+                                {{--<i class="ico-append fa fa-envelope"></i>--}}
+                                {{--<input required="" type="email">--}}
+                                {{--<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>--}}
+                            {{--</label>--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label>Password</label>--}}
+                            {{--<label class="input margin-bottom-10">--}}
+                                {{--<i class="ico-append fa fa-lock"></i>--}}
+                                {{--<input required="" type="password">--}}
+                                {{--<b class="tooltip tooltip-bottom-right">Type your account password</b>--}}
+                            {{--</label>--}}
+                        {{--</div>--}}
+                    </li>
+                    <!-- /LOGIN -->
                 </ul>
                 <!-- /BUTTONS -->
 
 
                 <!-- Logo -->
-                <a class="logo pull-left" href="index.html">
-                    <img src="assets/images/logo_dark.png" alt="" />
+                <a class="logo pull-left" href="/">
+                    <img src="assets/images/logo_dark.png" alt="" >
+                    <img src="assets/images/logo_dark_text.png" alt="" >
                 </a>
 
                 <div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
