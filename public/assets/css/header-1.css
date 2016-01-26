@@ -13,7 +13,8 @@
 	background-color:rgba(0,0,0,0.03);
 }
 #topMain.nav-pills>li.active>a {
-	color:rgb(120,0,0);
+	color:#780000;
+	font-weight: 600;
 }
 
 #topMain.nav-pills>li>a.dropdown-toggle {
