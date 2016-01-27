@@ -7532,3 +7532,17 @@ ul.search-history {
 	padding-left: 0px;
 	padding-right: 0px;
 }
+#topNav .nav-second-main{
+	line-height:1;
+}
+#topNav .nav-second-main #login-nav a.dropdown-toggle{
+	font-size: 17px;
+	color: white;
+	line-height:1;
+	background-color: #780000;
+	padding: 6px 6px 6px 6px;
+	margin-top: -6px;
+}
+#header li.quick-cart .quick-cart-box form {
+	margin-bottom:0px;
+}

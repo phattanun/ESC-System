@@ -14,7 +14,7 @@
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
     <!-- WEB FONTS : use %7C instead of | (pipe) -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+    {{--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />--}}
 
     <!-- CORE CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -26,7 +26,7 @@
 
     <!-- PAGE LEVEL SCRIPTS -->
     <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+    <link href="assets/css/color_scheme/red.css" rel="stylesheet" type="text/css" id="color_scheme" />
     @yield('css')
 </head>
 
@@ -49,44 +49,65 @@
                 <ul class="pull-right nav nav-pills nav-second-main">
 
                     <!-- SEARCH -->
-                    <li class="search">
-                        <a href="javascript:;">
-                            <i class="fa fa-search"></i>
-                        </a>
-                        <div class="search-box">
-                            <form action="page-search-result-1.html" method="get">
-                                <div class="input-group">
-                                    <input type="text" name="src" placeholder="Search" class="form-control" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary" type="submit">Search</button>
-											</span>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
+                    {{--<li class="search">--}}
+                        {{--<a href="javascript:;">--}}
+                            {{--<i class="fa fa-search"></i>--}}
+                        {{--</a>--}}
+                        {{--<div class="search-box">--}}
+                            {{--<form action="page-search-result-1.html" method="get">--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<input type="text" name="src" placeholder="Search" class="form-control" />--}}
+											{{--<span class="input-group-btn">--}}
+												{{--<button class="btn btn-primary" type="submit">Search</button>--}}
+											{{--</span>--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
                     <!-- /SEARCH -->
                     <!-- LOGIN -->
-                    <li class="login">
-                        <a href="javascript:;">
-                            <i class="fa fa-user"></i>
+                    <li id="login-nav" class="quick-cart text-center">
+                        <a class="dropdown-toggle" href="#">
+                            เข้าสู่ระบบ
                         </a>
-                        {{--<div class="form-group">--}}
-                            {{--<label>Email</label>--}}
-                            {{--<label class="input margin-bottom-10">--}}
-                                {{--<i class="ico-append fa fa-envelope"></i>--}}
-                                {{--<input required="" type="email">--}}
-                                {{--<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label>Password</label>--}}
-                            {{--<label class="input margin-bottom-10">--}}
-                                {{--<i class="ico-append fa fa-lock"></i>--}}
-                                {{--<input required="" type="password">--}}
-                                {{--<b class="tooltip tooltip-bottom-right">Type your account password</b>--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
+                        <div class="quick-cart-box">
+                            <h4><i class="fa fa-users"></i> เข้าสู่ระบบ</h4>
+                            <div class="quick-cart-wrapper padding-20">
+                                    {{--<!-- ALERT -->--}}
+                                    {{--<div class="alert alert-mini alert-danger margin-bottom-30">--}}
+                                    {{--<strong>Oh snap!</strong> Login Incorrect!--}}
+                                    {{--</div><!-- /ALERT -->--}}
+
+                                    <!-- login form -->
+                                    <form action="index.html" method="post">
+                                        <div class="clearfix">
+
+                                            <!-- Student ID -->
+                                            <div class="form-group">
+                                                <input name="studentID" class="form-control" placeholder="รหัสนิสิต 10 หลัก" required="" type="text">
+                                            </div>
+
+                                            <!-- Password -->
+                                            <div class="form-group">
+                                                <input name="password" class="form-control" placeholder="รหัสผ่าน" required="" type="password">
+                                            </div>
+
+                                        </div>
+                                        <label class="checkbox margin-bottom-10">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i> จำฉันไว้ในระบบ
+                                        </label>
+                                        <footer class="celarfix">
+                                            <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> เข้าสู่ระบบ</button>
+                                        </footer>
+                                    </form>
+                                    <!-- /login form -->
+                                </div>
+
+                        </div>
                     </li>
+
+
                     <!-- /LOGIN -->
                 </ul>
                 <!-- /BUTTONS -->
