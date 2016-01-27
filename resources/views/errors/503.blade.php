@@ -42,7 +42,6 @@
             <div class="content">
                 <div class="title">Be right back.</div>
             </div>
-            <div class="link"><a href="{{ URL::route('schedule') }}">Schedule</a></div>
         </div>
     </body>
 </html>

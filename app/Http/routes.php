@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('news');
 });
 
-Route::get('schedule', array('as' => 'schedule', function () {
-    return View::make('schedule');
-}));
+Route::get('schedule/manage', function () {
+    return view('schedule-manage');
+});
