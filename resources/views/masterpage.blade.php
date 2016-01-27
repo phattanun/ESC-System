@@ -201,6 +201,10 @@
 
         <div class="copyright">
             <div class="container text-center">
+                <div style="margin-bottom: 10px;">
+                    <img src="{{asset('assets/images/chula-engineering.png')}}" height="30px" style="margin-right: 30px;">
+                    <a href="//www.facebook.com/clique.chula"><img src="{{asset('assets/images/clique_logo_all_final.png')}}" height="30px" ></a>made © 2015
+                </div>
                 &copy; สงวนลิขสิทธิ์, กรรมการนิสิตคณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย
             </div>
         </div>
