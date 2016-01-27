@@ -4,33 +4,16 @@
     อนุมัติการจอง
 @endsection
 @section('content')
-  <div class="header">
-    <div class="content">
-      <div class="title">Schedule Manager</div>
+  <div class="schedule-container">
+    <div id="drop-table" class="bold"></div>
+    <div class="box resize-grid draggable">
+      <div class="box-header box-dragger">>> Drag <<</div>
     </div>
-  </div>
-
-  <div id="drop-table" class="bold"></div>
-  <div class="box resize-grid draggable">
-    <div class="box-header box-dragger">>> Drag <<</div>
   </div>
 @endsection
 
 @section('css')
   <style>
-    html, body {
-        height: 100%;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        display: table;
-        font-weight: 100;
-        font-family: 'Lato';
-    }
-
     .header {
         text-align: center;
         display: table-cell;
@@ -76,6 +59,10 @@
       font-weight: bold;
     }
 
+    .schedule-container {
+      height: 1000px;
+    }
+
     table {
       border-collapse:collapse;
       border: solid 2px;
@@ -104,5 +91,5 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="js/schedule.js"></script>
+  <script type="text/javascript" src="{{url('js/schedule.js')}}"></script>
 @endsection
