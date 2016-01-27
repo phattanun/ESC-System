@@ -17,16 +17,16 @@
     {{--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />--}}
 
     <!-- CORE CSS -->
-    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 
     <!-- THEME CSS -->
-    <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/_layout-font-rewrite.css" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/css/essentials.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/css/layout.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/css/_layout-font-rewrite.css')}}" rel="stylesheet" type="text/css" />
 
     <!-- PAGE LEVEL SCRIPTS -->
-    <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/color_scheme/red.css" rel="stylesheet" type="text/css" id="color_scheme" />
+    <link href="{{url('assets/css/header-1.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/css/color_scheme/red.css')}}" rel="stylesheet" type="text/css" id="color_scheme" />
     @yield('css')
 </head>
 
@@ -222,6 +222,10 @@
 
         <div class="copyright">
             <div class="container text-center">
+                <div style="margin-bottom: 10px;">
+                    <img src="{{asset('assets/images/chula-engineering.png')}}" height="30px" style="margin-right: 30px;">
+                    <a href="//www.facebook.com/clique.chula"><img src="{{asset('assets/images/clique_logo_all_final.png')}}" height="30px" ></a>made © 2015
+                </div>
                 &copy; สงวนลิขสิทธิ์, กรรมการนิสิตคณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย
             </div>
         </div>
@@ -234,9 +238,9 @@
 <a href="#" id="toTop"></a>
 
 <!-- JAVASCRIPT FILES -->
-<script type="text/javascript">var plugin_path = 'assets/plugins/';</script>
-<script type="text/javascript" src="assets/plugins/jquery/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="assets/js/scripts.js"></script>
+<script type="text/javascript">var plugin_path = '{{url('assets/plugins/')}}';</script>
+<script type="text/javascript" src="{{url('assets/plugins/jquery/jquery-2.1.4.min.js')}}"></script>
+<script type="text/javascript" src="{{url('assets/js/scripts.js')}}"></script>
 @yield('js')
 
 </body>
