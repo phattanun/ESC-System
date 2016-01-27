@@ -98,7 +98,7 @@
                                             <i></i> จำฉันไว้ในระบบ
                                         </label>
                                         <footer class="celarfix">
-                                            <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> OK, LOG IN</button>
+                                            <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> เข้าสู่ระบบ</button>
                                         </footer>
                                     </form>
                                     <!-- /login form -->
