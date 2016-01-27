@@ -173,14 +173,37 @@
     padding: 0px;
 }
 
-.blur-opacity{
-    opacity: 0.3;
-    width: 100%;
-    height: 100%;
+.cancel-button{
+    right: 15px;
+}
+
+.browse-bar{
+    background-color: #E9EAEA;
+    margin-left: 15%;
+    margin-right: 15%;
+
+    padding-left: 60px;
+    padding-right: 60px;
+    box-shadow: 0px 7px 20px -8px #636463;
+
 }
 
 .browse-button{
-    opacity: 1;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #FFF;
+}
+
+.browse-save-button{
+    height: 28.8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 512px){
+    .cancel-button{
+        right: 0px;
+    }
 }
 
 /* ----------------------------------------------------------------------*/

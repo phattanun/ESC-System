@@ -20,8 +20,10 @@
 
             <div class="news-box" id="3">
                 <div class="news-image" id="news-image-3" style="background-image:url({{asset('assets/images/news/test1.jpg')}}); ">
-                    <!--div class="blur-opacity"></div>
-                    <input type="file" class="col-xs-6 col-xs-offset-3 tab-button browse-button hide" id="browse-button-3"-->
+                    <div class="browse-bar container-fluid hide" id="browse-bar-3">
+                        <div class="row"><input type="file" class="col-xs-12 tab-button browse-button" id="browse-button-3"></div>
+                        <div class="row"><input type="submit" class="col-xs-2 col-xs-offset-10 browse-save-button" value="บันทึก" id="browse-save-button-3"></div>
+                    </div>
                 </div>
                 <div class="news-box-card">
                     <div class="tab-button-bar row">
@@ -41,7 +43,8 @@
                         <textarea class="activity-content-input hide" rows="5" placeholder="รายละเอียดกิจกรรม" id="activity-content-input-3"></textarea>
                     </div>
                     <div class="container-fluid save-button-bar">
-                        <button class="col-xs-2 col-xs-offset-10 tab-button save-button hide" id="save-button-3">บันทึก</button>
+                        <button class="col-xs-2 col-xs-offset-8 tab-button cancel-button hide" id="cancel-button-3">ยกเลิก</button>
+                        <button class="col-xs-2 tab-button save-button hide" id="save-button-3">บันทึก</button>
                     </div>
                 </div>
             </div>
