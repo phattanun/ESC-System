@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8" />
     <title>กวศ. | @yield('title')</title>
-    <meta name="keywords" content="HTML5,CSS3,Template" />
+    <meta name="keywords" content="กวศ.,ระบบกวศ,จองห้อง,จองพัสดุ" />
     <meta name="description" content="" />
-    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+    <meta name="Author" content="Clique : Faculty of Engineerng, Chulalongkorn University" />
 
     <!-- mobile settings -->
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
