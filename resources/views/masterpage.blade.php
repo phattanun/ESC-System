@@ -84,7 +84,7 @@
 
                                             <!-- Student ID -->
                                             <div class="form-group">
-                                                <input name="studentID" class="form-control" placeholder="รหัสนิสิต" required="" type="text">
+                                                <input name="studentID" class="form-control" placeholder="รหัสนิสิต 10 หลัก" required="" type="text">
                                             </div>
 
                                             <!-- Password -->
