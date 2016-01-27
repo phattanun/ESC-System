@@ -238,7 +238,7 @@
 <a href="#" id="toTop"></a>
 
 <!-- JAVASCRIPT FILES -->
-<script type="text/javascript">var plugin_path = '{{url('assets/plugins/')}}';</script>
+<script type="text/javascript">var plugin_path = '{{url('assets/plugins/')}}/';</script>
 <script type="text/javascript" src="{{url('assets/plugins/jquery/jquery-2.1.4.min.js')}}"></script>
 <script type="text/javascript" src="{{url('assets/js/scripts.js')}}"></script>
 @yield('js')

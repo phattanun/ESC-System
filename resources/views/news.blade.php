@@ -100,9 +100,9 @@
 @endsection
 
 @section('css')
-    <link href="assets/css/news.css" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/css/news.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('js')
-    <script src="assets/js/news.js" type="text/javascript"></script>
+    <script src="{{url('assets/js/news.js')}}" type="text/javascript"></script>
 @endsection
