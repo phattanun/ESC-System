@@ -123,7 +123,7 @@
                     <nav class="nav-main">
                         <ul id="topMain" class="nav nav-pills nav-main">
                             <li class="@yield('newsNavToggle')"><!-- NEWS -->
-                                <a href="/">
+                                <a href="{{ URL::to('/')}}">
                                     ข่าวสาร
                                 </a>
                             </li>
