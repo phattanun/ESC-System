@@ -47,7 +47,7 @@
                 <!-- BUTTONS -->
                 <ul class="pull-right nav nav-pills nav-second-main">
                     <!-- LOGGED IN -->
-                    <li class="dropdown">
+                    <li id="loggedIN" class="dropdown">
                         <a class = "dropdown-toggle"  href="#">
                             <i class="fa fa-user"></i>
                             5631008121

@@ -7539,8 +7539,12 @@ ul.search-history {
 	padding: 7px 7px 7px 7px;
 	margin-top: -7px;
 }
+#topNav .nav-second-main #loggedIN .dropdown-menu li{
+	padding: 0px 0px 0px 0px;
+}
 #topNav .nav-second-main #login-nav a.dropdown-toggle:hover{
 	background-color: #b70000;
+	border: none;
 }
 
 
