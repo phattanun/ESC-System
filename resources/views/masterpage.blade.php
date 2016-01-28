@@ -106,7 +106,7 @@
 
 
                 <!-- Logo -->
-                <a class="logo pull-left" href="/">
+                <a class="logo pull-left" href="{{ URL::to('/')}}">
                     <img src="{{url('assets/images/logo_dark.png')}}" alt="" >
                     <img src="{{url('assets/images/logo_dark_text.png')}}" alt="" >
                 </a>
