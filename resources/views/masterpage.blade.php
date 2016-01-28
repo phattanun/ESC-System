@@ -185,6 +185,10 @@
         </header>
         <!-- /Top Nav -->
     </div>
+    <div class="title-head">
+        <h1>@yield('bodyTitle')</h1>
+    </div>
+
     @yield('content')
 
     <!-- FOOTER -->

@@ -9,13 +9,11 @@
 @section('newsNavToggle')
     active
 @endsection
+@section('bodyTitle')
+    ข่าวสาร
+@endsection
 @section('content')
-
-    <div class="news-head">
-        <h1>ข่าวสาร</h1>
-    </div>
-
-    <div class="news-container">
+       <div class="news-container">
         <div class="news-all">
 
             <div class="news-box" id="3">
