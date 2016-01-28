@@ -47,11 +47,15 @@
                 <!-- BUTTONS -->
                 <ul class="pull-right nav nav-pills nav-second-main">
                     <!-- LOGGED IN -->
-                    <li class="loggedin">
-                        <a href="javascript:;">
+                    <li class="dropdown">
+                        <a class = "dropdown-toggle"  href="#">
                             <i class="fa fa-user"></i>
                             5631008121
                         </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">ข้อมูลส่วนตัว</a></li>
+                            <li><a href="">ออกจากระบบ</a></li>
+                        </ul>
                     </li>
                     <!-- /LOGGED IN -->
 
