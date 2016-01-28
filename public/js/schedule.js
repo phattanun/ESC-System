@@ -6,6 +6,7 @@ $(function() {
     minHeight: resizeGridStep,
     handles: "n,s"
   });
+
   $( ".draggable" ).draggable({
     handle: ".box-dragger",
     snap: ".dropable",

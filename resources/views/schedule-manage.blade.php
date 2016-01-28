@@ -88,8 +88,7 @@
 @endsection
 
 @section('js')
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+  <link href="{{url('assets/plugins/jquery/jquery-ui.min.css')}}" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="{{url('assets/plugins/jquery/jquery-ui.min.js')}}"></script>
   <script type="text/javascript" src="{{url('js/schedule.js')}}"></script>
 @endsection
