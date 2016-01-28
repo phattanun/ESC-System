@@ -9,7 +9,7 @@ body {
 	font-family:'Open Sans',Arial,Helvetica,sans-serif;
 	-webkit-font-smoothing: antialiased;
 
-	font-size:18px; line-height:1.5;
+	font-size:16px; line-height:1.5;
 	margin:0; padding:0;
 }
 /* example usage: index-onepage-youtube.html */
@@ -2908,7 +2908,7 @@ section.dark.page-header ul.page-options a {
 		line-height:23px;
 
 		color:#666;
-		font-size:16px;
+		font-size:14px;
 		display:block;
 		text-decoration:none;
 	}
@@ -7529,6 +7529,21 @@ ul.search-history {
 		font-size: 12px;
 	}
 }
+/*LOGIN BUTTON*/
+
+#topNav .nav-second-main #login-nav a.dropdown-toggle{
+	font-size: 16px;
+	color: white;
+	line-height:1;
+	background-color: #780000;
+	padding: 7px 7px 7px 7px;
+	margin-top: -7px;
+}
+#topNav .nav-second-main #login-nav a.dropdown-toggle:hover{
+	background-color: #b70000;
+}
+
+
 /*BUG FIX*/
 #topNav .container {
 	padding-left: 0px;
@@ -7537,14 +7552,23 @@ ul.search-history {
 #topNav .nav-second-main{
 	line-height:1;
 }
-#topNav .nav-second-main #login-nav a.dropdown-toggle{
-	font-size: 17px;
-	color: white;
-	line-height:1;
-	background-color: #780000;
-	padding: 6px 6px 6px 6px;
-	margin-top: -6px;
-}
 #header li.quick-cart .quick-cart-box form {
 	margin-bottom:0px;
+}
+
+
+@media only screen and (min-width: 768px) {
+	#topNav .container {
+		width: 768px;
+	}
+}
+@media only screen and (min-width: 992px) {
+	#topNav .container {
+		width: 992px;
+	}
+}
+@media only screen and (min-width: 1200px) {
+	#topNav .container {
+		width: 1200px;
+	}
 }

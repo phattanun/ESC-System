@@ -46,67 +46,56 @@
 
                 <!-- BUTTONS -->
                 <ul class="pull-right nav nav-pills nav-second-main">
-
-                    <!-- SEARCH -->
-                    {{--<li class="search">--}}
-                        {{--<a href="javascript:;">--}}
-                            {{--<i class="fa fa-search"></i>--}}
-                        {{--</a>--}}
-                        {{--<div class="search-box">--}}
-                            {{--<form action="page-search-result-1.html" method="get">--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input type="text" name="src" placeholder="Search" class="form-control" />--}}
-											{{--<span class="input-group-btn">--}}
-												{{--<button class="btn btn-primary" type="submit">Search</button>--}}
-											{{--</span>--}}
-                                {{--</div>--}}
-                            {{--</form>--}}
-                        {{--</div>--}}
-                    {{--</li>--}}
-                    <!-- /SEARCH -->
-                    <!-- LOGIN -->
-                    <li id="login-nav" class="quick-cart text-center">
-                        <a class="dropdown-toggle" href="#">
-                            เข้าสู่ระบบ
+                    <!-- LOGGED IN -->
+                    <li class="loggedin">
+                        <a href="javascript:;">
+                            <i class="fa fa-user"></i>
+                            5631008121
                         </a>
-                        <div class="quick-cart-box">
-                            <h4><i class="fa fa-users"></i> เข้าสู่ระบบ</h4>
-                            <div class="quick-cart-wrapper padding-20">
+                    </li>
+                    <!-- /LOGGED IN -->
+
+                    <!-- LOGIN -->
+                    {{--<li id="login-nav" class="quick-cart text-center">--}}
+                        {{--<a class="dropdown-toggle" href="#">--}}
+                            {{--เข้าสู่ระบบ--}}
+                        {{--</a>--}}
+                        {{--<div class="quick-cart-box">--}}
+                            {{--<h4><i class="fa fa-users"></i> เข้าสู่ระบบ</h4>--}}
+                            {{--<div class="quick-cart-wrapper padding-20">--}}
                                     {{--<!-- ALERT -->--}}
                                     {{--<div class="alert alert-mini alert-danger margin-bottom-30">--}}
                                     {{--<strong>Oh snap!</strong> Login Incorrect!--}}
                                     {{--</div><!-- /ALERT -->--}}
 
-                                    <!-- login form -->
-                                    <form action="index.html" method="post">
-                                        <div class="clearfix">
+                                    {{--<!-- login form -->--}}
+                                    {{--<form action="index.html" method="post">--}}
+                                        {{--<div class="clearfix">--}}
 
-                                            <!-- Student ID -->
-                                            <div class="form-group">
-                                                <input name="studentID" class="form-control" placeholder="รหัสนิสิต 10 หลัก" required="" type="text">
-                                            </div>
+                                            {{--<!-- Student ID -->--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<input name="studentID" class="form-control" placeholder="รหัสนิสิต 10 หลัก" required="" type="text">--}}
+                                            {{--</div>--}}
 
-                                            <!-- Password -->
-                                            <div class="form-group">
-                                                <input name="password" class="form-control" placeholder="รหัสผ่าน" required="" type="password">
-                                            </div>
+                                            {{--<!-- Password -->--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<input name="password" class="form-control" placeholder="รหัสผ่าน" required="" type="password">--}}
+                                            {{--</div>--}}
 
-                                        </div>
-                                        <label class="checkbox margin-bottom-10">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i> จำฉันไว้ในระบบ
-                                        </label>
-                                        <footer class="celarfix">
-                                            <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> เข้าสู่ระบบ</button>
-                                        </footer>
-                                    </form>
-                                    <!-- /login form -->
-                                </div>
+                                        {{--</div>--}}
+                                        {{--<label class="checkbox margin-bottom-10">--}}
+                                            {{--<input name="checkbox-inline" type="checkbox">--}}
+                                            {{--<i></i> จำฉันไว้ในระบบ--}}
+                                        {{--</label>--}}
+                                        {{--<footer class="celarfix">--}}
+                                            {{--<button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> เข้าสู่ระบบ</button>--}}
+                                        {{--</footer>--}}
+                                    {{--</form>--}}
+                                    {{--<!-- /login form -->--}}
+                                {{--</div>--}}
 
-                        </div>
-                    </li>
-
-
+                        {{--</div>--}}
+                    {{--</li>--}}
                     <!-- /LOGIN -->
                 </ul>
                 <!-- /BUTTONS -->
