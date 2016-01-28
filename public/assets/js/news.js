@@ -32,6 +32,29 @@ $(".cancel-button").click(function(){
     $("#browse-bar-"+id).addClass("hide");
 });
 
+/* ----------------------------------------------------------------------*/
+/* Modal   ------------------------------------------------------------- */
+/* ----------------------------------------------------------------------*/
+
+$(".news-box").click(function(){
+    window.history.pushState("object or string", "Title", "/new-url");
+    //alert(document.URL);
+});
+
+$(".content-modal").click(function(e){
+    if($(e.target).is('.modal-news-image') || $(e.target).is('.modal-news-box-card')){
+        alert("bbb");
+    }/*
+    else {
+        alert("aa");
+        window.history.back();
+    }*/
+});
+
+/* ----------------------------------------------------------------------*/
+/* respondsive  -------------------------------------------------------- */
+/* ----------------------------------------------------------------------*/
+
 $( document ).ready(function() {
     checkRespond();
 

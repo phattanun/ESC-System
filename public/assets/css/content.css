@@ -6,8 +6,8 @@
 
 .news-box {
     background-color: black;
+    border: 1px solid #E9EAEA;
     width: 100%;
-    box-shadow: 0px 1px 20px -8px #636463;
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 40px;
@@ -198,67 +198,4 @@
     .cancel-button{
         right: 0px;
     }
-}
-
-/* ----------------------------------------------------------------------*/
-/* Pagination Navigation   --------------------------------------------- */
-/* ----------------------------------------------------------------------*/
-.pagination-nav {
-    width: 100%;
-    display: block;
-    position: relative;
-    text-align: center;
-}
-
-.pagination-nav ul {
-    margin: 0px;
-    padding: 0px;
-}
-
-.pagination-nav ul li {
-    display: inline-block;
-    margin: 0px 2px;
-}
-
-.pagination-nav ul li a {
-    display: block;
-    background-color: #CCC;
-    color: rgb(120,0,0);
-    height: 36px;
-    width: 36px;
-    line-height: 36px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.pagination-nav ul li.active a {
-    background: #323232;
-    color: #fff;
-}
-
-/* ----------------------------------------------------------------------*/
-/* Modal   ------------------------------------------------------------- */
-/* ----------------------------------------------------------------------*/
-
-.content-modal {
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    z-index: 1050;
-    display: none;
-    overflow: hidden;
-    overflow-y: scroll;
-    outline: 0px none;
-    outline-color: -moz-use-text-color;
-    background-color: rgba(233, 234, 234, 0.85);
-}
-
-.modal-news-container{
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 940px;
-    margin-top: 50px;
-    margin-bottom: 50px;
 }
