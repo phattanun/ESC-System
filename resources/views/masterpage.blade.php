@@ -133,11 +133,11 @@
                                 </ul>
                             </li>
                             <li class="dropdown @yield('suppliesNavToggle')"><!-- SUPPLIES -->
-                                <a class="dropdown-toggle" href="#">
+                                <a class="dropdown-toggle" href="{{ URL::to('/supplies') }}">
                                     พัสดุ
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="">ค้นหา/ยืมพัสดุ</a></li>
+                                    <li><a href="{{ URL::to('/supplies') }}">ค้นหา/ยืมพัสดุ</a></li>
                                     <li><a href="">อนุมัติการยืม</a></li>
                                     <li><a href="">ประวัติการจอง</a></li>
                                     <li><a href="">แก้ไขข้อมูลพัสดุ</a></li>
@@ -177,9 +177,12 @@
         </header>
         <!-- /Top Nav -->
     </div>
-    <div class="title-head">
-        <h1>@yield('bodyTitle')</h1>
-    </div>
+    <section class="page-header page-header-xs title-head">
+        <div class="container">
+            <h1>@yield('bodyTitle')</h1>
+        </div>
+    </section>
+
 
     @yield('content')
 
