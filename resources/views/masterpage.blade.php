@@ -8,13 +8,12 @@
     <meta name="keywords" content="กวศ.,ระบบกวศ,จองห้อง,จองพัสดุ" />
     <meta name="description" content="" />
     <meta name="Author" content="Clique : Faculty of Engineerng, Chulalongkorn University" />
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/images/favicon.ico')}}" />
+    <link rel="icon" type="image/png" href="{{url('assets/images/favicon.ico')}}" />
+    <link rel="apple-touch-icon" href="{{url('assets/images/favicon.ico')}}" />
     <!-- mobile settings -->
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-
-    <!-- WEB FONTS : use %7C instead of | (pipe) -->
-    {{--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />--}}
 
     <!-- CORE CSS -->
     <link href="{{url('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
