@@ -21,54 +21,6 @@
                 <!-- RIGHT -->
                 <div class="col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
 
-
-                    <!-- CAROUSEL -->
-                    <div style="opacity: 1; display: block;" class="owl-carousel buttons-autohide controlls-over margin-bottom-30 radius-4 owl-theme owl-carousel-init" data-plugin-options="{&quot;singleItem&quot;: true, &quot;autoPlay&quot;: 6000, &quot;navigation&quot;: true, &quot;pagination&quot;: true, &quot;transitionStyle&quot;:&quot;fade&quot;}">
-                        <!-- item -->
-                        <div class="owl-wrapper-outer"><div style="width: 3392px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(-848px, 0px, 0px); perspective-origin: 1272px 50%;" class="owl-wrapper owl-origin"><div style="width: 848px; position: relative; left: 848px;" class="owl-item owl-fade-out"><div>
-                                        <div class="caption-slider-default">
-                                            <div class="display-table">
-                                                <div class="display-table-cell vertical-align-middle">
-                                                    <div class="caption-container text-left">
-                                                        <h2>SHOP <strong>NOW</strong> – 50% OFF</h2>
-                                                        <p>
-                                                            This is a category banner rotator<br>
-                                                            for any category of your shop.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <img class="img-responsive radius-4" src="assets/images/demo/shop/banners/top_2.png" alt="" height="335" width="851">
-                                    </div></div><div style="width: 848px;" class="owl-item owl-fade-in"><div>
-
-                                        <div class="caption-slider-default">
-                                            <div class="display-table">
-                                                <div class="display-table-cell vertical-align-middle">
-                                                    <div class="caption-container text-left">
-                                                        <h2>LOREM IPSUM <strong>DOLOR</strong></h2>
-                                                        <p>
-                                                            Unlimited designs, unlimited combinations <br>
-                                                            imagination is the limit!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <img class="img-responsive radius-4" src="assets/images/demo/shop/banners/top_1.png" alt="" height="335" width="851">
-                                    </div></div></div></div>
-                        <!-- /item -->
-
-                        <!-- item -->
-
-                        <!-- /item -->
-
-                        <div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page"><span class=""></span></div><div class="owl-page active"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"><i class="fa fa-angle-left"></i></div><div class="owl-next"><i class="fa fa-angle-right"></i></div></div></div></div>
-                    <!-- /CAROUSEL -->
-
-
                     <!-- LIST OPTIONS -->
                     <div class="clearfix shop-list-options margin-bottom-20">
 
@@ -1020,5 +972,5 @@
 @endsection
 
 @section('js')
-    <script src="{{url('assets/js/news.js')}}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
 @endsection
