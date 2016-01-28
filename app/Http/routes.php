@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('news');
 });
+Route::get('/supplies', function () {
+    return view('supplies');
+});
 
 Route::get('schedule/manage', function () {
     return view('schedule-manage');

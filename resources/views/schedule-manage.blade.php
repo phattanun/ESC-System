@@ -3,6 +3,15 @@
 @section('title')
     อนุมัติการจอง
 @endsection
+@section('body-attribute')
+    style ="background-color:#F6F6F6;"
+@endsection
+@section('conferenceNavToggle')
+    active
+@endsection
+@section('bodyTitle')
+    อนุมัติการจอง
+@endsection
 @section('content')
   <div class="schedule-container">
     <div id="drop-table" class="bold"></div>
@@ -31,8 +40,8 @@
 
     .box {
       /* Custom */
-      position: absolute;
-      top: 500px;
+      position: relative;
+      top: -500px;
       left: 1000px;
 
       width: 100px;
@@ -80,8 +89,8 @@
     }
 
     #drop-table {
-      position:absolute;
-      top:150px;
+      position:relative;
+      top:50px;
       left:300px;
     }
   </style>
