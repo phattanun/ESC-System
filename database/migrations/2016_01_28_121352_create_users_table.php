@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('religion');
             $table->char('blood_type',2);
             $table->char('clothing_size',5);
+            $table->rememberToken();
 
         });
     }

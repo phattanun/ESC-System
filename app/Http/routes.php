@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('news');
-});
-Route::get('/supplies', function () {
-    return view('supplies');
-});
+Route::get('/', 'PagesController@newsPage');
+Route::get('/supplies', 'PagesController@suppliesPage');
+Route::get('schedule/manage', 'PagesController@scheduleManagePage');
+Route::get('/logout','PagesController@logout');
 
-Route::get('schedule/manage', function () {
-    return view('schedule-manage');
-});
+Route::post('/login','PagesController@login');

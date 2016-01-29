@@ -16,11 +16,14 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
+
+    public $timestamps = false;
     /**
      * The database table used by the model.
      *
      * @var string
      */
+    protected $primaryKey = 'student_id';
     protected $table = 'users';
 
     /**
@@ -28,7 +31,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['student_id','password','name','surname','nickname','address','birthdate','phone_number','email','facebook_link','line_id','emergency_contact','department_id','group','allergy','anomaly','religion','blood_type','clothing_size'];
 
     /**
      * The attributes excluded from the model's JSON form.
