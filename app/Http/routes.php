@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', 'PagesController@newsPage');
+Route::get('/', 'NewsController@all_news_no_page');
+Route::get('/news', 'NewsController@index');
+Route::get('/news/all/', 'NewsController@all_news_no_page');
+Route::get('/news/all/{page}', 'NewsController@all_news');
+
 Route::get('/supplies', 'PagesController@suppliesPage');
+
 Route::get('schedule/manage', 'PagesController@scheduleManagePage');
+
 Route::get('/logout','PagesController@logout');
 
 Route::post('/login','PagesController@login');
