@@ -23,3 +23,6 @@ Route::get('schedule/manage', 'PagesController@scheduleManagePage');
 Route::get('/logout','PagesController@logout');
 
 Route::post('/login','PagesController@login');
+
+//News page
+Route::post('open_modal','NewsController@open_modal');

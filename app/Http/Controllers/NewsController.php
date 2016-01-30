@@ -60,15 +60,42 @@ class NewsController extends Controller
         //return $page;
         $news = DB::table('news')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $count = sizeof(DB::table('news')->get());
-        return view('/news')->with('user',$user);
-        return compact('news','count','page');
-        return view('/news' , compact('news','count','page'));
+
+        foreach ($news as &$x) {
+            $x->content = str_limit($x->content, $limit = 300, $end = '...');
+        }
+
+        return view('/news-all' , compact('$user','news','count','page'));
+        return view('/news-all')->with('user',$user);
+        return compact('news-all','count','page');
+        return view('/news-all' , compact('news','count','page'));
 
     }
 
     public function all_news_no_page()
     {
         return $this->all_news(1);
+    }
+
+    public function open_modal()
+    {
+        $tmp=[];
+        $news = DB::table('news')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $count = sizeof(DB::table('news')->get());
+
+        foreach ($news as &$x) {
+            $x->content = str_limit($x->content, $limit = 300, $end = '...');
+        }
+
+        foreach ($news as $x)
+            array_push($tmp, [
+                'id' => $x->id,
+                'title' => $x->title,
+                'type' => $x->type,
+                //'updated_at'=>(string)$x->updated_at,
+            ]);
+
+        return $tmp;
     }
 
 
