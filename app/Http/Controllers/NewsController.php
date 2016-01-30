@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
@@ -55,10 +56,11 @@ class NewsController extends Controller
 
     public function all_news($page)
     {
+        $user = Auth::user();
         //return $page;
         $news = DB::table('news')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $count = sizeof(DB::table('news')->get());
-        return view('/news');
+        return view('/news')->with('user',$user);
         return compact('news','count','page');
         return view('/news' , compact('news','count','page'));
 
