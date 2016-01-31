@@ -157,6 +157,8 @@
 }
 .activity-name-input{
     width: 100%;
+    font-size: 30px;
+    font-weight: 600;
 }
 .activity-content-input{
     width: 100%;

@@ -125,11 +125,11 @@ class NewsController extends Controller
      */
     public function show_content($id)
     {
+        $user = Auth::user();
+
         $news = DB::table('news')->where('id',$id)->get();
-        return $news;
-        return view('/article',[
-            'article'=>$article,
-        ]);
+        //return $news;
+        return view('/content',compact('$user','news','count','page','user'));
     }
 
     /**

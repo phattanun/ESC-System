@@ -10,13 +10,14 @@
     active
 @endsection
 @section('bodyTitle')
+    {{$news[0]->title}}
 @endsection
 @section('content')
     <div class="news-container">
         <div class="news-all">
 
             <div class="news-box" id="3">
-                <div class="news-image" id="news-image-3" style="background-image:url({{asset('assets/images/news/test1.jpg')}}); ">
+                <div class="news-image" id="news-image-3" style="background-image:url({{asset('assets/images/news/'.$news[0]->image)}}); ">
                     <div class="browse-bar container-fluid hide" id="browse-bar-3">
                         <div class="row"><input type="file" class="col-xs-12 tab-button browse-button" id="browse-button-3"></div>
                         <div class="row"><input type="submit" class="col-xs-2 col-xs-offset-10 browse-save-button" value="บันทึก" id="browse-save-button-3"></div>
@@ -29,15 +30,15 @@
                         <button class="col-xs-1 tab-button tab-button-home" id="home-3"><i class="fa fa-lg fa-home"></i></button>
                     </div>
                     <div class="row news-box-head">
-                        <h2 id="activity-name-3">ชื่อกิจกรรม2</h2>
-                        <input class="activity-name-input hide" type="text" placeholder="ชื่อกิจกรรม" id="activity-name-input-3" value="">
+                        <h2 id="activity-name-3">{{$news[0]->title}}</h2>
+                        <input class="activity-name-input hide" type="text" placeholder="ชื่อกิจกรรม" id="activity-name-input-3" value="{{$news[0]->title}}">
                     </div>
                     <div class="row news-box-date">
-                        <div><span class="created">Created at : 22/1/59</span>|<span class="updated">Updated at : 27/1/59</span></div>
+                        <div><span class="created">Created at : {{$news[0]->created_at}}</span>|<span class="updated">Updated at : {{$news[0]->updated_at}}</span></div>
                     </div>
                     <div class="row news-box-content">
-                        <p id="activity-content-3">เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา</p>
-                        <textarea class="activity-content-input hide" rows="5" placeholder="รายละเอียดกิจกรรม" id="activity-content-input-3"></textarea>
+                        <p id="activity-content-3">{{$news[0]->content}}</p>
+                        <textarea class="activity-content-input hide" rows="5" placeholder="รายละเอียดกิจกรรม" id="activity-content-input-3">{{$news[0]->content}}</textarea>
                     </div>
                     <div class="container-fluid save-button-bar">
                         <button class="col-xs-2 col-xs-offset-8 tab-button cancel-button hide" id="cancel-button-3">ยกเลิก</button>
