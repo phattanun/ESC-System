@@ -77,8 +77,9 @@ class NewsController extends Controller
         return $this->all_news(1);
     }
 
-    public function open_modal()
+    public function open_modal(Request $request)
     {
+        return $request->id;
         $tmp=[];
         $news = DB::table('news')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $count = sizeof(DB::table('news')->get());

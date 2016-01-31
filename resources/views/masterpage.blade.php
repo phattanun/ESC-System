@@ -72,7 +72,7 @@
                                     <!-- ALERT -->
                                 @if(isset($hasError) && $hasError)
                                     <div class="alert alert-mini alert-danger margin-bottom-30">
-                                    <strong>Oh snap!</strong> Login Incorrect!
+                                    <strong>ขออภัย!</strong> ข้อมูลผิดพลาด
                                     </div><!-- /ALERT -->
                                 @endif
                                     <!-- login form -->
