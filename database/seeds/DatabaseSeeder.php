@@ -25,11 +25,11 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        User::create(['student_id'=>'5631057921',
-            'password'=>bcrypt('111111'),
+        User::create(['student_id'=>'1',
+            'password'=>bcrypt('1'),
             'name'=>'ปฏิพล',
             'surname'=>'เจียมมั่นจิต',
-            'nickname'=>'ฮยอนฟง',
+            'nickname'=>'คุณแอดมิน',
             'address'=>'29/50 หมู่บ้านอลิชา 1 พุทธบูชา 36 บางมด ทุ่งครุ กรุงเทพฯ 10140',
             'birthdate'=>'1994-11-29 00:00:00',
             'phone_number'=>'0924587067',
