@@ -149,6 +149,7 @@
                                     <li><a href="">ออกรายงาน</a></li>
                                 </ul>
                             </li>
+                            @if(isset($user) && $user)
                             <li class="dropdown @yield('activitiesNavToggle')"><!-- ACTIVITIES -->
                                 <a class="dropdown-toggle" href="#">
                                     กิจกรรม
@@ -158,11 +159,14 @@
                                     <li><a href="">ออกรายงาน</a></li>
                                 </ul>
                             </li>
+                            @endif
+                            @if(isset($user) && $user)
                             <li class="@yield('studentsNavToggle')"><!-- STUDENTS' INFO -->
                                 <a href="#">
                                     ข้อมูลนิสิต
                                 </a>
                             </li>
+                            @endif
                             <li class="@yield('helpNavToggle')"><!-- HELP -->
                                 <a href="#">
                                     ช่วยเหลือ
