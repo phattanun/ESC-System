@@ -79,21 +79,16 @@ class NewsController extends Controller
 
     public function open_modal(Request $request)
     {
-        return $request->id;
         $tmp=[];
-        $news = DB::table('news')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-        $count = sizeof(DB::table('news')->get());
+        $news = DB::table('news')->where('id',$request->id)->get();
 
-        foreach ($news as &$x) {
-            $x->content = str_limit($x->content, $limit = 300, $end = '...');
-        }
-
-        foreach ($news as $x)
+        foreach ($news as &$x)
             array_push($tmp, [
-                'id' => $x->id,
                 'title' => $x->title,
-                'type' => $x->type,
-                //'updated_at'=>(string)$x->updated_at,
+                'content' => $x->content,
+                'image' => $x->image,
+                'created_at' => $x->created_at,
+                'updated_at'=> $x->updated_at
             ]);
 
         return $tmp;
@@ -128,10 +123,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show_content($id)
     {
-        $article = DB::table('articles')->where('id',$id)->first();
-        //var_dump($article); die();
+        $news = DB::table('news')->where('id',$id)->get();
+        return $news;
         return view('/article',[
             'article'=>$article,
         ]);

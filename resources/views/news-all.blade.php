@@ -19,13 +19,13 @@
                 <div class="modal-news-image news-image" style="background-image:url({{asset('assets/images/news/test1.jpg')}}); "></div>
                 <div class="modal-news-box-card news-box-card">
                     <div class="row news-box-head">
-                        <h2>ชื่อกิจกรรม2</h2>
+                        <h2 class="modal-news-box-head">ชื่อกิจกรรม2</h2>
                     </div>
                     <div class="row news-box-date">
-                        <div><span class="created">Created at : 22/1/59</span>|<span class="updated">Updated at : 27/1/59</span></div>
+                        <div><span class="created modal-created">Created at : 22/1/59</span>|<span class="updated modal-updated">Updated at : 27/1/59</span></div>
                     </div>
                     <div class="row news-box-content">
-                        <p>เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา</p>
+                        <p class="modal-news-box-content">เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา</p>
                     </div>
                 </div>
             </div>
@@ -83,34 +83,38 @@
     var prev_url;
 
     $(".news-box").click(function(e){
-    var content_id=$(this).attr("content");
-    //alert(content_id);
-    if($(e.target).is('.tab-button-edit') ){
-    window.location.href = "/news/content/edit/"+content_id;
-    }
-    else{
-    prev_url=document.URL;
-    window.history.replaceState("object or string", "Title", "/news/content/"+content_id);
-    open_modal(content_id);
-    }
+        var content_id=$(this).attr("content");
+        //alert(content_id);
+        if($(e.target).is('.tab-button-edit') ){
+            window.location.href = "/news/content/edit/"+content_id;
+        }
+        else{
+            prev_url=document.URL;
+            window.history.replaceState("object or string", "Title", "/news/content/"+content_id);
+            open_modal(content_id);
+        }
     });
 
     $(".content-modal").click(function(e){
-    if($(e.target).is('.content-modal') ){
-    window.history.replaceState("object or string", "Title", prev_url);
-    }
+        if($(e.target).is('.content-modal') ){
+            window.history.replaceState("object or string", "Title", prev_url);
+        }
     });
 
     function open_modal(content_id){
-    var URL_ROOT = '{{Request::root()}}';
-    alert(content_id);
-    $.post(URL_ROOT + '/open_modal',
-    { id: content_id ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+        var URL_ROOT = '{{Request::root()}}';
+        $.post(URL_ROOT + '/open_modal',
+        { id: content_id , page: '{{$page}}}',_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
-    alert(input);
+            $(".modal-news-box-head").text(input[0]['title']);
+            $(".modal-news-box-content").text(input[0]['content']);
+            $(".modal-created").text("Created at : "+input[0]['created_at']);
+            $(".modal-updated").text("Updated at : "+input[0]['updated_at']);
+            $(".modal-news-image").remove();
+            var txt = '<div class="modal-news-image news-image" style="background-image:url({{asset('assets/images/news/')}}/'+input[0]['image']+');">'+'</div>';
+            $(".modal-news-box").prepend(txt);
 
-
-    });
+        });
     }
 
     /* ----------------------------------------------------------------------*/
@@ -118,29 +122,27 @@
     /* ----------------------------------------------------------------------*/
 
     $( document ).ready(function() {
-    checkRespond();
-
+        checkRespond();
     });
 
     $(window).resize(function() {
-    checkRespond();
+        checkRespond();
     });
 
     function checkRespond(){
-    var $windowSize = $(window).width();
-
-    if ($windowSize < 768 ){
-    $(".tab-button-edit").removeClass("col-xs-offset-10");
-    $(".tab-button-edit").addClass("col-xs-offset-9");
-    $(".tab-button-edit").removeClass("col-xs-2");
-    $(".tab-button-edit").addClass("col-xs-3");
-    }
-    else{
-    $(".tab-button-edit").removeClass("col-xs-offset-9");
-    $(".tab-button-edit").addClass("col-xs-offset-10");
-    $(".tab-button-edit").removeClass("col-xs-3");
-    $(".tab-button-edit").addClass("col-xs-2");
-    }
+        var $windowSize = $(window).width();
+        if ($windowSize < 768 ){
+            $(".tab-button-edit").removeClass("col-xs-offset-10");
+            $(".tab-button-edit").addClass("col-xs-offset-9");
+            $(".tab-button-edit").removeClass("col-xs-2");
+            $(".tab-button-edit").addClass("col-xs-3");
+        }
+        else{
+            $(".tab-button-edit").removeClass("col-xs-offset-9");
+            $(".tab-button-edit").addClass("col-xs-offset-10");
+            $(".tab-button-edit").removeClass("col-xs-3");
+            $(".tab-button-edit").addClass("col-xs-2");
+        }
     }
     </script>
 @endsection
