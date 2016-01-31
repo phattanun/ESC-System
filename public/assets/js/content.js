@@ -1,7 +1,3 @@
-//$(".tab-button").click(function(){
-//    $(this).toggleClass("action");
-//});
-
 $(".tab-button-home").click(function(){
     $(this).toggleClass("action");
 });

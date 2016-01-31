@@ -8,7 +8,6 @@
     background-color: black;
     border: 1px solid #E9EAEA;
     width: 100%;
-    cursor: pointer;
     margin-top: 10px;
     margin-bottom: 40px;
     display: block;
@@ -150,15 +149,14 @@
     display: none;
 }
 
-.news-box-head input{
+.news-box-head textarea{
     font-size: 30px;
     margin-top: 12px;
     margin-bottom: 0px;
+    font-weight: 600;
 }
 .activity-name-input{
     width: 100%;
-    font-size: 30px;
-    font-weight: 600;
 }
 .activity-content-input{
     width: 100%;

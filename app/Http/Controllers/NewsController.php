@@ -79,6 +79,7 @@ class NewsController extends Controller
 
     public function open_modal(Request $request)
     {
+        $user = Auth::user();
         $tmp=[];
         $news = DB::table('news')->where('id',$request->id)->get();
 
@@ -92,6 +93,37 @@ class NewsController extends Controller
             ]);
 
         return $tmp;
+    }
+
+    public function save_news(Request $request)
+    {
+        $user = Auth::user();
+        return $request->title;
+
+/*
+
+        $trend = new Trend;
+        $trend->title = trim($request->title);
+        $trend->user_id = $user->id;
+        $trend->type = $request->type;
+        $trend->deleted = false;
+        $trend->save();
+        TrendsController::createTrendProjectAuto($trend->id);
+
+
+        $tmp=[];
+        $news = DB::table('news')->where('id',$request->id)->get();
+
+        foreach ($news as &$x)
+            array_push($tmp, [
+                'title' => $x->title,
+                'content' => $x->content,
+                'image' => $x->image,
+                'created_at' => $x->created_at,
+                'updated_at'=> $x->updated_at
+            ]);
+
+        return $tmp;*/
     }
 
 
