@@ -65,6 +65,10 @@ class NewsController extends Controller
             $x->content = str_limit($x->content, $limit = 300, $end = '...');
         }
 
+        if (count($news) == 0 || $page <=0) {
+            abort(404);
+        }
+
         return view('/news-all' , compact('$user','news','count','page','user'));
         return view('/news-all')->with('user',$user);
         return compact('news-all','count','page');

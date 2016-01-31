@@ -74,6 +74,18 @@
         </ul>
     </div>
 
+    <div class="pagination-nav mtb-30">
+        <ul>
+            <li><a href="{{ asset('/news/all/1')}}"><i class="fa fa-angle-double-left"></i></a></li>
+            @if($page>1)<li><a href="{{ asset('/news/all/'.($page-1))}}"><i class="fa fa-angle-left"></i></a></li>@endif
+            @for ($i = 1; $i <= ($count/10)+1; $i++)
+                <li id="p{{$i}}"><a href="{{ asset('/news/all/'.$i) }}">{{$i}}</a></li>
+            @endfor
+            @if($page<floor(($count/10)+1))<li><a href="{{ asset('/news/all/'.($page+1))}}"><i class="fa fa-angle-right"></i></a></li>@endif
+            <li><a href="{{ asset('/news/all/'.floor(($count/10)+1))}}"><i class="fa fa-angle-double-right"></i></a></li>
+        </ul>
+    </div>
+
 @endsection
 
 @section('css')
