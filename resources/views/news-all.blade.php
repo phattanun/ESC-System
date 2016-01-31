@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <div class="pagination-nav mtb-30 margin-bottom-60">
+    <!--div class="pagination-nav mtb-30 margin-bottom-60">
         <ul>
             <li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
             <li><a href=""><i class="fa fa-angle-left"></i></a></li>
@@ -72,7 +72,7 @@
             <li><a href=""><i class="fa fa-angle-right"></i></a></li>
             <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
         </ul>
-    </div>
+    </div-->
 
     <div class="pagination-nav mtb-30">
         <ul>
@@ -103,7 +103,7 @@
         var content_id=$(this).attr("content");
         //alert(content_id);
         if($(e.target).is('.tab-button-edit') ){
-            window.location.href = "/news/content/edit/"+content_id;
+            window.location.href = "/news/content/"+content_id;
         }
         else{
             prev_url=document.URL;

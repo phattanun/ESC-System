@@ -27,7 +27,7 @@
                 <div class="news-box-card">
                     <div class="tab-button-bar row">
                         <button class="col-xs-1 tab-button tab-button-first tab-button-trash col-xs-offset-9" id="trash-{{$news[0]->id}}"><i class="fa fa-lg fa-trash"></i></button>
-                        <button class="col-xs-1 tab-button tab-button-edit" id="edit-{{$news[0]->id}}"><i class="fa fa-lg fa-cogs"></i></button>
+                        <button class="col-xs-1 tab-button tab-button-edit" id="edit-{{$news[0]->id}}"><i class="fa fa-lg fa-cog"></i></button>
                         <button class="col-xs-1 tab-button tab-button-home" id="home-{{$news[0]->id}}"><i class="fa fa-lg fa-home"></i></button>
                     </div>
                     <div class="row news-box-head">
