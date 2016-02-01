@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Faker\Provider\cs_CZ\DateTime;
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\News;
@@ -13,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Request;
 
+use App\Picture;
 
 
 class NewsController extends Controller
@@ -123,6 +124,15 @@ class NewsController extends Controller
         $content = Input::get('content');
         $image = Input::get('image');
 
+        $temp = Input::file('image');
+        if (isset($temp)) {
+            return "1";
+            $path = 'assets/images/news';
+            Request::file('image')->move($path, $image);
+        }
+        return "2";
+
+
         $new = News::where('id',$id)->first();
         //return $new;
         $new->title = $title;
@@ -130,10 +140,7 @@ class NewsController extends Controller
         $new->updated_at = Carbon::now();
         $new->save();
         return $this->show_content($id);
-
-        return "success";
-
-        return $image;
+/*
         $password = Input::get('password');
         $remember = Input::get('checkbox-inline');
 
@@ -148,7 +155,7 @@ class NewsController extends Controller
             'created_at' => $new->created_at,
             'updated_at'=> $new->updated_at
         ]);
-        return $tmp;
+        return $tmp;*/
     }
 
 
