@@ -8,10 +8,13 @@
     background-color: black;
     width: 100%;
     box-shadow: 0px 1px 20px -8px #636463;
-    cursor: pointer;
     margin-top: 10px;
     margin-bottom: 40px;
     display: block;
+}
+
+.can-click{
+    cursor: pointer;
 }
 
 .news-box-card{

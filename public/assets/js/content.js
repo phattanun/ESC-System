@@ -13,6 +13,7 @@ $(".tab-button-edit").click(function(){
     $("#cancel-button-"+id).removeClass("hide");
     $("#save-button-"+id).removeClass("hide");
     $("#browse-bar-"+id).removeClass("hide");
+    $(".cke").removeClass("hide");
 });
 
 $(".cancel-button").click(function(){
@@ -26,6 +27,7 @@ $(".cancel-button").click(function(){
     $("#cancel-button-"+id).addClass("hide");
     $("#save-button-"+id).addClass("hide");
     $("#browse-bar-"+id).addClass("hide");
+    $(".cke").addClass("hide");
 });
 
 $( document ).ready(function() {

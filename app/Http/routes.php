@@ -28,4 +28,4 @@ Route::post('/login','PagesController@login');
 //News page
 Route::post('open_modal','NewsController@open_modal');
 Route::post('save_news','NewsController@save_news');
-Route::post('update_news','NewsController@update_news');
+Route::post('/update_news/{id}','NewsController@update_news');

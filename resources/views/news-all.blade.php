@@ -37,24 +37,26 @@
     <div class="news-container">
         <div class="news-all">
             @foreach($news as $new)
-                <div class="news-box" id="{{$new->id}}" content="{{$new->id}}" data-toggle="modal"
-                     data-target="#myModal">
-                    <div class="news-image" id="news-image-{{$new->id}}"
-                         style="background-image:url({{asset('assets/images/news/'.$new->image)}}); "></div>
+                <div class="news-box" id="{{$new->id}}">
+                    <div class="news-image can-click" id="news-image-{{$new->id}}"
+                         style="background-image:url({{asset('assets/images/news/'.$new->image)}});"
+                         content="{{$new->id}}" data-toggle="modal" data-target="#myModal"></div>
                     <div class="news-box-card">
                         <div class="tab-button-bar row">
                             <button class="col-xs-2 col-xs-offset-10 tab-button tab-button-first tab-button-edit"
-                                    id="edit-{{$new->id}}" content="3"><i class="fa fa-lg fa-cogs"></i></button>
+                                    id="edit-{{$new->id}}" content="{{$new->id}}"><i class="fa fa-lg fa-cogs"></i></button>
                         </div>
-                        <div class="row news-box-head">
-                            <h2>{{$new->title}}</h2>
-                        </div>
-                        <div class="row news-box-date">
-                            <div><span class="created">Created at : 22/1/59</span>|<span class="updated">Updated at : 27/1/59</span>
+                        <div class="can-click" content="{{$new->id}}" data-toggle="modal" data-target="#myModal">
+                            <div class="row news-box-head">
+                                <h2>{{$new->title}}</h2>
                             </div>
-                        </div>
-                        <div class="row news-box-content">
-                            <p>{{$new->content}}</p>
+                            <div class="row news-box-date">
+                                <div><span class="created">Created at : {{$new->created_at}}</span>|<span class="updated">Updated at : {{$new->updated_at}}</span>
+                                </div>
+                            </div>
+                            <div class="row news-box-content">
+                                <p>{!!$new->content!!}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +76,7 @@
         </ul>
     </div-->
 
-    <div class="pagination-nav mtb-30">
+    <div class="pagination-nav mtb-30 margin-bottom-60">
         <ul>
             <li><a href="{{ asset('/news/all/1')}}"><i class="fa fa-angle-double-left"></i></a></li>
             @if($page>1)<li><a href="{{ asset('/news/all/'.($page-1))}}"><i class="fa fa-angle-left"></i></a></li>@endif
@@ -99,17 +101,17 @@
     /* ----------------------------------------------------------------------*/
     var prev_url;
 
-    $(".news-box").click(function(e){
+    $(".can-click").click(function(e){
         var content_id=$(this).attr("content");
-        //alert(content_id);
-        if($(e.target).is('.tab-button-edit') ){
-            window.location.href = "/news/content/"+content_id;
-        }
-        else{
-            prev_url=document.URL;
-            window.history.replaceState("object or string", "Title", "/news/content/"+content_id);
-            open_modal(content_id);
-        }
+        prev_url=document.URL;
+        window.history.replaceState("object or string", "Title", "/news/content/"+content_id);
+        open_modal(content_id);
+    });
+
+    $(".tab-button-edit").click(function(e){
+        var content_id=$(this).attr("content");
+        window.location.href = "/news/content/"+content_id;
+
     });
 
     $(".content-modal").click(function(e){
@@ -124,9 +126,9 @@
         { id: content_id , page: '{{$page}}}',_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
             $(".modal-news-box-head").text(input[0]['title']);
-            $(".modal-news-box-content").text(input[0]['content']);
-            $(".modal-created").text("Created at : "+input[0]['created_at']);
-            $(".modal-updated").text("Updated at : "+input[0]['updated_at']);
+            $(".modal-news-box-content").html(input[0]['content']);
+            $(".modal-created").text("Created at : "+input[0]['created_at']['date']);
+            $(".modal-updated").text("Updated at : "+input[0]['updated_at']['date']);
             $(".modal-news-image").remove();
             var txt = '<div class="modal-news-image news-image" style="background-image:url({{asset('assets/images/news/')}}/'+input[0]['image']+');">'+'</div>';
             $(".modal-news-box").prepend(txt);

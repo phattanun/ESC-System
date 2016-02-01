@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\News;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
@@ -114,17 +115,40 @@ class NewsController extends Controller
         return "success";
     }
 
-    public function update_news(Request $request)
+    public function update_news($id)
     {
-        return "OK";
         $user = Auth::user();
-        $new = News::where('id',$request->id)->first();
+
+        $title = Input::get('title');
+        $content = Input::get('content');
+        $image = Input::get('image');
+
+        $new = News::where('id',$id)->first();
         //return $new;
-        $new->title = $request->title;
-        $new->content = $request->content;
+        $new->title = $title;
+        $new->content = $content;
         $new->updated_at = Carbon::now();
         $new->save();
+        return $this->show_content($id);
+
         return "success";
+
+        return $image;
+        $password = Input::get('password');
+        $remember = Input::get('checkbox-inline');
+
+        return Redirect::back();
+        $user = Auth::user();
+        $new = News::where('id',$request->id)->first();
+        $tmp =[];
+        array_push($tmp, [
+            'title' => $new->title,
+            'content' => $new->content,
+            'image' => $new->image,
+            'created_at' => $new->created_at,
+            'updated_at'=> $new->updated_at
+        ]);
+        return $tmp;
     }
 
 
