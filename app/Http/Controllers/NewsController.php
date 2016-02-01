@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\News;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -58,8 +61,8 @@ class NewsController extends Controller
     {
         $user = Auth::user();
         //return $page;
-        $news = DB::table('news')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-        $count = sizeof(DB::table('news')->get());
+        $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $count = sizeof(News::get());
 
         foreach ($news as &$x) {
             $x->content = str_limit($x->content, $limit = 300, $end = '...');
@@ -85,7 +88,7 @@ class NewsController extends Controller
     {
         $user = Auth::user();
         $tmp=[];
-        $news = DB::table('news')->where('id',$request->id)->get();
+        $news = News::where('id',$request->id)->get();
 
         foreach ($news as &$x)
             array_push($tmp, [
@@ -102,32 +105,26 @@ class NewsController extends Controller
     public function save_news(Request $request)
     {
         $user = Auth::user();
-        return $request->title;
+        $new = News::where('id',$request->id)->first();
+        //return $new;
+        $new->title = $request->title;
+        $new->content = $request->content;
+        $new->updated_at = Carbon::now();
+        $new->save();
+        return "success";
+    }
 
-/*
-
-        $trend = new Trend;
-        $trend->title = trim($request->title);
-        $trend->user_id = $user->id;
-        $trend->type = $request->type;
-        $trend->deleted = false;
-        $trend->save();
-        TrendsController::createTrendProjectAuto($trend->id);
-
-
-        $tmp=[];
-        $news = DB::table('news')->where('id',$request->id)->get();
-
-        foreach ($news as &$x)
-            array_push($tmp, [
-                'title' => $x->title,
-                'content' => $x->content,
-                'image' => $x->image,
-                'created_at' => $x->created_at,
-                'updated_at'=> $x->updated_at
-            ]);
-
-        return $tmp;*/
+    public function update_news(Request $request)
+    {
+        return "OK";
+        $user = Auth::user();
+        $new = News::where('id',$request->id)->first();
+        //return $new;
+        $new->title = $request->title;
+        $new->content = $request->content;
+        $new->updated_at = Carbon::now();
+        $new->save();
+        return "success";
     }
 
 

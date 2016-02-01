@@ -89,13 +89,23 @@
             var id = temp[2];
 
             var URL_ROOT = '{{Request::root()}}';
-
             $.post(URL_ROOT + '/save_news',
                     { title: title, content: content , id: id ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+            });
 
-                alert();
+            $.post(URL_ROOT + '/update_news',
+                    { title: title, content: content , id: id ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
             });
+
+            $(".tab-button-edit").removeClass("action");
+            $("#activity-name-"+id).removeClass("hide");
+            $("#activity-content-"+id).removeClass("hide");
+            $("#activity-name-input-"+id).addClass("hide");
+            $("#activity-content-input-"+id).addClass("hide");
+            $("#cancel-button-"+id).addClass("hide");
+            $("#save-button-"+id).addClass("hide");
+            $("#browse-bar-"+id).addClass("hide");
 
 
 
