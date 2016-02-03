@@ -63,7 +63,7 @@
                     <!-- LOGIN -->
                     @else
                     <li id="login-nav" class="quick-cart text-center">
-                        <a class="dropdown-toggle" href="#">
+                        <a id="loginButton" class="dropdown-toggle" href="#">
                             เข้าสู่ระบบ
                         </a>
                         <div class="quick-cart-box">
@@ -82,7 +82,7 @@
 
                                             <!-- Student ID -->
                                             <div class="form-group">
-                                                <input name="studentID" class="form-control" placeholder="รหัสนิสิต 10 หลัก" required="" type="text">
+                                                <input id="studentID" name="studentID" class="form-control" placeholder="รหัสนิสิต 10 หลัก" required="" type="text">
                                             </div>
 
                                             <!-- Password -->
@@ -249,6 +249,15 @@
 <script type="text/javascript">var plugin_path = '{{url('assets/plugins/')}}/';</script>
 <script type="text/javascript" src="{{url('assets/plugins/jquery/jquery-2.1.4.min.js')}}"></script>
 <script type="text/javascript" src="{{url('assets/js/scripts.js')}}"></script>
+@if(!(isset($user) && $user))
+<script>
+  $(function () {
+    $('#loginButton').click(function () {
+        setTimeout(function(){$('#studentID').focus();},0);
+    });
+  });
+</script>
+@endif
 @yield('js')
 
 </body>
