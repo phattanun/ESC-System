@@ -18,8 +18,14 @@ class PagesController extends Controller
         $id = Input::get('studentID');
         $password = Input::get('password');
         $remember = Input::get('checkbox-inline');
-        if(Auth::attempt(['student_id' => $id, 'password' => $password], $remember))
+        if(Auth::attempt(['student_id' => $id, 'password' => $password], $remember)) {
+            $last_time_attemp = Auth::user()->last_time_attemp;
+            if(is_null($last_time_attemp))
+                return view('register');
+            Auth::user()->last_time_attemp = date('Y-m-d H:i:s',time());
+            Auth::user()->save();
             return redirect('/');
+        }
         else
             return Redirect::back()->with('hasError', true);
     }
