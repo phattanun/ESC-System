@@ -44,6 +44,11 @@ class PagesController extends Controller
         return view('supplies')->with('user', $user);
     }
 
+    public function studentsPage(){
+        $user = Auth::user();
+        return view('students')->with('user', $user);
+    }
+
     public function scheduleManagePage(){
         return view('schedule-manage');
     }

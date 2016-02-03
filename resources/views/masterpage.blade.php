@@ -162,7 +162,7 @@
                             @endif
                             @if(isset($user) && $user)
                             <li class="@yield('studentsNavToggle')"><!-- STUDENTS' INFO -->
-                                <a href="#">
+                                <a href="students">
                                     ข้อมูลนิสิต
                                 </a>
                             </li>

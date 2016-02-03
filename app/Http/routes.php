@@ -19,13 +19,15 @@ Route::get('/news/content/{id}', 'NewsController@show_content');
 
 Route::get('/supplies', 'PagesController@suppliesPage');
 
-Route::get('schedule/manage', 'PagesController@scheduleManagePage');
+Route::get('/schedule/manage', 'PagesController@scheduleManagePage');
 
-Route::get('/logout','PagesController@logout');
+Route::get('/students', 'PagesController@studentsPage');
 
-Route::post('/login','PagesController@login');
+Route::get('/logout', 'PagesController@logout');
+
+Route::post('/login', 'PagesController@login');
 
 //News page
-Route::post('open_modal','NewsController@open_modal');
-Route::post('save_news','NewsController@save_news');
-Route::post('/update_news/{id}','NewsController@update_news');
+Route::post('open_modal', 'NewsController@open_modal');
+Route::post('save_news', 'NewsController@save_news');
+Route::post('/update_news/{id}', 'NewsController@update_news');
