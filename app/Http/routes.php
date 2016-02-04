@@ -27,6 +27,9 @@ Route::get('/logout', 'PagesController@logout');
 
 Route::post('/login', 'PagesController@login');
 
+
+Route::post('/register', 'PagesController@registerConfirm');
+
 //News page
 Route::post('open_modal', 'NewsController@open_modal');
 Route::post('save_news', 'NewsController@save_news');

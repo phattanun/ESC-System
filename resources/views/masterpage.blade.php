@@ -95,7 +95,7 @@
                                             <input name="checkbox-inline" type="checkbox">
                                             <i></i> จำฉันไว้ในระบบ
                                         </label>
-                                        <footer class="celarfix">
+                                        <footer class="clearfix">
                                             <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> เข้าสู่ระบบ</button>
                                         </footer>
                                     </form>
@@ -188,7 +188,7 @@
     </div>
     <section class="page-header page-header-xs title-head">
         <div class="container">
-            <h1>@yield('bodyTitle')</h1>
+            <h1 @yield('bodyTitle-attribute') >@yield('bodyTitle')</h1>
         </div>
     </section>
 

@@ -19,13 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('surname');
             $table->string('nickname');
             $table->string('address');
-            $table->timestamp('birthdate');
+            $table->date('birthdate');
             $table->string('phone_number');
             $table->string('email');
             $table->string('facebook_link');
             $table->string('line_id');
             $table->string('emergency_contact');
-            $table->integer('department_id');
+            $table->string('department');
             $table->char('group',1);
             $table->string('allergy');
             $table->string('anomaly'); # AKA. disease

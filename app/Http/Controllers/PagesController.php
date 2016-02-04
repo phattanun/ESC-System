@@ -21,9 +21,8 @@ class PagesController extends Controller
         if(Auth::attempt(['student_id' => $id, 'password' => $password], $remember)) {
             $last_time_attemp = Auth::user()->last_time_attemp;
             if(is_null($last_time_attemp))
-                return view('register');
-            Auth::user()->last_time_attemp = date('Y-m-d H:i:s',time());
-            Auth::user()->save();
+                return $this->register();
+            $this->updateUserTime();
             return redirect('/');
         }
         else
@@ -37,6 +36,38 @@ class PagesController extends Controller
             return redirect('supplies');
         Auth::logout();
         Session::flush();
+        return redirect('/');
+    }
+
+    public function register() {
+        $user = Auth::user();
+        if(is_null($user))
+          return redirect('/');
+        return view('register')->with('user', $user);
+    }
+
+    public function registerConfirm() {
+        $user = Auth::user();
+        $input = Input::all();
+        $user->name = $input['name'];
+        $user->surname = $input['surname'];
+        $user->nickname = $input['nickname'];
+        $user->address = $input['address'];
+        $user->birthdate = $input['birthdate'];
+        $user->phone_number = $input['phone'];
+        $user->email = $input['email'];
+        $user->facebook_link = $input['facebook'];
+        $user->line_id = $input['line'];
+        $user->emergency_contact = $input['emergency'];
+        $user->department = $input['department'];
+        $user->group = $input['group'];
+        $user->allergy = $input['allergy'];
+        $user->anomaly = $input['anomaly'];
+        $user->religion = $input['religion'];
+        $user->blood_type = $input['blood'];
+        $user->clothing_size = $input['size'];
+        $user->save();
+        $this->updateUserTime();
         return redirect('/');
     }
 
@@ -57,5 +88,10 @@ class PagesController extends Controller
 
     public function scheduleManagePage(){
         return view('schedule-manage');
+    }
+
+    private function updateUserTime() {
+        Auth::user()->last_time_attemp = date('Y-m-d H:i:s',time());
+        Auth::user()->save();
     }
 }
