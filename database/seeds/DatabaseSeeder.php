@@ -33,7 +33,7 @@ class UserTableSeeder extends Seeder
             'surname'=>'เจียมมั่นจิต',
             'nickname'=>'คุณแอดมิน',
             'address'=>'29/50 หมู่บ้านอลิชา 1 พุทธบูชา 36 บางมด ทุ่งครุ กรุงเทพฯ 10140',
-            'birthdate'=>'1994-11-29 00:00:00',
+            'birthdate'=>'1994-11-29',
             'phone_number'=>'0924587067',
             'email'=>'fongac127@gmail.com',
             'facebook_link'=>'www.facebook.com/fonggag/',
