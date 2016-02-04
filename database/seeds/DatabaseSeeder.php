@@ -39,7 +39,7 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department_id'=>'3',
+            'department'=>'คอมฯ ณ ห้องเขียว',
             'group'=>'F',
             'allergy'=>'ถั่ว',
             'anomaly'=>'อะไรวะ',
