@@ -133,7 +133,7 @@
       </div>
 
       <div class="row" style="margin-top:50px">
-          <button type="submit" class="btn btn-primary btn-lg col-xs-4 col-xs-offset-4"><i class="fa fa-check"></i> ยืนยันข้อมูล</button>
+          <button type="submit" id="registerBtn" class="btn btn-primary btn-lg col-xs-4 col-xs-offset-4"><i class="fa fa-check"></i>ยืนยันข้อมูล</button>
       </div>
     </form>
   </div>
@@ -143,4 +143,8 @@
 @endsection
 
 @section('js')
+  <script>
+  document.querySelector('#registerBtn').addEventListener("click", function(){ window.btn_clicked = true; });
+  window.onbeforeunload = function(){ if(!window.btn_clicked)return 'กรุณายืนยันข้อมูลเพื่อลงทะเบียน'; };
+  </script>
 @endsection
