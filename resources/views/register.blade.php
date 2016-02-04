@@ -4,19 +4,30 @@
     ลงทะเบียน
 @endsection
 
+<?php $v2 = true ?>
+
 @section('body-attribute')
-    style ="background-color:#222;"
+    @if($v2)
+      style ="background-color:#F6F6F6;"
+    @else
+      style ="background-color:#222;"
+    @endif
 @endsection
 
 @section('bodyTitle')
     ลงทะเบียน
 @endsection
 @section('bodyTitle-attribute')
-    style ="color:#FFF;font-weight:bold;"
+    @if(!$v2)
+      style ="color:#FFF;font-weight:bold;"
+    @endif
 @endsection
 
 @section('content')
-  <div class="container" style="margin-top:50px;margin-bottom:50px;">
+  <div class="container" style="padding:50px 0px; @if($v2)margin-top:50px; margin-bottom:50px;@endif background-color:#222;">
+    @if($v2)
+    <h2 style="color:#DDD; text-align:center;">ข้อมูลนิสิต</h2>
+    @endif
     <form action="{{url().'/register'}}" method="post" id="">
       <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
       <div class="row col-sm-offset-2">
