@@ -25,6 +25,8 @@ Route::get('/students', 'PagesController@studentsPage');
 
 Route::get('/logout', 'PagesController@logout');
 
+Route::get('/permission','PagesController@getPermission');
+
 Route::post('/login', 'PagesController@login');
 
 

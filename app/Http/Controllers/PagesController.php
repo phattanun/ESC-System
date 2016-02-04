@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Permission;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -19,8 +20,7 @@ class PagesController extends Controller
         $password = Input::get('password');
         $remember = Input::get('checkbox-inline');
         if(Auth::attempt(['student_id' => $id, 'password' => $password], $remember)) {
-            $last_time_attemp = Auth::user()->last_time_attemp;
-            if(is_null($last_time_attemp))
+            if(is_null(Auth::user()->last_time_attemp))
                 return $this->register();
             $this->updateUserTime();
             return redirect('/');
@@ -29,8 +29,7 @@ class PagesController extends Controller
             return Redirect::back()->with('hasError', true);
     }
 
-    public function logout()
-    {
+    public function logout(){
         $user = Auth::user();
         if($user==null)
             return redirect('supplies');
@@ -89,9 +88,19 @@ class PagesController extends Controller
     public function scheduleManagePage(){
         return view('schedule-manage');
     }
-
+    
     private function updateUserTime() {
         Auth::user()->last_time_attemp = date('Y-m-d H:i:s',time());
         Auth::user()->save();
+    }
+
+    public function getPermission(){
+        $id = Auth::user()->student_id;
+        $permission_json = Permission::where('student_id',$id)->select('permission')->get();
+        $permission = [];
+        for ($i = 0; $i < count($permission_json); $i++) {
+            $permission[$i] = $permission_json[$i]['permission'];
+        }
+        return $permission;
     }
 }

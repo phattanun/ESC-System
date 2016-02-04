@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use \App\User;
+use \App\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
          $this->call(UserTableSeeder::class);
          $this->call(news_seeder::class);
+         $this->call(PermissionTableSeeder::class);
 
         Model::reguard();
     }
@@ -44,5 +46,14 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
+    }
+}
+
+class PermissionTableSeeder extends Seeder
+{
+    public function run()
+    {
+        Permission::create(['student_id'=>'1','permission'=>'room']);
+        Permission::create(['student_id'=>'1','permission'=>'news']);
     }
 }
