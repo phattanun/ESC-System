@@ -85,10 +85,17 @@ class PagesController extends Controller
         return view('students')->with('user', $user);
     }
 
+    public function profilePage() {
+        $user = Auth::user();
+        if(is_null($user))
+          return redirect('/');
+        return view('profile')->with('user',$user);
+    }
+
     public function scheduleManagePage(){
         return view('schedule-manage');
     }
-    
+
     private function updateUserTime() {
         Auth::user()->last_time_attemp = date('Y-m-d H:i:s',time());
         Auth::user()->save();

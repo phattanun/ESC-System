@@ -31,6 +31,7 @@ Route::post('/login', 'PagesController@login');
 
 
 Route::post('/register', 'PagesController@registerConfirm');
+Route::get('/profile', 'PagesController@profilePage');
 
 //News page
 Route::post('open_modal', 'NewsController@open_modal');

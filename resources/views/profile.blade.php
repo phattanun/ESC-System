@@ -1,33 +1,19 @@
 @extends('masterpage')
 
 @section('title')
-    ลงทะเบียน
+    ข้อมูลส่วนตัว
 @endsection
 
-<?php $v2 = true ?>
-
 @section('body-attribute')
-    @if($v2)
-      style ="background-color:#F6F6F6;"
-    @else
-      style ="background-color:#222;"
-    @endif
+    style ="background-color:#F6F6F6;"
 @endsection
 
 @section('bodyTitle')
-    ลงทะเบียน
-@endsection
-@section('bodyTitle-attribute')
-    @if(!$v2)
-      style ="color:#FFF;font-weight:bold;"
-    @endif
+    ข้อมูลส่วนตัว
 @endsection
 
 @section('content')
-  <div class="container" style="padding:50px 0px; @if($v2)margin-top:50px; margin-bottom:50px;@endif background-color:#222;">
-    @if($v2)
-    <h2 style="color:#DDD; text-align:center;">ข้อมูลนิสิต</h2>
-    @endif
+  <div class="container" style="padding:50px 0;">
     <form action="{{url().'/register'}}" method="post">
       <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
       <div class="row col-sm-offset-2">
@@ -133,7 +119,7 @@
       </div>
 
       <div class="row" style="margin-top:50px">
-          <button type="submit" id="registerBtn" class="btn btn-primary btn-lg col-xs-4 col-xs-offset-4"><i class="fa fa-check"></i>ยืนยันข้อมูล</button>
+          <button type="submit" id="registerBtn" class="btn btn-primary btn-lg col-xs-4 col-xs-offset-4"><i class="fa fa-check"></i>แก้ไขข้อมูล</button>
       </div>
     </form>
   </div>
@@ -143,8 +129,4 @@
 @endsection
 
 @section('js')
-  <script>
-  document.querySelector('#registerBtn').addEventListener("click", function(){ window.btn_clicked = true; });
-  window.onbeforeunload = function(){ if(!window.btn_clicked)return 'กรุณายืนยันข้อมูลเพื่อลงทะเบียน'; };
-  </script>
 @endsection

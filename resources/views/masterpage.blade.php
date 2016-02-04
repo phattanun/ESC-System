@@ -54,7 +54,7 @@
                             สวัสดี {{$user['nickname']}}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="">ข้อมูลส่วนตัว</a></li>
+                            <li><a href="{{url().'/profile'}}">ข้อมูลส่วนตัว</a></li>
                             <li><a href="{{url().'/logout'}}">ออกจากระบบ</a></li>
                         </ul>
                     </li>
