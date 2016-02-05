@@ -64,15 +64,7 @@ class NewsController extends Controller
 
     public function all_news($page)
     {
-        $user = Auth::user();
-        if ($user) {
-            $permission_json = Permission::where('student_id',$user->student_id)->select('permission')->get();
-            $permission = [];
-            for ($i = 0; $i < count($permission_json); $i++) {
-                $permission[$i] = $permission_json[$i]['permission'];
-            }
-            $user['permission'] = $permission;
-        }
+        $user = $this->getUser();
 
         //return $page;
         $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
@@ -201,7 +193,7 @@ class NewsController extends Controller
      */
     public function show_content($id)
     {
-        $user = Auth::user();
+        $user = $this->getUser();
 
         $news = DB::table('news')->where('id',$id)->get();
         //return $news;

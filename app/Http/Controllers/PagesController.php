@@ -30,7 +30,7 @@ class PagesController extends Controller
     }
 
     public function logout(){
-        $user = Auth::user();
+        $user = $this->getUser();
         if($user==null)
             return redirect('supplies');
         Auth::logout();
@@ -39,7 +39,7 @@ class PagesController extends Controller
     }
 
     public function register() {
-        $user = Auth::user();
+        $user = $this->getUser();
         if(is_null($user))
           return redirect('/');
         return view('register')->with('user', $user);
@@ -71,22 +71,22 @@ class PagesController extends Controller
     }
 
     public function newsPage(){
-        $user = Auth::user();
+        $user = $this->getUser();
         return view('news')->with('user', $user);
     }
 
     public function suppliesPage(){
-        $user = Auth::user();
+        $user = $this->getUser();
         return view('supplies')->with('user', $user);
     }
 
     public function studentsPage(){
-        $user = Auth::user();
+        $user = $this->getUser();
         return view('students')->with('user', $user);
     }
 
     public function profilePage() {
-        $user = Auth::user();
+        $user = $this->getUser();
         if(is_null($user))
           return redirect('/');
         return view('profile')->with('user',$user);
@@ -99,14 +99,5 @@ class PagesController extends Controller
     private function updateUserTime() {
         Auth::user()->last_time_attemp = date('Y-m-d H:i:s',time());
         Auth::user()->save();
-    }
-
-    public function getPermission($student_id){
-        $permission_json = Permission::where('student_id',$student_id)->select('permission')->get();
-        $permission = [];
-        /*for ($i = 0; $i < count($permission_json); $i++) {
-            $permission[$i] = $permission_json[$i]['permission'];
-        }*/
-        return $permission;
     }
 }

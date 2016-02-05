@@ -22,9 +22,12 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if(is_null($user))
+       $user = $this->getUser();
+
+        if(!array_search('admin',$user['permission'])||is_null($user))
             return redirect('/');
+
+
         return view('setting')->with('user',$user);
 
     }
