@@ -104,13 +104,13 @@
     $(".can-click").click(function(e){
         var content_id=$(this).attr("content");
         prev_url=document.URL;
-        window.history.replaceState("object or string", "Title", "/news/content/"+content_id);
+        window.history.replaceState("object or string", "Title", "{{url('/news/content/')}}/"+content_id);
         open_modal(content_id);
     });
 
     $(".tab-button-edit").click(function(e){
         var content_id=$(this).attr("content");
-        window.location.href = "/news/content/"+content_id;
+        window.location.href = "{{url('/news/content/')}}/"+content_id;
 
     });
 
@@ -122,7 +122,7 @@
 
     function open_modal(content_id){
         var URL_ROOT = '{{Request::root()}}';
-        $.post(URL_ROOT + '/open_modal',
+        $.post(URL_ROOT + '{{url('/open_modal')}}',
         { id: content_id , page: '{{$page}}}',_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
             $(".modal-news-box-head").text(input[0]['title']);
