@@ -4,136 +4,126 @@
     ลงทะเบียน
 @endsection
 
-<?php $v2 = true ?>
-
 @section('body-attribute')
-    @if($v2)
       style ="background-color:#F6F6F6;"
-    @else
-      style ="background-color:#222;"
-    @endif
 @endsection
 
 @section('bodyTitle')
     ลงทะเบียน
 @endsection
 @section('bodyTitle-attribute')
-    @if(!$v2)
-      style ="color:#FFF;font-weight:bold;"
-    @endif
+
 @endsection
 
 @section('content')
-  <div class="container" style="padding:50px 0px; @if($v2)margin-top:50px; margin-bottom:50px;@endif background-color:#222;">
-    @if($v2)
-    <h2 style="color:#DDD; text-align:center;">ข้อมูลนิสิต</h2>
-    @endif
+  <div class="container" style="padding:50px 0px; margin-top:50px; margin-bottom:50px;background-color:#fff; box-shadow: 0px 0px 30px -8px #636463;">
+    <h2 style="color:#414141;  text-align:center;">ข้อมูลนิสิต</h2>
     <form action="{{url().'/register'}}" method="post">
       <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-2 col-sm-5">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-2 col-sm-5 col-xs-8">
             <label class="control-label">รหัสนิสิต</label>
             <p class="form-control-static col-xs-offset-1" name="faculty">{{$user['student_id']}}</p>
           </div>
-          <div class="form-group col-md-4 col-sm-5">
+          <div class="form-group col-md-4 col-sm-5 col-xs-8">
             <label class="control-label">ชื่อ</label>
             <input class="form-control" name="name"    type="text" placeholder="ชื่อ" value="{{$user['name']}}">
           </div>
-          <div class="form-group col-md-4 col-sm-5">
+          <div class="form-group col-md-4 col-sm-5 col-xs-8">
             <label class="control-label" >นามสกุล</label>
             <input class="form-control" name="surname" type="text" placeholder="นามสกุล" value="{{$user['surname']}}">
           </div>
       </div>
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-3 col-sm-3">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-3 col-sm-3 col-xs-8">
             <label class="control-label" >ชื่อเล่น</label>
             <input class="form-control" name="nickname" type="text" placeholder="ชื่อเล่น" value="{{$user['nickname']}}">
           </div>
-          <div class="form-group col-md-3 col-sm-5">
+          <div class="form-group col-md-3 col-sm-5 col-xs-8">
             <label class="control-label" >วันเกิด</label>
             <input class="form-control" name="birthdate" type="date" value="{{$user['birthdate']}}">
           </div>
       </div>
 
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-sm-3">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-sm-3 col-xs-8">
             <label class="control-label" >ศาสนา</label>
             <input class="form-control" name="religion" type="text" placeholder="ศาสนา" value="{{$user['religion']}}">
           </div>
-          <div class="form-group col-sm-3">
+          <div class="form-group col-sm-3 col-xs-8">
             <label class="control-label" >กรุ๊ปเลือด</label>
             <input class="form-control" name="blood" type="text" placeholder="กรุ๊ปเลือด" value="{{$user['blood_type']}}">
           </div>
       </div>
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-3 col-sm-5">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-3 col-sm-5 col-xs-8">
             <label class="control-label" >คณะ</label>
             <p class="form-control-static col-xs-offset-1" name="faculty">วิศวกรรมศาสตร์</p>
           </div>
-          <div class="form-group col-md-3 col-sm-5">
+          <div class="form-group col-md-3 col-sm-5 col-xs-8">
             <label class="control-label" >ภาควิชา</label>
             <input class="form-control" name="department" type="text" placeholder="ภาควิชา" value="{{$user['department']}}">
           </div>
-          <div class="form-group col-md-3 col-sm-10">
+          <div class="form-group col-md-3 col-sm-10 col-xs-8">
             <label class="control-label" >กรุ๊ป</label>
             <input class="form-control" name="group" type="text" placeholder="กรุ๊ป" value="{{$user['group']}}">
           </div>
       </div>
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-7 col-sm-10">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-7 col-sm-10 col-xs-8">
             <label class="control-label" >อีเมล์</label>
             <input class="form-control" name="email" type="text" placeholder="อีเมล์" value="{{$user['email']}}">
           </div>
-          <div class="form-group col-md-3 col-sm-10">
+          <div class="form-group col-md-3 col-sm-10 col-xs-8">
             <label class="control-label" >เบอร์ติดต่อ</label>
             <input class="form-control" name="phone" type="text" placeholder="เบอร์โทรศัพท์มือถือ" value="{{$user['phone_number']}}">
           </div>
       </div>
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-7 col-sm-10">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-7 col-sm-10 col-xs-8">
             <label class="control-label" >ที่อยู่</label>
             <input class="form-control" name="address" type="text" placeholder="ที่อยู่" value="{{$user['address']}}">
           </div>
-          <div class="form-group col-md-3 col-sm-10">
+          <div class="form-group col-md-3 col-sm-10 col-xs-8">
             <label class="control-label" >เบอร์ติดต่อกรณีฉุกเฉิน</label>
             <input class="form-control" name="emergency" type="text" placeholder="เบอร์ผู้ปกครอง" value="{{$user['emergency_contact']}}">
           </div>
       </div>
 
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-5 col-sm-10">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-5 col-sm-10 col-xs-8">
             <label class="control-label" >ภูมิแพ้</label>
             <input class="form-control" name="allergy" type="text" placeholder="อาหารและยาที่แพ้" value="{{$user['allergy']}}">
           </div>
-          <div class="form-group col-md-3 col-sm-10">
+          <div class="form-group col-md-3 col-sm-10 col-xs-8">
             <label class="control-label" >โรคประจำตัว</label>
             <input class="form-control" name="anomaly" type="text" placeholder="โรคประจำตัว" value="{{$user['anomaly']}}">
           </div>
-          <div class="form-group col-md-2 col-sm-10">
+          <div class="form-group col-md-2 col-sm-10 col-xs-8">
             <label class="control-label" >ขนาดเสื้อ</label>
             <input class="form-control" name="size" type="text" placeholder="ขนาดเสื้อ" value="{{$user['clothing_size']}}">
           </div>
       </div>
 
-      <div class="row col-sm-offset-2">
-          <div class="form-group col-md-5 col-sm-10">
+      <div class="row col-xs-offset-2">
+          <div class="form-group col-md-5 col-sm-10 col-xs-8">
             <label class="control-label" >เฟสบุ๊ค</label>
             <input class="form-control" name="facebook" type="text" placeholder="Facebook Link" value="{{$user['facebook_link']}}">
           </div>
-          <div class="form-group col-md-5 col-sm-10">
+          <div class="form-group col-md-5 col-sm-10 col-xs-8">
             <label class="control-label" >ไลน์</label>
             <input class="form-control" name="line" type="text" placeholder="Line ID" value="{{$user['line_id']}}">
           </div>
       </div>
 
       <div class="row" style="margin-top:50px">
-          <button type="submit" id="registerBtn" class="btn btn-primary btn-lg col-xs-4 col-xs-offset-4"><i class="fa fa-check"></i>ยืนยันข้อมูล</button>
+          <button type="submit" id="registerBtn" class="btn btn-primary btn-lg col-xs-4 col-xs-offset-4"><i class="fa fa-check"></i>ยืนยัน</button>
       </div>
     </form>
   </div>
