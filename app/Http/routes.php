@@ -29,6 +29,8 @@ Route::get('/permission','PagesController@getPermission');
 
 Route::post('/login', 'PagesController@login');
 
+Route::get('/setting', 'SettingController@index');
+
 
 Route::post('/register', 'PagesController@registerConfirm');
 Route::get('/profile', 'PagesController@profilePage');
