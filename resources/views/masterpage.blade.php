@@ -45,20 +45,23 @@
                 </button>
 
                 <!-- BUTTONS -->
-                <ul class="pull-right nav nav-pills nav-second-main">
+                <ul  class="pull-right nav nav-pills nav-second-main">
                     <!-- LOGGED IN -->
                     @if(isset($user) && $user)
                     <li id="loggedIN" class="dropdown">
-                        <a class = "dropdown-toggle"  href="#">
+                        <div class="dropdown">
+                        <button class = "dropdown-toggle" type="button" href="#" data-toggle="dropdown">
                             <i class="fa fa-user"></i>
-                            สวัสดี {{$user['nickname']}}
-                        </a>
+                            สวัสดี {{$user['nickname']}} <span class="fa fa-angle-down" style="opacity: 0.3;font-size: 12px"></span>
+                        </button>
                         <ul class="dropdown-menu">
                             <li><a href="{{url().'/setting'}}">ตั้งค่าระบบ</a></li>
                             <li><a href="{{url().'/profile'}}">ข้อมูลส่วนตัว</a></li>
                             <li><a href="{{url().'/logout'}}">ออกจากระบบ</a></li>
                         </ul>
+                        </div>
                     </li>
+
                     <!-- /LOGGED IN -->
 
                     <!-- LOGIN -->
