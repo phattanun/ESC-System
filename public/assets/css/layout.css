@@ -7564,6 +7564,9 @@ ul.search-history {
 #topNav .nav-pills li a {
 	border-radius: 0px;
 }
+#topNav .nav-pills #loginButton {
+	border-radius: 3px;
+}
 
 @media only screen and (min-width: 768px) {
 	#topNav .container {
