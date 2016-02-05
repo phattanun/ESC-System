@@ -55,5 +55,6 @@ class PermissionTableSeeder extends Seeder
     {
         Permission::create(['student_id'=>'1','permission'=>'room']);
         Permission::create(['student_id'=>'1','permission'=>'news']);
+        Permission::create(['student_id'=>'1','permission'=>'admin']);
     }
 }

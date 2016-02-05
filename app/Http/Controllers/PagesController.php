@@ -101,13 +101,12 @@ class PagesController extends Controller
         Auth::user()->save();
     }
 
-    public function getPermission(){
-        $id = Auth::user()->student_id;
-        $permission_json = Permission::where('student_id',$id)->select('permission')->get();
+    public function getPermission($student_id){
+        $permission_json = Permission::where('student_id',$student_id)->select('permission')->get();
         $permission = [];
-        for ($i = 0; $i < count($permission_json); $i++) {
+        /*for ($i = 0; $i < count($permission_json); $i++) {
             $permission[$i] = $permission_json[$i]['permission'];
-        }
+        }*/
         return $permission;
     }
 }
