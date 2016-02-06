@@ -82,6 +82,7 @@
                         <div class="table-responsive margin-bottom-30">
                             <table class="table nomargin">
                                 <tr >
+                                    <th style="vertical-align:middle" rowspan="2"></th>
                                     <th style="vertical-align:middle" rowspan="2">รหัสนิสิต</th>
                                     <th style="vertical-align:middle" rowspan="2">ชื่อ</th>
                                     <th style="vertical-align:middle" rowspan="2">นามสกุล</th>
@@ -95,107 +96,119 @@
                                     <td>ข้อมูลนิสิต</td>
                                 </tr>
                                 <tr >
+                                    <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-minus"></i>
+                                        </a></td>
                                     <td>5631011021</td>
                                     <td>นายพัทธนันท์</td>
                                     <td>อัครพันธุ์ธัช</td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="announce" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input  name="privilege" value="announce" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="room" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input name="privilege" value="room" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="supplies" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="activity" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="student" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input name="privilege" value="student" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                 </tr>
                                 <tr >
+                                    <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-minus"></i>
+                                        </a></td>
                                     <td>5631011021</td>
                                     <td>นายพัทธนันท์</td>
                                     <td>อัครพันธุ์ธัช</td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="announce" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input  name="privilege" value="announce" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="room" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input name="privilege" value="room" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="supplies" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="activity" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="student" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input name="privilege" value="student" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                 </tr>
                                 <tr >
+                                    <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-minus"></i>
+                                        </a></td>
                                     <td>5631011021</td>
                                     <td>นายพัทธนันท์</td>
                                     <td>อัครพันธุ์ธัช</td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="announce" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input  name="privilege" value="announce" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="room" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input name="privilege" value="room" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="supplies" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="activity" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                     <td class="text-center">
-                                        <label class="checkbox">
-                                            <input name="privilege" value="student" type="checkbox">
-                                            <i></i>
+                                        <label class="switch switch-success">
+                                            <input name="privilege" value="student" checked="" type="checkbox">
+                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
                                 </tr>
