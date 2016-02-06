@@ -144,7 +144,7 @@
                                     <td>อัครพันธุ์ธัช</td>
                                     <td class="text-center">
                                         <label class="switch switch-success">
-                                            <input  name="privilege" value="announce" checked="" type="checkbox">
+                                            <input  name="privilege" value="announce" type="checkbox">
                                             <span class="switch-label" data-on="YES" data-off="NO"></span>
                                         </label>
                                     </td>
