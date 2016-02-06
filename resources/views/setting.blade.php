@@ -17,47 +17,207 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form novalidate="novalidate" class="validate" action="php/contact.php" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
+                    <form novalidate="novalidate" class="validate" action="php/contact.php" method="post" enctype="multipart/form-data" data-success="บันทึกสำเร็จ!" data-toastr-position="top-right">
                         <fieldset>
                             <!-- required [php action request] -->
                             <input name="action" value="contact_send" type="hidden">
 
-                            <div class="row">
+                            <div class="row" >
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
-                                        <label>ปีการศึกษา </label>
-                                        <input name="contact[first_name]" value="" class="form-control required pull-left" type="text">
+                                        <label class="margin-bottom-20">ปีการศึกษา </label>
+                                        <label class="margin-bottom-20 currentYear pull-left">2558</label>
+                                        <div id="editYearButton" class="pull-left">
+                                            <a type="submit" class="btn btn-3d btn-reveal btn-yellow">
+                                                <i class="fa fa-edit"></i>
+                                                <span>แก้ไข</span>
+                                            </a>
+                                        </div>
+                                        <input id = "yearEditBox" name="year" class="form-control required pull-left hideEditYear" type="text">
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-6">
-                                        <label>เพิ่มผู้จัดการข้อมูล</label>
-                                        <input name="contact[email]" value="" class="form-control required" type="email">
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <label>Phone *</label>
-                                        <input name="contact[phone]" value="" class="form-control required" type="text">
-                                    </div>
-                                </div>
-                            </div>
-
                         </fieldset>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-3d btn-teal btn-xlg btn-block margin-top-30">
-                                    SEND APPLICATION
-                                    <span class="block font-lato">We'll get back to you within 48 hours</span>
+
+                        <div class="row hideEditYear">
+                            <div class="col-md-1">
+                                <button id="saveYearButton" type="submit" class="btn btn-3d btn-reveal btn-green ">
+                                    <i class="fa fa-check"></i>
+                                    <span>บันทึก</span>
                                 </button>
                             </div>
+                            <div class="col-md-offset-1 col-md-1 ">
+                                <a id="cancelYearButton" class="btn btn-3d btn-reveal btn-red ">
+                                    <i class="fa fa-times"></i>
+                                    <span>ยกเลิก</span>
+                                </a>
+                            </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div><div class="container" >
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form novalidate="novalidate" class="validate" action="php/contact.php" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
+                        <fieldset>
+                            <input name="action" value="contact_send" type="hidden">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
+                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="php/view/demo.autosuggest.php?limit=10&search=">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input id="studentInfo" name="studentInfo" class="form-control typeahead required" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success">เพิ่ม</button>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="table-responsive margin-bottom-30">
+                            <table class="table nomargin">
+                                <tr >
+                                    <th style="vertical-align:middle" rowspan="2">รหัสนิสิต</th>
+                                    <th style="vertical-align:middle" rowspan="2">ชื่อ</th>
+                                    <th style="vertical-align:middle" rowspan="2">นามสกุล</th>
+                                    <th class="text-center" colspan="5">สิทธิ์ในการจัดการ<br></th>
+                                </tr>
+                                <tr class="text-center">
+                                    <td>ประกาศ<br></td>
+                                    <td>ห้องประชุม</td>
+                                    <td>พัสดุ</td>
+                                    <td>กิจกรรม<br></td>
+                                    <td>ข้อมูลนิสิต</td>
+                                </tr>
+                                <tr >
+                                    <td>5631011021</td>
+                                    <td>นายพัทธนันท์</td>
+                                    <td>อัครพันธุ์ธัช</td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="announce" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="room" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="supplies" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="activity" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="student" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>5631011021</td>
+                                    <td>นายพัทธนันท์</td>
+                                    <td>อัครพันธุ์ธัช</td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="announce" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="room" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="supplies" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="activity" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="student" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>5631011021</td>
+                                    <td>นายพัทธนันท์</td>
+                                    <td>อัครพันธุ์ธัช</td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="announce" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="room" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="supplies" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="activity" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="checkbox">
+                                            <input name="privilege" value="student" type="checkbox">
+                                            <i></i>
+                                        </label>
+                                    </td>
+                                </tr>
+
+                            </table>
                         </div>
 
-                        <input name="is_ajax" value="true" type="hidden"></form>
-
-
+                        <div class="row">
+                            <div class="col-md-1">
+                                <a type="submit" class="btn btn-3d btn-reveal btn-green">
+                                    <i class="fa fa-check"></i>
+                                    <span>บันทึก</span>
+                                </a>
+                            </div>
+                            <div class="col-md-offset-1 col-md-1">
+                                <a class="btn btn-3d btn-reveal btn-red">
+                                    <i class="fa fa-times"></i>
+                                    <span>ยกเลิก</span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
             </div>
@@ -66,7 +226,24 @@
 @endsection
 
 @section('css')
+    <link href="{{url('assets/css/setting.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('js')
+    <script>
+        function main () {
+            $("#editYearButton").click(function () {
+                $(".currentYear").hide();
+                $("#yearEditBox").val($(".currentYear").text());
+                $(".hideEditYear").show();
+                $(this).hide();
+            });
+            $("#cancelYearButton").click(function () {
+                $(".currentYear").show();
+                $("#editYearButton").show();
+                $(".hideEditYear").hide();
+            });
+        }
+        $( document ).ready(main);
+    </script>
 @endsection

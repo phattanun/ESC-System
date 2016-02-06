@@ -212,22 +212,12 @@
                     <div class="margin-top-20">
                         <a href="https://www.facebook.com/esc.kws" class="social-icon social-icon-border social-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
                             <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
                         </a>
 
                         <a href="#" class="social-icon social-icon-border social-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
                             <i class="icon-twitter"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-gplus" data-toggle="tooltip" data-placement="top" title="Google plus">
-                            <i class="icon-gplus"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-linkedin" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                            <i class="icon-linkedin"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-rss" data-toggle="tooltip" data-placement="top" title="Rss">
-                            <i class="icon-rss"></i>
+                            <i class="icon-twitter"></i>
                         </a>
                     <!-- /Social Icons -->
                     </div>

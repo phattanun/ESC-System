@@ -1,0 +1,17 @@
+
+.checkbox i {
+    top: -12px;
+    left: 12px;
+}
+.currentYear{
+    padding-left: 20px;
+}
+#editYearButton {
+    padding-left: 40px;
+}
+.hideEditYear{
+    display: none;
+}
+.padding-left-50 {
+    padding-left: 50px;
+}
