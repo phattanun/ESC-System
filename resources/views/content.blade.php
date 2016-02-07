@@ -75,6 +75,10 @@
     </script>
 
     <script>
+        $( document ).ready(function() {
+            window.history.replaceState("object or string", "Title", "{{url('/news/content/')}}/"+'{{$news[0]->id}}');
+        });
+
         $(".tab-button-edit").click(function(){
             CKEDITOR.replace( 'activity-content-input-{{$news[0]->id}}' );
         });

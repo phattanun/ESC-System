@@ -27,6 +27,7 @@
                     <div class="news-box-card">
                         <div class="tab-button-bar row">
                             <div class="col-xs-1 col-xs-offset-11 tab-button tab-button-first tab-button-home" id="home"><i class="fa fa-lg fa-home"></i></div>
+                            <input type="hidden" name="at_home" value="0" class="at_home">
                         </div>
                         <div class="row news-box-head">
                             <textarea name="title" class="news-box-head-text activity-name-input" rows="1" placeholder="ชื่อกิจกรรม" id="activity-name-input"></textarea>
@@ -55,9 +56,16 @@
     <script type="text/javascript">
         $(".tab-button-home").click(function(){
             $(this).toggleClass("action");
+            if($(".at_home").attr("value") == 1)
+                $(".at_home").attr("value",0);
+            else
+                $(".at_home").attr("value",1);
+
         });
 
         $( document ).ready(function() {
+            if($(".at_home").attr("value") == 1)
+                $(".tab-button-home").addClass("action");
             checkRespond();
         });
 

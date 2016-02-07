@@ -127,7 +127,20 @@ class NewsController extends Controller
 
     public function create_news_content()
     {
-        return view('/create_news');
+        $title = Input::get('title');
+        $content = Input::get('content');
+        $at_home = Input::get('at_home');
+
+        $new = News::create();
+        $new->title = $title;
+        $new->content = $content;
+        $new->at_home = $at_home;
+        $new->created_at = Carbon::now();
+        $new->updated_at = Carbon::now();
+        $new->save();
+
+
+        return $this->show_content($new->id);
     }
 
     public function update_news($id)
@@ -207,7 +220,7 @@ class NewsController extends Controller
 
         $news = DB::table('news')->where('id',$id)->get();
         //return $news;
-        return view('/content',compact('$user','news','count','page','user'));
+        return view('/content',compact('$user','news'));
     }
 
     /**
