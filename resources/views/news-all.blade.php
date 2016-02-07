@@ -64,18 +64,6 @@
         </div>
     </div>
 
-    <!--div class="pagination-nav mtb-30 margin-bottom-60">
-        <ul>
-            <li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
-            <li><a href=""><i class="fa fa-angle-left"></i></a></li>
-
-            <li id="p1"><a href="">1</a></li>
-
-            <li><a href=""><i class="fa fa-angle-right"></i></a></li>
-            <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
-        </ul>
-    </div-->
-
     <div class="pagination-nav mtb-30 margin-bottom-60">
         <ul>
             <li><a href="{{ asset('/news/all/1')}}"><i class="fa fa-angle-double-left"></i></a></li>
@@ -121,8 +109,7 @@
     });
 
     function open_modal(content_id){
-        var URL_ROOT = '{{Request::root()}}';
-        $.post(URL_ROOT + '{{url('/open_modal')}}',
+        $.post('{{url('/open_modal')}}',
         { id: content_id , page: '{{$page}}}',_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
             $(".modal-news-box-head").text(input[0]['title']);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Faker\Provider\cs_CZ\DateTime;
-
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\News;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 //use Request;
-use Illuminate\Http\Request;
+
 
 
 use App\Picture;
