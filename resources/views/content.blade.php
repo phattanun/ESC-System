@@ -50,8 +50,8 @@
                         <textarea name="content" class="news-box-content-text activity-content-input hide" rows="5" placeholder="รายละเอียดกิจกรรม" id="activity-content-input-{{$news[0]->id}}">{{$news[0]->content}}</textarea>
                     </div>
                     <div class="container-fluid save-button-bar">
-                        <div class="col-xs-2 col-xs-offset-8 tab-button cancel-button hide" id="cancel-button-{{$news[0]->id}}">ยกเลิก</div>
-                        <button type="submit" class="col-xs-2 tab-button save-button hide" id="save-button-{{$news[0]->id}}" onclick="save_news()">บันทึก</button>
+                        <div class="col-xs-2 col-xs-offset-8 tab-button tab-button-first cancel-button hide" id="cancel-button-{{$news[0]->id}}">ยกเลิก</div>
+                        <button type="submit" class="col-xs-2 tab-button tab-button-first save-button hide" id="save-button-{{$news[0]->id}}" onclick="save_news()">บันทึก</button>
                     </div>
                 </div>
             </div>
