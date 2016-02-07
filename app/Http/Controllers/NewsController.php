@@ -126,7 +126,7 @@ class NewsController extends Controller
 
         $title = Input::get('title');
         $content = Input::get('content');
-        $image = Input::get('image');
+        /*$image = Input::get('image');
 
         $temp = Input::file('image');
         if (isset($temp)) {
@@ -135,7 +135,7 @@ class NewsController extends Controller
             Request::file('image')->move($path, $image);
         }
         return "2";
-
+*/
 
         $new = News::where('id',$id)->first();
         //return $new;

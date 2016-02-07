@@ -34,12 +34,12 @@
                         <h2 class="news-box-head-text" id="activity-name-{{$news[0]->id}}">{{$news[0]->title}}</h2>
                         <textarea name="title" class="news-box-head-text activity-name-input hide" rows="1" placeholder="ชื่อกิจกรรม" id="activity-name-input-{{$news[0]->id}}">{{$news[0]->title}}</textarea>
 
-                        <div id="editor1" contenteditable="true">
+                        <!--div id="editor1" contenteditable="true">
                             <h1>Inline Editing in Action!</h1>
                             <p>The "div" element that contains this text is now editable.
                         </div>
                         <div class="tab-button testt">
-                        </div>
+                        </div-->
 
                     </div>
                     <div class="row news-box-date">
@@ -79,10 +79,10 @@
             CKEDITOR.replace( 'activity-content-input-{{$news[0]->id}}' );
         });
 
-        $(".testt").click(function(){
+        /*$(".testt").click(function(){
             var temp = $("#editor1").html();
             alert(temp);
-        });
+        });*/
 
 
     </script>
