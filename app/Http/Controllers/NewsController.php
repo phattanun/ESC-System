@@ -120,6 +120,16 @@ class NewsController extends Controller
         return "success";
     }
 
+    public function create_news()
+    {
+        return view('/create_news');
+    }
+
+    public function create_news_content()
+    {
+        return view('/create_news');
+    }
+
     public function update_news($id)
     {
         $user = Auth::user();
