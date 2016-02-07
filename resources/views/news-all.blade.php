@@ -35,7 +35,14 @@
 
 
     <div class="news-container">
-        <div class="news-all">
+        <div class="row">
+            <div class="col-xs-2 col-xs-offset-10 margin-top-40 tab-create-news-button">
+                <div class="tab-button create-news-button" style="background-color: rgba(6,6,6,0.05); text-align: center; cursor: pointer;">
+                    <i class="fa fa-lg fa-plus"></i>
+                </div>
+            </div>
+        </div>
+        <div class="news-all margin-top-40">
             @foreach($news as $new)
                 <div class="news-box" id="{{$new->id}}">
                     <div class="news-image can-click" id="news-image-{{$new->id}}"
@@ -108,6 +115,10 @@
         }
     });
 
+    $(".create-news-button").click(function(){
+        window.location.href = "{{url('/create_news')}}";
+    });
+
     function open_modal(content_id){
         $.post('{{url('/open_modal')}}',
         { id: content_id , page: '{{$page}}}',_token:'{{csrf_token()}}'  } ).done(function( input ) {
@@ -142,12 +153,20 @@
             $(".tab-button-edit").addClass("col-xs-offset-9");
             $(".tab-button-edit").removeClass("col-xs-2");
             $(".tab-button-edit").addClass("col-xs-3");
+            $(".tab-create-news-button").removeClass("col-xs-2");
+            $(".tab-create-news-button").addClass("col-xs-3");
+            $(".tab-create-news-button").removeClass("col-xs-offset-10");
+            $(".tab-create-news-button").addClass("col-xs-offset-9");
         }
         else{
             $(".tab-button-edit").removeClass("col-xs-offset-9");
             $(".tab-button-edit").addClass("col-xs-offset-10");
             $(".tab-button-edit").removeClass("col-xs-3");
             $(".tab-button-edit").addClass("col-xs-2");
+            $(".tab-create-news-button").addClass("col-xs-2");
+            $(".tab-create-news-button").removeClass("col-xs-3");
+            $(".tab-create-news-button").addClass("col-xs-offset-10");
+            $(".tab-create-news-button").removeClass("col-xs-offset-9");
         }
     }
     </script>
