@@ -38,6 +38,7 @@ Route::get('/profile', 'PagesController@profilePage');
 //News page
 Route::post('open_modal', 'NewsController@open_modal');
 Route::post('save_news', 'NewsController@save_news');
+Route::post('remove_news', 'NewsController@remove_news');
 Route::post('/update_news/{id}', 'NewsController@update_news');
 Route::get('/create_news', 'NewsController@create_news');
 Route::post('/create_news_content', 'NewsController@create_news_content');

@@ -107,6 +107,16 @@ class NewsController extends Controller
         return $tmp;
     }
 
+    public function remove_news(Request $request)
+    {
+        /*$new = News::find($request->id);
+        $new->deleted = true;
+        $new->save();
+        return "success";*/
+        $new = News::find($request->id)->delete();
+        return "success";
+    }
+
     public function save_news(Request $request)
     {
         $user = Auth::user();

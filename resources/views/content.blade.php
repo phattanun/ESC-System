@@ -96,6 +96,16 @@
                 $(".at_home").attr("value",1);
         });
 
+        $(".tab-button-trash").click(function(){
+            var r = confirm("Press a button!");
+            if (r == true) {
+                $.post('{{url('/remove_news')}}',
+                        { id: '{{$news[0]->id}}' ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+                });
+                window.location.href = "{{url('/news/all')}}";
+            }
+        });
+
         /*$(".testt").click(function(){
             var temp = $("#editor1").html();
             alert(temp);
