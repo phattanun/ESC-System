@@ -15,7 +15,11 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('student_id');
-            $table->string('permission');
+            $table->boolean('news');
+            $table->boolean('room');
+            $table->boolean('supplies');
+            $table->boolean('activities');
+            $table->boolean('student');
         });
     }
 
