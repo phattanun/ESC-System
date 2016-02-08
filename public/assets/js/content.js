@@ -13,6 +13,7 @@ $(".tab-button-edit").click(function(){
     $("#cancel-button-"+id).removeClass("hide");
     $("#save-button-"+id).removeClass("hide");
     $("#browse-bar-"+id).removeClass("hide");
+    $(".tab-button-trash-home-bar").removeClass("hide");
     $(".cke").removeClass("hide");
 });
 
@@ -27,6 +28,7 @@ $(".cancel-button").click(function(){
     $("#cancel-button-"+id).addClass("hide");
     $("#save-button-"+id).addClass("hide");
     $("#browse-bar-"+id).addClass("hide");
+    $(".tab-button-trash-home-bar").addClass("hide");
     $(".cke").addClass("hide");
 });
 
@@ -53,12 +55,14 @@ function checkRespond(){
         $(".cancel-button").addClass("col-xs-4");
         $(".save-button").removeClass("col-xs-2");
         $(".save-button").addClass("col-xs-4");
-        $(".tab-button-trash").removeClass("col-xs-offset-9");
-        $(".tab-button-trash").addClass("col-xs-offset-6");
+        $(".tab-button-trash").removeClass("col-xs-offset-10");
+        $(".tab-button-trash").addClass("col-xs-offset-8");
+        $(".tab-button-edit").removeClass("col-xs-offset-10");
+        $(".tab-button-edit").addClass("col-xs-offset-8");
         $(".tab-button-trash").removeClass("col-xs-1");
         $(".tab-button-trash").addClass("col-xs-2");
-        $(".tab-button-edit").removeClass("col-xs-1");
-        $(".tab-button-edit").addClass("col-xs-2");
+        $(".tab-button-edit").removeClass("col-xs-2");
+        $(".tab-button-edit").addClass("col-xs-4");
         $(".tab-button-home").removeClass("col-xs-1");
         $(".tab-button-home").addClass("col-xs-2");
     }
@@ -73,12 +77,14 @@ function checkRespond(){
         $(".cancel-button").addClass("col-xs-2");
         $(".save-button").removeClass("col-xs-4");
         $(".save-button").addClass("col-xs-2");
-        $(".tab-button-trash").removeClass("col-xs-offset-6");
-        $(".tab-button-trash").addClass("col-xs-offset-9");
+        $(".tab-button-trash").removeClass("col-xs-offset-8");
+        $(".tab-button-trash").addClass("col-xs-offset-10");
+        $(".tab-button-edit").removeClass("col-xs-offset-8");
+        $(".tab-button-edit").addClass("col-xs-offset-10");
         $(".tab-button-trash").removeClass("col-xs-2");
         $(".tab-button-trash").addClass("col-xs-1");
-        $(".tab-button-edit").removeClass("col-xs-2");
-        $(".tab-button-edit").addClass("col-xs-1");
+        $(".tab-button-edit").removeClass("col-xs-4");
+        $(".tab-button-edit").addClass("col-xs-2");
         $(".tab-button-home").removeClass("col-xs-2");
         $(".tab-button-home").addClass("col-xs-1");
     }
@@ -94,12 +100,14 @@ function checkRespond(){
         $(".cancel-button").addClass("col-xs-6");
         $(".save-button").removeClass("col-xs-4");
         $(".save-button").addClass("col-xs-6");
-        $(".tab-button-trash").removeClass("col-xs-offset-6");
-        $(".tab-button-trash").addClass("col-xs-offset-3");
+        $(".tab-button-trash").removeClass("col-xs-offset-8");
+        $(".tab-button-trash").addClass("col-xs-offset-6");
+        $(".tab-button-edit").removeClass("col-xs-offset-8");
+        $(".tab-button-edit").addClass("col-xs-offset-6");
         $(".tab-button-trash").removeClass("col-xs-2");
         $(".tab-button-trash").addClass("col-xs-3");
-        $(".tab-button-edit").removeClass("col-xs-2");
-        $(".tab-button-edit").addClass("col-xs-3");
+        $(".tab-button-edit").removeClass("col-xs-4");
+        $(".tab-button-edit").addClass("col-xs-6");
         $(".tab-button-home").removeClass("col-xs-2");
         $(".tab-button-home").addClass("col-xs-3");
     }else if ($windowSize < 768 ){
@@ -113,12 +121,14 @@ function checkRespond(){
         $(".cancel-button").addClass("col-xs-4");
         $(".save-button").removeClass("col-xs-6");
         $(".save-button").addClass("col-xs-4");
-        $(".tab-button-trash").removeClass("col-xs-offset-3");
-        $(".tab-button-trash").addClass("col-xs-offset-6");
+        $(".tab-button-trash").removeClass("col-xs-offset-6");
+        $(".tab-button-trash").addClass("col-xs-offset-8");
+        $(".tab-button-edit").removeClass("col-xs-offset-6");
+        $(".tab-button-edit").addClass("col-xs-offset-8");
         $(".tab-button-trash").removeClass("col-xs-3");
         $(".tab-button-trash").addClass("col-xs-2");
-        $(".tab-button-edit").removeClass("col-xs-3");
-        $(".tab-button-edit").addClass("col-xs-2");
+        $(".tab-button-edit").removeClass("col-xs-6");
+        $(".tab-button-edit").addClass("col-xs-4");
         $(".tab-button-home").removeClass("col-xs-3");
         $(".tab-button-home").addClass("col-xs-2");
     }
