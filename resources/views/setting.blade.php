@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
                                         <label class="margin-bottom-20">ปีการศึกษา </label>
-                                        <label class="margin-bottom-20 currentYear pull-left">2558</label>
+                                        <label class="margin-bottom-20 currentYear pull-left">{{$year}}</label>
                                         <div id="editYearButton" class="pull-left">
                                             <a type="submit" class="btn btn-3d btn-reveal btn-yellow">
                                                 <i class="fa fa-edit"></i>
