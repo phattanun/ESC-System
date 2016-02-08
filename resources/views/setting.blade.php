@@ -51,7 +51,7 @@
                             </div>
                             <div >
                             </div>
-                            <div class="col-md-offset-1 col-md-1 ">
+                            <div class="col-md-1 ">
                                 <a id="cancelYearButton" class="btn btn-3d btn-reveal btn-red ">
                                     <i class="fa fa-times"></i>
                                     <span>ยกเลิก</span>
