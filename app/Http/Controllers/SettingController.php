@@ -47,9 +47,19 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function editYear()
     {
-        //
+        $user = $this->getUser();
+
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
+
+        $new_year = Input::get('year');
+        $new = Setting::first();
+        $new->year = $new_year;
+        $new->save();
+//        return redirect($new_year);
+        return redirect('/setting');
     }
 
     /**

@@ -29,7 +29,9 @@ Route::get('/permission','PagesController@getPermission');
 
 Route::post('/login', 'PagesController@login');
 
+//Setting Page
 Route::get('/setting', 'SettingController@index');
+Route::post('/setting/edit_year', 'SettingController@editYear');
 
 
 Route::post('/register', 'PagesController@registerConfirm');

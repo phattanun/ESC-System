@@ -17,11 +17,10 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form novalidate="novalidate" class="validate" action="php/contact.php" method="post" enctype="multipart/form-data" data-success="บันทึกสำเร็จ!" data-toastr-position="top-right">
+                    <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_year'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/setting';</script>" data-toastr-position="top-right">
                         <fieldset>
                             <!-- required [php action request] -->
-                            <input name="action" value="contact_send" type="hidden">
-
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                             <div class="row" >
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
@@ -40,12 +39,17 @@
                         </fieldset>
 
 
-                        <div class="row hideEditYear">
+                        <div class="row hideEditYear ">
                             <div class="col-md-1">
                                 <button id="saveYearButton" type="submit" class="btn btn-3d btn-reveal btn-green ">
                                     <i class="fa fa-check"></i>
                                     <span>บันทึก</span>
                                 </button>
+                            </div>
+                            <div class="col-md-1 text-center">
+                                <span class="loading-icon"></span>
+                            </div>
+                            <div >
                             </div>
                             <div class="col-md-offset-1 col-md-1 ">
                                 <a id="cancelYearButton" class="btn btn-3d btn-reveal btn-red ">
