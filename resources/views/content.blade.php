@@ -111,10 +111,10 @@
             alert(temp);
         });*/
 
+        var ajaxDebugData;
         $("#upload_form").change(function() {
-          console.log("Send..");
+          console.log("Update!!");
           var formData = new FormData($("#upload_form")[0]);
-          console.log(formData);
           $.ajax({
               url:  './{{$news[0]->id}}/image',
               type: 'POST',
@@ -124,7 +124,9 @@
               processData: false,
               contentType: false,
               success : function(data) {
-                $('#news-image-{{$news[0]->id}}').css( 'background-image', 'url("' + data.image + '")' );
+                ajaxDebugData = data.post;
+                if('image' in data)
+                  $('#news-image-{{$news[0]->id}}').css( 'background-image', 'url("' + data.image + '")' );
               }
           });
         });

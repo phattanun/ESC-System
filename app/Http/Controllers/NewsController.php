@@ -163,8 +163,12 @@ class NewsController extends Controller
     }
 
     public function update_image($id,Request $request) {
-        $imageData = 'data:'.$request->file('image')->getMimeType().';base64,'.base64_encode(file_get_contents($request->image));
-        return array( 'image' => $imageData);
+        $updateData = array('post' => $request->all() );
+        if($request->hasFile('image')) {
+          $imageData = 'data:'.$request->file('image')->getMimeType().';base64,'.base64_encode(file_get_contents($request->image));
+          $updateData['image'] = $imageData;
+        }
+        return $updateData;
     }
 
 
