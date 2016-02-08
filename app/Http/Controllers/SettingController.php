@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Permission;
+use App\Setting;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,13 +23,16 @@ class SettingController extends Controller
      */
     public function index()
     {
-       $user = $this->getUser();
+        $user = $this->getUser();
 
-        if(!array_search('admin',$user['permission'])||is_null($user))
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
 
+        $year = Setting::all()->first();
+        $year = $year['year'];
 
-        return view('setting')->with('user',$user);
+
+        return view('setting',compact('user','year'));
 
     }
 

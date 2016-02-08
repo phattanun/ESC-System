@@ -55,7 +55,7 @@
                             สวัสดี {{$user['nickname']}} <span class="fa fa-angle-down" style="opacity: 0.3;font-size: 12px"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            @if(array_search('admin',$user['permission']))
+                            @if(isset($user['admin']) && $user['admin'])
                             <li><a href="{{url().'/setting'}}">ตั้งค่าระบบ</a></li>
                             @endif
                             <li><a href="{{url().'/profile'}}">ข้อมูลส่วนตัว</a></li>

@@ -66,7 +66,6 @@ class NewsController extends Controller
     {
         $user = $this->getUser();
 
-        //return $page;
         $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $count = sizeof(News::get());
 
