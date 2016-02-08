@@ -148,6 +148,7 @@ class NewsController extends Controller
 
         $title = Input::get('title');
         $content = Input::get('content');
+        $at_home = Input::get('at_home');
         /*$image = Input::get('image');
 
         $temp = Input::file('image');
@@ -163,6 +164,7 @@ class NewsController extends Controller
         //return $new;
         $new->title = $title;
         $new->content = $content;
+        $new->at_home = $at_home;
         $new->updated_at = Carbon::now();
         $new->save();
         return $this->show_content($id);
