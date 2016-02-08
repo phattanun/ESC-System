@@ -23,43 +23,9 @@ use App\Permission;
 class NewsController extends Controller
 {
 
-    public function index($category,$page)
+    public function index()
     {
-        //return compact('category','page');
-        if($category=='all') {
-            $articles = DB::table('articles')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-            $count = sizeof(DB::table('articles')->get());
-        }
-        else if($category=='study') {
-            $articles = DB::table('articles')->where('category', 'การเรียน')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-            $count = sizeof(DB::table('articles')->where('category', 'การเรียน')->get());
-        }
-        else if($category=='etc') {
-            $articles = DB::table('articles')->where('category', 'อ่านเล่น')->orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-            $count = sizeof(DB::table('articles')->where('category', 'อ่านเล่น')->get());
-        }
-        else{
-            $articles = '';
-            $count = 0;
-        }
-        //return compact('articles','count');
-        //dd($article);
-        foreach ($articles as &$x) {
-            $x->content = str_limit($x->content, $limit = 300, $end = '...');
-        }
-
-        //return $article;
-        /*return view('/blog',[
-            'article'=>$article,
-            'count' => $count
-        ]);*/
-
-        if (count($articles) == 0 || $page <=0) {
-            abort(404);
-        }
-
-        return view('/blog' , compact('articles','count','category','page'));
-
+        return $this->all_news(1);
     }
 
     public function all_news($page)
