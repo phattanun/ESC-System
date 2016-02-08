@@ -165,6 +165,8 @@ class NewsController extends Controller
     public function update_image($id,Request $request) {
         $updateData = array('post' => $request->all() );
         if($request->hasFile('image')) {
+          if($request->file('image')->getClientSize() > 200000)
+            die;
           $imageData = 'data:'.$request->file('image')->getMimeType().';base64,'.base64_encode(file_get_contents($request->image));
           $updateData['image'] = $imageData;
         }

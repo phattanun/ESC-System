@@ -16,7 +16,7 @@
     <div role="alert" aria-live="polite" class="toast-top-right" id="toast-container"></div>
     <div class="news-container">
         <div class="news-all">
-            <form id="upload_form" action="{{url().'/news/content/'.$news[0]->id.'/image'}}"  enctype="multipart/form-data" method="post" name="" class="">
+            <form id="upload_form" action="{{url().'/update_news/'.$news[0]->id}}"  enctype="multipart/form-data" method="post" name="" class="">
                 {{csrf_field()}}
             <div class="news-box" id="{{$news[0]->id}}">
                 <div class="news-image" id="news-image-{{$news[0]->id}}" style="background-image:url({{asset('assets/images/news/'.$news[0]->image)}}); ">
@@ -120,13 +120,15 @@
               type: 'POST',
               headers: { "X-CSRF-Token" : "{{ csrf_token() }}" },
               data: formData,
-
               processData: false,
-              contentType: false,
-              success : function(data) {
-                ajaxDebugData = data.post;
-                if('image' in data)
-                  $('#news-image-{{$news[0]->id}}').css( 'background-image', 'url("' + data.image + '")' );
+              contentType: false
+          }).done(function(data) {
+              console.log(data);
+              ajaxDebugData = data;
+              if(data.hasOwnProperty('image'))
+                $('#news-image-{{$news[0]->id}}').css( 'background-image', 'url("' + data.image + '")' );
+              else {
+                alert("รูปไม่ผ่านนะจ๊ะ..!!");
               }
           });
         });
