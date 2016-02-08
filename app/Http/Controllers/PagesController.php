@@ -30,7 +30,7 @@ class PagesController extends Controller
     }
 
     public function logout(){
-        $user = $this->getUser();
+        $user = Auth::user();
         if($user==null)
             return redirect('supplies');
         Auth::logout();
