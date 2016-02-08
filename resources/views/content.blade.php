@@ -31,6 +31,7 @@
                     <div class="tab-button-bar tab-button-trash-home-bar row hide" style="margin-top: 5px;">
                         <div class="col-xs-1 tab-button tab-button-first tab-button-trash col-xs-offset-10" id="trash-{{$news[0]->id}}"><i class="fa fa-lg fa-trash"></i></div>
                         <div class="col-xs-1 tab-button tab-button-home" id="home-{{$news[0]->id}}"><i class="fa fa-lg fa-home"></i></div>
+                        <input type="hidden" name="at_home" value="{{$news[0]->at_home}}" class="at_home">
                     </div>
                     <div class="row news-box-head">
                         <h2 class="news-box-head-text" id="activity-name-{{$news[0]->id}}">{{$news[0]->title}}</h2>
@@ -78,11 +79,31 @@
 
     <script>
         $( document ).ready(function() {
+            if($(".at_home").attr("value") == 1)
+                $(".tab-button-home").addClass("action");
             window.history.replaceState("object or string", "Title", "{{url('/news/content/')}}/"+'{{$news[0]->id}}');
         });
 
         $(".tab-button-edit").click(function(){
             CKEDITOR.replace( 'activity-content-input-{{$news[0]->id}}' );
+        });
+
+        $(".tab-button-home").click(function(){
+            $(this).toggleClass("action");
+            if($(".at_home").attr("value") == 1)
+                $(".at_home").attr("value",0);
+            else
+                $(".at_home").attr("value",1);
+        });
+
+        $(".tab-button-trash").click(function(){
+            var r = confirm("Press a button!");
+            if (r == true) {
+                $.post('{{url('/remove_news')}}',
+                        { id: '{{$news[0]->id}}' ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+                });
+                window.location.href = "{{url('/news/all')}}";
+            }
         });
 
         /*$(".testt").click(function(){

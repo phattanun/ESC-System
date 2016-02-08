@@ -1,6 +1,3 @@
-$(".tab-button-home").click(function(){
-    $(this).toggleClass("action");
-});
 
 $(".tab-button-edit").click(function(){
     $(this).addClass("action");

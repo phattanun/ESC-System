@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'NewsController@all_news_no_page');
-Route::get('/news', 'NewsController@index');
+Route::get('/news', 'NewsController@all_news_no_page');
 Route::get('/news/all/', 'NewsController@all_news_no_page');
 Route::get('/news/all/{page}', 'NewsController@all_news');
 Route::get('/news/content/{id}', 'NewsController@show_content');
@@ -40,6 +40,7 @@ Route::get('/profile', 'PagesController@profilePage');
 //News page
 Route::post('open_modal', 'NewsController@open_modal');
 Route::post('save_news', 'NewsController@save_news');
+Route::post('remove_news', 'NewsController@remove_news');
 Route::post('/update_news/{id}', 'NewsController@update_news');
 Route::get('/create_news', 'NewsController@create_news');
 Route::post('/create_news_content', 'NewsController@create_news_content');
