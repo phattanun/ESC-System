@@ -64,16 +64,16 @@
         </div><div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form novalidate="novalidate" class="validate" action="php/contact.php" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
+                    <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ<script>window.location='{{url()}}/setting';</script>" data-toastr-position="top-right">
                         <fieldset>
-                            <input name="action" value="contact_send" type="hidden">
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
                                         <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
                                         <div class="input-group autosuggest" data-minLength="1" data-queryURL="php/view/demo.autosuggest.php?limit=10&search=">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input id="studentInfo" name="studentInfo" class="form-control typeahead required" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
+                                            <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success">เพิ่ม</button>
                                             </span>
@@ -105,36 +105,36 @@
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-minus"></i>
                                         </a></td>
-                                        <td>{{$permission_user['student_id']}}</td>
+                                        <td><input type="hidden" name="student_id[]" value="{{$permission_user['student_id']}}"/>{{$permission_user['student_id']}}</td>
                                         <td>{{$permission_user['name']}}</td>
                                         <td>{{$permission_user['surname']}}</td>
                                         <td class="text-center">
                                             <label class="switch switch-success">
-                                                <input  name="privilege" value="announce" @if($permission_user['news']) checked @endif type="checkbox">
+                                                <input  name="privilege[{{$permission_user['student_id']}}][]" value="announce" @if($permission_user['news']) checked @endif type="checkbox">
                                                 <span class="switch-label" data-on="YES" data-off="NO"></span>
                                             </label>
                                         </td>
                                         <td class="text-center">
                                             <label class="switch switch-success">
-                                                <input name="privilege" value="room" type="checkbox" @if($permission_user['room']) checked @endif type="checkbox">
+                                                <input name="privilege[{{$permission_user['student_id']}}][]" value="room" type="checkbox" @if($permission_user['room']) checked @endif type="checkbox">
                                                 <span class="switch-label" data-on="YES" data-off="NO"></span>
                                             </label>
                                         </td>
                                         <td class="text-center">
                                             <label class="switch switch-success">
-                                                <input   name="privilege" value="supplies" type="checkbox" @if($permission_user['supplies']) checked @endif type="checkbox">
+                                                <input   name="privilege[{{$permission_user['student_id']}}][]" value="supplies" type="checkbox" @if($permission_user['supplies']) checked @endif type="checkbox">
                                                 <span class="switch-label" data-on="YES" data-off="NO"></span>
                                             </label>
                                         </td>
                                         <td class="text-center">
                                             <label class="switch switch-success">
-                                                <input  name="privilege" value="activity" type="checkbox" @if($permission_user['activities']) checked @endif type="checkbox">
+                                                <input  name="privilege[{{$permission_user['student_id']}}][]" value="activity" type="checkbox" @if($permission_user['activities']) checked @endif type="checkbox">
                                                 <span class="switch-label" data-on="YES" data-off="NO"></span>
                                             </label>
                                         </td>
                                         <td class="text-center">
                                             <label class="switch switch-success">
-                                                <input name="privilege" value="student" @if($permission_user['student']) checked @endif type="checkbox">
+                                                <input name="privilege[{{$permission_user['student_id']}}][]" value="student" @if($permission_user['student']) checked @endif type="checkbox">
                                                 <span class="switch-label" data-on="YES" data-off="NO"></span>
                                             </label>
                                         </td>
@@ -145,13 +145,16 @@
 
                         <div class="row">
                             <div class="col-md-1">
-                                <a type="submit" class="btn btn-3d btn-reveal btn-green">
+                                <button type="submit" class="btn btn-3d btn-reveal btn-green">
                                     <i class="fa fa-check"></i>
                                     <span>บันทึก</span>
-                                </a>
+                                </button>
                             </div>
-                            <div class="col-md-offset-1 col-md-1">
-                                <a class="btn btn-3d btn-reveal btn-red">
+                            <div class="col-md-1 text-center">
+                                <span class="loading-icon"></span>
+                            </div>
+                            <div class="col-md-1">
+                                <a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">
                                     <i class="fa fa-times"></i>
                                     <span>ยกเลิก</span>
                                 </a>
@@ -182,6 +185,9 @@
                 $(".currentYear").show();
                 $("#editYearButton").show();
                 $(".hideEditYear").hide();
+            });
+            $("#cancelPermissionEditButton").click(function () {
+                window.location='{{url()}}/setting';
             });
             $("#yearEditBox").keydown(function (e) {
                 if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||

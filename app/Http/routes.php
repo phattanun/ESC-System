@@ -32,6 +32,7 @@ Route::post('/login', 'PagesController@login');
 //Setting Page
 Route::get('/setting', 'SettingController@index');
 Route::post('/setting/edit_year', 'SettingController@editYear');
+Route::post('/setting/edit_permission', 'SettingController@editPermission');
 
 
 Route::post('/register', 'PagesController@registerConfirm');

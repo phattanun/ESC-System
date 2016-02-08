@@ -2399,7 +2399,8 @@
 
 										target: 	jQuery(form).find('.validate-result').length > 0 ? jQuery(form).find('.validate-result') : '',
 
-										error: 		function(data) { 
+										error: 		function(data) {
+											jQuery(form).find('.loading-icon').removeClass('fa fa-refresh fa-spin');
 											_toastr(_Emessage,_Tposition,"error",false);
 										},
 

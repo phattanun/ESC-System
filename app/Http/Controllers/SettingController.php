@@ -58,19 +58,32 @@ class SettingController extends Controller
         $new = Setting::first();
         $new->year = $new_year;
         $new->save();
-//        return redirect($new_year);
         return redirect('/setting');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function editPermission()
     {
-        //
+        $user = $this->getUser();
+
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
+
+        $sid = Input::get('student_id');
+        $privilege = Input::get('privilege');
+        Permission::truncate();
+        foreach($sid as $id){
+            $permission = Permission::create();
+            $permission->student_id =  $id;
+            if(isset($privilege[$id])&&in_array('announce', $privilege[$id])) $permission->news =true; else $permission->news =false;
+            if(isset($privilege[$id])&&in_array('room', $privilege[$id])) $permission->room =true; else  $permission->room =false;
+            if(isset($privilege[$id])&&in_array('supplies', $privilege[$id])) $permission->supplies =true; else $permission->supplies =false;
+            if(isset($privilege[$id])&&in_array('activity', $privilege[$id])) $permission->activities =true; else $permission->activities =false;
+            if(isset($privilege[$id])&&in_array('student', $privilege[$id])) $permission->student =true; else $permission->student =false;
+            $permission->save();
+
+    }
+        return redirect('/setting');
     }
 
     /**
