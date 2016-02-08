@@ -95,123 +95,164 @@
                                     <td>กิจกรรม<br></td>
                                     <td>ข้อมูลนิสิต</td>
                                 </tr>
-                                <tr >
-                                    <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                @foreach($permission_users as $permission_user)
+                                    <tr >
+                                        <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-minus"></i>
                                         </a></td>
-                                    <td>5631011021</td>
-                                    <td>นายพัทธนันท์</td>
-                                    <td>อัครพันธุ์ธัช</td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input  name="privilege" value="announce" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input name="privilege" value="room" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input name="privilege" value="student" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
-                                            <i class="fa fa-minus"></i>
-                                            <i class="fa fa-minus"></i>
-                                        </a></td>
-                                    <td>5631011021</td>
-                                    <td>นายพัทธนันท์</td>
-                                    <td>อัครพันธุ์ธัช</td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input  name="privilege" value="announce" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input name="privilege" value="room" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input name="privilege" value="student" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
-                                            <i class="fa fa-minus"></i>
-                                            <i class="fa fa-minus"></i>
-                                        </a></td>
-                                    <td>5631011021</td>
-                                    <td>นายพัทธนันท์</td>
-                                    <td>อัครพันธุ์ธัช</td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input  name="privilege" value="announce" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input name="privilege" value="room" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                    <td class="text-center">
-                                        <label class="switch switch-success">
-                                            <input name="privilege" value="student" checked="" type="checkbox">
-                                            <span class="switch-label" data-on="YES" data-off="NO"></span>
-                                        </label>
-                                    </td>
-                                </tr>
+                                        <td>{{$permission_user['student_id']}}</td>
+                                        <td>{{$permission_user['name']}}</td>
+                                        <td>{{$permission_user['surname']}}</td>
+                                        <td class="text-center">
+                                            <label class="switch switch-success">
+                                                <input  name="privilege" value="announce" @if($permission_user['news']) checked @endif type="checkbox">
+                                                <span class="switch-label" data-on="YES" data-off="NO"></span>
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="switch switch-success">
+                                                <input name="privilege" value="room" type="checkbox" @if($permission_user['room']) checked @endif type="checkbox">
+                                                <span class="switch-label" data-on="YES" data-off="NO"></span>
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="switch switch-success">
+                                                <input   name="privilege" value="supplies" type="checkbox" @if($permission_user['supplies']) checked @endif type="checkbox">
+                                                <span class="switch-label" data-on="YES" data-off="NO"></span>
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="switch switch-success">
+                                                <input  name="privilege" value="activity" type="checkbox" @if($permission_user['activities']) checked @endif type="checkbox">
+                                                <span class="switch-label" data-on="YES" data-off="NO"></span>
+                                            </label>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="switch switch-success">
+                                                <input name="privilege" value="student" @if($permission_user['student']) checked @endif type="checkbox">
+                                                <span class="switch-label" data-on="YES" data-off="NO"></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                {{--<tr >--}}
+                                    {{--<td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">--}}
+                                            {{--<i class="fa fa-minus"></i>--}}
+                                            {{--<i class="fa fa-minus"></i>--}}
+                                        {{--</a></td>--}}
+                                    {{--<td>5631011021</td>--}}
+                                    {{--<td>นายพัทธนันท์</td>--}}
+                                    {{--<td>อัครพันธุ์ธัช</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input  name="privilege" value="announce" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input name="privilege" value="room" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input name="privilege" value="student" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr >--}}
+                                    {{--<td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">--}}
+                                            {{--<i class="fa fa-minus"></i>--}}
+                                            {{--<i class="fa fa-minus"></i>--}}
+                                        {{--</a></td>--}}
+                                    {{--<td>5631011021</td>--}}
+                                    {{--<td>นายพัทธนันท์</td>--}}
+                                    {{--<td>อัครพันธุ์ธัช</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input  name="privilege" value="announce" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input name="privilege" value="room" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input name="privilege" value="student" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr >--}}
+                                    {{--<td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">--}}
+                                            {{--<i class="fa fa-minus"></i>--}}
+                                            {{--<i class="fa fa-minus"></i>--}}
+                                        {{--</a></td>--}}
+                                    {{--<td>5631011021</td>--}}
+                                    {{--<td>นายพัทธนันท์</td>--}}
+                                    {{--<td>อัครพันธุ์ธัช</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input  name="privilege" value="announce" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input name="privilege" value="room" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input   name="privilege" value="supplies" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input  name="privilege" value="activity" type="checkbox" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                    {{--<td class="text-center">--}}
+                                        {{--<label class="switch switch-success">--}}
+                                            {{--<input name="privilege" value="student" checked="" type="checkbox">--}}
+                                            {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
 
                             </table>
                         </div>

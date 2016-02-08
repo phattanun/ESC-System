@@ -31,8 +31,14 @@ class SettingController extends Controller
         $year = Setting::all()->first();
         $year = $year['year'];
 
+        $permission_users = Permission::join('users','permissions.student_id','=','users.student_id')
+            ->select('permissions.student_id','users.name','users.surname','permissions.news','permissions.room','permissions.supplies','permissions.activities','permissions.student')
+            ->get();
 
-        return view('setting',compact('user','year'));
+
+
+
+        return view('setting',compact('user','year','permission_users'));
 
     }
 

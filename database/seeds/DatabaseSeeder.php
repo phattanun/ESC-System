@@ -29,11 +29,11 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        User::create(['student_id'=>'1',
-            'password'=>bcrypt('1'),
-            'name'=>'ปฏิพล',
-            'surname'=>'เจียมมั่นจิต',
-            'nickname'=>'คุณแอดมิน',
+        User::create(['student_id'=>'2',
+            'password'=>bcrypt('2'),
+            'name'=>'น่าสงสาร',
+            'surname'=>'ไม่มี Permission เลย',
+            'nickname'=>'แย่จัง',
             'address'=>'29/50 หมู่บ้านอลิชา 1 พุทธบูชา 36 บางมด ทุ่งครุ กรุงเทพฯ 10140',
             'birthdate'=>'1994-11-29',
             'phone_number'=>'0924587067',
@@ -48,8 +48,8 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
-        User::create(['student_id'=>'2',
-            'password'=>bcrypt('2'),
+        User::create(['student_id'=>'1',
+            'password'=>bcrypt('1'),
             'name'=>'ปฏิพล',
             'surname'=>'เจียมมั่นจิต',
             'nickname'=>'คุณแอดมิน',
