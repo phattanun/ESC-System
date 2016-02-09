@@ -75,7 +75,7 @@
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-success">เพิ่ม</button>
+                                                <a class="btn btn-success">เพิ่ม</a>
                                             </span>
                                         </div>
 
