@@ -103,7 +103,7 @@
                                     <tr >
                                         <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
                                             <i class="fa fa-minus"></i>
-                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-trash"></i>
                                         </a></td>
                                         <td><input type="hidden" name="student_id[]" value="{{$permission_user['student_id']}}"/>{{$permission_user['student_id']}}</td>
                                         <td>{{$permission_user['name']}}</td>
