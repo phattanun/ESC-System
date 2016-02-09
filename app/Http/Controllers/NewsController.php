@@ -167,7 +167,7 @@ class NewsController extends Controller
         if($request->hasFile('image')) {
           if($request->file('image')->getClientSize() > 200000)
             die;
-          $imageData = 'data:'.$request->file('image')->getMimeType().';base64,'.base64_encode(file_get_contents($request->image));
+          $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
           $updateData['image'] = $imageData;
         }
         return $updateData;

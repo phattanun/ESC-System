@@ -82,7 +82,7 @@ class SettingController extends Controller
             if(isset($privilege[$id])&&in_array('student', $privilege[$id])) $permission->student =true; else $permission->student =false;
             $permission->save();
 
-    }
+        }
         return redirect('/setting');
     }
 
