@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    กิจกรรม....
+    แก้ไขข่าวสาร
 @endsection
 @section('body-attribute')
     style ="background-color:#F6F6F6;"
@@ -10,7 +10,7 @@
     active
 @endsection
 @section('bodyTitle')
-    {{$news[0]->title}}
+    แก้ไขข่าวสาร
 @endsection
 @section('content')
     <div role="alert" aria-live="polite" class="toast-top-right" id="toast-container"></div>
