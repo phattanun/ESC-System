@@ -16,7 +16,7 @@
     <div role="alert" aria-live="polite" class="toast-top-right" id="toast-container"></div>
     <div class="news-container">
         <div class="news-all">
-            <form action="{{url().'/create_news_content/'}}" method="post" name="" class="">
+            <form id="upload_form" action="{{url().'/create_news_content'}}" method="post" enctype="multipart/form-data" name="" class="">
                 {{csrf_field()}}
                 <div class="news-box">
                     <div class="news-image" id="news-image">
@@ -117,6 +117,31 @@
                 $(".tab-button-home").addClass("col-xs-offset-10");
             }
         }
+
+        var ajaxDebugData;
+        $("#upload_form").change(function() {
+          console.log("Update!!");
+          var formData = new FormData($("#upload_form")[0]);
+          $.ajax({
+              url:  '{{url("/news/upload_image")}}',
+              type: 'POST',
+              headers: { "X-CSRF-Token" : "{{ csrf_token() }}" },
+              data: formData,
+              processData: false,
+              contentType: false
+          }).done(function(data) {
+              console.log(data);
+              ajaxDebugData = data;
+              if(data.hasOwnProperty('image')) {
+                $('#news-image').css( 'background-image', 'url("' + data.image + '")' );
+              }
+              else {
+                alert("รูปไม่ผ่านนะจ๊ะ..!!");
+              }
+          });
+        });
+
+
     </script>
 
     <script>

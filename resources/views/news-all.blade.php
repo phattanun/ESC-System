@@ -45,9 +45,11 @@
         <div class="news-all margin-top-40">
             @foreach($news as $new)
                 <div class="news-box" id="{{$new->id}}">
+                    @if($new->image)
                     <div class="news-image can-click" id="news-image-{{$new->id}}"
-                         style="background-image:url({{asset('assets/images/news/'.$new->image)}});"
+                         style="background-image:url({{$new->image}});"
                          content="{{$new->id}}" data-toggle="modal" data-target="#myModal"></div>
+                    @endif
                     <div class="news-box-card">
                         <div class="tab-button-bar row">
                             <button class="col-xs-2 col-xs-offset-10 tab-button tab-button-first tab-button-edit"
@@ -128,8 +130,10 @@
             $(".modal-created").text("Created at : "+input[0]['created_at']['date']);
             $(".modal-updated").text("Updated at : "+input[0]['updated_at']['date']);
             $(".modal-news-image").remove();
-            var txt = '<div class="modal-news-image news-image" style="background-image:url({{asset('assets/images/news/')}}/'+input[0]['image']+');">'+'</div>';
-            $(".modal-news-box").prepend(txt);
+            if(input[0]['image']) {
+               var txt = '<div class="modal-news-image news-image" style="background-image:url('+input[0]['image']+');">'+'</div>';
+               $(".modal-news-box").prepend(txt);
+            }
 
         });
     }

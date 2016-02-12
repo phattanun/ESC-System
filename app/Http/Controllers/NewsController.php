@@ -100,16 +100,25 @@ class NewsController extends Controller
         return view('/create_news');
     }
 
-    public function create_news_content()
+    public function create_news_content(Request $request)
     {
         $title = Input::get('title');
         $content = Input::get('content');
         $at_home = Input::get('at_home');
 
+        if($request->hasFile('image')) {
+          if($request->file('image')->getClientSize() > 200000)
+            die;
+          $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
+        }
+        else $imageData = false;
+
         $new = News::create();
         $new->title = $title;
         $new->content = $content;
         $new->at_home = $at_home;
+        if($imageData)
+          $new->image = $imageData;
         $new->created_at = Carbon::now();
         $new->updated_at = Carbon::now();
         $new->save();
@@ -118,27 +127,27 @@ class NewsController extends Controller
         return $this->show_content($new->id);
     }
 
-    public function update_news($id)
+    public function update_news($id, Request $request)
     {
         $user = Auth::user();
 
         $title = Input::get('title');
         $content = Input::get('content');
         $at_home = Input::get('at_home');
-        /*$image = Input::get('image');
 
-        $temp = Input::file('image');
-        if (isset($temp)) {
-            return "1";
-            $path = 'assets/images/news';
-            Request::file('image')->move($path, $image);
+        if($request->hasFile('image')) {
+          if($request->file('image')->getClientSize() > 200000)
+            die;
+          $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
         }
-        return "2";
-*/
+        else $imageData = false;
+
 
         $new = News::where('id',$id)->first();
-        //return $new;
+
         $new->title = $title;
+        if($imageData)
+          $new->image = $imageData;
         $new->content = $content;
         $new->at_home = $at_home;
         $new->updated_at = Carbon::now();
@@ -162,7 +171,7 @@ class NewsController extends Controller
         return $tmp;*/
     }
 
-    public function update_image($id,Request $request) {
+    public function upload_image(Request $request) {
         $updateData = array('post' => $request->all() );
         if($request->hasFile('image')) {
           if($request->file('image')->getClientSize() > 200000)

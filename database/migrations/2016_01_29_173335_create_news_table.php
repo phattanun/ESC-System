@@ -16,7 +16,7 @@ class CreateNewsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
-            $table->string('image');
+            $table->mediumText('image');
             $table->boolean('at_home');
             //$table->string('category');
             //$table->integer('view_count'); //<--- may be unnecessary (replaced with google analytic)

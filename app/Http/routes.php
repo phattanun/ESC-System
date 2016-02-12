@@ -16,7 +16,7 @@ Route::get('/news', 'NewsController@all_news_no_page');
 Route::get('/news/all/', 'NewsController@all_news_no_page');
 Route::get('/news/all/{page}', 'NewsController@all_news');
 Route::get('/news/content/{id}', 'NewsController@show_content');
-Route::post('/news/content/{id}/image', 'NewsController@update_image');
+Route::post('/news/upload_image', 'NewsController@upload_image');
 
 Route::get('/supplies', 'PagesController@suppliesPage');
 
