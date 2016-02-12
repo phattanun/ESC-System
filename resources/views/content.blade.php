@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    แก้ไขข่าวสาร
+    {{$news[0]->title}}
 @endsection
 @section('body-attribute')
     style ="background-color:#F6F6F6;"
@@ -10,13 +10,13 @@
     active
 @endsection
 @section('bodyTitle')
-    แก้ไขข่าวสาร
+   {{$news[0]->title}}
 @endsection
 @section('content')
     <div role="alert" aria-live="polite" class="toast-top-right" id="toast-container"></div>
     <div class="news-container">
         <div class="news-all">
-            <form id="upload_form" action="{{url().'/update_news/'.$news[0]->id}}"  enctype="multipart/form-data" method="post" name="" class="">
+            <form id="upload_form" action="{{url().'/news/update/'.$news[0]->id}}"  enctype="multipart/form-data" method="post" name="" class="">
                 {{csrf_field()}}
             <div class="news-box" id="{{$news[0]->id}}">
                 <div class="news-image" id="news-image-{{$news[0]->id}}" style="background-image:url({{$news[0]->image}}); ">
@@ -81,7 +81,7 @@
         $( document ).ready(function() {
             if($(".at_home").attr("value") == 1)
                 $(".tab-button-home").addClass("action");
-            window.history.replaceState("object or string", "Title", "{{url('/news/content/')}}/"+'{{$news[0]->id}}');
+            window.history.replaceState("object or string", "Title", "{{url('/news/view/')}}/"+"{{$news[0]->id}}");
         });
 
         $(".tab-button-edit").click(function(){
@@ -99,7 +99,7 @@
         $(".tab-button-trash").click(function(){
             var r = confirm("Press a button!");
             if (r == true) {
-                $.post('{{url('/remove_news')}}',
+                $.post('{{url('/news/remove')}}',
                         { id: '{{$news[0]->id}}' ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
                 });
                 window.location.href = "{{url('/news/all')}}";
@@ -116,7 +116,7 @@
           console.log("Update!!");
           var formData = new FormData($("#upload_form")[0]);
           $.ajax({
-              url:  '{{url("/news/upload_image")}}',
+              url:  '{{url("/news/upload/image")}}',
               type: 'POST',
               headers: { "X-CSRF-Token" : "{{ csrf_token() }}" },
               data: formData,

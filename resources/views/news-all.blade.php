@@ -101,13 +101,13 @@
     $(".can-click").click(function(e){
         var content_id=$(this).attr("content");
         prev_url=document.URL;
-        window.history.replaceState("object or string", "Title", "{{url('/news/content/')}}/"+content_id);
+        window.history.replaceState("object or string", "Title", "{{url('/news/view/')}}/"+content_id);
         open_modal(content_id);
     });
 
     $(".tab-button-edit").click(function(e){
         var content_id=$(this).attr("content");
-        window.location.href = "{{url('/news/content/')}}/"+content_id;
+        window.location.href = "{{url('/news/view/')}}/"+content_id;
 
     });
 
@@ -118,11 +118,11 @@
     });
 
     $(".create-news-button").click(function(){
-        window.location.href = "{{url('/create_news')}}";
+        window.location.href = "{{url('news/create')}}";
     });
 
     function open_modal(content_id){
-        $.post('{{url('/open_modal')}}',
+        $.post("{{url('news/view/modal')}}",
         { id: content_id , page: '{{$page}}}',_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
             $(".modal-news-box-head").text(input[0]['title']);

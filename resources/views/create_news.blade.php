@@ -16,7 +16,7 @@
     <div role="alert" aria-live="polite" class="toast-top-right" id="toast-container"></div>
     <div class="news-container">
         <div class="news-all">
-            <form id="upload_form" action="{{url().'/create_news_content'}}" method="post" enctype="multipart/form-data" name="" class="">
+            <form id="upload_form" action="{{url().'/news/create/content'}}" method="post" enctype="multipart/form-data" name="" class="">
                 {{csrf_field()}}
                 <div class="news-box">
                     <div class="news-image" id="news-image">
@@ -123,7 +123,7 @@
           console.log("Update!!");
           var formData = new FormData($("#upload_form")[0]);
           $.ajax({
-              url:  '{{url("/news/upload_image")}}',
+              url:  '{{url("/news/upload/image")}}',
               type: 'POST',
               headers: { "X-CSRF-Token" : "{{ csrf_token() }}" },
               data: formData,
