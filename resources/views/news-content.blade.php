@@ -106,11 +106,6 @@
             }
         });
 
-        /*$(".testt").click(function(){
-            var temp = $("#editor1").html();
-            alert(temp);
-        });*/
-
         var ajaxDebugData;
         $("#upload_form").change(function() {
           console.log("Update!!");

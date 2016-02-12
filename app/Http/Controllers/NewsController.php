@@ -23,12 +23,12 @@ use App\Permission;
 class NewsController extends Controller
 {
 
-    public function index()
+    public function view()
     {
-        return $this->all_news(1);
+        return $this->view_page(1);
     }
 
-    public function all_news($page)
+    public function view_page($page)
     {
         $user = $this->getUser();
 
@@ -50,12 +50,16 @@ class NewsController extends Controller
 
     }
 
-    public function all_news_no_page()
+    public function view_content($id)
     {
-        return $this->all_news(1);
+        $user = $this->getUser();
+
+        $news = DB::table('news')->where('id',$id)->get();
+        //return $news;
+        return view('/news-content',compact('$user','news'));
     }
 
-    public function open_modal(Request $request)
+    public function view_modal(Request $request)
     {
         $user = Auth::user();
         $tmp=[];
@@ -73,34 +77,12 @@ class NewsController extends Controller
         return $tmp;
     }
 
-    public function remove_news(Request $request)
+    public function create()
     {
-        /*$new = News::find($request->id);
-        $new->deleted = true;
-        $new->save();
-        return "success";*/
-        $new = News::find($request->id)->delete();
-        return "success";
+        return view('/news-create');
     }
 
-    public function save_news(Request $request)
-    {
-        $user = Auth::user();
-        $new = News::where('id',$request->id)->first();
-        //return $new;
-        $new->title = $request->title;
-        $new->content = $request->content;
-        $new->updated_at = Carbon::now();
-        $new->save();
-        return "success";
-    }
-
-    public function create_news()
-    {
-        return view('/create_news');
-    }
-
-    public function create_news_content(Request $request)
+    public function create_content(Request $request)
     {
         $title = Input::get('title');
         $content = Input::get('content');
@@ -124,10 +106,22 @@ class NewsController extends Controller
         $new->save();
 
 
-        return $this->show_content($new->id);
+        return $this->view_content($new->id);
     }
 
-    public function update_news($id, Request $request)
+    public function save_news(Request $request)
+    {
+        $user = Auth::user();
+        $new = News::where('id',$request->id)->first();
+        //return $new;
+        $new->title = $request->title;
+        $new->content = $request->content;
+        $new->updated_at = Carbon::now();
+        $new->save();
+        return "success";
+    }
+
+    public function update($id, Request $request)
     {
         $user = Auth::user();
 
@@ -152,7 +146,7 @@ class NewsController extends Controller
         $new->at_home = $at_home;
         $new->updated_at = Carbon::now();
         $new->save();
-        return $this->show_content($id);
+        return $this->view_content($id);
 /*
         $password = Input::get('password');
         $remember = Input::get('checkbox-inline');
@@ -168,7 +162,8 @@ class NewsController extends Controller
             'created_at' => $new->created_at,
             'updated_at'=> $new->updated_at
         ]);
-        return $tmp;*/
+        return $tmp;
+*/
     }
 
     public function upload_image(Request $request) {
@@ -182,75 +177,10 @@ class NewsController extends Controller
         return $updateData;
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function remove(Request $request)
     {
-        //
+        $new = News::find($request->id)->delete();
+        return "success";
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show_content($id)
-    {
-        $user = $this->getUser();
-
-        $news = DB::table('news')->where('id',$id)->get();
-        //return $news;
-        return view('/content',compact('$user','news'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
