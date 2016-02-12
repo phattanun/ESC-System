@@ -43,7 +43,7 @@ class NewsController extends Controller
             abort(404);
         }
 
-        return view('/news-all' , compact('$user','news','count','page','user'));
+        return view('/news-all' , compact('news','count','page'));
         return view('/news-all')->with('user',$user);
         return compact('news-all','count','page');
         return view('/news-all' , compact('news','count','page'));
@@ -56,7 +56,7 @@ class NewsController extends Controller
 
         $news = DB::table('news')->where('id',$id)->get();
         //return $news;
-        return view('/news-content',compact('$user','news'));
+        return view('/news-content',compact('news'));
     }
 
     public function view_modal(Request $request)

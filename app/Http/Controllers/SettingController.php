@@ -38,7 +38,7 @@ class SettingController extends Controller
 
 
 
-        return view('setting',compact('user','year','permission_users'));
+        return view('setting',compact('year','permission_users'));
 
     }
 

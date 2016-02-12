@@ -42,7 +42,7 @@ class PagesController extends Controller
         $user = $this->getUser();
         if(is_null($user))
           return redirect('/');
-        return view('register')->with('user', $user);
+        return view('register');
     }
 
     public function registerConfirm() {
@@ -72,24 +72,24 @@ class PagesController extends Controller
 
     public function newsPage(){
         $user = $this->getUser();
-        return view('news')->with('user', $user);
+        return view('news');
     }
 
     public function suppliesPage(){
         $user = $this->getUser();
-        return view('supplies')->with('user', $user);
+        return view('supplies');
     }
 
     public function studentsPage(){
         $user = $this->getUser();
-        return view('students')->with('user', $user);
+        return view('students');
     }
 
     public function profilePage() {
         $user = $this->getUser();
         if(is_null($user))
           return redirect('/');
-        return view('profile')->with('user',$user);
+        return view('profile');
     }
 
     public function scheduleManagePage(){
