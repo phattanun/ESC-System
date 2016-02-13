@@ -118,9 +118,8 @@
             }
         }
 
-        var ajaxDebugData;
+        var oldImage = $('#news-image').css('background-image');
         $("#upload_form").change(function() {
-          console.log("Update!!");
           var formData = new FormData($("#upload_form")[0]);
           $.ajax({
               url:  '{{url("/news/upload/image")}}',
@@ -130,13 +129,12 @@
               processData: false,
               contentType: false
           }).done(function(data) {
-              console.log(data);
-              ajaxDebugData = data;
               if(data.hasOwnProperty('image')) {
                 $('#news-image').css( 'background-image', 'url("' + data.image + '")' );
               }
               else {
                 alert("รูปไม่ผ่านนะจ๊ะ..!!");
+                $('#news-image').css( 'background-image', oldImage );
               }
           });
         });

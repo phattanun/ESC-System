@@ -96,35 +96,70 @@
         @if(isset($user['news']))
         // News-Manager ONLY
 
+            const newsID = {{$news[0]->id}};
+            const oldImage = $('#news-image-'+newsID).css('background-image');
+            const oldTitle = $("#activity-name-"+newsID).html();
+            const oldContent = $("#activity-content-"+newsID).html();
+            var editor,editStatus = false, notDestroy = false;
             $(".tab-button-edit").click(function(){
-                $(this).addClass("action");
-                var temp = $(this).attr("id").split('-');
-                var id = temp[1];
-                CKEDITOR.replace( 'activity-content-input-{{$news[0]->id}}' );
-                $("#activity-name-"+id).addClass("hide");
-                $("#activity-content-"+id).addClass("hide");
-                $("#activity-name-input-"+id).removeClass("hide");
-                $("#activity-content-input-"+id).removeClass("hide");
-                $("#cancel-button-"+id).removeClass("hide");
-                $("#save-button-"+id).removeClass("hide");
-                $("#browse-bar-"+id).removeClass("hide");
-                $(".tab-button-trash-home-bar").removeClass("hide");
-                $(".cke").removeClass("hide");
+                if(!editStatus) {
+                    $(this).addClass("action");
+                    editor = CKEDITOR.replace( 'activity-content-input-{{$news[0]->id}}' );
+                    notDestroy = true;
+                    $("#activity-name-"+newsID).addClass("hide");
+                    $("#activity-content-"+newsID).addClass("hide");
+                    $("#activity-name-input-"+newsID).removeClass("hide");
+                    $("#activity-content-input-"+newsID).removeClass("hide");
+                    $("#cancel-button-"+newsID).removeClass("hide");
+                    $("#save-button-"+newsID).removeClass("hide");
+                    $("#browse-bar-"+newsID).removeClass("hide");
+                    $(".tab-button-trash-home-bar").removeClass("hide");
+                    $(".cke").removeClass("hide");
+                    editStatus = true;
+                }
+                else {
+                    editor.destroy();
+                    notDestroy = false;
+                    // Preview Content
+                    $("#activity-name-"+newsID).html($("#activity-name-input-"+newsID).val());
+                    $("#activity-content-"+newsID).html($("#activity-content-input-"+newsID).val());
+
+                    $("#edit-"+newsID).removeClass("action");
+                    $("#activity-name-"+newsID).removeClass("hide");
+                    $("#activity-content-"+newsID).removeClass("hide");
+                    $("#activity-name-input-"+newsID).addClass("hide");
+                    $("#activity-content-input-"+newsID).addClass("hide");
+                    $("#browse-bar-"+newsID).addClass("hide");
+                    $(".tab-button-trash-home-bar").addClass("hide");
+                    $(".cke").addClass("hide");
+                    editStatus = false;
+                }
             });
 
             $(".cancel-button").click(function(){
-                var temp = $(this).attr("id").split('-');
-                var id = temp[2];
-                $("#edit-"+id).removeClass("action");
-                $("#activity-name-"+id).removeClass("hide");
-                $("#activity-content-"+id).removeClass("hide");
-                $("#activity-name-input-"+id).addClass("hide");
-                $("#activity-content-input-"+id).addClass("hide");
-                $("#cancel-button-"+id).addClass("hide");
-                $("#save-button-"+id).addClass("hide");
-                $("#browse-bar-"+id).addClass("hide");
+                if(notDestroy) {
+                    editor.destroy();
+                    notDestroy = false;
+                }
+                // Reset content
+                $('#browse-button-'+newsID).val("");
+                $("#activity-name-"+newsID).html(oldTitle);
+                $("#activity-name-input-"+newsID).val(oldTitle);
+                $("#activity-content-"+newsID).html(oldContent);
+                $("#activity-content-input-"+newsID).val(oldContent);
+                $('#news-image-'+newsID).css( 'background-image', oldImage );
+
+                $("#edit-"+newsID).removeClass("action");
+                $("#activity-name-"+newsID).removeClass("hide");
+                $("#activity-content-"+newsID).removeClass("hide");
+                $("#activity-name-input-"+newsID).addClass("hide");
+                $("#activity-content-input-"+newsID).addClass("hide");
+                $("#cancel-button-"+newsID).addClass("hide");
+                $("#save-button-"+newsID).addClass("hide");
+                $("#browse-bar-"+newsID).addClass("hide");
                 $(".tab-button-trash-home-bar").addClass("hide");
                 $(".cke").addClass("hide");
+                editStatus = false;
             });
 
             $(".tab-button-home").click(function(){
@@ -139,15 +174,13 @@
                 var r = confirm("Press a button!");
                 if (r == true) {
                     $.post('{{url('/news/remove')}}',
-                            { id: '{{$news[0]->id}}' ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+                            { id: newsID ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
                     });
                     window.location.href = "{{url('/news/all')}}";
                 }
             });
 
-            var ajaxDebugData;
-            $("#upload_form").change(function() {
-              console.log("Update!!");
+            $("#browse-button-"+newsID).change(function() {
               var formData = new FormData($("#upload_form")[0]);
               $.ajax({
                   url:  '{{url("/news/upload/image")}}',
@@ -157,13 +190,12 @@
                   processData: false,
                   contentType: false
               }).done(function(data) {
-                  console.log(data);
-                  ajaxDebugData = data;
                   if(data.hasOwnProperty('image')) {
-                    $('#news-image-{{$news[0]->id}}').css( 'background-image', 'url("' + data.image + '")' );
+                    $('#news-image-'+newsID).css( 'background-image', 'url("' + data.image + '")' );
                   }
                   else {
                     alert("รูปไม่ผ่านนะจ๊ะ..!!");
+                  $('#news-image-'+newsID).css( 'background-image', oldImage );
                   }
               });
             });
