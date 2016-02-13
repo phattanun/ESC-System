@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        User::create(['student_id'=>'2',
+        User::create(['student_id'=>2,
             'password'=>bcrypt('2'),
             'name'=>'น่าสงสาร',
             'surname'=>'ไม่มี Permission เลย',
@@ -48,7 +48,7 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
-        User::create(['student_id'=>'1',
+        User::create(['student_id'=>1,
             'password'=>bcrypt('1'),
             'name'=>'ปฏิพล',
             'surname'=>'เจียมมั่นจิต',
