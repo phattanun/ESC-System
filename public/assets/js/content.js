@@ -1,34 +1,3 @@
-
-$(".tab-button-edit").click(function(){
-    $(this).addClass("action");
-    var temp = $(this).attr("id").split('-');
-    var id = temp[1];
-    $("#activity-name-"+id).addClass("hide");
-    $("#activity-content-"+id).addClass("hide");
-    $("#activity-name-input-"+id).removeClass("hide");
-    $("#activity-content-input-"+id).removeClass("hide");
-    $("#cancel-button-"+id).removeClass("hide");
-    $("#save-button-"+id).removeClass("hide");
-    $("#browse-bar-"+id).removeClass("hide");
-    $(".tab-button-trash-home-bar").removeClass("hide");
-    $(".cke").removeClass("hide");
-});
-
-$(".cancel-button").click(function(){
-    var temp = $(this).attr("id").split('-');
-    var id = temp[2];
-    $("#edit-"+id).removeClass("action");
-    $("#activity-name-"+id).removeClass("hide");
-    $("#activity-content-"+id).removeClass("hide");
-    $("#activity-name-input-"+id).addClass("hide");
-    $("#activity-content-input-"+id).addClass("hide");
-    $("#cancel-button-"+id).addClass("hide");
-    $("#save-button-"+id).addClass("hide");
-    $("#browse-bar-"+id).addClass("hide");
-    $(".tab-button-trash-home-bar").addClass("hide");
-    $(".cke").addClass("hide");
-});
-
 $( document ).ready(function() {
     checkRespond();
 

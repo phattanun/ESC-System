@@ -30,8 +30,6 @@ class NewsController extends Controller
 
     public function view_page($page)
     {
-        $user = $this->getUser();
-
         $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $count = sizeof(News::get());
 
@@ -44,7 +42,7 @@ class NewsController extends Controller
         }
 
         return view('/news-all' , compact('news','count','page'));
-        return view('/news-all')->with('user',$user);
+        return view('/news-all');
         return compact('news-all','count','page');
         return view('/news-all' , compact('news','count','page'));
 
@@ -52,8 +50,6 @@ class NewsController extends Controller
 
     public function view_content($id)
     {
-        $user = $this->getUser();
-
         $news = DB::table('news')->where('id',$id)->get();
         //return $news;
         return view('/news-content',compact('news'));
@@ -61,7 +57,6 @@ class NewsController extends Controller
 
     public function view_modal(Request $request)
     {
-        $user = Auth::user();
         $tmp=[];
         $news = News::where('id',$request->id)->get();
 
@@ -79,11 +74,17 @@ class NewsController extends Controller
 
     public function create()
     {
+        if(is_null(Auth::user()))
+            return abort('404');
+
         return view('/news-create');
     }
 
     public function create_content(Request $request)
     {
+        if(is_null(Auth::user()))
+            return abort('404');
+
         $title = Input::get('title');
         $content = Input::get('content');
         $at_home = Input::get('at_home');
@@ -111,7 +112,9 @@ class NewsController extends Controller
 
     public function save_news(Request $request)
     {
-        $user = Auth::user();
+        if(is_null(Auth::user()))
+            return abort('404');
+
         $new = News::where('id',$request->id)->first();
         //return $new;
         $new->title = $request->title;
@@ -123,7 +126,8 @@ class NewsController extends Controller
 
     public function update($id, Request $request)
     {
-        $user = Auth::user();
+        if(is_null(Auth::user()))
+            return abort('404');
 
         $title = Input::get('title');
         $content = Input::get('content');
@@ -179,6 +183,8 @@ class NewsController extends Controller
 
     public function remove(Request $request)
     {
+        if(is_null(Auth::user()))
+            return abort('404');
         $new = News::find($request->id)->delete();
         return "success";
     }

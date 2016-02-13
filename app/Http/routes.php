@@ -23,7 +23,7 @@ Route::post('/news/view/modal', 'NewsController@view_modal');
 Route::get ('/news/create', 'NewsController@create');
 Route::post('/news/create/content', 'NewsController@create_content');
 Route::post('/news/upload/image', 'NewsController@upload_image');
-Route::post('/news/update/{id}', 'NewsController@update_news');
+Route::post('/news/update/{id}', 'NewsController@update');
 Route::post('/news/remove', 'NewsController@remove');
 Route::post('save_news', 'NewsController@save_news');
 

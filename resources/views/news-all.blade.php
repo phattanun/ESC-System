@@ -20,13 +20,13 @@
                      style="background-image:url({{asset('assets/images/news/test1.jpg')}}); "></div>
                 <div class="modal-news-box-card news-box-card">
                     <div class="row news-box-head">
-                        <h2 class="modal-news-box-head">ชื่อกิจกรรม2</h2>
+                        <h2 class="modal-news-box-head"></h2>
                     </div>
                     <div class="row news-box-date">
-                        <div><span class="created modal-created">Created at : 22/1/59</span>|<span class="updated modal-updated">Updated at : 27/1/59</span></div>
+                        <div><span class="created modal-created"></span><span class="updated modal-updated"></span></div>
                     </div>
                     <div class="row news-box-content">
-                        <p class="modal-news-box-content">เนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหาเนื้อหา</p>
+                        <p class="modal-news-box-content"></p>
                     </div>
                 </div>
             </div>
@@ -35,6 +35,7 @@
 
 
     <div class="news-container">
+        @if(isset($user['news']))
         <div class="row">
             <div class="col-xs-2 col-xs-offset-10 margin-top-40 tab-create-news-button">
                 <div class="tab-button create-news-button" style="background-color: rgba(6,6,6,0.05); text-align: center; cursor: pointer;">
@@ -42,6 +43,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="news-all margin-top-40">
             @foreach($news as $new)
                 <div class="news-box" id="{{$new->id}}">
@@ -51,10 +53,12 @@
                          content="{{$new->id}}" data-toggle="modal" data-target="#myModal"></div>
                     @endif
                     <div class="news-box-card">
+                        @if(isset($user['news']))
                         <div class="tab-button-bar row">
                             <button class="col-xs-2 col-xs-offset-10 tab-button tab-button-first tab-button-edit"
                                     id="edit-{{$new->id}}" content="{{$new->id}}"><i class="fa fa-lg fa-cogs"></i></button>
                         </div>
+                        @endif
                         <div class="can-click" content="{{$new->id}}" data-toggle="modal" data-target="#myModal">
                             <div class="row news-box-head">
                                 <h2>{{$new->title}}</h2>
@@ -105,20 +109,10 @@
         open_modal(content_id);
     });
 
-    $(".tab-button-edit").click(function(e){
-        var content_id=$(this).attr("content");
-        window.location.href = "{{url('/news/view/')}}/"+content_id;
-
-    });
-
     $(".content-modal").click(function(e){
         if($(e.target).is('.content-modal') ){
             window.history.replaceState("object or string", "Title", prev_url);
         }
-    });
-
-    $(".create-news-button").click(function(){
-        window.location.href = "{{url('news/create')}}";
     });
 
     function open_modal(content_id){
@@ -137,6 +131,21 @@
 
         });
     }
+
+    @if(isset($user['news']))
+    // News-Manager ONLY
+
+    $(".tab-button-edit").click(function(e){
+        var content_id=$(this).attr("content");
+        window.location.href = "{{url('/news/view/')}}/"+content_id;
+
+    });
+
+    $(".create-news-button").click(function(){
+        window.location.href = "{{url('news/create')}}";
+    });
+
+    @endif
 
     /* ----------------------------------------------------------------------*/
     /* respondsive  -------------------------------------------------------- */
