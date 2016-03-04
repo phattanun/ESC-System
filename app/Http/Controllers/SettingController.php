@@ -71,9 +71,8 @@ class SettingController extends Controller
 
         $sid = Input::get('student_id');
         $privilege = Input::get('privilege');
-        Permission::truncate();
         foreach($sid as $id){
-            $permission = Permission::create();
+            $permission = Permission::find($id);
             $permission->student_id =  $id;
             if(isset($privilege[$id])&&in_array('announce', $privilege[$id])) $permission->news =true; else $permission->news =false;
             if(isset($privilege[$id])&&in_array('room', $privilege[$id])) $permission->room =true; else  $permission->room =false;
