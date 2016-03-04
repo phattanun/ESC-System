@@ -27,7 +27,7 @@
                                         <label class="margin-bottom-20">ปีการศึกษา </label>
                                         <label class="margin-bottom-20 currentYear pull-left">{{$year}}</label>
                                         <div id="editYearButton" class="pull-left">
-                                            <a type="submit" class="btn btn-3d btn-reveal btn-yellow">
+                                            <a class="btn btn-3d btn-reveal btn-yellow">
                                                 <i class="fa fa-edit"></i>
                                                 <span>แก้ไข</span>
                                             </a>
@@ -172,7 +172,7 @@
     <link href="{{url('assets/css/setting.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
-@section('js')
+@section('js-top')
     <script>
         function main () {
             $("#editYearButton").click(function () {
