@@ -45,8 +45,26 @@ class NewsController extends Controller
         return view('/news-all');
         return compact('news-all','count','page');
         return view('/news-all' , compact('news','count','page'));
-
     }
+
+    public function view_home()
+    {
+        $news = News::orderBy('updated_at', 'desc')->where('at_home',true)->get();
+
+        foreach ($news as &$x) {
+            $x->content = str_limit($x->content, $limit = 300, $end = '...');
+        }
+
+        if (count($news) == 0) {
+            abort(404);
+        }
+
+        return view('/news-home' , compact('news'));
+        return view('/news-all');
+        return compact('news-all','count','page');
+        return view('/news-all' , compact('news','count','page'));
+    }
+
 
     public function view_content($id)
     {

@@ -12,7 +12,7 @@
 */
 
 // Default
-Route::get('/', 'NewsController@view');
+Route::get('/', 'NewsController@view_home');
 
 // News
 Route::get ('/news', 'NewsController@view');
