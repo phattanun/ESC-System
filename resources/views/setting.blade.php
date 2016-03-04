@@ -100,8 +100,8 @@
                                     <td>ข้อมูลนิสิต</td>
                                 </tr>
                                 @foreach($permission_users as $permission_user)
-                                    <tr >
-                                        <td class="text-center"><a  class="social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                    <tr id="tuple-{{$permission_user['student_id']}}"><input type="hidden" id="delete-{{$permission_user['student_id']}}" name="privilege[{{$permission_user['student_id']}}][]" value="" />
+                                        <td class="text-center"><a id="{{$permission_user['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-trash"></i>
                                         </a></td>
@@ -200,6 +200,19 @@
                 if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                     e.preventDefault();
                 }
+            });
+            $('.delete-a-tuple').click(function(){
+                    var id =  this.id;
+                {{--var URL_ROOT = '{{Request::root()}}';--}}
+                {{--$.post(URL_ROOT+"/setting/delete_permission",--}}
+                        {{--{data: id, _token: '{{csrf_token()}}'}).done(function () {--}}
+                      $('#tuple-'+id).addClass('hidden');
+                      $('#delete-'+id).val('deleted');
+//                    _toastr('ลบสำเร็จ','top-right','default',false);
+//                }).fail(function () {
+//
+//                });
+//
             });
         }
         $( document ).ready(main);

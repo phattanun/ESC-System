@@ -71,18 +71,49 @@ class SettingController extends Controller
 
         $sid = Input::get('student_id');
         $privilege = Input::get('privilege');
-        foreach($sid as $id){
-            $permission = Permission::find($id);
-            $permission->student_id =  $id;
-            if(isset($privilege[$id])&&in_array('announce', $privilege[$id])) $permission->news =true; else $permission->news =false;
-            if(isset($privilege[$id])&&in_array('room', $privilege[$id])) $permission->room =true; else  $permission->room =false;
-            if(isset($privilege[$id])&&in_array('supplies', $privilege[$id])) $permission->supplies =true; else $permission->supplies =false;
-            if(isset($privilege[$id])&&in_array('activity', $privilege[$id])) $permission->activities =true; else $permission->activities =false;
-            if(isset($privilege[$id])&&in_array('student', $privilege[$id])) $permission->student =true; else $permission->student =false;
-            $permission->save();
+      if(isset($sid))  {
+            foreach($sid as $id){
+                $permission = Permission::find($id);
+                if($permission==null&&!in_array('deleted', $privilege[$id])){
+                    $new = new Permission();
+                    $new->student_id =  $id;
+                    if(isset($privilege[$id])){
+                        if(in_array('announce', $privilege[$id])) $new->news =true; else $new->news =false;
+                        if(in_array('room', $privilege[$id])) $new->room =true; else  $new->room =false;
+                        if(in_array('supplies', $privilege[$id])) $new->supplies =true; else $new->supplies =false;
+                        if(in_array('activity', $privilege[$id])) $new->activities =true; else $new->activities =false;
+                        if(in_array('student', $privilege[$id])) $new->student =true; else $new->student =false;
+                    }
+                    $new->save();
+                    continue;
+                }
+//                $permission->student_id =  $id;
+                else if(isset($privilege[$id])){
+                    if(in_array('deleted', $privilege[$id])) {
+                        Permission::destroy($id);
+                        continue;
+                    }
+                    if(in_array('announce', $privilege[$id])) $permission->news =true; else $permission->news =false;
+                    if(in_array('room', $privilege[$id])) $permission->room =true; else  $permission->room =false;
+                    if(in_array('supplies', $privilege[$id])) $permission->supplies =true; else $permission->supplies =false;
+                    if(in_array('activity', $privilege[$id])) $permission->activities =true; else $permission->activities =false;
+                    if(in_array('student', $privilege[$id])) $permission->student =true; else $permission->student =false;
+                }
+                $permission->save();
 
-        }
+            }
+      }
         return redirect('/setting');
+    }
+    public function deletePermission(Request $request)
+    {
+        $user = $this->getUser();
+
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
+
+        ;
+        Permission::destroy($request->input('data'));
     }
 
     /**

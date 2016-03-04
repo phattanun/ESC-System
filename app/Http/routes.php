@@ -46,6 +46,7 @@ Route::post('/register', 'PagesController@registerConfirm');
 Route::get ('/setting', 'SettingController@index');
 Route::post('/setting/edit_year', 'SettingController@editYear');
 Route::post('/setting/edit_permission', 'SettingController@editPermission');
+Route::post('/setting/delete_permission', 'SettingController@deletePermission');
 
 
 Route::get ('/profile', 'PagesController@profilePage');
