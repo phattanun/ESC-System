@@ -2971,7 +2971,7 @@
 								queryTokenizer: Bloodhound.tokenizers.whitespace,
 								limit:	_limit,
 								remote: {
-									url: _qryURL + '%QUERY',
+									url: _qryURL,
 								},
  							});
 

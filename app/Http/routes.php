@@ -44,9 +44,11 @@ Route::post('/register', 'PagesController@registerConfirm');
 
 //Setting Page
 Route::get ('/setting', 'SettingController@index');
+Route::get ('/setting/auto_suggest', 'SettingController@autoSuggest');
 Route::post('/setting/edit_year', 'SettingController@editYear');
 Route::post('/setting/edit_permission', 'SettingController@editPermission');
 Route::post('/setting/delete_permission', 'SettingController@deletePermission');
+Route::post('/setting/add_new_permission', 'SettingController@addNewPermission');
 
 
 Route::get ('/profile', 'PagesController@profilePage');

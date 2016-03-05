@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Permission;
+use App\User;
 use App\Setting;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,6 @@ use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = $this->getUser();
@@ -35,22 +31,10 @@ class SettingController extends Controller
             ->select('permissions.student_id','users.name','users.surname','permissions.news','permissions.room','permissions.supplies','permissions.activities','permissions.student')
             ->get();
 
-
-
-
         return view('setting',compact('year','permission_users'));
-
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function editYear()
     {
-        $user = $this->getUser();
-
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
 
@@ -73,7 +57,7 @@ class SettingController extends Controller
         $privilege = Input::get('privilege');
       if(isset($sid))  {
             foreach($sid as $id){
-                $permission = Permission::find($id);
+                $permission = Permission::where('student_id',$id)->first();
                 if($permission==null&&!in_array('deleted', $privilege[$id])){
                     $new = new Permission();
                     $new->student_id =  $id;
@@ -90,7 +74,7 @@ class SettingController extends Controller
 //                $permission->student_id =  $id;
                 else if(isset($privilege[$id])){
                     if(in_array('deleted', $privilege[$id])) {
-                        Permission::destroy($id);
+                        Permission::where('student_id',$id)->delete();
                         continue;
                     }
                     if(in_array('announce', $privilege[$id])) $permission->news =true; else $permission->news =false;
@@ -116,46 +100,54 @@ class SettingController extends Controller
         Permission::destroy($request->input('data'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function autoSuggest()
     {
-        //
+        if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])) {
+            $LIMIT 		= isset($_REQUEST['limit']) 	? (int) 	$_REQUEST['limit'] 		: 30;
+            $KEYWORD 	= isset($_REQUEST['search']) 	? (string) 	$_REQUEST['search'] 	: null;
+            $KEYWORD_splitted = explode(' ',$KEYWORD);
+
+            $user=User::select(['student_id','name','surname'])
+                    ->where(function ($query) use ($KEYWORD_splitted) {
+                        foreach($KEYWORD_splitted as $KEYWORD)
+                        $query->where('student_id', 'LIKE', '%'.$KEYWORD.'%');
+                        $query->orWhere('name', 'LIKE', '%'.$KEYWORD.'%');
+                        $query->orWhere('surname', 'LIKE', '%'.$KEYWORD.'%');
+                    })
+                ->take($LIMIT)
+                ->orderBy('student_id', 'asc')
+                ->get();
+
+            $array=[];
+            if(isset($user)&&$user != null){
+                foreach($user as $users){
+                    array_push($array,$users->student_id." ".$users->name." ".$users->surname);
+                }
+            }
+            $json = json_encode($array);
+            die($json);
+
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function addNewPermission(Request $request)
     {
-        //
+        $user = explode(' ',$request->input('data'));
+
+        if(User::where('student_id',$user[0])->exists()){
+            return User::select(['student_id','name','surname'])->find($user[0]);
+        }
+        else {
+            return 'fail';
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

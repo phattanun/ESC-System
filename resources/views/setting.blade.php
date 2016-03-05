@@ -71,10 +71,10 @@
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
                                         <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
-                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="php/view/demo.autosuggest.php?limit=10&search=">
+                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="{{url('setting/auto_suggest?limit=10&search=1')}}">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
-                                            <span class="input-group-btn">
+                                            <span class="input-group-btn" id="add-new-permission-btn">
                                                 <a class="btn btn-success">เพิ่ม</a>
                                             </span>
                                         </div>
@@ -84,7 +84,7 @@
                             </div>
                         </fieldset>
                         <div class="table-responsive margin-bottom-30">
-                            <table class="table nomargin">
+                            <table class="table nomargin" id="permission-table">
                                 <tr >
                                     <th style="vertical-align:middle" rowspan="2"></th>
                                     <th style="vertical-align:middle" rowspan="2">รหัสนิสิต</th>
@@ -201,18 +201,79 @@
                     e.preventDefault();
                 }
             });
-            $('.delete-a-tuple').click(function(){
+            $('#studentInfo').keyup(function(){
+                $('.typeahead').typeahead('destroy');
+                $('.autosuggest').attr('data-queryURL','{!! url('setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                _autosuggest();
+                $(this).trigger( "focus" );
+            });
+            $(document).on('click','.delete-a-tuple',function(){
                     var id =  this.id;
-                {{--var URL_ROOT = '{{Request::root()}}';--}}
-                {{--$.post(URL_ROOT+"/setting/delete_permission",--}}
-                        {{--{data: id, _token: '{{csrf_token()}}'}).done(function () {--}}
-                      $('#tuple-'+id).addClass('hidden');
-                      $('#delete-'+id).val('deleted');
-//                    _toastr('ลบสำเร็จ','top-right','default',false);
-//                }).fail(function () {
-//
-//                });
-//
+                    $('#tuple-'+id).addClass('hidden');
+                    $('#delete-'+id).val('deleted');
+            });
+            $(document).on('click','#add-new-permission-btn',function(){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+'/setting/add_new_permission',
+                        {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                    if(input=='fail'){
+                        _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                        return false;
+                    }
+                    else {
+                        if(document.getElementById(+input["student_id"])){
+                            if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
+                                _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                            }
+                            $('#tuple-'+input["student_id"]).removeClass('hidden');
+                            $('#delete-'+input["student_id"]).val("");
+                        }
+                        else {
+                            $('#permission-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="privilege['+input["student_id"]+'][]" value="" />'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +' <i class="fa fa-minus"></i>'
+                                    +' <i class="fa fa-trash"></i>'
+                                    +' </a></td>'
+                                    +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
+                                    +' <td>'+input["name"]+'</td>'
+                                    +' <td>'+input["surname"]+'</td>'
+                                    +' <td class="text-center">'
+                                    +' <label class="switch switch-success">'
+                                    +' <input  name="privilege['+input["student_id"]+'][]" value="announce" type="checkbox">'
+                                    +'  <span class="switch-label" data-on="YES" data-off="NO"></span>'
+                                    +' </label>'
+                                    +'  </td>'
+                                    +' <td class="text-center">'
+                                    +'   <label class="switch switch-success">'
+                                    +'      <input name="privilege['+input["student_id"]+'][]" value="room" type="checkbox" type="checkbox">'
+                                    +'          <span class="switch-label" data-on="YES" data-off="NO"></span>'
+                                    +'   </label>'
+                                    +'  </td>'
+                                    +' <td class="text-center">'
+                                    +'  <label class="switch switch-success">'
+                                    +'     <input   name="privilege['+input["student_id"]+'][]" value="supplies" type="checkbox" type="checkbox">'
+                                    +'         <span class="switch-label" data-on="YES" data-off="NO"></span>'
+                                    +' </label>'
+                                    +' </td>'
+                                    +' <td class="text-center">'
+                                    +'    <label class="switch switch-success">'
+                                    +'       <input  name="privilege['+input["student_id"]+'][]" value="activity" type="checkbox" type="checkbox">'
+                                    +'         <span class="switch-label" data-on="YES" data-off="NO"></span>'
+                                    +' </label>'
+                                    +'  </td>'
+                                    +'  <td class="text-center">'
+                                    +'   <label class="switch switch-success">'
+                                    +'     <input name="privilege['+input["student_id"]+'][]" value="student" type="checkbox">'
+                                    +'        <span class="switch-label" data-on="YES" data-off="NO"></span>'
+                                    +'</label>'
+                                    +'</td>'
+                                    +'  </tr>');
+                        }
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                    return false;
+                });
             });
         }
         $( document ).ready(main);
