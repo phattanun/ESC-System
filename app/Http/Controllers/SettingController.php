@@ -29,6 +29,7 @@ class SettingController extends Controller
 
         $permission_users = Permission::join('users','permissions.student_id','=','users.student_id')
             ->select('permissions.student_id','users.name','users.surname','permissions.news','permissions.room','permissions.supplies','permissions.activities','permissions.student')
+            ->orderBy('permissions.student_id','asc')
             ->get();
 
         return view('setting',compact('year','permission_users'));
@@ -71,7 +72,6 @@ class SettingController extends Controller
                     $new->save();
                     continue;
                 }
-//                $permission->student_id =  $id;
                 else if(isset($privilege[$id])){
                     if(in_array('deleted', $privilege[$id])) {
                         Permission::where('student_id',$id)->delete();
