@@ -77,7 +77,7 @@
         </div>
 
         <div class="mtb-30 margin-bottom-40" style="text-align: right; font-size: 18px; cursor: pointer;">
-            <a href="/news">ข่าวสารทั้งหมด</a>
+            <a href="{{url('/news')}}">ข่าวสารทั้งหมด</a>
         </div>
 
     </div>
