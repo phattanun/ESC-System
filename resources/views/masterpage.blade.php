@@ -173,7 +173,7 @@
                             @endif
                             @if(isset($user) && $user)
                             <li class="@yield('studentsNavToggle')"><!-- STUDENTS' INFO -->
-                                <a href="students">
+                                <a href="{{URL::to('students')}}">
                                     ข้อมูลนิสิต
                                 </a>
                             </li>
