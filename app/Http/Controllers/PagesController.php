@@ -82,6 +82,10 @@ class PagesController extends Controller
 
     public function studentsPage(){
         $user = $this->getUser();
+
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
+
         return view('students');
     }
 
