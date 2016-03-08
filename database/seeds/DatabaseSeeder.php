@@ -150,14 +150,14 @@ class PermissionTableSeeder extends Seeder
 {
     public function run()
     {
-        Permission::create(['student_id'=>'1','news'=>true,'room'=>true,'supplies'=>true,'activities'=>true,'student'=>true]);
-        Permission::create(['student_id'=>'2','news'=>false,'room'=>false,'supplies'=>false,'activities'=>false,'student'=>false]);
+        Permission::create(['student_id'=>1,'news'=>true,'room'=>true,'supplies'=>true,'activities'=>true,'student'=>true]);
+        Permission::create(['student_id'=>2,'news'=>false,'room'=>false,'supplies'=>false,'activities'=>false,'student'=>false]);
     }
 }
 class SettingTableSeeder extends Seeder
 {
     public function run()
     {
-        Setting::create(['admin_id'=>'1','year'=>2558]);
+        Setting::create(['admin_id'=>1,'year'=>2558]);
     }
 }

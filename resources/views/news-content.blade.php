@@ -18,15 +18,15 @@
         <div class="news-all">
 
             @if(isset($user['news']))
-            <form id="upload_form" action="{{url().'/news/update/'.$news[0]->id}}"  enctype="multipart/form-data" method="post" name="" class="">
+            <form id="upload_form" action="{{url().'/news/update/'.$news[0]->news_id}}"  enctype="multipart/form-data" method="post" name="" class="">
                 {{csrf_field()}}
             @endif
 
-            <div class="news-box" id="{{$news[0]->id}}">
-                <div class="news-image" id="news-image-{{$news[0]->id}}" style="background-image:url({{$news[0]->image}}); ">
+            <div class="news-box" id="{{$news[0]->news_id}}">
+                <div class="news-image" id="news-image-{{$news[0]->news_id}}" style="background-image:url({{$news[0]->image}}); ">
                     @if(isset($user['news']))
-                    <div class="browse-bar container-fluid hide" id="browse-bar-{{$news[0]->id}}">
-                        <div class="row"><input name="image" type="file" class="col-xs-12 tab-button browse-button" id="browse-button-{{$news[0]->id}}"></div>
+                    <div class="browse-bar container-fluid hide" id="browse-bar-{{$news[0]->news_id}}">
+                        <div class="row"><input name="image" type="file" class="col-xs-12 tab-button browse-button" id="browse-button-{{$news[0]->news_id}}"></div>
                     </div>
                     @endif
                 </div>
@@ -35,19 +35,19 @@
 
                     @if(isset($user['news']))
                     <div class="tab-button-bar row" style="margin-bottom: 0px;">
-                        <div class="col-xs-2 tab-button tab-button-first tab-button-edit col-xs-offset-10" id="edit-{{$news[0]->id}}"><i class="fa fa-lg fa-cog"></i></div>
+                        <div class="col-xs-2 tab-button tab-button-first tab-button-edit col-xs-offset-10" id="edit-{{$news[0]->news_id}}"><i class="fa fa-lg fa-cog"></i></div>
                     </div>
                     <div class="tab-button-bar tab-button-trash-home-bar row hide" style="margin-top: 5px;">
-                        <div class="col-xs-1 tab-button tab-button-first tab-button-trash col-xs-offset-10" id="trash-{{$news[0]->id}}"><i class="fa fa-lg fa-trash"></i></div>
-                        <div class="col-xs-1 tab-button tab-button-home" id="home-{{$news[0]->id}}"><i class="fa fa-lg fa-home"></i></div>
+                        <div class="col-xs-1 tab-button tab-button-first tab-button-trash col-xs-offset-10" id="trash-{{$news[0]->news_id}}"><i class="fa fa-lg fa-trash"></i></div>
+                        <div class="col-xs-1 tab-button tab-button-home" id="home-{{$news[0]->news_id}}"><i class="fa fa-lg fa-home"></i></div>
                         <input type="hidden" name="at_home" value="{{$news[0]->at_home}}" class="at_home">
                     </div>
                     @endif
 
                     <div class="row news-box-head">
-                        <h2 class="news-box-head-text" id="activity-name-{{$news[0]->id}}">{{$news[0]->title}}</h2>
+                        <h2 class="news-box-head-text" id="activity-name-{{$news[0]->news_id}}">{{$news[0]->title}}</h2>
                         @if(isset($user['news']))
-                        <textarea name="title" class="news-box-head-text activity-name-input hide" rows="1" placeholder="ชื่อกิจกรรม" id="activity-name-input-{{$news[0]->id}}">{{$news[0]->title}}</textarea>
+                        <textarea name="title" class="news-box-head-text activity-name-input hide" rows="1" placeholder="ชื่อกิจกรรม" id="activity-name-input-{{$news[0]->news_id}}">{{$news[0]->title}}</textarea>
                         @endif
                     </div>
 
@@ -56,16 +56,16 @@
                     </div>
 
                     <div class="row news-box-content">
-                        <div class="news-box-content-text" id="activity-content-{{$news[0]->id}}">{!!$news[0]->content!!}</div>
+                        <div class="news-box-content-text" id="activity-content-{{$news[0]->news_id}}">{!!$news[0]->content!!}</div>
                         @if(isset($user['news']))
-                        <textarea name="content" class="news-box-content-text activity-content-input hide" rows="5" placeholder="รายละเอียดกิจกรรม" id="activity-content-input-{{$news[0]->id}}">{{$news[0]->content}}</textarea>
+                        <textarea name="content" class="news-box-content-text activity-content-input hide" rows="5" placeholder="รายละเอียดกิจกรรม" id="activity-content-input-{{$news[0]->news_id}}">{{$news[0]->content}}</textarea>
                         @endif
                     </div>
 
                     @if(isset($user['news']))
                     <div class="container-fluid save-button-bar">
-                        <div class="col-xs-2 col-xs-offset-8 tab-button tab-button-first cancel-button hide" id="cancel-button-{{$news[0]->id}}">ยกเลิก</div>
-                        <button type="submit" class="col-xs-2 tab-button tab-button-first save-button hide" id="save-button-{{$news[0]->id}}" onclick="save_news()">บันทึก</button>
+                        <div class="col-xs-2 col-xs-offset-8 tab-button tab-button-first cancel-button hide" id="cancel-button-{{$news[0]->news_id}}">ยกเลิก</div>
+                        <button type="submit" class="col-xs-2 tab-button tab-button-first save-button hide" id="save-button-{{$news[0]->news_id}}" onclick="save_news()">บันทึก</button>
                     </div>
                     @endif
                 </div>
@@ -90,13 +90,13 @@
         $( document ).ready(function() {
             if($(".at_home").attr("value") == 1)
                 $(".tab-button-home").addClass("action");
-            window.history.replaceState("object or string", "Title", "{{url('/news/view/')}}/"+"{{$news[0]->id}}");
+            window.history.replaceState("object or string", "Title", "{{url('/news/view/')}}/"+"{{$news[0]->news_id}}");
         });
 
         @if(isset($user['news']))
         // News-Manager ONLY
 
-            const newsID = {{$news[0]->id}};
+            const newsID = {{$news[0]->news_id}};
             const oldImage = $('#news-image-'+newsID).css('background-image');
             const oldTitle = $("#activity-name-"+newsID).html();
             const oldContent = $("#activity-content-"+newsID).html();
@@ -104,7 +104,7 @@
             $(".tab-button-edit").click(function(){
                 if(!editStatus) {
                     $(this).addClass("action");
-                    editor = CKEDITOR.replace( 'activity-content-input-{{$news[0]->id}}' );
+                    editor = CKEDITOR.replace( 'activity-content-input-{{$news[0]->news_id}}' );
                     notDestroy = true;
                     $("#activity-name-"+newsID).addClass("hide");
                     $("#activity-content-"+newsID).addClass("hide");
@@ -174,7 +174,7 @@
                 var r = confirm("Press a button!");
                 if (r == true) {
                     $.post('{{url('/news/remove')}}',
-                            { id: newsID ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+                            { news_id: newsID ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
                     });
                     window.location.href = "{{url('/news/all')}}";
                 }
