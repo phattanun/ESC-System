@@ -20,7 +20,7 @@ class CreateInventoriesTable extends Migration
             $table->double('prive_per_unit',10,2);
             $table->double('total_qty',10,2);
             $table->double('broken_qty',10,2);
-            $table->integer('editor_id')->unsigned();
+            $table->bigInteger('editor_id')->unsigned();
             $table->timestamp('edit_at');
 
             $table->foreign('editor_id')->references('student_id')->on('users');

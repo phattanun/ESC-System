@@ -70,7 +70,7 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
-        User::create(['student_id'=>56310110,
+        User::create(['student_id'=>5631011021,
             'password'=>bcrypt('3'),
             'name'=>'พัทธนันท์',
             'surname'=>'อัครพันธุ์ธัช',
@@ -90,7 +90,7 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
-        User::create(['student_id'=>56310081,
+        User::create(['student_id'=>5631008121,
             'password'=>bcrypt('4'),
             'name'=>'กิตติภณ',
             'surname'=>'พละการ',
@@ -110,7 +110,7 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
-        User::create(['student_id'=>56310098,
+        User::create(['student_id'=>5631009821,
             'password'=>bcrypt('5'),
             'name'=>'กิตติภพ',
             'surname'=>'พละการ',
@@ -130,7 +130,7 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
-        User::create(['student_id'=>56310023,
+        User::create(['student_id'=>5631002321,
             'password'=>bcrypt('6'),
             'name'=>'กฤตย์',
             'surname'=>'กังวาลพงศ์พันธุ์',

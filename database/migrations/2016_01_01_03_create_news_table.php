@@ -18,8 +18,8 @@ class CreateNewsTable extends Migration
             $table->text('content');
             $table->mediumText('image');
             $table->boolean('at_home');
-            $table->integer('creator_id')->unsigned()->nullable();
-            $table->integer('editor_id')->unsigned()->nullable();
+            $table->bigInteger('creator_id')->unsigned()->nullable();
+            $table->bigInteger('editor_id')->unsigned()->nullable();
             //$table->string('category');
             //$table->integer('view_count'); //<--- may be unnecessary (replaced with google analytic)
             $table->timestamps();

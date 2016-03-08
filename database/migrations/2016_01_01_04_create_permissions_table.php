@@ -13,7 +13,7 @@ class CreatePermissionsTable extends Migration
     public function up()
     {
         Schema::create('permissions', function (Blueprint $table) {
-            $table->integer('student_id')->unsigned()->primary();
+            $table->bigInteger('student_id')->unsigned()->primary();
             $table->boolean('student');
             $table->boolean('supplies');
             $table->boolean('news');

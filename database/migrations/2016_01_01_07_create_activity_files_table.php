@@ -16,9 +16,11 @@ class CreateActivityFilesTable extends Migration
             $table->integer('act_id')->unsigned();
             $table->string('file_name');
             $table->timestamp('create_at');
+            $table->bigInteger('uploader_id')->unsigned();
             $table->primary(array('act_id','file_name','create_at'));
 
             $table->foreign('act_id')->references('act_id')->on('activities');
+            $table->foreign('uploader_id')->references('student_id')->on('users');
         });
     }
 

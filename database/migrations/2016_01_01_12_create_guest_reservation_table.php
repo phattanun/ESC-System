@@ -34,7 +34,7 @@ class CreateGuestReservationTable extends Migration
             $table->string('guest_org');
             $table->integer('request_room_id')->unsigned();
             $table->integer('allow_room_id')->unsigned()->nullable();
-            $table->integer('approver_id')->unsigned()->nullable();
+            $table->bigInteger('approver_id')->unsigned()->nullable();
             $table->string('reason_if_not_approve')->nullable();
             $table->timestamp('create_at');
             $table->timestamp('approve_at')->nullable();

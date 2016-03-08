@@ -25,10 +25,10 @@ class CreateActivitiesTable extends Migration
             $table->tinyinteger('status');
             $table->integer('avail_year')->unsigned();
             $table->integer('div_id')->unsigned();
-            $table->integer('creator_id')->unsigned();
-            $table->integer('editor_id')->unsigned();
+            $table->bigInteger('creator_id')->unsigned();
+            $table->bigInteger('editor_id')->unsigned();
             $table->timestamps();
-            
+
             $table->foreign('div_id')->references('div_id')->on('divisions');
             $table->foreign('creator_id')->references('student_id')->on('users');
             $table->foreign('editor_id')->references('student_id')->on('users');

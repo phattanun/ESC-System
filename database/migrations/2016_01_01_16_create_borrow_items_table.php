@@ -19,8 +19,8 @@ class CreateBorrowItemsTable extends Migration
             $table->timestamp('borrow_date');
             $table->timestamp('return_date');
             $table->tinyinteger('status');
-            $table->integer('approver_id')->unsigned();
-            $table->integer('giver_id')->unsigned();
+            $table->bigInteger('approver_id')->unsigned();
+            $table->bigInteger('giver_id')->unsigned();
             $table->string('reason_if_not_approve')->nullable();
 
             $table->primary(array('list_id','inv_id'));

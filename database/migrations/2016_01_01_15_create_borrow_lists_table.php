@@ -15,7 +15,7 @@ class CreateBorrowListsTable extends Migration
         Schema::create('borrow_lists', function (Blueprint $table) {
             $table->increments('list_id');
             $table->boolean('status')->nullable();
-            $table->integer('creator_id')->unsigned();
+            $table->bigInteger('creator_id')->unsigned();
             $table->integer('div_id')->unsigned()->nullable();
             $table->string('other_div')->nullable();
             $table->integer('act_id')->unsigned()->nullable();

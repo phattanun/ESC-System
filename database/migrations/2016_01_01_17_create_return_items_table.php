@@ -16,7 +16,7 @@ class CreateReturnItemsTable extends Migration
             $table->increments('ret_id');
             $table->integer('list_id')->unsigned();
             $table->integer('inv_id')->unsigned();
-            $table->integer('receiver_id')->unsigned();
+            $table->bigInteger('receiver_id')->unsigned();
             $table->double('amount',10,2);
             $table->timestamp('receive_date');
 

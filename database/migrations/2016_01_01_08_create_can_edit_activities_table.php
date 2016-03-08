@@ -14,7 +14,7 @@ class CreateCanEditActivitiesTable extends Migration
     {
         Schema::create('can_edit_activities', function (Blueprint $table) {
             $table->integer('act_id')->unsigned();
-            $table->integer('student_id')->unsigned();
+            $table->bigInteger('student_id')->unsigned();
             $table->primary(array('act_id','student_id'));
 
             $table->foreign('act_id')->references('act_id')->on('activities');
