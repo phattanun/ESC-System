@@ -90,4 +90,9 @@ class ScheduleController extends Controller
     {
         //
     }
+
+    public function roomManagePage()
+    {
+        return view('room-manage');
+    }
 }

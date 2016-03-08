@@ -31,6 +31,8 @@ Route::post('save_news', 'NewsController@save_news');
 Route::get('/schedule/manage', 'PagesController@scheduleManagePage');
 Route::get('/schedule/result', 'ScheduleController@viewResultPage');
 
+Route::get('/schedule/room', 'ScheduleController@roomManagePage');
+
 // Supply
 Route::get('/supplies', 'PagesController@suppliesPage');
 
