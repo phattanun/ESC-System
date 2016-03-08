@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-         $this->call(UserTableSeeder::class);
-         $this->call(news_seeder::class);
-         $this->call(PermissionTableSeeder::class);
-         $this->call(SettingTableSeeder::class);
+        $this->call(DivisionTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(news_seeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(SettingTableSeeder::class);
 
         Model::reguard();
     }
@@ -41,10 +42,11 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department'=>'คอมฯ ณ ห้องเขียว',
-            'group'=>'F',
+            'department'=>100001,
+            'group'=>1006,
+            'generation'=>97,
             'allergy'=>'ถั่ว',
-            'anomaly'=>'อะไรวะ',
+            'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
@@ -60,10 +62,11 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department'=>'คอมฯ ณ ห้องเขียว',
-            'group'=>'F',
+            'department'=>100001,
+            'group'=>1006,
+            'generation'=>97,
             'allergy'=>'ถั่ว',
-            'anomaly'=>'อะไรวะ',
+            'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
@@ -79,10 +82,11 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department'=>'คอมฯ ณ ห้องเขียว',
-            'group'=>'F',
+            'department'=>100001,
+            'group'=>1006,
+            'generation'=>97,
             'allergy'=>'ถั่ว',
-            'anomaly'=>'อะไรวะ',
+            'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
@@ -98,10 +102,11 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department'=>'คอมฯ ณ ห้องเขียว',
-            'group'=>'F',
+            'department'=>100001,
+            'group'=>1006,
+            'generation'=>97,
             'allergy'=>'ถั่ว',
-            'anomaly'=>'อะไรวะ',
+            'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
@@ -117,10 +122,11 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department'=>'คอมฯ ณ ห้องเขียว',
-            'group'=>'F',
+            'department'=>100001,
+            'group'=>1006,
+            'generation'=>97,
             'allergy'=>'ถั่ว',
-            'anomaly'=>'อะไรวะ',
+            'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
@@ -136,10 +142,11 @@ class UserTableSeeder extends Seeder
             'facebook_link'=>'www.facebook.com/fonggag/',
             'line_id'=>'fong127',
             'emergency_contact'=>'0924587067',
-            'department'=>'คอมฯ ณ ห้องเขียว',
-            'group'=>'F',
+            'department'=>100001,
+            'group'=>1006,
+            'generation'=>97,
             'allergy'=>'ถั่ว',
-            'anomaly'=>'อะไรวะ',
+            'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
