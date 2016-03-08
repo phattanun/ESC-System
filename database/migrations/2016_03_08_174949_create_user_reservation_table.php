@@ -1,0 +1,58 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateUserReservationTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('user_reservation', function (Blueprint $table) {
+            $table->increments('res_id');
+            $table->text('reason');
+            $table->integer('number_of_people')->unsigned();
+            $table->timestamp('request_start_time');
+            $table->timestamp('request_end_time');
+            $table->timestamp('allow_start_time')->nullable();
+            $table->timestamp('allow_end_time')->nullable();
+            $table->boolean('status')->nullable();
+            $table->boolean('request_projector');
+            $table->boolean('allow_projector')->nullable();
+            $table->integer('request_plug')->unsigned();
+            $table->integer('allow_plug')->unsigned();
+            $table->integer('student_id')->unsigned();
+            $table->integer('div_id')->nullable();
+            $table->string('other_div')->nullable();
+            $table->integer('act_id')->nullable();
+            $table->string('other_act')->nullable();
+            $table->integer('request_room_id');
+            $table->integer('allow_room_id')->nullable();
+            $table->integer('approver_id')->unsigned()->nullable();
+            $table->string('reason_if_not_approve')->nullable();
+            $table->timestamp('create_at');
+            $table->timestamp('approve_at')->nullable();
+
+            $table->foreign('student_id')->references('student_id')->on('users');
+            // $table->foreign('div_id')->references('')->on('');
+            // $table->foreign('act_id')->references('')->on('');
+            // $table->foreign('request_room_id')->references('')->on('');
+            // $table->foreign('allow_room_id')->references('')->on('');
+            $table->foreign('approver_id')->references('student_id')->on('users');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('user_reservation');
+    }
+}

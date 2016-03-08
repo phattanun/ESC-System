@@ -46,20 +46,20 @@
         @endif
         <div class="news-all margin-top-40">
             @foreach($news as $new)
-                <div class="news-box" id="{{$new->id}}">
+                <div class="news-box" id="{{$new->news_id}}">
                     @if($new->image)
-                        <div class="news-image can-click" id="news-image-{{$new->id}}"
+                        <div class="news-image can-click" id="news-image-{{$new->news_id}}"
                              style="background-image:url({{$new->image}});"
-                             content="{{$new->id}}" data-toggle="modal" data-target="#myModal"></div>
+                             content="{{$new->news_id}}" data-toggle="modal" data-target="#myModal"></div>
                     @endif
                     <div class="news-box-card">
                         @if(isset($user['news']))
                             <div class="tab-button-bar row">
                                 <button class="col-xs-2 col-xs-offset-10 tab-button tab-button-first tab-button-edit"
-                                        id="edit-{{$new->id}}" content="{{$new->id}}"><i class="fa fa-lg fa-cogs"></i></button>
+                                        id="edit-{{$new->news_id}}" content="{{$new->news_id}}"><i class="fa fa-lg fa-cogs"></i></button>
                             </div>
                         @endif
-                        <div class="can-click" content="{{$new->id}}" data-toggle="modal" data-target="#myModal">
+                        <div class="can-click" content="{{$new->news_id}}" data-toggle="modal" data-target="#myModal">
                             <div class="row news-box-head">
                                 <h2>{{$new->title}}</h2>
                             </div>
@@ -111,7 +111,7 @@
 
         function open_modal(content_id){
             $.post("{{url('news/view/modal')}}",
-                    { id: content_id ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
+                    { news_id: content_id ,_token:'{{csrf_token()}}'  } ).done(function( input ) {
 
                 $(".modal-news-box-head").text(input[0]['title']);
                 $(".modal-news-box-content").html(input[0]['content']);

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingsTable extends Migration
+class CreateCalendarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->integer('admin_id')->unsigned()->primary();
-            $table->integer('year');
+        Schema::create('calendar', function (Blueprint $table) {
+            $table->integer('date_id')->unsigned()->primary();
+            $table->boolean('status');
+            $table->text('message')->nullable();
         });
     }
 
@@ -25,6 +26,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('settings');
+        Schema::drop('calendar');
     }
 }

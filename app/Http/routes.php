@@ -18,17 +18,16 @@ Route::get('/', 'NewsController@view_home');
 Route::get ('/news', 'NewsController@view');
 Route::get ('/news/all/', 'NewsController@view');
 Route::get ('/news/all/{page}', 'NewsController@view_page');
-Route::get ('/news/view/{id}', 'NewsController@view_content');
+Route::get ('/news/view/{news_id}', 'NewsController@view_content');
 Route::post('/news/view/modal', 'NewsController@view_modal');
 Route::get ('/news/create', 'NewsController@create');
 Route::post('/news/create/content', 'NewsController@create_content');
 Route::post('/news/upload/image', 'NewsController@upload_image');
-Route::post('/news/update/{id}', 'NewsController@update');
+Route::post('/news/update/{news_id}', 'NewsController@update');
 Route::post('/news/remove', 'NewsController@remove');
 Route::post('save_news', 'NewsController@save_news');
 
 // Schedule
-Route::get('/schedule/manage', 'PagesController@scheduleManagePage');
 Route::get('/schedule/result', 'ScheduleController@viewResultPage');
 
 // Supply

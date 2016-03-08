@@ -66,9 +66,9 @@ class NewsController extends Controller
     }
 
 
-    public function view_content($id)
+    public function view_content($news_id)
     {
-        $news = DB::table('news')->where('id',$id)->get();
+        $news = DB::table('news')->where('news_id',$news_id)->get();
         //return $news;
         return view('/news-content',compact('news'));
     }
@@ -76,7 +76,7 @@ class NewsController extends Controller
     public function view_modal(Request $request)
     {
         $tmp=[];
-        $news = News::where('id',$request->id)->get();
+        $news = News::where('news_id',$request->news_id)->get();
 
         foreach ($news as &$x)
             array_push($tmp, [
@@ -125,7 +125,7 @@ class NewsController extends Controller
         $new->save();
 
 
-        return $this->view_content($new->id);
+        return $this->view_content($new->news_id);
     }
 
     public function save_news(Request $request)
@@ -133,16 +133,16 @@ class NewsController extends Controller
         if(is_null(Auth::user()))
             return abort('404');
 
-        $new = News::where('id',$request->id)->first();
-        //return $new;
-        $new->title = $request->title;
-        $new->content = $request->content;
-        $new->updated_at = Carbon::now();
-        $new->save();
+        $news = News::where('news_id',$request->news_id)->first();
+        //return $news;
+        $news->title = $request->title;
+        $news->content = $request->content;
+        $news->updated_at = Carbon::now();
+        $news->save();
         return "success";
     }
 
-    public function update($id, Request $request)
+    public function update($news_id, Request $request)
     {
         if(is_null(Auth::user()))
             return abort('404');
@@ -158,8 +158,7 @@ class NewsController extends Controller
         }
         else $imageData = false;
 
-
-        $new = News::where('id',$id)->first();
+        $new = News::where('news_id',$news_id)->first();
 
         $new->title = $title;
         if($imageData)
@@ -168,14 +167,14 @@ class NewsController extends Controller
         $new->at_home = $at_home;
         $new->updated_at = Carbon::now();
         $new->save();
-        return $this->view_content($id);
+        return $this->view_content($news_id);
 /*
         $password = Input::get('password');
         $remember = Input::get('checkbox-inline');
 
         return Redirect::back();
         $user = Auth::user();
-        $new = News::where('id',$request->id)->first();
+        $new = News::where('news_id',$request->news_id)->first();
         $tmp =[];
         array_push($tmp, [
             'title' => $new->title,
@@ -203,7 +202,7 @@ class NewsController extends Controller
     {
         if(is_null(Auth::user()))
             return abort('404');
-        $new = News::find($request->id)->delete();
+        $new = News::where('news_id',$request->news_id)->delete();
         return "success";
     }
 
