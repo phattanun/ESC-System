@@ -26,8 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('facebook_link');
             $table->string('line_id');
             $table->string('emergency_contact');
-            $table->string('department');
-            $table->char('group',1);
+            $table->integer('department')->unsigned();
+            $table->integer('group')->unsigned();
+            $table->integer('generation')->unsigned();
             $table->string('allergy');
             $table->string('anomaly'); # AKA. disease
             $table->string('religion');
@@ -35,6 +36,10 @@ class CreateUsersTable extends Migration
             $table->char('clothing_size',5);
             $table->timestamp('last_time_attemp')->nullable();
             $table->rememberToken();
+
+            $table->foreign('department')->references('div_id')->on('divisions');
+            $table->foreign('group')->references('div_id')->on('divisions');
+            $table->foreign('generation')->references('div_id')->on('divisions');
         });
     }
 

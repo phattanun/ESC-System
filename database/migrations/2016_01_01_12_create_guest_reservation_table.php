@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserReservationTable extends Migration
+class CreateGuestReservationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateUserReservationTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_reservation', function (Blueprint $table) {
+        Schema::create('guest_reservation', function (Blueprint $table) {
             $table->increments('res_id');
             $table->text('reason');
             $table->integer('number_of_people')->unsigned();
@@ -25,23 +25,22 @@ class CreateUserReservationTable extends Migration
             $table->boolean('allow_projector')->nullable();
             $table->integer('request_plug')->unsigned();
             $table->integer('allow_plug')->unsigned();
-            $table->integer('student_id')->unsigned();
-            $table->integer('div_id')->nullable();
-            $table->string('other_div')->nullable();
-            $table->integer('act_id')->nullable();
-            $table->string('other_act')->nullable();
-            $table->integer('request_room_id');
-            $table->integer('allow_room_id')->nullable();
+            $table->string('guest_name');
+            $table->string('guest_surname');
+            $table->string('guest_phone_number',20);
+            $table->integer('guest_student_id')->unsigned()->nullable();
+            $table->string('guest_faculty')->nullable();
+            $table->string('guest_email');
+            $table->string('guest_org');
+            $table->integer('request_room_id')->unsigned();
+            $table->integer('allow_room_id')->unsigned()->nullable();
             $table->integer('approver_id')->unsigned()->nullable();
             $table->string('reason_if_not_approve')->nullable();
             $table->timestamp('create_at');
             $table->timestamp('approve_at')->nullable();
 
-            $table->foreign('student_id')->references('student_id')->on('users');
-            // $table->foreign('div_id')->references('')->on('');
-            // $table->foreign('act_id')->references('')->on('');
-            // $table->foreign('request_room_id')->references('')->on('');
-            // $table->foreign('allow_room_id')->references('')->on('');
+            $table->foreign('request_room_id')->references('room_id')->on('meeting_rooms');
+            $table->foreign('allow_room_id')->references('room_id')->on('meeting_rooms');
             $table->foreign('approver_id')->references('student_id')->on('users');
         });
     }
@@ -53,6 +52,6 @@ class CreateUserReservationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_reservation');
+        Schema::drop('guest_reservation');
     }
 }
