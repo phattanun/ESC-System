@@ -27,10 +27,10 @@ Route::post('/news/update/{news_id}', 'NewsController@update');
 Route::post('/news/remove', 'NewsController@remove');
 Route::post('save_news', 'NewsController@save_news');
 
-// Schedule
-Route::get('/schedule/result', 'ScheduleController@viewResultPage');
-
-Route::get('/schedule/room', 'ScheduleController@roomManagePage');
+// Meeting Room
+Route::get('/room/result', 'RoomController@viewResultPage');
+Route::get('/room/reserve', 'RoomController@viewReservePage');
+Route::get('/room/room', 'RoomController@roomManagePage');
 
 // Supply
 Route::get('/supplies', 'PagesController@suppliesPage');

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
-class ScheduleController extends Controller
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.

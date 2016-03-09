@@ -44,7 +44,6 @@
                                     <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
                                 </ul>
                             </div><!-- /panel options -->
-
                         </div>
 
                         <!-- panel content -->
