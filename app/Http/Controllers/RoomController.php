@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
-class ScheduleController extends Controller
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,6 +23,10 @@ class ScheduleController extends Controller
     public function viewResultPage()
     {
         return view('schedule-result');
+    }
+    public function viewReservePage()
+    {
+        return view('schedule-reserve');
     }
 
     /**

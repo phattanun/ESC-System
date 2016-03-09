@@ -10,7 +10,7 @@
     active
 @endsection
 @section('bodyTitle')
-    ผลการจองห้องประชุม
+    จองห้องประชุม
 @endsection
 @section('content')
     <section id="middle">
@@ -70,10 +70,29 @@
 
 @section('css')
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('assets/css/layout-calendar.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/css/layout-calendar-reserve.css')}}" rel="stylesheet" type="text/css" />
     <style>
         #middle {
             padding-top: 0px;
+        }
+        .fc-day:hover{
+            cursor: pointer;
+            background-color: rgba(176, 255, 124, 0.29);
+        }
+        .fc-past,.fc-today,.fc-other-month.fc-past {
+            background-image: -webkit-gradient(linear,left top,right bottom,color-stop(.25,rgba(0,0,0,.03)),color-stop(.25,transparent),color-stop(.5,transparent),color-stop(.5,rgba(0,0,0,.03)),color-stop(.75,rgba(0,0,0,.03)),color-stop(.75,transparent),to(transparent));
+            background-image: -webkit-linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);
+            background-image: -webkit-linear-gradient(315deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);
+            background-image: linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);
+            -webkit-background-size: 16px 16px;
+            background-size: 16px 16px;
+        }
+        .fc-grid .fc-other-month .fc-day-number {
+            opacity: 1.0 ;
+        }
+        .fc-past:hover, .fc-today:hover{
+            cursor: not-allowed;
+            background-color: rgba(255, 164, 142, 0.29);
         }
     </style>
 @endsection
@@ -171,7 +190,7 @@
                                 loadScript(plugin_path + "fullcalendar/gcal.js", function(){
 
                                     // Load Calendar Demo Script
-                                    loadScript("{{url('assets/js/calendar.result.js')}}");
+                                    loadScript("{{url('assets/js/calendar.reserve.js')}}");
 
                                 });
                             });
