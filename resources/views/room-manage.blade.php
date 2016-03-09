@@ -50,7 +50,7 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
+                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
 
 {{--เพิ่มลดแก้ไขห้องประชุม--------------------------------------------------------------------------------------------}}
@@ -59,11 +59,11 @@
                                 <label class="margin-bottom-20 ">เพิ่มห้องประชุม</label>
                                 <div class="fancy-form margin-bottom-20">
                                     <i class="fa fa-tag"></i>
-                                    <input type="text" class="form-control" placeholder="ชื่อห้องประชุม">
+                                    <input type="text" class="form-control" placeholder="ชื่อห้องประชุม" name="roomName[1]">
                                 </div>
                                 <div class="fancy-form margin-bottom-20">
                                     <i class="fa fa-users"></i>
-                                    <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้">
+                                    <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้" name="roomName[2]">
                                 </div>
                                 <a class="btn btn-3d btn-reveal btn-success pull-right">
                                     <i class="fa fa-plus"></i>
@@ -107,7 +107,7 @@
 <hr>
 
 {{--เวลาเปิด-ปิดห้อง ปกติ----------------------------------------------------------------------------------------------}}
-                        <div class="row">
+                        <!--div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
                                     <label class="margin-bottom-20 ">เวลาที่อนุญาตให้จองห้องได้</label>
@@ -213,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
 
 {{--แถบปุ่มบันทึก----------------------------------------------------------------------------------------------}}
 

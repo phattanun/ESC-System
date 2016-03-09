@@ -99,4 +99,10 @@ class RoomController extends Controller
     {
         return view('room-manage');
     }
+
+    public function editRoom()
+    {
+        $roomName = Input::get('roomName');
+        return $roomName;
+    }
 }
