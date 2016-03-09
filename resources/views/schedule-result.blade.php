@@ -95,7 +95,7 @@
                 start: new Date(y, m, 1),
                 allDay: false,
                 className: ["bg-primary"],
-                description: 'เย่ๆ ชอบจัง',
+                description: 'MT5',
                 icon: 'fa-clock-o'
             },
             {
