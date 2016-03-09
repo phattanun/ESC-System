@@ -51,18 +51,124 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
-                        <fieldset>
-                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                            <div class="row">
+                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+
+{{--เพิ่มลดแก้ไขห้องประชุม--------------------------------------------------------------------------------------------}}
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <label class="margin-bottom-20 ">เพิ่มห้องประชุม</label>
+                                <div class="fancy-form margin-bottom-20">
+                                    <i class="fa fa-tag"></i>
+                                    <input type="text" class="form-control" placeholder="ชื่อห้องประชุม">
+                                </div>
+                                <div class="fancy-form margin-bottom-20">
+                                    <i class="fa fa-users"></i>
+                                    <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้">
+                                </div>
+                                <a class="btn btn-3d btn-reveal btn-success pull-right">
+                                    <i class="fa fa-plus"></i>
+                                    <span>เพิ่ม</span>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                    <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
-                                    <div class="fancy-form" style="margin-bottom: 15px;">
-                                        <i class="fa fa-tag"></i>
-                                        <input type="text" class="form-control" placeholder="ชื่อห้องประชุม">
+                                    <label class="margin-bottom-20 ">ห้องประชุม</label>
+                                    <div class="table-responsive margin-bottom-30">
+                                        <table class="table nomargin" id="permission-table">
+                                            <tr >
+                                                <th style="vertical-align:middle">ชื่อห้องประชุม</th>
+                                                <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
+                                                <th style="vertical-align:middle"></th>
+                                            </tr>
+                                            <tr id=""><input type="hidden" id="delete" name="" value="" />
+                                                <td>ห้องประชุมใหญ่ 1</td>
+                                                <td>30 คน</td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    <div class="fancy-form" style="margin-bottom: 15px;">
-                                        <i class="fa fa-users"></i>
-                                        <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้">
+                                </div>
+                            </div>
+                        </div>
+<hr>
+
+{{--เวลาเปิด-ปิดห้อง ปกติ----------------------------------------------------------------------------------------------}}
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="margin-bottom-20 ">เวลาที่อนุญาตให้จองห้องได้</label>
+                                    <div class="container-fluid margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                            <label>เวลาเปิด</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                            <label>เวลาปิด</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" class="form-control timepicker valid" value="07 : 00 : PM" data-timepicki-tim="07" data-timepicki-mini="00" data-timepicki-meri="PM">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<hr>
+
+
+{{--เวลาเปิด-ปิดห้อง แบบไม่ปกติ มีeventต่างๆ----------------------------------------------------------------------------------------------}}
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="margin-bottom-20 ">ปรับเปลี่ยนช่วงเวลาที่อนุญาตให้ของได้ ในกรณีพิเศษ</label>
+                                    <div class="container-fluid margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                            <label>ตั้งแต่วันที่</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                            <label>ถึงวันที่</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                            <label>เวลาเปิด</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                            <label>เวลาปิด</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" class="form-control timepicker valid" value="07 : 00 : PM" data-timepicki-tim="07" data-timepicki-mini="00" data-timepicki-meri="PM">
+                                        </div>
                                     </div>
                                     <a class="btn btn-3d btn-reveal btn-success pull-right">
                                         <i class="fa fa-plus"></i>
@@ -70,23 +176,28 @@
                                     </a>
                                 </div>
                             </div>
-                        </fieldset>
+                        </div>
 
 
 
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
+                                    <label class="margin-bottom-20 ">กรณีพิเศษ</label>
                                     <div class="table-responsive margin-bottom-30">
-                                        <table class="table nomargin" id="permission-table">
+                                        <table class="table" id="permission-table">
                                             <tr >
-                                                <th style="vertical-align:middle">ชื่อห้องประชุม</th>
-                                                <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
+                                                <th style="vertical-align:middle">ตั้งแต่วันที่</th>
+                                                <th style="vertical-align:middle">ถึงวันที่</th>
+                                                <th style="vertical-align:middle">เวลาเปิด</th>
+                                                <th style="vertical-align:middle">เวลาปิด</th>
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
                                             <tr id=""><input type="hidden" id="delete" name="" value="" />
-                                                <td>ห้องประชุมใหญ่ 1</td>
-                                                <td>30 คน</td>
+                                                <td>21-03-2016</td>
+                                                <td>23-03-2016</td>
+                                                <td>08 : 00 : AM</td>
+                                                <td>16 : 00 : PM</td>
                                                 <td class="text-center">
                                                     <a class="btn btn-3d btn-reveal btn-yellow">
                                                         <i class="fa fa-edit"></i>
@@ -104,35 +215,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6">
-                                    <div class="table-responsive margin-bottom-30">
-                                        <table class="table nomargin" id="permission-table">
-                                            <tr >
-                                                <th style="vertical-align:middle">ชื่อห้องประชุม</th>
-                                                <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
-                                                <th style="vertical-align:middle"></th>
-                                            </tr>
-                                            <tr id=""><input type="hidden" id="delete" name="" value="" />
-                                                <td>ห้องประชุมใหญ่ 1</td>
-                                                <td>30 คน</td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-3d btn-reveal btn-yellow">
-                                                        <i class="fa fa-edit"></i>
-                                                        <span>แก้ไข</span>
-                                                    </a>
-                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
-                                                        <i class="fa fa-minus"></i>
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+{{--แถบปุ่มบันทึก----------------------------------------------------------------------------------------------}}
 
 
                         <div class="row">
@@ -161,7 +244,6 @@
 @endsection
 
 @section('css')
-    <link href="{{url('assets/css/setting.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('js-top')
