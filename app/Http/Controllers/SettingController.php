@@ -134,27 +134,30 @@ class SettingController extends Controller
 
     public function addNewPermission(Request $request)
     {
-        $user = explode(' ',$request->input('data'));
-        if(sizeof($user)==3){
-            if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
-                return User::select(['student_id','name','surname'])->find($user[0]);
+        if($request->input('data')){
+            $user = explode(' ',$request->input('data'));
+            if(sizeof($user)==3){
+                if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
+                    return User::select(['student_id','name','surname'])->find($user[0]);
+                }
+                else {
+                    return 'fail';
+                }
             }
-            else {
-                return 'fail';
+            else if (sizeof($user)>3){
+                if(User::where(function ($query) use ($user) {
+                    $query->where(['student_id'=>$user[0],'name'=>$user[1]]);
+                    for($i = 2;$i<sizeof($user);$i++)
+                        $query->where('surname', 'LIKE', '%'.$user[$i].'%');
+                })->exists()){
+                    return User::select(['student_id','name','surname'])->find($user[0]);
+                }
+                else {
+                    return 'fail';
+                }
             }
         }
-        else if (sizeof($user)>3){
-            if(User::where(function ($query) use ($user) {
-                $query->where(['student_id'=>$user[0],'name'=>$user[1]]);
-                for($i = 2;$i<sizeof($user);$i++)
-                    $query->where('surname', 'LIKE', '%'.$user[$i].'%');
-            })->exists()){
-                return User::select(['student_id','name','surname'])->find($user[0]);
-            }
-            else {
-                return 'fail';
-            }
-        }
+        else return 'fail';
     }
 
     public function update(Request $request, $id)
