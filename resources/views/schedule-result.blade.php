@@ -49,7 +49,7 @@
 
                         <!-- panel content -->
                         <div class="panel-body">
-
+                            <div id="announcement" class="text-center"><p>ประกาศ: กวศ. จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
 
                         </div>
@@ -127,7 +127,8 @@
             },
             {
                 title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d, 10, 30),
+                start: new Date(y, m, d, 10, 00),
+                end: new Date(y, m, d, 11, 00),
                 allDay: false,
                 className: ["bg-primary"],
                 description: '',
@@ -171,7 +172,7 @@
                                 loadScript(plugin_path + "fullcalendar/gcal.js", function(){
 
                                     // Load Calendar Demo Script
-                                    loadScript("{{url('assets/js/view/demo.calendar.js')}}");
+                                    loadScript("{{url('assets/js/calendar.result.js')}}");
 
                                 });
                             });

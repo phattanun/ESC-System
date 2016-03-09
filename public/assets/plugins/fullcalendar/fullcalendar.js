@@ -29,7 +29,6 @@ var defaults = {
 	weekNumbers: false,
 	weekNumberCalculation: 'iso',
 	weekNumberTitle: 'W',
-	
 	// editing
 	//editable: false,
 	//disableDragging: false,
@@ -51,8 +50,8 @@ var defaults = {
 	},
 	columnFormat: {
 		month: 'ddd',
-		week: 'ddd M/d',
-		day: 'dddd M/d'
+		week: 'ddd d/MMM',
+		day: 'dddd d/MMM'
 	},
 	timeFormat: { // for event elements
 		'': 'h(:mm)t' // default
@@ -2753,7 +2752,7 @@ function AgendaDayView(element, calendar) {
 
 setDefaults({
 	allDaySlot: true,
-	allDayText: 'all-day',
+	allDayText: 'ทั้งวัน',
 	firstHour: 6,
 	slotMinutes: 30,
 	defaultEventMinutes: 120,

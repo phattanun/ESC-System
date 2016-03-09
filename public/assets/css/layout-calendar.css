@@ -25,13 +25,13 @@
 	background-size: 16px 16px;
 }
 .fc-state-highlight {
-	background-image: -webkit-gradient(linear,left top,right bottom,color-stop(.25,rgba(0,0,0,.03)),color-stop(.25,transparent),color-stop(.5,transparent),color-stop(.5,rgba(0,0,0,.03)),color-stop(.75,rgba(0,0,0,.03)),color-stop(.75,transparent),to(transparent));
-	background-image: -webkit-linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);
-	background-image: -webkit-linear-gradient(315deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);
-	background-image: linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);
-	-webkit-background-size: 16px 16px;
-	background-size: 16px 16px;
-	background-color:#fceedc;
+	/*background-image: -webkit-gradient(linear,left top,right bottom,color-stop(.25,rgba(0,0,0,.03)),color-stop(.25,transparent),color-stop(.5,transparent),color-stop(.5,rgba(0,0,0,.03)),color-stop(.75,rgba(0,0,0,.03)),color-stop(.75,transparent),to(transparent));*/
+	/*background-image: -webkit-linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);*/
+	/*background-image: -webkit-linear-gradient(315deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);*/
+	/*background-image: linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%,transparent);*/
+	/*-webkit-background-size: 16px 16px;*/
+	/*background-size: 16px 16px;*/
+	background-color: #effff2;
 }
 .fc-icon {
 	position:absolute;
@@ -280,4 +280,11 @@ label.error {
 	display: inline-block;
 	text-transform: none;
 	font-weight: 400;
+}
+#announcement p{
+	color: #780000;
+	word-break: break-all;
+	word-wrap: break-word;
+	font-size: 20px;
+	margin-bottom: 0px;
 }
