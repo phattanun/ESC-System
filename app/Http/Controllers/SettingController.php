@@ -36,6 +36,7 @@ class SettingController extends Controller
     }
     public function editYear()
     {
+        $user = $this->getUser();
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
 
