@@ -69,12 +69,11 @@
 
 					if(jQuery("#calendar").attr('data-modal-create') == 'true') {
 
-						var check = $.fullCalendar.formatDate(start, 'yyyy-MM-dd');
-						var today = $.fullCalendar.formatDate(new Date(), 'yyyy-MM-dd');
-						var thisMonth = date.getMonth();
-						var nextMonth = $.fullCalendar.formatDate(end, 'M');
-						alert(nextMonth);
-						if (check < today) {
+						var check = $.fullCalendar.formatDate(start, 'yyyyMMdd');
+						var today = $.fullCalendar.formatDate(new Date(), 'yyyyMMdd');
+						var next30 = parseInt(today) + 100;
+						if (check <= today || parseInt(check) > next30 ) {
+
 						}
 						else {
 							endtime = jQuery.fullCalendar.formatDate(end, 'h:mm tt');
