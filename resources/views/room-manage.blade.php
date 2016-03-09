@@ -54,21 +54,26 @@
                         <fieldset>
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                             <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-6">
-                                        <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
-                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="{{url('setting/auto_suggest?limit=10&search=1')}}">
-                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
-                                            <span class="input-group-btn" id="add-new-permission-btn">
-                                                <a class="btn btn-success">เพิ่ม</a>
-                                            </span>
-                                        </div>
-
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
+                                    <div class="fancy-form" style="margin-bottom: 15px;">
+                                        <i class="fa fa-tag"></i>
+                                        <input type="text" class="form-control" placeholder="ชื่อห้องประชุม">
                                     </div>
+                                    <div class="fancy-form" style="margin-bottom: 15px;">
+                                        <i class="fa fa-users"></i>
+                                        <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้">
+                                    </div>
+                                    <a class="btn btn-3d btn-reveal btn-success pull-right">
+                                        <i class="fa fa-plus"></i>
+                                        <span>เพิ่ม</span>
+                                    </a>
                                 </div>
                             </div>
                         </fieldset>
+
+
+
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
