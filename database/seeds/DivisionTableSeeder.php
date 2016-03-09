@@ -28,7 +28,23 @@ class DivisionTableSeeder extends Seeder
         Division::create(['div_id'=>1006,'name'=>'F','type'=>'Group']);
         Division::create(['div_id'=>1007,'name'=>'G','type'=>'Group']);
 
-        Division::create(['div_id'=>100000,'name'=>'-','type'=>'Department']);
-        Division::create(['div_id'=>100001,'name'=>'Computer','type'=>'Department']);
+        Division::create(['div_id'=>100000,'name'=>'วิศวกรรมทั่วไป','type'=>'Department']);
+        Division::create(['div_id'=>100001,'name'=>'วิศวกรรมคอมพิวเตอร์','type'=>'Department']);
+        Division::create(['div_id'=>100002,'name'=>'วิศวกรรมเคมี','type'=>'Department']);
+        Division::create(['div_id'=>100003,'name'=>'วิศวกรรมเครื่องกล','type'=>'Department']);
+        Division::create(['div_id'=>100004,'name'=>'วิศวกรรมปิโตรเลียม','type'=>'Department']);
+        Division::create(['div_id'=>100005,'name'=>'วิศวกรรมไฟฟ้า','type'=>'Department']);
+        Division::create(['div_id'=>100006,'name'=>'วิศวกรรมทรัพยากรธรณี','type'=>'Department']);
+        Division::create(['div_id'=>100007,'name'=>'วิศวกรรมยานยนต์','type'=>'Department']);
+        Division::create(['div_id'=>100008,'name'=>'วิศวกรรมโยธา','type'=>'Department']);
+        Division::create(['div_id'=>100009,'name'=>'วิศวกรรมเรือ','type'=>'Department']);
+        Division::create(['div_id'=>100010,'name'=>'วิศวกรรมโลหการและวัสดุ','type'=>'Department']);
+        Division::create(['div_id'=>100011,'name'=>'วิศวกรรมสำรวจ','type'=>'Department']);
+        Division::create(['div_id'=>100012,'name'=>'วิศวกรรมสิ่งแวดล้อม','type'=>'Department']);
+        Division::create(['div_id'=>100013,'name'=>'วิศวกรรมอุตสาหการ','type'=>'Department']);
+        Division::create(['div_id'=>100014,'name'=>'วิศวกรรมการออกแบบและการผลิตยานยนต์ (หลักสูตรนานาชาติ)','type'=>'Department']);
+        Division::create(['div_id'=>100015,'name'=>'วิศวกรรมนาโน(หลักสูตรนานาชาติ)','type'=>'Department']);
+        Division::create(['div_id'=>100016,'name'=>'วิศวกรรมสารสนเทศและการสื่อสาร (หลักสูตรนานาชาติ)','type'=>'Department']);
+        Division::create(['div_id'=>100017,'name'=>'วิศวกรรมอากาศยาน(หลักสูตรนานาชาติ)','type'=>'Department']);
     }
 }

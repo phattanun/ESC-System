@@ -58,7 +58,7 @@ class SettingController extends Controller
         $privilege = Input::get('privilege');
       if(isset($sid))  {
             foreach($sid as $id){
-                $permission = Permission::where('student_id',$id)->first();
+                $permission = Permission::find($id);
                 if($permission==null&&!in_array('deleted', $privilege[$id])){
                     $new = new Permission();
                     $new->student_id =  $id;

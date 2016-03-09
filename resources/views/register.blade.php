@@ -86,13 +86,27 @@
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6">
                                             <label>ภาควิชา *</label>
-                                            <input name="department" value="{{$user['department']}}" class="form-control required"
-                                                   type="text">
+                                            <select name="department" class="form-control select2 required">
+                                               @foreach($department as $departments)
+                                                    @if($departments['div_id']==$user['department'])
+                                                        <option selected="selected" value="{{$departments['div_id']}}">{{$departments['name']}}</option>
+                                                    @else
+                                                        <option value="{{$departments['div_id']}}">{{$departments['name']}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <label>กรุ๊ป *</label>
-                                            <input name="group" value="{{$user['group']}}" class="form-control"
-                                                   type="text" placeholder="กรุ๊ป เช่น A, B, C, Dog ฯลฯ">
+                                            <select name="group" class="form-control select2 required">
+                                                @foreach($group as $groups)
+                                                    @if($groups['div_id']==$user['group'])
+                                                        <option selected="selected" value="{{$groups['div_id']}}">{{$groups['name']}}</option>
+                                                    @else
+                                                        <option value="{{$groups['div_id']}}">{{$groups['name']}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

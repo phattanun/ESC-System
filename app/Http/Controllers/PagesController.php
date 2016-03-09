@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Division;
 use App\Permission;
 use Illuminate\Http\Request;
 
@@ -40,9 +41,11 @@ class PagesController extends Controller
 
     public function register() {
         $user = $this->getUser();
+        $department = Division::where('type','=','Department')->get();
+        $group = Division::where('type','=','Group')->get();
         if(is_null($user))
           return redirect('/');
-        return view('register');
+        return view('register',['department'=>$department,'group'=>$group]);
     }
 
     public function registerConfirm() {
@@ -91,9 +94,11 @@ class PagesController extends Controller
 
     public function profilePage() {
         $user = $this->getUser();
+        $department = Division::where('type','=','Department')->get();
+        $group = Division::where('type','=','Group')->get();
         if(is_null($user))
-          return redirect('/');
-        return view('profile');
+            return redirect('/');
+        return view('profile',['department'=>$department,'group'=>$group]);
     }
 
     public function scheduleManagePage(){
