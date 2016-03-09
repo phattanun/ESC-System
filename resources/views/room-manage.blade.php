@@ -59,11 +59,11 @@
                                 <label class="margin-bottom-20 ">เพิ่มห้องประชุม</label>
                                 <div class="fancy-form margin-bottom-20">
                                     <i class="fa fa-tag"></i>
-                                    <input type="text" class="form-control" placeholder="ชื่อห้องประชุม" name="roomName[1]">
+                                    <input type="text" class="form-control" placeholder="ชื่อห้องประชุม">
                                 </div>
                                 <div class="fancy-form margin-bottom-20">
                                     <i class="fa fa-users"></i>
-                                    <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้" name="roomName[2]">
+                                    <input type="text" class="form-control" placeholder="จำนวนคนที่จุได้">
                                 </div>
                                 <a class="btn btn-3d btn-reveal btn-success pull-right">
                                     <i class="fa fa-plus"></i>
@@ -85,9 +85,43 @@
                                                 <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
-                                            <tr id=""><input type="hidden" id="delete" name="" value="" />
-                                                <td>ห้องประชุมใหญ่ 1</td>
-                                                <td>30 คน</td>
+                                            <tr id="">
+                                                <input type="hidden" id="" name="room[1][]" value="ห้องประชุมใหญ่1">
+                                                <input type="hidden" id="" name="room[1][]" value="30">
+                                                <td class="margin-bottom-10">ห้องประชุมใหญ่ 1</td>
+                                                <td class="margin-bottom-10" contenteditable>30 คน</td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr id="">
+                                                <input type="hidden" id="" name="room[1][]" value="ห้องประชุมใหญ่1">
+                                                <input type="hidden" id="" name="room[1][]" value="30">
+                                                <td class="margin-bottom-10"><input type="text"></td>
+                                                <td class="margin-bottom-10" contenteditable><input type="text"> คน</td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr id="">
+                                                <input type="hidden" id="" name="room[1][]" value="ห้องประชุมใหญ่1">
+                                                <input type="hidden" id="" name="room[1][]" value="30">
+                                                <td class="margin-bottom-10"><input type="text"></td>
+                                                <td class="margin-bottom-10" contenteditable>30 คน</td>
                                                 <td class="text-center">
                                                     <a class="btn btn-3d btn-reveal btn-yellow">
                                                         <i class="fa fa-edit"></i>
@@ -244,6 +278,14 @@
 @endsection
 
 @section('css')
+    <style>
+        td[contenteditable]{
+            border: #ddd 2px solid;
+            box-shadow: none;
+            border-radius: 3px;
+            padding: 0px;
+        }
+    </style>
 @endsection
 
 @section('js-top')
