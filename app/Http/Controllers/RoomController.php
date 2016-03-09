@@ -24,6 +24,10 @@ class RoomController extends Controller
     {
         return view('schedule-result');
     }
+    public function viewReservePage()
+    {
+        return view('schedule-reserve');
+    }
 
     /**
      * Show the form for creating a new resource.
