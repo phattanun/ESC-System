@@ -55,4 +55,7 @@ Route::post('/setting/delete_permission', 'SettingController@deletePermission');
 Route::post('/setting/add_new_permission', 'SettingController@addNewPermission');
 
 
+//Activity Page
+Route::get('/activity/create','ActivityController@create');
+
 Route::get ('/profile', 'PagesController@profilePage');
