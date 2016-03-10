@@ -37,7 +37,7 @@ class RoomController extends Controller
 
     public function editRoom()
     {
-        $roomName = Input::get('roomName');
-        return $roomName;
+        $room = Input::get('room');
+        return $room;
     }
 }
