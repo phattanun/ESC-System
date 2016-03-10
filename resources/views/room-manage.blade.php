@@ -76,7 +76,7 @@
 
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-12 col-sm-12">
                                     <label class="margin-bottom-20 ">ห้องประชุม</label>
                                     <div class="table-responsive margin-bottom-30">
                                         <table class="table nomargin" id="permission-table">
@@ -89,7 +89,9 @@
                                                 <input type="hidden" id="" name="room[1][]" value="ห้องประชุมใหญ่1">
                                                 <input type="hidden" id="" name="room[1][]" value="30">
                                                 <td class="margin-bottom-10">ห้องประชุมใหญ่ 1</td>
-                                                <td class="margin-bottom-10" contenteditable>30 คน</td>
+                                                <td><input type="text" class="form-control" placeholder="ชื่อห้องประชุม"></td>
+
+                                                <td><div class="col-md-10 col-sm-10 no-padding"><input type="text" class="form-control" placeholder="จำนวนคนที่จุได้"></div><div class="col-md-2 col-sm-2" style="vertical-align:middle">คน</div></td>
                                                 <td class="text-center">
                                                     <a class="btn btn-3d btn-reveal btn-yellow">
                                                         <i class="fa fa-edit"></i>
@@ -143,8 +145,10 @@
 {{--เวลาเปิด-ปิดห้อง ปกติ----------------------------------------------------------------------------------------------}}
                         <!--div class="row">
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-12 col-sm-12">
                                     <label class="margin-bottom-20 ">เวลาที่อนุญาตให้จองห้องได้</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>เวลาเปิด</label>
@@ -153,6 +157,8 @@
                                             <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>เวลาปิด</label>
@@ -170,8 +176,10 @@
 {{--เวลาเปิด-ปิดห้อง แบบไม่ปกติ มีeventต่างๆ----------------------------------------------------------------------------------------------}}
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-12 col-sm-12">
                                     <label class="margin-bottom-20 ">ปรับเปลี่ยนช่วงเวลาที่อนุญาตให้ของได้ ในกรณีพิเศษ</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>ตั้งแต่วันที่</label>
@@ -180,6 +188,8 @@
                                             <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>ถึงวันที่</label>
@@ -188,6 +198,8 @@
                                             <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>เวลาเปิด</label>
@@ -196,6 +208,8 @@
                                             <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>เวลาปิด</label>
@@ -216,11 +230,11 @@
 
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-12 col-sm-12 time-table">
                                     <label class="margin-bottom-20 ">กรณีพิเศษ</label>
                                     <div class="table-responsive margin-bottom-30">
                                         <table class="table" id="permission-table">
-                                            <tr >
+                                            <tr>
                                                 <th style="vertical-align:middle">ตั้งแต่วันที่</th>
                                                 <th style="vertical-align:middle">ถึงวันที่</th>
                                                 <th style="vertical-align:middle">เวลาเปิด</th>
@@ -279,10 +293,10 @@
 
 @section('css')
     <style>
-        td[contenteditable]{
-            border: #ddd 2px solid;
-            box-shadow: none;
-            border-radius: 3px;
+        .time-table th,.time-table td{
+            text-align: center;
+        }
+        .no-padding{
             padding: 0px;
         }
     </style>
