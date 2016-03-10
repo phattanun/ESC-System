@@ -37,7 +37,8 @@ Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 Route::get('/supplies', 'PagesController@suppliesPage');
 
 // Students
-Route::get('/students', 'PagesController@studentsPage');
+Route::get('/students', 'StudentController@studentsPage');
+Route::post('/students/search', 'StudentController@search');
 
 // Login/Logout Register
 Route::post('/login', 'PagesController@login');
@@ -53,5 +54,8 @@ Route::post('/setting/edit_permission', 'SettingController@editPermission');
 Route::post('/setting/delete_permission', 'SettingController@deletePermission');
 Route::post('/setting/add_new_permission', 'SettingController@addNewPermission');
 
+
+//Activity Page
+Route::get('/activity/create','ActivityController@create');
 
 Route::get ('/profile', 'PagesController@profilePage');

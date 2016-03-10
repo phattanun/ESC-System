@@ -60,3 +60,24 @@
     </section>
 
 @endsection
+
+@section('js')
+    <script>
+        $(document).on('click','#add-new-permission-btn',function(){
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/students/search',
+                    {data:  'htfrht', _token: '{{csrf_token()}}'}).done(function (input) {
+                if(input=='fail'){
+                    _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                    return false;
+                }
+                else {
+                    alert(input);
+                    }
+            }).fail(function () {
+                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                return false;
+            });
+        });
+    </script>
+@endsection
