@@ -31,10 +31,10 @@
 					if (!event.description == '') {
 						element.find('.fc-event-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
 					}
-                    //
-					//if (!event.icon == '') {
-					//	element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
-					//}
+
+					if (!event.icon == '') {
+						element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
+					}
 
 				}
 			});

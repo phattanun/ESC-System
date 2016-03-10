@@ -22,7 +22,7 @@
                     </div>
                     <div class="panel-body">
                         <form class="validate" action="{{url().'/register'}}" method="post"
-                              enctype="multipart/form-data" data-success="แก้ไขข้อมูลสำเร็จ<script>window.location='{{url()}}';</script>"
+                              enctype="multipart/form-data" data-success="แก้ไขข้อมูลสำเร็จ<script>window.location='{{url('profile')}}';</script>"
                               data-toastr-position="top-right">
                             <fieldset>
                                 <!-- required [php action request] -->
