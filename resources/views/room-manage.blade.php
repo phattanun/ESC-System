@@ -118,14 +118,14 @@
                                                 <td>
                                                     <div id="room-name-1">ห้องประชุมใหญ่ 1</div>
                                                     <div id="room-input-name-1" class="hide">
-                                                        <input id="room-input-name-box-1" type="text" class="form-control" name="room[1][]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่1">
+                                                        <input id="room-input-name-box-1" type="text" class="form-control" name="room[1][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่1">
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div id="room-size-1">30 คน</div>
                                                     <div id="room-input-size-1" class="hide">
                                                         <div class="col-xs-12 no-padding">
-                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 90%;" name="room[1][]" placeholder="จำนวนคนที่จุได้" value="30">
+                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 90%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
                                                             คน
                                                         </div>
                                                     </div>
@@ -152,14 +152,14 @@
                                                 <td>
                                                     <div id="room-name-2">ห้องประชุมใหญ่ 2</div>
                                                     <div id="room-input-name-2" class="hide">
-                                                        <input id="room-input-name-box-2" type="text" class="form-control" name="room[2][]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่2">
+                                                        <input id="room-input-name-box-2" type="text" class="form-control" name="room[2][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่2">
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div id="room-size-2">20 คน</div>
                                                     <div id="room-input-size-2" class="hide">
                                                         <div class="col-xs-12 no-padding">
-                                                            <input id="room-input-size-box-2" type="text" class="form-control" style="display: inline; width: 90%;" name="room[2][]" placeholder="จำนวนคนที่จุได้" value="20">
+                                                            <input id="room-input-size-box-2" type="text" class="form-control" style="display: inline; width: 90%;" name="room[2][size]" placeholder="จำนวนคนที่จุได้" value="20">
                                                             คน
                                                         </div>
                                                     </div>
@@ -406,14 +406,14 @@
                     +'<td>'
                     +'  <div id="room-name-'+i+'">'+name+'</div>'
                     +'  <div id="room-input-name-'+i+'" class="hide">'
-                    +'      <input id="room-input-name-box-'+i+'" type="text" class="form-control" name="room['+i+'][]" placeholder="ชื่อห้องประชุม" value="'+name+'">'
+                    +'      <input id="room-input-name-box-'+i+'" type="text" class="form-control" name="room['+i+'][name]" placeholder="ชื่อห้องประชุม" value="'+name+'">'
                     +'  </div>'
                     +' </td>'
                     +'<td>'
                     +'  <div id="room-size-'+i+'">'+size+' คน</div>'
                     +'  <div id="room-input-size-'+i+'" class="hide">'
                     +'      <div class="col-xs-12 no-padding">'
-                    +'          <input id="room-input-size-box-'+i+'" type="text" class="form-control" style="display: inline; width: 90%;" name="room['+i+'][]" placeholder="จำนวนคนที่จุได้" value="'+size+'">'
+                    +'          <input id="room-input-size-box-'+i+'" type="text" class="form-control" style="display: inline; width: 90%;" name="room['+i+'][size]" placeholder="จำนวนคนที่จุได้" value="'+size+'">'
                     +'          คน'
                     +'      </div>'
                     +'  </div>'
