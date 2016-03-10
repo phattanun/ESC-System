@@ -103,6 +103,8 @@ class RoomController extends Controller
     public function editRoom()
     {
         $room = Input::get('room');
-        return $room;
+        $timeStartDefault = Input::get('time-start-default');
+        $timeEndDefault = Input::get('time-end-default');
+        return compact('room','timeStartDefault','timeEndDefault');
     }
 }

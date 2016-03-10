@@ -191,7 +191,7 @@
 <hr>
 
 {{--เวลาเปิด-ปิดห้อง ปกติ----------------------------------------------------------------------------------------------}}
-                        <!--div class="row">
+                        <div class="row">
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
                                     <label class="margin-bottom-20 ">เวลาที่อนุญาตให้จองห้องได้</label>
@@ -202,7 +202,7 @@
                                             <label>เวลาเปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
+                                            <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" name="time-start-default" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                             <label>เวลาปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="07 : 00 : PM" data-timepicki-tim="07" data-timepicki-mini="00" data-timepicki-meri="PM">
+                                            <input type="text" class="form-control timepicker valid" value="07 : 00 : PM" name="time-end-default" data-timepicki-tim="07" data-timepicki-mini="00" data-timepicki-meri="PM">
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +233,7 @@
                                             <label>ตั้งแต่วันที่</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                                            <input id="event-date-start-new" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@
                                             <label>ถึงวันที่</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                                            <input id="event-date-end-new" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
                                         </div>
                                     </div>
                                 </div>
@@ -253,7 +253,7 @@
                                             <label>เวลาเปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
+                                            <input id="event-time-start-new" type="text" class="form-control timepicker">
                                         </div>
                                     </div>
                                 </div>
@@ -263,10 +263,10 @@
                                             <label>เวลาปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="07 : 00 : PM" data-timepicki-tim="07" data-timepicki-mini="00" data-timepicki-meri="PM">
+                                            <input id="event-time-end-new" type="text" class="form-control timepicker">
                                         </div>
                                     </div>
-                                    <a class="btn btn-3d btn-reveal btn-success pull-right">
+                                    <a class="btn btn-3d btn-reveal btn-success pull-right" onclick="eventCreate()">
                                         <i class="fa fa-plus"></i>
                                         <span>เพิ่ม</span>
                                     </a>
@@ -278,10 +278,10 @@
 
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-md-12 col-sm-12 time-table">
+                                <div class="col-md-12 col-sm-12">
                                     <label class="margin-bottom-20 ">กรณีพิเศษ</label>
                                     <div class="table-responsive margin-bottom-30">
-                                        <table class="table" id="permission-table">
+                                        <table class="table time-table" id="permission-table">
                                             <tr>
                                                 <th style="vertical-align:middle">ตั้งแต่วันที่</th>
                                                 <th style="vertical-align:middle">ถึงวันที่</th>
@@ -290,10 +290,58 @@
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
                                             <tr id=""><input type="hidden" id="delete" name="" value="" />
-                                                <td>21-03-2016</td>
-                                                <td>23-03-2016</td>
-                                                <td>08 : 00 : AM</td>
-                                                <td>16 : 00 : PM</td>
+                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-date-start-1" class="form-control datepicker text-center" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-date-end-1" class="form-control datepicker text-center" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-1">08 : 00 : AM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="08 : 00 : AM" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM"></td>
+                                                <td><div id="event-time-end-1">16 : 00 : PM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="16 : 00 : PM" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00" data-timepicki-meri="PM"></td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr id=""><input type="hidden" id="delete" name="" value="" />
+                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-date-start-1" class="form-control datepicker text-center" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-date-end-1" class="form-control datepicker text-center" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-1">08 : 00 : AM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="08 : 00 : AM" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM"></td>
+                                                <td><div id="event-time-end-1">16 : 00 : PM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="16 : 00 : PM" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00" data-timepicki-meri="PM"></td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr id=""><input type="hidden" id="delete" name="" value="" />
+                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-date-start-1" class="form-control datepicker text-center" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-date-end-1" class="form-control datepicker text-center" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-1">08 : 00 : AM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="08 : 00 : AM" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM"></td>
+                                                <td><div id="event-time-end-1">16 : 00 : PM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="16 : 00 : PM" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00" data-timepicki-meri="PM"></td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr id=""><input type="hidden" id="delete" name="" value="" />
+                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-date-start-1" class="form-control datepicker text-center" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-date-end-1" class="form-control datepicker text-center" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-1">08 : 00 : AM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="08 : 00 : AM" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM"></td>
+                                                <td><div id="event-time-end-1">16 : 00 : PM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="16 : 00 : PM" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00" data-timepicki-meri="PM"></td>
                                                 <td class="text-center">
                                                     <a class="btn btn-3d btn-reveal btn-yellow">
                                                         <i class="fa fa-edit"></i>
@@ -309,7 +357,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div-->
+                        </div>
 
 {{--แถบปุ่มบันทึก----------------------------------------------------------------------------------------------}}
 
@@ -343,6 +391,10 @@
     <style>
         .time-table th,.time-table td{
             text-align: center;
+        }
+        .time-table td{
+            line-height: 2.5 !important;
+            width: 20%;
         }
         .no-padding{
             padding: 0px;
@@ -436,6 +488,18 @@
                     +'</td>'
                     +'</tr>';
             $(".room-table").append(txt);
+        }
+
+        function eventCreate(){
+            var dateStart = document.getElementById("event-date-start-new").value;
+            var dateEnd = document.getElementById("event-date-end-new").value;
+            var timeStart = document.getElementById("event-time-start-new").value;
+            var timeEnd = document.getElementById("event-time-end-new").value;
+            document.getElementById("event-date-start-new").value = "";
+            document.getElementById("event-date-end-new").value = "";
+            document.getElementById("event-time-start-new").value = "";
+            document.getElementById("event-time-end-new").value = ""
+            alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd);
         }
     </script>
 @endsection
