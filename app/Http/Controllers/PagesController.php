@@ -83,14 +83,7 @@ class PagesController extends Controller
         return view('supplies');
     }
 
-    public function studentsPage(){
-        $user = $this->getUser();
 
-        if(!isset($user['admin'])||!$user['admin']||is_null($user))
-            return redirect('/');
-
-        return view('students');
-    }
 
     public function profilePage() {
         $user = $this->getUser();

@@ -37,7 +37,8 @@ Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 Route::get('/supplies', 'PagesController@suppliesPage');
 
 // Students
-Route::get('/students', 'PagesController@studentsPage');
+Route::get('/students', 'StudentController@studentsPage');
+Route::post('/students/search', 'StudentController@search');
 
 // Login/Logout Register
 Route::post('/login', 'PagesController@login');
