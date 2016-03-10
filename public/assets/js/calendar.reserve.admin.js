@@ -71,9 +71,7 @@
 
 						var check = $.fullCalendar.formatDate(start, 'yyyyMMdd');
 						var today = $.fullCalendar.formatDate(new Date(), 'yyyyMMdd');
-						var next30 = parseInt(today) + 100;
-						if (check <= today || parseInt(check) > next30 ) {
-
+						if (check <= today) {
 						}
 						else {
 							endtime = jQuery.fullCalendar.formatDate(end, 'h:mm tt');
