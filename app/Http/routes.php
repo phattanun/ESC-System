@@ -28,16 +28,10 @@ Route::post('/news/remove', 'NewsController@remove');
 Route::post('save_news', 'NewsController@save_news');
 
 // Meeting Room
-<<<<<<< HEAD
 Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
-Route::get ('/room/room-manage', 'RoomController@roomManagePage');
-=======
-Route::get('/room/result', 'RoomController@viewResultPage');
-Route::get('/room/reserve', 'RoomController@viewReservePage');
 Route::post('/room/user/submit_request', 'RoomController@UserSubmitRequest');
-Route::get('/room/room-manage', 'RoomController@roomManagePage');
->>>>>>> ad3b6f7fe14e1e28845f2055cb1407441e6b051f
+Route::get ('/room/room-manage', 'RoomController@roomManagePage');
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 
 // Supply
