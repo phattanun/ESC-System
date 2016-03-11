@@ -1,0 +1,87 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use \App\Activity;
+
+class ActivityTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Activity::create([
+            'name'=> 'ค่ายลานเกียร์ ครั้งที่ 15',
+            'year'=> 2558,
+            'category' => 'กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์',
+            'tqf_ethics' => false,
+            'tqf_knowledge' => true,
+            'tqf_cognitive' => true,
+            'tqf_interpersonal' => true,
+            'tqf_communication' => true,
+            'status' => NULL,
+            'avail_year' => 1,
+            'div_id' => NULL,
+            'creator_id' => 1,
+            'editor_id' => 1,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime()
+        ]);
+
+        Activity::create([
+            'name'=> 'ค่ายอาสาพัฒนา ยุววิศวกรบพิธ 44',
+            'year'=> 2558,
+            'category' => 'กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม',
+            'tqf_ethics' => false,
+            'tqf_knowledge' => true,
+            'tqf_cognitive' => false,
+            'tqf_interpersonal' => true,
+            'tqf_communication' => false,
+            'status' => NULL,
+            'avail_year' => 1,
+            'div_id' => NULL,
+            'creator_id' => 1,
+            'editor_id' => 1,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime()
+        ]);
+
+        Activity::create([
+            'name'=> 'ละครเงา',
+            'year'=> 2558,
+            'category' => 'กิจกรรมส่งเสริมศิลปวัฒนธรรม',
+            'tqf_ethics' => false,
+            'tqf_knowledge' => false,
+            'tqf_cognitive' => false,
+            'tqf_interpersonal' => false,
+            'tqf_communication' => false,
+            'status' => NULL,
+            'avail_year' => 1,
+            'div_id' => NULL,
+            'creator_id' => 1,
+            'editor_id' => 1,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime()
+        ]);
+
+        Activity::create([
+            'name'=> 'ค่ายวิษณุกรรมบุตร ครั้งที่ 13',
+            'year'=> 2558,
+            'category' => 'กิจกรรมส่งเสริมศิลปวัฒนธรรม',
+            'tqf_ethics' => false,
+            'tqf_knowledge' => false,
+            'tqf_cognitive' => false,
+            'tqf_interpersonal' => true,
+            'tqf_communication' => false,
+            'status' => NULL,
+            'avail_year' => 1,
+            'div_id' => NULL,
+            'creator_id' => 1,
+            'editor_id' => 1,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime()
+        ]);
+    }
+}
