@@ -61,7 +61,8 @@
                       </form>
                 </div>
             </div>
-        </div><div class="container" >
+        </div>
+        <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
