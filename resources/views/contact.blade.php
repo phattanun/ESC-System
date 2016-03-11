@@ -13,7 +13,7 @@
 @endsection
 
 @section('bodyTitle')
-    กรรมการนิสิตคณะวิศวกรรมศาสตร์ ปีการศึกษา 2558
+    กรรมการนิสิตคณะวิศวกรรมศาสตร์ ปีการศึกษา {{$year}}
 @endsection
 
 @section('content')
@@ -43,8 +43,9 @@
                             </div>
                         </div>
                         <div class="table-responsive margin-bottom-30">
-                            <table class="table nomargin" id="permission-table">
+                            <table class="table nomargin" id="contact-table">
                                 <tr >
+                                    <th></th>
                                     <th style="text-align:center">ตำแหน่ง</th>
                                     <th style="text-align:center">ชื่อ</th>
                                     <th style="text-align:center">นามสกุล</th>
@@ -54,47 +55,24 @@
                                     <th style="text-align:center">line</th>
                                     <th style="text-align:center">Facebook</th>
                                 </tr>
-                                {{--@foreach($permission_users as $permission_user)--}}
-                                {{--<tr id="tuple-{{$permission_user['student_id']}}"><input type="hidden" id="delete-{{$permission_user['student_id']}}" name="privilege[{{$permission_user['student_id']}}][]" value="" />--}}
-                                {{--<td class="text-center"><a id="{{$permission_user['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">--}}
-                                {{--<i class="fa fa-minus"></i>--}}
-                                {{--<i class="fa fa-trash"></i>--}}
-                                {{--</a></td>--}}
-                                {{--<td><input type="hidden" name="student_id[]" value="{{$permission_user['student_id']}}"/>{{$permission_user['student_id']}}</td>--}}
-                                {{--<td>{{$permission_user['name']}}</td>--}}
-                                {{--<td>{{$permission_user['surname']}}</td>--}}
-                                {{--<td class="text-center">--}}
-                                {{--<label class="switch switch-success">--}}
-                                {{--<input  name="privilege[{{$permission_user['student_id']}}][]" value="announce" @if($permission_user['news']) checked @endif type="checkbox">--}}
-                                {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
-                                {{--</label>--}}
-                                {{--</td>--}}
-                                {{--<td class="text-center">--}}
-                                {{--<label class="switch switch-success">--}}
-                                {{--<input name="privilege[{{$permission_user['student_id']}}][]" value="room" type="checkbox" @if($permission_user['room']) checked @endif type="checkbox">--}}
-                                {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
-                                {{--</label>--}}
-                                {{--</td>--}}
-                                {{--<td class="text-center">--}}
-                                {{--<label class="switch switch-success">--}}
-                                {{--<input   name="privilege[{{$permission_user['student_id']}}][]" value="supplies" type="checkbox" @if($permission_user['supplies']) checked @endif type="checkbox">--}}
-                                {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
-                                {{--</label>--}}
-                                {{--</td>--}}
-                                {{--<td class="text-center">--}}
-                                {{--<label class="switch switch-success">--}}
-                                {{--<input  name="privilege[{{$permission_user['student_id']}}][]" value="activity" type="checkbox" @if($permission_user['activities']) checked @endif type="checkbox">--}}
-                                {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
-                                {{--</label>--}}
-                                {{--</td>--}}
-                                {{--<td class="text-center">--}}
-                                {{--<label class="switch switch-success">--}}
-                                {{--<input name="privilege[{{$permission_user['student_id']}}][]" value="student" @if($permission_user['student']) checked @endif type="checkbox">--}}
-                                {{--<span class="switch-label" data-on="YES" data-off="NO"></span>--}}
-                                {{--</label>--}}
-                                {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--@endforeach--}}
+                                @foreach($all_contact as $contact)
+                                    <tr id="tuple-{{$contact['position']}}-{{$contact['student_id']}}">
+                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}}" name="privilege[{{$contact['position']}}-{{$contact['student_id']}}][]" value="" />
+                                        <td class="text-center"><a id="{{$contact['position']}}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
+                                                <i class="fa fa-minus"></i>
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                        <td>{{$contact['position']}}</td>
+                                        <td>{{$contact['name']}}</td>
+                                        <td>{{$contact['surname']}}</td>
+                                        <td>{{$contact['nickname']}}</td>
+                                        <td>{{$contact['phone_number']}}</td>
+                                        <td>{{$contact['email']}}</td>
+                                        <td>{{$contact['line_id']}}</td>
+                                        <td>{{$contact['facebook_link']}}</td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </div>
 
@@ -109,13 +87,13 @@
                                 <span class="loading-icon"></span>
                             </div>
                             <div class="col-md-1">
-                                <a id="cancelMemberAddButton" class="btn btn-3d btn-reveal btn-red">
+                                <a id="cancelMemberEditButton" class="btn btn-3d btn-reveal btn-red">
                                     <i class="fa fa-times"></i>
                                     <span>ยกเลิก</span>
                                 </a>
                             </div>
                             <div class="col-md-1" style="margin-left: 5px">
-                                <a id="deleteAllEditButton" class="btn btn-3d btn-reveal btn-black">
+                                <a id="deleteAllMemberButton" class="btn btn-3d btn-reveal btn-black">
                                     <i class="fa fa-trash-o"></i>
                                     <span>ลบทั้งหมด</span>
                                 </a>
@@ -129,4 +107,64 @@
 @endsection
 
 @section('js')
+    <script>
+        function main () {
+            $("#cancelMemberEditButton").click(function () {
+                window.location='{{url()}}/contact';
+            });
+            $("#deleteAllMemberButton").click(function () {
+                window.location='{{url()}}/contact';
+            });
+            $('#studentInfo').keyup(function(){
+                $('.typeahead').typeahead('destroy');
+                $('.autosuggest').attr('data-queryURL','{!! url('setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                _autosuggest();
+                $(this).trigger( "focus" );
+            });
+            $(document).on('click','.delete-a-tuple',function(){
+                var id =  this.id;
+                $('#tuple-'+id).addClass('hidden');
+                $('#delete-'+id).val('deleted');
+            });
+            $(document).on('click','#add-new-permission-btn',function(){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+'/contact/add_new_contact',
+                        {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                    if(input=='fail'){
+                        _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                        return false;
+                    }
+                    else {
+                        if(document.getElementById(+input["student_id"])){
+                            if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
+                                _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                            }
+                            $('#tuple-'+input["student_id"]).removeClass('hidden');
+                            $('#delete-'+input["student_id"]).val("");
+                        }
+                        else {
+                            $('#contact-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="privilege['+input["student_id"]+'][]" value="" />'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +' <i class="fa fa-minus"></i>'
+                                    +' <i class="fa fa-trash"></i>'
+                                    +' </a></td>'
+                                    +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
+                                    +' <td>'+input["name"]+'</td>'
+                                    +' <td>'+input["surname"]+'</td>'
+                                    +' <td>'+input["nickname"]+'</td>'
+                                    +' <td>'+input["phone_number"]+'</td>'
+                                    +' <td>'+input["email"]+'</td>'
+                                    +' <td>'+input["line_id"]+'</td>'
+                                    +' <td>'+input["facebook_link"]+'</td>'
+                                    +'  </tr>');
+                        }
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                    return false;
+                });
+            });
+        }
+        $( document ).ready(main);
+    </script>
 @endsection

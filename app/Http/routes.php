@@ -61,6 +61,6 @@ Route::post('/activity/create/addEditor','ActivityController@addEditor');
 
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
-Route::post('/contact/add_new_member', 'ContactController@addNewMember');
+Route::post('/contact/add_new_contact', 'ContactController@addNewContact');
 
 Route::get ('/profile', 'PagesController@profilePage');
