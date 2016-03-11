@@ -57,5 +57,7 @@ Route::post('/setting/add_new_permission', 'SettingController@addNewPermission')
 
 //Activity Page
 Route::get('/activity/create','ActivityController@create');
+Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
+Route::post('/activity/create/addEditor','ActivityController@addEditor');
 
 Route::get ('/profile', 'PagesController@profilePage');
