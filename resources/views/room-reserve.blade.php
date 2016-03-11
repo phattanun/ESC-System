@@ -200,10 +200,37 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="name" required type="text" class="form-control" placeholder="ชื่อ">
+                                            <input required name="student_id" type="text" class="form-control" placeholder="รหัสนิสิต">
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="surname" required type="text" class="form-control" placeholder="นามสกุล">
+                                            <input required name="faculty" type="text" class="form-control" placeholder="คณะ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="name" type="text" class="form-control" placeholder="ชื่อ">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="surname" type="text" class="form-control" placeholder="นามสกุล">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="organization" type="text" class="form-control" placeholder="หน่วยงาน">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="phone" type="text" class="form-control" placeholder="เบอร์โทรศัพท์">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="email" type="text" class="form-control" placeholder="อีเมล">
                                 </div>
                             </div>
                         </div>
