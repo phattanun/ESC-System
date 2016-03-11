@@ -8,6 +8,10 @@
     style ="background-color:#F6F6F6;"
 @endsection
 
+@section('studentsNavToggle')
+    active
+@endsection
+
 @section('bodyTitle')
     ข้อมูลนิสิต
 @endsection

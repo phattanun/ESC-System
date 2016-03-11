@@ -28,16 +28,16 @@ Route::post('/news/remove', 'NewsController@remove');
 Route::post('save_news', 'NewsController@save_news');
 
 // Meeting Room
-Route::get('/room/result', 'RoomController@viewResultPage');
-Route::get('/room/reserve', 'RoomController@viewReservePage');
-Route::get('/room/room-manage', 'RoomController@roomManagePage');
+Route::get ('/room/result', 'RoomController@viewResultPage');
+Route::get ('/room/reserve', 'RoomController@viewReservePage');
+Route::get ('/room/room-manage', 'RoomController@roomManagePage');
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 
 // Supply
-Route::get('/supplies', 'PagesController@suppliesPage');
+Route::get ('/supplies', 'PagesController@suppliesPage');
 
 // Students
-Route::get('/students', 'StudentController@studentsPage');
+Route::get ('/students', 'StudentController@studentsPage');
 Route::post('/students/search', 'StudentController@search');
 
 // Login/Logout Register
@@ -45,8 +45,7 @@ Route::post('/login', 'PagesController@login');
 Route::get ('/logout', 'PagesController@logout');
 Route::post('/register', 'PagesController@registerConfirm');
 
-
-//Setting Page
+// Setting Page
 Route::get ('/setting', 'SettingController@index');
 Route::get ('/setting/auto_suggest', 'SettingController@autoSuggest');
 Route::post('/setting/edit_year', 'SettingController@editYear');
@@ -54,8 +53,11 @@ Route::post('/setting/edit_permission', 'SettingController@editPermission');
 Route::post('/setting/delete_permission', 'SettingController@deletePermission');
 Route::post('/setting/add_new_permission', 'SettingController@addNewPermission');
 
-
-//Activity Page
+// Activity Page
 Route::get('/activity/create','ActivityController@create');
+
+// Contact Page
+Route::get ('/contact', 'ContactController@contactPage');
+Route::post('/contact/add_new_member', 'ContactController@addNewMember');
 
 Route::get ('/profile', 'PagesController@profilePage');
