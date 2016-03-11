@@ -20,7 +20,8 @@
                     {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
                 {{--</div>--}}
                 <div class = "panel-body">
-                    <form novalidate="novalidate" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
+                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
+                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>ชื่อกิจกรรม *</label>
@@ -125,12 +126,12 @@
                         </fieldset>
                         <div class="table-responsive margin-bottom-30" style="width:50%">
                             <table class="table nomargin" id="permission-table" width="100%">
-                                <tr>
-                                    <th style="vertical-align:middle"></th>
-                                    <th style="vertical-align:middle;" >รหัสนิสิต</th>
-                                    <th style="vertical-align:middle;" >ชื่อ</th>
-                                    <th style="vertical-align:middle;" >นามสกุล</th>
-                                </tr>
+                                {{--<tr>--}}
+                                    {{--<th style="vertical-align:middle"></th>--}}
+                                    {{--<th style="vertical-align:middle;" >รหัสนิสิต</th>--}}
+                                    {{--<th style="vertical-align:middle;" >ชื่อ</th>--}}
+                                    {{--<th style="vertical-align:middle;" >นามสกุล</th>--}}
+                                {{--</tr>--}}
                             </table>
                         </div>
                         <div class = "row">
@@ -139,6 +140,11 @@
                                 <input name="last_year_seen" value="" class="form-control required"
                                        type="text">
                             </div>
+                        </div>
+                        <div class="row text-center">
+                            <button type="submit" id="registerBtn" class="btn  btn-lg btn-success"><i
+                                        class="fa fa-check"></i>ยืนยัน
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -150,6 +156,7 @@
 @section('js-top')
     <script>
         function main() {
+            var editor_count = 0;
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
@@ -178,6 +185,16 @@
                             $('#delete-'+input["student_id"]).val("");
                         }
                         else {
+                            if(editor_count == 0){
+                                $('#permission-table').append('<tr>'
+                                    +'<th style="vertical-align:middle"></th>'
+                                    +'<th style="vertical-align:middle;" >รหัสนิสิต</th>'
+                                    +'<th style="vertical-align:middle;" >ชื่อ</th>'
+                                    +'<th style="vertical-align:middle;" >นามสกุล</th>'
+                               +'</tr>');
+                                editor_count++;
+
+                            }
                             $('#permission-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="privilege['+input["student_id"]+'][]" value="" />'
                                     +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
                                     +' <i class="fa fa-minus"></i>'

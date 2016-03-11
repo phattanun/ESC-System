@@ -88,6 +88,10 @@ class ActivityController extends Controller
 
         }
     }
+
+    public function add_activity(Request $request){
+        return $request;
+    }
     /**
      * Store a newly created resource in storage.
      *

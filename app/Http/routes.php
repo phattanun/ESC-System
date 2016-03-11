@@ -58,6 +58,7 @@ Route::post('/setting/add_new_permission', 'SettingController@addNewPermission')
 Route::get('/activity/create','ActivityController@create');
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::post('/activity/create/addEditor','ActivityController@addEditor');
+Route::post('/activity/create/send_form','ActivityController@add_activity');
 
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
