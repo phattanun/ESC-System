@@ -174,7 +174,7 @@
                             @endif
                             @if(isset($user) && $user)
                             <li class="@yield('studentsNavToggle')"><!-- STUDENTS' INFO -->
-                                <a href="{{URL::to('students')}}">
+                                <a href="{{URL::to('/students')}}">
                                     ข้อมูลนิสิต
                                 </a>
                             </li>
@@ -184,8 +184,8 @@
                                     ช่วยเหลือ
                                 </a>
                             </li>
-                            <li class="@yield('helpNavToggle')"><!-- CONTACT US -->
-                                <a href="#">
+                            <li class="@yield('contactNavToggle')"><!-- CONTACT US -->
+                                <a href="{{URL::to('/contact')}}">
                                     ติดต่อเรา
                                 </a>
                             </li>
