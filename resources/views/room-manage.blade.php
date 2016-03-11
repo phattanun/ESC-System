@@ -202,7 +202,7 @@
                                             <label>เวลาเปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="08 : 00 : AM" name="time-start-default" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM">
+                                            <input type="text" class="form-control timepicker valid" value="08 : 00" name="time-start-default" data-timepicki-tim="08" data-timepicki-mini="00">
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                             <label>เวลาปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="07 : 00 : PM" name="time-end-default" data-timepicki-tim="07" data-timepicki-mini="00" data-timepicki-meri="PM">
+                                            <input type="text" class="form-control timepicker valid" value="07 : 00" name="time-end-default" data-timepicki-tim="07" data-timepicki-mini="00">
                                         </div>
                                     </div>
                                 </div>
@@ -290,14 +290,18 @@
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
                                             <tr id=""><input type="hidden" id="delete" name="" value="" />
-                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-date-start-1" class="form-control datepicker text-center" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-date-end-1" class="form-control datepicker text-center" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-time-start-1">08 : 00 : AM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="08 : 00 : AM" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00" data-timepicki-meri="AM"></td>
-                                                <td><div id="event-time-end-1">16 : 00 : PM</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center" value="16 : 00 : PM" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00" data-timepicki-meri="PM"></td>
+                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-input-date-start-1" class="form-control datepicker text-center hide" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-input-date-end-1" class="form-control datepicker text-center hide" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-1">08 : 00</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center hide" value="08 : 00" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00"></td>
+                                                <td><div id="event-time-end-1">16 : 00</div><input type="text" id="event-input-time-end-1" class="form-control timepicker valid text-center hide" value="16 : 00" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00"></td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-3d btn-reveal btn-yellow">
+                                                    <a id="event-edit-button-1" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit(1)">
                                                         <i class="fa fa-edit"></i>
                                                         <span>แก้ไข</span>
+                                                    </a>
+                                                    <a id="event-cancel-button-1" onclick="eventCancel(1)" class="btn btn-3d btn-reveal btn-red hide">
+                                                        <i class="fa fa-times"></i>
+                                                        <span>ยกเลิก</span>
                                                     </a>
                                                     <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
                                                         <i class="fa fa-minus"></i>
@@ -452,6 +456,19 @@
             document.getElementById("event-time-start-new").value = "";
             document.getElementById("event-time-end-new").value = ""
             alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd);
+        }
+
+        function eventEdit(id){
+            $("#event-date-start-"+id).addClass("hide");
+            $("#event-date-end-"+id).addClass("hide");
+            $("#event-time-start-"+id).addClass("hide");
+            $("#event-time-end-"+id).addClass("hide");
+            $("#event-input-date-start-"+id).removeClass("hide");
+            $("#event-input-date-end-"+id).removeClass("hide");
+            $("#event-input-time-start-"+id).removeClass("hide");
+            $("#event-input-time-end-"+id).removeClass("hide");
+            $("#event-edit-button-"+id).addClass("hide");
+            $("#event-cancel-button-"+id).removeClass("hide");
         }
     </script>
 @endsection
