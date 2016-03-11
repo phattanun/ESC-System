@@ -28,9 +28,16 @@ Route::post('/news/remove', 'NewsController@remove');
 Route::post('save_news', 'NewsController@save_news');
 
 // Meeting Room
+<<<<<<< HEAD
 Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
 Route::get ('/room/room-manage', 'RoomController@roomManagePage');
+=======
+Route::get('/room/result', 'RoomController@viewResultPage');
+Route::get('/room/reserve', 'RoomController@viewReservePage');
+Route::post('/room/user/submit_request', 'RoomController@UserSubmitRequest');
+Route::get('/room/room-manage', 'RoomController@roomManagePage');
+>>>>>>> ad3b6f7fe14e1e28845f2055cb1407441e6b051f
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 
 // Supply
@@ -55,6 +62,8 @@ Route::post('/setting/add_new_permission', 'SettingController@addNewPermission')
 
 // Activity Page
 Route::get('/activity/create','ActivityController@create');
+Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
+Route::post('/activity/create/addEditor','ActivityController@addEditor');
 
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');

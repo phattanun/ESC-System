@@ -15,7 +15,7 @@
 					return tim + " : " + mini;
 				}
 			},
-			increase_direction: 'down',
+			increase_direction: 'up',
 			custom_classes: '',
 			min_hour_value: 1,
 			max_hour_value: 12,

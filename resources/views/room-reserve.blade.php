@@ -87,22 +87,20 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><i class="fa fa-calendar"></i> จองห้อง</h4>
                 </div>
-                {{--<form class="validate" action="{{url().'/room/submit_request'}}" method="post"--}}
+                {{--<form class="validate" action="{{url().'/room/user/submit_request'}}" method="post"--}}
                       {{--enctype="multipart/form-data" data-success="ส่งคำจองสำเร็จ"--}}
                       {{--data-toastr-position="top-right">--}}
                     {{--<input type="hidden" name="_token" value="{{{ csrf_token() }}}">--}}
                     <div class="modal-body">
-                        <p id="request-date"><i class="fa fa-clock-o"></i></p>
-                        <select name="project" class="form-control select2 required">
+                        <p id="request-date"></p>
+                        <select name="project" class="form-control select2 required" id="project-selection">
                             <option selected="selected" value="1">ส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี</option>
                             <option value="2">โครงการ 2</option>
                         </select>
-                        <input required type="text" class="calendar_event_input_add form-control" id="numberOfPeople"
+                        <input required type="text" class="calendar_event_input_add form-control" name="numberOfPeople" id="numberOfPeople"
                                placeholder="จำนวนคน"/>
-                        <textarea class="form-control" id="apptEventDescription" placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>
-                        <input type="hidden" id="apptStartTime" value="' + start + '"/>
-                        <input type="hidden" id="apptEndTime" value="' + end + '"/>
-                        <input type="hidden" id="apptAllDay" value="' + allDay + '"/>
+                        <textarea required name="objective" class="form-control" id="apptEventDescription" placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>
+                        <input type="hidden" name="date" id="apptDate" value=""/>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
@@ -114,10 +112,7 @@
                                             <label>เริ่ม</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
-                                            <input type="text" class="form-control timepicker valid"
-                                                   value="08 : 00 : AM"
-                                                   data-timepicki-tim="08" data-timepicki-mini="00"
-                                                   data-timepicki-meri="AM">
+                                            <input required name="startTime" required type="text" class="form-control timepicker valid">
                                         </div>
                                     </div>
                                 </div>
@@ -127,28 +122,54 @@
                                             <label>สิ้นสุด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
-                                            <input type="text" class="form-control timepicker valid"
-                                                   value="07 : 00 : PM"
-                                                   data-timepicki-tim="07" data-timepicki-mini="00"
-                                                   data-timepicki-meri="PM">
+                                            <input required name="endTime" required type="text" class="form-control timepicker valid">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @if($permission->room)
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12">
+                                    <label class="margin-bottom-10">เลือกช่วงวัน</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3 no-margin">
+                                            <label>เริ่ม</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 no-margin">
+                                            <input id="dateStart" type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 no-margin-left">
+                                    <div class="margin-bottom-20">
+                                        <div class="col-md-3 col-sm-3 no-margin">
+                                            <label>สิ้นสุด</label>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 no-margin">
+                                            <input id="dateEnd" type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="margin-bottom-20">
-                            <label>อุปกรณ์ที่ต้องการยืมเพิ่มเติม</label>
+                            <label style="margin-bottom: 10px;">อุปกรณ์ที่ต้องการยืมเพิ่มเติม</label>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="1">
+                                        <input name="borrow[]" type="checkbox" value="whiteboard">
                                         <i></i> ปากกาไวท์บอร์ด
                                     </label>
 
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="1">
+                                        <input name="borrow[]" type="checkbox" value="projector">
                                         <i></i> โปรเจกเตอร์
                                     </label>
 
@@ -157,26 +178,37 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="1">
+                                        <input name="borrow[]" type="checkbox" value="cord">
                                         <i></i> ปลั๊กพ่วง
                                     </label>
 
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="1" class="pull-right">
+                                        <input name="borrow[]" type="checkbox" value="other" class="pull-right">
                                         <i></i> อื่นๆ:
                                     </label>
-                                    <input type="text" class="form-control" id="otherBorrow"
+                                    <input  name="otherBorrow" type="text" class="form-control" id="otherBorrow"
                                            placeholder="ระบุอุปกรณ์ที่ต้องการ"/>
                                 </div>
                             </div>
                         </div>
-                        <input required type="text" class="form-control" id="postscript"
+                        <input type="text" class="form-control" id="postscript"
                                placeholder="หมายเหตุ: รายละเอียดเพิ่มเติมอื่น ๆ ที่ต้องการแจ้งผู้ดูแล"/>
-
+                        <hr>
+                        <p><i class="fa fa-user"></i>  รายละเอียดผู้จอง</p>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="name" required type="text" class="form-control" placeholder="ชื่อ">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                            <input required name="surname" required type="text" class="form-control" placeholder="นามสกุล">
+                                </div>
+                            </div>
+                        </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal"><i
+                            <button type="submit" class="btn btn-success" id="submit-btn"><i
                                         class="fa fa-check"></i>
                                 ส่งคำจอง
                             </button>
@@ -201,9 +233,21 @@
             padding-top: 0px;
         }
 
-        /*label {*/
+        /*form label {*/
         /*color: #414141;*/
         /*}*/
+        form label {
+            font-weight: 400;
+        }
+        .row {
+            color: #666;
+        }
+        .timepicker {
+            margin-bottom: 0px;
+        }
+        .checkbox{
+            color: #666;
+        }
         .no-margin {
             margin-left: 0px;
             margin-right: 0px;
@@ -267,6 +311,21 @@
             <!-- PAGE LEVEL SCRIPTS -->
     <script type="text/javascript">
 
+        $("#numberOfPeople").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    (e.keyCode == 65 && e.ctrlKey === true) ||
+                    (e.keyCode == 67 && e.ctrlKey === true) ||
+                    (e.keyCode == 88 && e.ctrlKey === true) ||
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+        $('#submit-btn').click(function(){
+
+        });
         /* Calendar Data */
         var date = new Date();
         var d = date.getDate();
@@ -361,10 +420,7 @@
                                             _calendarInit();
                                         });
                                         function _calendarInit() {
-
                                             _fullCalendar();
-                                            _calendarEventAdd();
-
                                         }
 
                                         function _fullCalendar() {
@@ -408,59 +464,17 @@
                                                             else {
                                                                 $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
                                                                 day = jQuery.fullCalendar.formatDate(start, 'ddd, d MMMM yyyy');
+                                                                date = jQuery.fullCalendar.formatDate(start,'yyyy-MM-d');
+                                                                @if($permission->room)
+                                                                $("#dateStart").val(date);
+                                                                $("#dateEnd").val(date);
+                                                                @endif
                                                                 $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
+                                                                $("#apptDate").val(date);
                                                                 $('#myModal').modal();
-//                                                        BootstrapDialog.show({
-//                                                            type: BootstrapDialog.TYPE_DANGER,
-//                                                            title: '<i class="fa fa-calendar"></i> จองห้อง',
-//                                                            message: '<p><i class="fa fa-clock-o"></i> ' + _when_ + '</p>' +
-//                                                            '<select name="group" class="form-control select2 required"> <option selected="selected" value="">ส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี</option> <option value="">โครงการ 2</option> </select>' +
-//                                                            '<input required type="text" class="calendar_event_input_add form-control" id="numberOfPeople" placeholder="จำนวนคน" />' +
-//                                                            '<textarea class="calendar_event_textarea_add form-control" id="apptEventDescription" placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>' +
-//
-//                                                            '<input type="hidden" id="apptStartTime" value="' + start + '" />' + /** start date hidden **/
-//                                                            '<input type="hidden" id="apptEndTime" value="' + end + '" />' + /** end date hidden **/
-//                                                            '<input type="hidden" id="apptAllDay" value="' + allDay + '" />' + /** allday hidden **/
-//
-//                                                                /* start event color */
-//                                                                //'<div class="sky-form">' +
-//                                                                //'<div class="block inline-group">' +
-//                                                                //	'<label class="fsize11 block margin-top-20">เลือกสีของการจอง</label>' +
-//                                                                //	'<label class="radio"><input type="radio" name="calendar_event_color" value="bg-primary" checked="checked" /><i></i> <span class="text-primary">Default</span></label>' +
-//                                                                //	'<label class="radio"><input type="radio" name="calendar_event_color" value="bg-danger" /><i></i> <span class="text-danger">Red</span></label>' +
-//                                                                //	'<label class="radio"><input type="radio" name="calendar_event_color" value="bg-warning" /><i></i> <span class="text-warning">Yellow</span></label>' +
-//                                                                //	'<label class="radio"><input type="radio" name="calendar_event_color" value="bg-success" /><i></i> <span class="text-success">Green</span></label>' +
-//                                                                //	'<label class="radio"><input type="radio" name="calendar_event_color" value="bg-info" /><i></i> <span class="text-info">Blue</span></label>' +
-//                                                                //'</div>' +
-//                                                                //'</div>' +
-//                                                                /* end event color */
-//
-//                                                            '',
-//                                                            buttons: [
-//                                                                {
-//                                                                    label: '<i class="fa fa-check"></i> ส่งคำจอง',
-//                                                                    cssClass: 'btn-success',
-//                                                                    hotkey: 13, // Enter.
-//                                                                    action: function (dialogItself) {
-//                                                                        _calendarEventAdd();
-//                                                                        dialogItself.close();
-//                                                                        _calendarInstance.fullCalendar('unselect');
-//                                                                    }
-//                                                                },
-//                                                                {
-//                                                                    label: '<i class="fa fa-times"></i> ยกเลิก',
-//                                                                    cssClass: 'btn-default',
-//                                                                    action: function (dialogItself) {
-//                                                                        dialogItself.close();
-//                                                                        _calendarInstance.fullCalendar('unselect');
-//                                                                    }
-//                                                                }
-//                                                            ]
-//                                                        });
                                                             }
                                                         }
                                                     },
-
                                                     events: _calendarEvents,
                                                     eventRender: function (event, element, icon) {
 
@@ -471,119 +485,31 @@
                                                         if (!event.icon == '') {
                                                             element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
                                                         }
-
                                                     }
-
                                                 });
-
                                             }
                                         }
-
-                                        /**
-                                         EVENT ADD
-                                         ************************************** **/
-                                        function _calendarEventAdd() {
-                                            /**
-                                             apptEventTitle
-                                             apptEventUrl
-                                             apptEventDescription
-
-                                             apptStartTime
-                                             apptEndTime
-                                             apptAllDay
-                                             **/
-
-                                            if (jQuery('#apptEventTitle').val()) {
-                                                var cal_title = jQuery('#apptEventTitle').val(),
-                                                        cal_start = new Date(jQuery('#apptStartTime').val()),
-                                                        cal_end = new Date(jQuery('#apptEndTime').val()),
-                                                        cal_allDay = (jQuery('#apptAllDay').val() == "true"),
-                                                        cal_url = jQuery('#apptEventUrl').val(),
-                                                        cal_className = [jQuery("input:radio[name=calendar_event_color]:checked").val()],
-                                                        cal_description = jQuery('#apptEventDescription').val(),
-                                                        cal_icon = [jQuery("input:radio[name=calendar_ico]:checked").val()] || '';
-
-                                                jQuery("#calendar").fullCalendar('renderEvent', {
-                                                    title: cal_title,
-                                                    start: cal_start,
-                                                    end: cal_end,
-                                                    allDay: cal_allDay,
-
-                                                    url: cal_url,
-                                                    className: cal_className,
-                                                    description: cal_description,
-                                                    icon: cal_icon
-                                                }, true);
-                                                /* make the event "stick" */
-
-                                                // Send data via ajax
-                                                var data_action = jQuery('#calendar').attr('data-action');
-                                                var data_method = jQuery('#calendar').attr('data-method') || 'GET';
-
-                                                if (data_action) {
-                                                    jQuery.ajax({
-                                                        url: data_action,
-                                                        data: {
-                                                            'action': 'create',
-                                                            'cal_title': cal_title,
-                                                            'cal_start': cal_start,
-                                                            'cal_end': cal_end,
-                                                            'cal_allDay': cal_allDay.start,
-                                                            'cal_url': cal_url.end,
-                                                            'cal_className': cal_className,
-                                                            'cal_description': cal_description,
-                                                            'cal_icon': cal_icon
-                                                        },
-                                                        type: data_method,
-
-                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                                                            // by default, on error, print uri
-                                                            jQuery("#toast-container").remove();
-                                                            toastr.options.positionClass = 'toast-top-full-width';
-                                                            toastr.options.timeOut = 10000;
-                                                            toastr.error("Method: " + data_method + "<br />" + data_action + '&action=create&cal_title=' + cal_title + '&cal_start=' + cal_start + '&cal_end=' + cal_end + '&cal_allDay=' + cal_allDay + '&cal_url=' + cal_url + '&cal_className=' + cal_className + '&cal_description=' + cal_description + '&cal_icon=' + cal_icon, "Demo : Calendar Event Add");
-
-                                                        },
-
-                                                        success: function (data) {
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                        }
-
                                         jQuery("a[data-widget=calendar-view]").bind("click", function (e) {
                                             e.preventDefault();
-
                                             var _href = jQuery(this).attr('href'),
                                                     _href = _href.replace('#', ''),
                                                     _name = jQuery('span', this).html();
-
                                             if (_href) {
-
                                                 jQuery('#calendar').fullCalendar('changeView', _href.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
                                                 jQuery("#agenda_btn").empty().append(_name);
-
                                                 // add current view to cookie
                                                 jQuery.cookie('calendar_view', _href, {expires: 30}); 		// expire 30 days
                                                 jQuery.cookie('calendar_view_name', _name, {expires: 30}); 	// expire 30 days
-
                                             }
                                         });
                                         jQuery(document).ready(function () {
-
                                             var calendar_view = jQuery.cookie('calendar_view');
                                             var calendar_view_name = jQuery.cookie('calendar_view_name');
-
                                             if (calendar_view && calendar_view_name) {
-
                                                 jQuery('#calendar').fullCalendar('changeView', calendar_view.trim());
                                                 jQuery("#agenda_btn").empty().append(calendar_view_name);
-
                                             }
                                         });
-
                                     });
                                 });
                             });
@@ -591,6 +517,5 @@
                     });
                 });
             });
-
     </script>
 @endsection

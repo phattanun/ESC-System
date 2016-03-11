@@ -20,7 +20,7 @@
                     {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
                 {{--</div>--}}
                 <div class = "panel-body">
-                    <form>
+                    <form novalidate="novalidate" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>ชื่อกิจกรรม *</label>
@@ -106,25 +106,15 @@
                                 {{--<small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>--}}
                             {{--</div>--}}
                         {{--</div>--}}
-                        <div class = "row">
-                            <div class="col-md-2 col-sm-2">
-                                <label>ชั้นปีสุดท้ายที่เห็น *</label>
-                                <input name="last_year_seen" value="" class="form-control required"
-                                       type="text">
-                            </div>
-                        </div>
-                    </form>
-                    <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
                         <fieldset>
-                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
                                         <label class="margin-bottom-20 ">เพิ่มผู้จัดการกิจกรรม</label>
-                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="{{url('setting/auto_suggest?limit=10&search=1')}}">
+                                        <div class="input-group autosuggest" data-minLength="1" >
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
-                                            <span class="input-group-btn" id="add-new-permission-btn">
+                                            <span class="input-group-btn" id="add-new-editor-btn">
                                                 <a class="btn btn-success">เพิ่ม</a>
                                             </span>
                                         </div>
@@ -141,33 +131,13 @@
                                     <th style="vertical-align:middle;" >ชื่อ</th>
                                     <th style="vertical-align:middle;" >นามสกุล</th>
                                 </tr>
-                                <tr>
-                                    <td class="text-center"><a id="a" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
-                                            <i class="fa fa-minus"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </a></td>
-                                    <td style="vertical-align:middle;">5631057921</td>
-                                    <td style="vertical-align:middle;">ปฏิพล</td>
-                                    <td style="vertical-align:middle;">เจียมมั่นจิต</td>
-                                </tr>
                             </table>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-1">
-                                <button type="submit" class="btn btn-3d btn-reveal btn-green">
-                                    <i class="fa fa-check"></i>
-                                    <span>บันทึก</span>
-                                </button>
-                            </div>
-                            <div class="col-md-1 text-center">
-                                <span class="loading-icon"></span>
-                            </div>
-                            <div class="col-md-1">
-                                <a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">
-                                    <i class="fa fa-times"></i>
-                                    <span>ยกเลิก</span>
-                                </a>
+                        <div class = "row">
+                            <div class="col-md-2 col-sm-2">
+                                <label>ชั้นปีสุดท้ายที่เห็น *</label>
+                                <input name="last_year_seen" value="" class="form-control required"
+                                       type="text">
                             </div>
                         </div>
                     </form>
@@ -175,4 +145,56 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js-top')
+    <script>
+        function main() {
+            $(document).on('click','.delete-a-tuple',function(){
+                var id =  this.id;
+                $('#tuple-'+id).addClass('hidden');
+                $('#delete-'+id).val('deleted');
+            });
+            $('#studentInfo').keyup(function(){
+                $('.typeahead').typeahead('destroy');
+                $('.autosuggest').attr('data-queryURL','{!! url('activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                _autosuggest();
+                $(this).trigger( "focus" );
+            });
+            $(document).on('click','#add-new-editor-btn',function(){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+'/activity/create/addEditor',
+                        {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                    if(input=='fail'){
+                        _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                        return false;
+                    }
+                    else {
+                        if(document.getElementById(+input["student_id"])){
+                            if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
+                                _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                            }
+                            $('#tuple-'+input["student_id"]).removeClass('hidden');
+                            $('#delete-'+input["student_id"]).val("");
+                        }
+                        else {
+                            $('#permission-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="privilege['+input["student_id"]+'][]" value="" />'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +' <i class="fa fa-minus"></i>'
+                                    +' <i class="fa fa-trash"></i>'
+                                    +' </a></td>'
+                                    +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
+                                    +' <td>'+input["name"]+'</td>'
+                                    +' <td>'+input["surname"]+'</td>'
+                                    +'  </tr>');
+                        }
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                    return false;
+                });
+            });
+        }
+        $( document ).ready(main);
+    </script>
 @endsection
