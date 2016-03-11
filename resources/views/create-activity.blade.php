@@ -120,7 +120,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
-                                        <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
+                                        <label class="margin-bottom-20 ">เพิ่มผู้จัดการกิจกรรม</label>
                                         <div class="input-group autosuggest" data-minLength="1" data-queryURL="{{url('setting/auto_suggest?limit=10&search=1')}}">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
@@ -133,33 +133,43 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <div class="table-responsive margin-bottom-30" style="float:left; width:50%">
+                        <div class="table-responsive margin-bottom-30" style="width:50%">
                             <table class="table nomargin" id="permission-table" width="100%">
                                 <tr>
-                                    <th style="vertical-align:middle" rowspan="2">รหัสนิสิต</th>
-                                    <th style="vertical-align:middle" rowspan="2">ชื่อ</th>
-                                    <th style="vertical-align:middle" rowspan="2">นามสกุล</th>
+                                    <th style="vertical-align:middle"></th>
+                                    <th style="vertical-align:middle;" >รหัสนิสิต</th>
+                                    <th style="vertical-align:middle;" >ชื่อ</th>
+                                    <th style="vertical-align:middle;" >นามสกุล</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><a id="a" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-trash"></i>
+                                        </a></td>
+                                    <td style="vertical-align:middle;">5631057921</td>
+                                    <td style="vertical-align:middle;">ปฏิพล</td>
+                                    <td style="vertical-align:middle;">เจียมมั่นจิต</td>
                                 </tr>
                             </table>
                         </div>
 
-                        {{--<div class="row">--}}
-                            {{--<div class="col-md-1">--}}
-                                {{--<button type="submit" class="btn btn-3d btn-reveal btn-green">--}}
-                                    {{--<i class="fa fa-check"></i>--}}
-                                    {{--<span>บันทึก</span>--}}
-                                {{--</button>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-md-1 text-center">--}}
-                                {{--<span class="loading-icon"></span>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-md-1">--}}
-                                {{--<a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">--}}
-                                    {{--<i class="fa fa-times"></i>--}}
-                                    {{--<span>ยกเลิก</span>--}}
-                                {{--</a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="row">
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-3d btn-reveal btn-green">
+                                    <i class="fa fa-check"></i>
+                                    <span>บันทึก</span>
+                                </button>
+                            </div>
+                            <div class="col-md-1 text-center">
+                                <span class="loading-icon"></span>
+                            </div>
+                            <div class="col-md-1">
+                                <a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">
+                                    <i class="fa fa-times"></i>
+                                    <span>ยกเลิก</span>
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
