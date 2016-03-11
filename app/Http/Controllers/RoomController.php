@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Permission;
+use App\UserReservation;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -33,6 +35,18 @@ class RoomController extends Controller
     {
 
         return view('room-manage');
+    }
+    public function UserSubmitRequest()
+    {
+        $project = input::get('project');
+        $numberOfPeople = input::get('numberOfPeople');
+        $objective = input::get('objective');
+        $date = input::get('date');
+        $startTime = input::get('startTime');
+        $endTime = input::get('endTime');
+        $borrow = input::get('borrow');
+        $otherBorrow = input::get('otherBorrow');
+        $new = new UserReservation();
     }
 
     public function editRoom()
