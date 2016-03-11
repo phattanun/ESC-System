@@ -142,7 +142,7 @@
                                                 <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
-                                            <tr id="room-1">
+                                            <tr id="room-1"><input type="hidden" id="room-status-1" name="room[1][status]" value="" />
                                                 <td>
                                                     <div id="room-name-1">ห้องประชุมใหญ่ 1</div>
                                                     <div id="room-input-name-1" class="hide">
@@ -176,7 +176,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr id="room-2">
+                                            <tr id="room-2"><input type="hidden" id="room-status-2" name="room[2][status]" value="" />
                                                 <td>
                                                     <div id="room-name-2">ห้องประชุมใหญ่ 2</div>
                                                     <div id="room-input-name-2" class="hide">
@@ -317,11 +317,11 @@
                                                 <th style="vertical-align:middle">เวลาปิด</th>
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
-                                            <tr id="event-1"><input type="hidden" id="delete" name="" value="" />
-                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-input-date-start-1" class="form-control datepicker text-center hide" value="21-03-2016" name="event-date-start-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-input-date-end-1" class="form-control datepicker text-center hide" value="23-03-2016" name="event-date-end-1" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-time-start-1">08 : 00</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center hide" value="08 : 00" name="event-time-start-1" data-timepicki-tim="08" data-timepicki-mini="00"></td>
-                                                <td><div id="event-time-end-1">16 : 00</div><input type="text" id="event-input-time-end-1" class="form-control timepicker valid text-center hide" value="16 : 00" name="event-time-end-1" data-timepicki-tim="16" data-timepicki-mini="00"></td>
+                                            <tr id="event-1"><input type="hidden" id="event-status-1" name="event[1][status]" value="" />
+                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-input-date-start-1" class="form-control datepicker text-center hide" value="21-03-2016" name="event[1][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-input-date-end-1" class="form-control datepicker text-center hide" value="23-03-2016" name="event[1][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-1">08 : 00</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center hide" value="08 : 00" name="event[1][time-start]" data-timepicki-tim="08" data-timepicki-mini="00"></td>
+                                                <td><div id="event-time-end-1">16 : 00</div><input type="text" id="event-input-time-end-1" class="form-control timepicker valid text-center hide" value="16 : 00" name="event[1][time-end]" data-timepicki-tim="16" data-timepicki-mini="00"></td>
                                                 <td class="text-center" style="padding-right: 0px; padding-left: 0px;">
                                                     <a id="event-edit-button-1" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit(1)">
                                                         <i class="fa fa-edit"></i>
@@ -414,6 +414,11 @@
             $("#room-input-size-"+id).removeClass("hide");
             $("#room-edit-button-"+id).addClass("hide");
             $("#room-cancel-button-"+id).removeClass("hide");
+
+            var status = document.getElementById("room-status-"+id).value;
+            if(status==""){
+                $("#room-status-"+id).attr("value","update");
+            }
         }
         function roomCancel(id){
             //var name = $("#room-input-name-"+id).value;
@@ -429,21 +434,32 @@
             $("#room-input-size-"+id).addClass("hide");
             $("#room-edit-button-"+id).removeClass("hide");
             $("#room-cancel-button-"+id).addClass("hide");
+
+            var status = document.getElementById("room-status-"+id).value;
+            if(status=="update"){
+                $("#room-status-"+id).attr("value","");
+            }
         }
         function roomRemove(id){
             $("#room-confirm-remove-button").attr("onclick","roomConfirmRemove("+id+")");
         }
         function roomConfirmRemove(id){
             $("#room-"+id).addClass("hide");
+            $("#room-status-"+id).attr("value","deleted");
         }
         function roomCreate(){
             var name = document.getElementById("room-input-name-new").value;
             var size = document.getElementById("room-input-size-new").value;
+            if(name == "" && size == ""){
+                _toastr("กรอกข้อมูลไม่ครบ","top-right","error",false);
+                return;
+            }
+            /////ต้องเช็คชื่อซ้ำมั้ย
             document.getElementById("room-input-name-new").value = "";
             document.getElementById("room-input-size-new").value = "";
             room_count = room_count + 1;
             var i = room_count;
-            var txt ='<tr id="room-'+i+'">'
+            var txt ='<tr id="room-'+i+'"><input type="hidden" id="room-status-'+i+'" name="room['+i+'][status]" value="new" />'
                     +'<td>'
                     +'  <div id="room-name-'+i+'">'+name+'</div>'
                     +'  <div id="room-input-name-'+i+'" class="hide">'
@@ -454,7 +470,7 @@
                     +'  <div id="room-size-'+i+'">'+size+' คน</div>'
                     +'  <div id="room-input-size-'+i+'" class="hide">'
                     +'      <div class="col-xs-12 no-padding">'
-                    +'          <input id="room-input-size-box-'+i+'" type="text" class="form-control" style="display: inline; width: 90%;" name="room['+i+'][size]" placeholder="จำนวนคนที่จุได้" value="'+size+'">'
+                    +'          <input id="room-input-size-box-'+i+'" type="text" class="form-control" style="display: inline; width: 80%;" name="room['+i+'][size]" placeholder="จำนวนคนที่จุได้" value="'+size+'">'
                     +'          คน'
                     +'      </div>'
                     +'  </div>'

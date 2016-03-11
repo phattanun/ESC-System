@@ -54,6 +54,7 @@ class RoomController extends Controller
         $room = Input::get('room');
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
-        return compact('room','timeStartDefault','timeEndDefault');
+        $event = Input::get('event');
+        return compact('room','timeStartDefault','timeEndDefault','event');
     }
 }
