@@ -87,10 +87,8 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><i class="fa fa-calendar"></i> จองห้อง</h4>
                 </div>
-                {{--<form class="validate" action="{{url().'/room/user/submit_request'}}" method="post"--}}
-                      {{--enctype="multipart/form-data" data-success="ส่งคำจองสำเร็จ"--}}
-                      {{--data-toastr-position="top-right">--}}
-                    {{--<input type="hidden" name="_token" value="{{{ csrf_token() }}}">--}}
+                <form class="validate" id="reserve-form">
+                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                     <div class="modal-body">
                         <p id="request-date"></p>
                         <select name="project" class="form-control select2 required" id="project-selection">
@@ -128,7 +126,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if($permission->room)
+                        @if($permission&&$permission->room)
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12">
@@ -195,6 +193,7 @@
                         </div>
                         <input type="text" class="form-control" id="postscript"
                                placeholder="หมายเหตุ: รายละเอียดเพิ่มเติมอื่น ๆ ที่ต้องการแจ้งผู้ดูแล"/>
+                        @if(!$user)
                         <hr>
                         <p><i class="fa fa-user"></i>  รายละเอียดผู้จอง</p>
                         <div class="row">
@@ -234,6 +233,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" id="submit-btn"><i
                                         class="fa fa-check"></i>
@@ -245,7 +245,7 @@
                             </button>
                         </div>
                     </div>
-                {{--</form>--}}
+                </form>
             </div>
         </div>
     </div>
@@ -269,9 +269,9 @@
         .row {
             color: #666;
         }
-        .timepicker {
-            margin-bottom: 0px;
-        }
+        /*.timepicker {*/
+            /*margin-bottom: 0px;*/
+        /*}*/
         .checkbox{
             color: #666;
         }
@@ -437,7 +437,7 @@
                 loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {
                     loadScript(plugin_path + "moment.js", function () {
                         loadScript(plugin_path + "bootstrap.dialog/dist/js/bootstrap-dialog.min.js", function () {
-                            @if($permission->room)
+                            @if($permission&&$permission->room)
                             loadScript(plugin_path + "fullcalendar/fullcalendar.js", function () {
                                 @else
                                 loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.js", function () {
@@ -481,7 +481,7 @@
                                                             var check = $.fullCalendar.formatDate(start, 'yyyyMMdd');
                                                             var today = $.fullCalendar.formatDate(new Date(), 'yyyyMMdd');
                                                             var next30 = parseInt(today) + 100;
-                                                            @if($permission->room)
+                                                            @if($permission&&$permission->room)
                                                             if (check <= today) {
                                                             }
                                                             @else
@@ -492,7 +492,7 @@
                                                                 $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
                                                                 day = jQuery.fullCalendar.formatDate(start, 'ddd, d MMMM yyyy');
                                                                 date = jQuery.fullCalendar.formatDate(start,'yyyy-MM-d');
-                                                                @if($permission->room)
+                                                                @if($permission&&$permission->room)
                                                                 $("#dateStart").val(date);
                                                                 $("#dateEnd").val(date);
                                                                 @endif

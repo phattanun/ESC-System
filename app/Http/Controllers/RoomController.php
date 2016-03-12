@@ -26,9 +26,7 @@ class RoomController extends Controller
     {
         $user = Auth::user();
         $permission = Permission::find($user['student_id']);
-        if(is_null($user))
-            return redirect('/');
-        return view('room-reserve',['permission'=>$permission]);
+        return view('room-reserve',['permission'=>$permission,'user'=>$user]);
     }
 
     public function roomManagePage()
