@@ -112,6 +112,7 @@ class ActivityController extends Controller
         $kind_of_activity = $request->input('kind_of_activity');
         $tqf = $request->input('tqf');
         $student_id = $request->input('student_id');
+
         $last_year_seen = $request->input('last_year_seen');
         $division_id = $request->input('division');
         $deleted = $request->input('deleted');
@@ -140,13 +141,14 @@ class ActivityController extends Controller
         ]);
 
         $act_id = Activity::all()->max('act_id');
-        var_dump($deleted);
-        foreach($student_id as $sid){
-            if($deleted[$sid] != "true"){
-                CanEditActivity::create([
-                    'act_id'=> $act_id,
-                    'student_id'=> $sid
-                ]);
+        if(!is_null($student_id)) {
+            foreach ($student_id as $sid) {
+                if ($deleted[$sid] != "true") {
+                    CanEditActivity::create([
+                        'act_id' => $act_id,
+                        'student_id' => $sid
+                    ]);
+                }
             }
         }
         return redirect('/');
