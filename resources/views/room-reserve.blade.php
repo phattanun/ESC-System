@@ -187,7 +187,7 @@
                                         <input id="cord" name="borrow[]" type="checkbox" value="cord">
                                         <i></i> ปลั๊กพ่วง
                                     </label>
-                                    <input  name="numberOfCord" type="text" class="form-control hidden" id="numberOfCord"
+                                    <input  name="numberOfCord" type="text" class="form-control hidden number-only" id="numberOfCord"
                                             placeholder="ระบุจำนวนที่ต้องการ"/>
                                 </div>
                             </div>
