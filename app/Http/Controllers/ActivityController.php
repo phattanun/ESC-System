@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\CanEditActivity;
 use App\Division;
+use App\Setting;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Activity;
 use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller
@@ -104,61 +107,50 @@ class ActivityController extends Controller
     }
 
     public function add_activity(Request $request){
-        
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $user = $this->getUser();
+        $activity_name = $request->input('activity_name');
+        $kind_of_activity = $request->input('kind_of_activity');
+        $tqf = $request->input('tqf');
+        $student_id = $request->input('student_id');
+        $last_year_seen = $request->input('last_year_seen');
+        $division_id = $request->input('division');
+        $deleted = $request->input('deleted');
+
+        $ethics = isset($tqf['ethics']);
+        $knowledge = isset($tqf['knowledge']);
+        $cognitive = isset($tqf['cognitive']);
+        $interpersonal = isset($tqf['interpersonal']);
+        $communication = isset($tqf['communication']);
+
+        $setting = Setting::all();
+        Activity::create([
+            'name'=> $activity_name,
+            'year'=> $setting[0]['year'],
+            'category' => $kind_of_activity,
+            'tqf_ethics' => $ethics,
+            'tqf_knowledge' => $knowledge,
+            'tqf_cognitive' => $cognitive,
+            'tqf_interpersonal' => $interpersonal,
+            'tqf_communication' => $communication,
+            'status' => 0,
+            'avail_year' => $last_year_seen,
+            'div_id' => $division_id,
+            'creator_id' => $user['student_id'],
+            'editor_id' => $user['student_id']
+        ]);
+
+        $act_id = Activity::all()->max('act_id');
+        var_dump($deleted);
+        foreach($student_id as $sid){
+            if($deleted[$sid] != "true"){
+                CanEditActivity::create([
+                    'act_id'=> $act_id,
+                    'student_id'=> $sid
+                ]);
+            }
+        }
+        return redirect('/');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

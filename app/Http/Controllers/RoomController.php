@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\Division;
 use App\GuestReservation;
 use App\Permission;
 use App\UserReservation;
@@ -30,9 +31,10 @@ class RoomController extends Controller
         $user = Auth::user();
         $permission = Permission::find($user['student_id']);
         $activity = Activity::select('act_id', 'name')->get();
+        $division = Division::select('div_id', 'name')->get();
         if (is_null($user))
             return view('room-reserve', ['permission' => $permission, 'user' => $user]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division]);
     }
 
     public function roomManagePage()
@@ -46,8 +48,27 @@ class RoomController extends Controller
         $user = Auth::user();
         if (is_null($user))
             return 'noright';
-        $project = input::get('project');
+        $permission = Permission::find($user['student_id']);
         $newUserRequest = new UserReservation();
+        $newUserRequest->reason = input::get('objective');
+        $newUserRequest->number_of_people = input::get('numberOfPeople');
+        if ($permission && $permission->room) {
+            $newUserRequest->request_start_time = input::get('dateStart') . ' ' . str_replace(' ', '', input::get('startTime')) . ':00';
+            $newUserRequest->request_end_time = input::get('dateEnd') . ' ' . str_replace(' ', '', input::get('endTime')) . ':00';
+        } else {
+            $newUserRequest->request_start_time = input::get('date') . ' ' . str_replace(' ', '', input::get('startTime')) . ':00';
+            $newUserRequest->request_end_time = input::get('date') . ' ' . str_replace(' ', '', input::get('endTime')) . ':00';
+        }
+        $newUserRequest->request_projector = (input::get('projector') === 'true') ? true : false;
+        $newUserRequest->request_plug = (input::get('cord') === 'true') ? input::get('numberOfCord') : 0;
+        $newUserRequest->request_room_id = input::get('room');
+        $newUserRequest->student_id = $user['student_id'];
+        if (substr(input::get('project'), 0, 3) == 'act')
+            $newUserRequest->act_id = substr(input::get('project'), 4);
+        else if (substr(input::get('project'), 0, 3) == 'div')
+            $newUserRequest->div_id = substr(input::get('project'), 4);
+        $newUserRequest->save();
+        return 'success';
     }
 
     public function GuestSubmitRequest()

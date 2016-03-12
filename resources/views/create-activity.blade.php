@@ -20,7 +20,7 @@
                     {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
                 {{--</div>--}}
                 <div class = "panel-body">
-                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
+                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ" data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
@@ -40,17 +40,12 @@
                                 <div class="fancy-form fancy-form-select">
                                     <select class="form-control" name="kind_of_activity">
                                         <option value="">--- ประเภทของกิจกรรม ---</option>
-                                        <option value="1">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
-                                        <option value="2">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
-                                        <option value="3">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
-                                        <option value="4">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
-                                        <option value="5">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
+                                        <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
+                                        <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
+                                        <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
+                                        <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
+                                        <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
                                     </select>
-
-                                    <!--
-                                        .fancy-arrow
-                                        .fancy-arrow-double
-                                    -->
                                     <i class="fancy-arrow"></i>
                                 </div>
                             </div>
@@ -63,7 +58,7 @@
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label class="checkbox">
-                                    <input type="checkbox" value="1" name="ethics">
+                                    <input type="checkbox" value=true name="tqf[ethics]">
                                     <i></i> ด้านคุณธรรม จริยธรรม (Ethics and Moral)
                                 </label>
                             </div>
@@ -71,7 +66,7 @@
                         <div class = "row">
                             <div class="col-md-4 col-sm-4">
                                 <label class="checkbox">
-                                    <input type="checkbox" value="1" name="knowledge">
+                                    <input type="checkbox" value=true name="tqf[knowledge]">
                                     <i></i> Languages and Academic Knowledge
                                 </label>
                             </div>
@@ -79,7 +74,7 @@
                         <div class = "row">
                             <div class="col-md-4 col-sm-4">
                                 <label class="checkbox">
-                                    <input type="checkbox" value="1" name="engineering">
+                                    <input type="checkbox" value=true name="tqf[cognitive]">
                                     <i></i> Engineering Practice
                                 </label>
                             </div>
@@ -87,7 +82,7 @@
                         <div class = "row">
                             <div class="col-md-4 col-sm-4">
                                 <label class="checkbox">
-                                    <input type="checkbox" value="1" name="culture">
+                                    <input type="checkbox" value=true name="tqf[interpersonal]">
                                     <i></i> Cultural Practice
                                 </label>
                             </div>
@@ -95,7 +90,7 @@
                         <div class = "row">
                             <div class="col-md-4 col-sm-4">
                                 <label class="checkbox">
-                                    <input type="checkbox" value="1" name="asean">
+                                    <input type="checkbox" value=true name="tqf[communication]">
                                     <i></i> Basic Knowledge of ASEAN
                                 </label>
                             </div>
@@ -112,7 +107,7 @@
                             <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
                                 <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="kind_of_activity">
+                                    <select class="form-control" name="division">
                                         <option value="">--- หน่วยงานที่เกี่ยวข้อง ---</option>
                                         {{--<option value="1">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>--}}
                                         {{--<option value="2">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>--}}
@@ -185,7 +180,7 @@
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
-                $('#delete-'+id).val(1);
+                $('#delete-'+id).val(true);
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
