@@ -64,34 +64,35 @@
                             </div>
                         </div>
                         <div class = "row">
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-8 col-sm-8">
                                 <label class="checkbox">
                                     <input type="checkbox" value=true name="tqf[knowledge]">
-                                    <i></i> Languages and Academic Knowledge
+                                    <i></i> ด้านความรู้ (Knowledge)
                                 </label>
                             </div>
                         </div>
                         <div class = "row">
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-8 col-sm-8">
                                 <label class="checkbox">
                                     <input type="checkbox" value=true name="tqf[cognitive]">
-                                    <i></i> Engineering Practice
+                                    <i></i> ด้านทักษะทางปัญญา (Cognitive Skills)
                                 </label>
                             </div>
                         </div>
                         <div class = "row">
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-8 col-sm-8">
                                 <label class="checkbox">
                                     <input type="checkbox" value=true name="tqf[interpersonal]">
-                                    <i></i> Cultural Practice
+                                    <i></i> ด้านทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ (Interpersonal Skills and Responsibility)
                                 </label>
                             </div>
                         </div>
                         <div class = "row">
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-8 col-sm-8">
                                 <label class="checkbox">
                                     <input type="checkbox" value=true name="tqf[communication]">
-                                    <i></i> Basic Knowledge of ASEAN
+                                    <i></i> ด้านทักษะการวิเคราะห์เชิงตัวเลข การสื่อสาร และการใช้เทคโนโลยีสารสนเทศ <br>
+                                    (Numerical Analysis, Communication and Information Technology Skills)
                                 </label>
                             </div>
                         </div>
