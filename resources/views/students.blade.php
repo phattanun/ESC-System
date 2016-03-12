@@ -17,11 +17,11 @@
 @endsection
 
 @section('content')
+
     <section style="margin-top: -40px">
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-body">
-
                     {{--search box part--}}
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
@@ -83,7 +83,7 @@
         </div>
     </section>
 
-
+@endsection
 
 @section('css')
     <style>
