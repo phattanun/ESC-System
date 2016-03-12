@@ -30,7 +30,6 @@ class StudentController extends Controller
                     if($request->input('studentFName')) $query->where('name', 'LIKE', '%'.$request->input('studentFName').'%');
                     if($request->input('studentLName')) $query->where('surname', 'LIKE', '%'.$request->input('studentLName').'%');
                     if($request->input('studentNName')) $query->where('nickname', 'LIKE', '%'.$request->input('studentNName').'%');
-
                 })->get();
         for($i=0 ; $i < sizeof($user);$i++){
             $user[$i]->department = Division::select(['name'])->where('div_id','=',$user[$i]->department)->get();

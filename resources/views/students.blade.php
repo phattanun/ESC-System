@@ -33,27 +33,27 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentID" required type="text" class="form-control"
+                                    <input required id="studentID" name="studentID" required type="text" class="form-control"
                                            placeholder="รหัสนิสิต">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentFName" required type="text" class="form-control"
+                                    <input required id="studentFName" name="studentFName" required type="text" class="form-control"
                                            placeholder="ชื่อ">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentLName" required type="text" class="form-control"
+                                    <input required id="studentLName" name="studentLName" required type="text" class="form-control"
                                            placeholder="นามสกุล">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentNName" required type="text" class="form-control"
+                                    <input required id="studentNName" name="studentNName" required type="text" class="form-control"
                                            placeholder="ชื่อเล่น">
                                 </div>
                                 <div class="col-md-1 col-sm-1">
-                                    <input required name="studentGroup" required type="text" class="form-control"
+                                    <input required id="studentGroup" name="studentGroup" required type="text" class="form-control"
                                            placeholder="กรุ๊ป">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="StudentDept" required type="text" class="form-control"
+                                    <input required id="StudentDept" name="StudentDept" required type="text" class="form-control"
                                            placeholder="ภาควิชา">
                                 </div>
                                  <span id="search-student-btn">
@@ -83,8 +83,16 @@
         </div>
     </section>
 
-@endsection
 
+
+@section('css')
+    <style>
+        .table-responsive {
+            word-break: keep-all;
+        }
+    </style>
+
+@endsection
 @section('js')
     <script>
         $('#search-student-btn').click(function () {
