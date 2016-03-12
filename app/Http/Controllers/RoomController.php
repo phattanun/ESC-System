@@ -24,14 +24,15 @@ class RoomController extends Controller
     {
         return view('room-result');
     }
+
     public function viewReservePage()
     {
         $user = Auth::user();
         $permission = Permission::find($user['student_id']);
-        $activity = Activity::select('act_id','name')->get();
-        if(is_null($user))
-        return view('room-reserve',['permission'=>$permission,'user'=>$user]);
-        return view('room-reserve',['permission'=>$permission,'user'=>$user,'activity'=>$activity]);
+        $activity = Activity::select('act_id', 'name')->get();
+        if (is_null($user))
+            return view('room-reserve', ['permission' => $permission, 'user' => $user]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity]);
     }
 
     public function roomManagePage()
@@ -39,30 +40,25 @@ class RoomController extends Controller
 
         return view('room-manage');
     }
+
     public function UserSubmitRequest()
     {
         $user = Auth::user();
-        if(is_null($user))
+        if (is_null($user))
             return 'noright';
         $project = input::get('project');
-        $numberOfPeople = input::get('numberOfPeople');
-        $objective = input::get('objective');
-        $date = input::get('date');
-        $startTime = input::get('startTime');
-        $endTime = input::get('endTime');
-        $borrow = input::get('borrow');
-        $otherBorrow = input::get('otherBorrow');
-        $new = new UserReservation();
+        $newUserRequest = new UserReservation();
     }
+
     public function GuestSubmitRequest()
     {
         $newGuestRequest = new GuestReservation();
         $newGuestRequest->reason = input::get('objective');
         $newGuestRequest->number_of_people = input::get('numberOfPeople');
-        $newGuestRequest->request_start_time = input::get('date').' '.str_replace(' ','',input::get('startTime')).':00';
-        $newGuestRequest->request_end_time = input::get('date').' '.str_replace(' ','',input::get('endTime')).':00';
-        $newGuestRequest->request_projector = (input::get('projector') === 'true')? true: false;
-        $newGuestRequest->request_plug = (input::get('cord') === 'true')? input::get('numberOfCord'): 0;
+        $newGuestRequest->request_start_time = input::get('date') . ' ' . str_replace(' ', '', input::get('startTime')) . ':00';
+        $newGuestRequest->request_end_time = input::get('date') . ' ' . str_replace(' ', '', input::get('endTime')) . ':00';
+        $newGuestRequest->request_projector = (input::get('projector') === 'true') ? true : false;
+        $newGuestRequest->request_plug = (input::get('cord') === 'true') ? input::get('numberOfCord') : 0;
         $newGuestRequest->guest_name = input::get('name');
         $newGuestRequest->guest_surname = input::get('surname');
         $newGuestRequest->guest_phone_number = input::get('phone');
@@ -80,6 +76,6 @@ class RoomController extends Controller
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
         $event = Input::get('event');
-        return compact('room','timeStartDefault','timeEndDefault','event');
+        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
     }
 }
