@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Division;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,8 +29,21 @@ class ActivityController extends Controller
     public function create()
     {
         $user = $this->getUser();
-        if(is_null($user)) return redirect('/');
-        return view('create-activity');
+        if(is_null($user) || !isset($user['activities'])||!$user['activities']) return redirect('/');
+        $tmp_d = Division::all();
+        $division = [];
+        $i = 0;
+        foreach($tmp_d as $d){
+            $new_division = [];
+            $new_division['div_id'] = $d['div_id'];
+            if($d['type']=='Generation') $new_division['name'] = 'รุ่น '.$d['name'];
+            else if($d['type']=='Group') $new_division['name'] = 'กรุ๊ป '.$d['name'];
+            else if($d['type']=='Department') $new_division['name'] = 'ภาควิชา '.$d['name'];
+            else if($d['type']=='Club') $new_division['name'] = 'ชมรม '.$d['name'];
+            array_push($division,$new_division);
+        }
+
+        return view('create-activity',compact('division'));
     }
 
     public function addEditor(Request $request){
@@ -90,7 +104,7 @@ class ActivityController extends Controller
     }
 
     public function add_activity(Request $request){
-        return $request;
+        
     }
     /**
      * Store a newly created resource in storage.
