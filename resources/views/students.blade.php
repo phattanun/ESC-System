@@ -33,22 +33,28 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentID" required type="text" class="form-control" placeholder="รหัสนิสิต">
+                                    <input required name="studentID" required type="text" class="form-control"
+                                           placeholder="รหัสนิสิต">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentFName" required type="text" class="form-control" placeholder="ชื่อ">
+                                    <input required name="studentFName" required type="text" class="form-control"
+                                           placeholder="ชื่อ">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentLName" required type="text" class="form-control" placeholder="นามสกุล">
+                                    <input required name="studentLName" required type="text" class="form-control"
+                                           placeholder="นามสกุล">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="studentNName" required type="text" class="form-control" placeholder="ชื่อเล่น">
+                                    <input required name="studentNName" required type="text" class="form-control"
+                                           placeholder="ชื่อเล่น">
                                 </div>
                                 <div class="col-md-1 col-sm-1">
-                                    <input required name="studentGroup" required type="text" class="form-control" placeholder="กรุ๊ป">
+                                    <input required name="studentGroup" required type="text" class="form-control"
+                                           placeholder="กรุ๊ป">
                                 </div>
                                 <div class="col-md-2 col-sm-2">
-                                    <input required name="StudentDept" required type="text" class="form-control" placeholder="ภาควิชา">
+                                    <input required name="StudentDept" required type="text" class="form-control"
+                                           placeholder="ภาควิชา">
                                 </div>
                                  <span id="search-student-btn">
                                      <a class="btn btn-success">ค้นหา</a>
@@ -59,8 +65,10 @@
                     {{--end search box part--}}
 
                     {{--table part--}}
-                    <table class="table nomargin" id="search-result-table">
-                    </table>
+                    <div class="table-responsive margin-bottom-30">
+                        <table class="table nomargin" id="search-result-table">
+                        </table>
+                    </div>
                     {{--end table part--}}
 
                     {{--excel button part--}}
@@ -79,7 +87,7 @@
 
 @section('js')
     <script>
-        $('#search-student-btn').click( function () {
+        $('#search-student-btn').click(function () {
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT + '/students/search',
                     {
@@ -98,44 +106,41 @@
                 else {
                     $('#search-result-table').html('');
                     //--table header part--
-                    $('#search-result-table').append(
-                            '</br>'+
-                            '<tr>'+
-                                '<th style="vertical-align:middle" rowspan="1">ลำดับ</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">รหัสนิสิต</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">คำนำหน้า</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">ชื่อ</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">ชื่อเล่น</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">ชั้นปี</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">กรุ๊ป</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">ภาควิชา</th>'
-                    );
+
+                    var tableHeader = '</br>' +
+                            '<tr>' +
+                            '<th style="vertical-align:middle" rowspan="1">ลำดับ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">รหัสนิสิต</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">คำนำหน้า</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ชื่อ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ชื่อเล่น</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ชั้นปี</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">กรุ๊ป</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ภาควิชา</th>';
                     @if($permission->student)
-                        $('#search-result-table').append(
-                                '<th style="vertical-align:middle" rowspan="1">ที่อยู่</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">วันเกิด</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">อีเมล</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">Facebook</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">Line</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์ฉุกเฉิน</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">อาหารที่แพ้</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">โรคประจำตัว</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">ศาสนา</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">กรุ๊ปเลือด</th>'+
-                                '<th style="vertical-align:middle" rowspan="1">ขนาดเสื้อ</th>'
-                        );
+                            tableHeader += '<th style="vertical-align:middle" rowspan="1">ที่อยู่</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">วันเกิด</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">อีเมล</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">Facebook</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">Line</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์ฉุกเฉิน</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">อาหารที่แพ้</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">โรคประจำตัว</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ศาสนา</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">กรุ๊ปเลือด</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ขนาดเสื้อ</th>';
                     @endif
-                    $('#search-result-table').append('</tr>');
+                    $('#search-result-table').append(tableHeader);
 
                     //--row data--
-                    for(var counter=0;counter<input.length;counter++) {
+                    for (var counter = 0; counter < input.length; counter++) {
                         $('#search-result-table').append(
                                 '<tr>' +
                                 '<td>' + (counter + 1) + '</td>' +
                                 '<td>' + input[counter]["student_id"] + '</td>' +
-                                '<td>' + (input[counter]["sex"]==0?'นาย':'นางสาว') + '</td>' +
+                                '<td>' + (input[counter]["sex"] == 0 ? 'นาย' : 'นางสาว') + '</td>' +
                                 '<td>' + input[counter]["name"] + '</td>' +
                                 '<td>' + input[counter]["surname"] + '</td>' +
                                 '<td>' + input[counter]["nickname"] + '</td>' +
