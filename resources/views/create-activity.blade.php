@@ -107,6 +107,31 @@
                                 {{--<small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>--}}
                             {{--</div>--}}
                         {{--</div>--}}
+
+                        <div class = "row">
+                            <div class="col-md-8 col-sm-8">
+                                <label>หน่วยงานที่เกี่ยวข้อง *</label>
+                                <div class="fancy-form fancy-form-select">
+                                    <select class="form-control" name="kind_of_activity">
+                                        <option value="">--- หน่วยงานที่เกี่ยวข้อง ---</option>
+                                        {{--<option value="1">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>--}}
+                                        {{--<option value="2">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>--}}
+                                        {{--<option value="3">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>--}}
+                                        {{--<option value="4">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>--}}
+                                        {{--<option value="5">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>--}}
+                                        @foreach($division as $d)
+                                            <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <!--
+                                        .fancy-arrow
+                                        .fancy-arrow-double
+                                    -->
+                                    <i class="fancy-arrow"></i>
+                                </div>
+                            </div>
+                        </div>
                         <fieldset>
                             <div class="row">
                                 <div class="form-group">
@@ -160,7 +185,7 @@
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
-                $('#delete-'+id).val('deleted');
+                $('#delete-'+id).val(1);
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
@@ -195,7 +220,7 @@
                                 editor_count++;
 
                             }
-                            $('#permission-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="privilege['+input["student_id"]+'][]" value="" />'
+                            $('#permission-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
                                     +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
                                     +' <i class="fa fa-minus"></i>'
                                     +' <i class="fa fa-trash"></i>'
