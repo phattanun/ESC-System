@@ -13,7 +13,7 @@ class CreateAllowSchedulesTable extends Migration
     public function up()
     {
         Schema::create('allow_schedules', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->date('start_date');
             $table->date('end_date');
             $table->time('start_time');

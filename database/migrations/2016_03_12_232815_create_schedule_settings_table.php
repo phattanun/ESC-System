@@ -13,9 +13,9 @@ class CreateScheduleSettingsTable extends Migration
     public function up()
     {
         Schema::create('schedule_settings', function (Blueprint $table) {
-            $table->time('start')->primary();
-            $table->time('end')->primary();
-            $table->primary(array('act_id','student_id'));
+            $table->time('start');
+            $table->time('end');
+            $table->primary(array('start','end'));
         });
     }
 

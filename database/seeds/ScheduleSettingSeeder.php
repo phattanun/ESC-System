@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use app\ScheduleSetting
 
 class ScheduleSettingSeeder extends Seeder
 {
@@ -11,6 +12,9 @@ class ScheduleSettingSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ScheduleSetting::create([
+            'start'=> '08:00',
+            'end'=> '18:00'
+        ]);
     }
 }
