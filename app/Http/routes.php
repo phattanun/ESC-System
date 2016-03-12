@@ -31,6 +31,7 @@ Route::post('save_news', 'NewsController@save_news');
 Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
 Route::post('/room/user/submit_request', 'RoomController@UserSubmitRequest');
+Route::post('/room/guest/submit_request', 'RoomController@GuestSubmitRequest');
 Route::get ('/room/room-manage', 'RoomController@roomManagePage');
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(news_seeder::class);
         $this->call(PermissionTableSeeder::class);
         $this->call(SettingTableSeeder::class);
+        $this->call(ActivityTableSeeder::class);
 
         Model::reguard();
     }

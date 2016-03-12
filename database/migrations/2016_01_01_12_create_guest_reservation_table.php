@@ -28,7 +28,7 @@ class CreateGuestReservationTable extends Migration
             $table->string('guest_name');
             $table->string('guest_surname');
             $table->string('guest_phone_number',20);
-            $table->integer('guest_student_id')->unsigned()->nullable();
+            $table->bigInteger('guest_student_id')->unsigned()->nullable();
             $table->string('guest_faculty')->nullable();
             $table->string('guest_email');
             $table->string('guest_org');

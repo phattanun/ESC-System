@@ -88,15 +88,26 @@
                     <h4 class="modal-title"><i class="fa fa-calendar"></i> จองห้อง</h4>
                 </div>
                 <form class="validate" id="reserve-form">
-                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                     <div class="modal-body">
                         <p id="request-date"></p>
+                        @if(!$user)
+                            <div>
+                                <input required id="organization" name="organization" type="text" class="form-control" placeholder="หน่วยงาน">
+                            </div>
+                        @else
                         <select name="project" class="form-control select2 required" id="project-selection">
-                            <option selected="selected" value="1">ส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี</option>
-                            <option value="2">โครงการ 2</option>
+                            <option selected="selected" value="0">ส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี</option>
+                            @foreach($activity as $activities)
+                                <option value="{{$activities['act_id']}}">{{$activities['name']}}</option>
+                            @endforeach
                         </select>
-                        <input required type="text" class="calendar_event_input_add form-control" name="numberOfPeople" id="numberOfPeople"
+                        @endif
+                        <input required type="text" class="calendar_event_input_add form-control number-only" name="numberOfPeople" id="numberOfPeople"
                                placeholder="จำนวนคน"/>
+                        <select name="room" class="form-control select2 required" id="room-selection">
+                            <option selected="selected" value="0">เลือกห้องที่ต้องการ</option>
+                            <option value="1">ห้อง 1</option>
+                        </select>
                         <textarea required name="objective" class="form-control" id="apptEventDescription" placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>
                         <input type="hidden" name="date" id="apptDate" value=""/>
                         <div class="row">
@@ -110,7 +121,7 @@
                                             <label>เริ่ม</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
-                                            <input required name="startTime" required type="text" class="form-control timepicker valid">
+                                            <input required id="startTime" name="startTime" type="text" class="form-control timepicker valid">
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +131,7 @@
                                             <label>สิ้นสุด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
-                                            <input required name="endTime" required type="text" class="form-control timepicker valid">
+                                            <input required name="endTime" id="endTime" type="text" class="form-control timepicker valid">
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +149,7 @@
                                             <label>เริ่ม</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
-                                            <input id="dateStart" type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
+                                            <input name="dateStart" id="dateStart" type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +159,7 @@
                                             <label>สิ้นสุด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
-                                            <input id="dateEnd" type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
+                                            <input name="dateEnd" id="dateEnd" type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
                                         </div>
                                     </div>
                                 </div>
@@ -158,84 +169,81 @@
                         <div class="margin-bottom-20">
                             <label style="margin-bottom: 10px;">อุปกรณ์ที่ต้องการยืมเพิ่มเติม</label>
                             <div class="row">
-                                <div class="col-sm-6">
+                                {{--<div class="col-sm-6">--}}
+                                    {{--<label class="checkbox">--}}
+                                        {{--<input id="whiteboard" name="borrow[]" type="checkbox" value="whiteboard">--}}
+                                        {{--<i></i> ปากกาไวท์บอร์ด--}}
+                                    {{--</label>--}}
+                                {{--</div>--}}
+                                <div class="col-sm-3">
                                     <label class="checkbox">
-                                        <input name="borrow[]" type="checkbox" value="whiteboard">
-                                        <i></i> ปากกาไวท์บอร์ด
-                                    </label>
-
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="checkbox">
-                                        <input name="borrow[]" type="checkbox" value="projector">
+                                        <input id="projector" name="borrow[]" type="checkbox" value="projector">
                                         <i></i> โปรเจกเตอร์
                                     </label>
 
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-9">
                                     <label class="checkbox">
-                                        <input name="borrow[]" type="checkbox" value="cord">
+                                        <input id="cord" name="borrow[]" type="checkbox" value="cord">
                                         <i></i> ปลั๊กพ่วง
                                     </label>
-
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="checkbox">
-                                        <input name="borrow[]" type="checkbox" value="other" class="pull-right">
-                                        <i></i> อื่นๆ:
-                                    </label>
-                                    <input  name="otherBorrow" type="text" class="form-control" id="otherBorrow"
-                                           placeholder="ระบุอุปกรณ์ที่ต้องการ"/>
+                                    <input  name="numberOfCord" type="text" class="form-control hidden" id="numberOfCord"
+                                            placeholder="ระบุจำนวนที่ต้องการ"/>
                                 </div>
                             </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="col-sm-6">--}}
+                                    {{--<label class="checkbox">--}}
+                                        {{--<input id="other" name="borrow[]" type="checkbox" value="other" class="pull-right">--}}
+                                        {{--<i></i> อื่นๆ:--}}
+                                    {{--</label>--}}
+                                    {{--<input  name="otherBorrow" type="text" class="form-control" id="otherBorrow"--}}
+                                           {{--placeholder="ระบุอุปกรณ์ที่ต้องการ"/>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
-                        <input type="text" class="form-control" id="postscript"
-                               placeholder="หมายเหตุ: รายละเอียดเพิ่มเติมอื่น ๆ ที่ต้องการแจ้งผู้ดูแล"/>
+                        {{--<input type="text" class="form-control" id="postscript" name="postscript"--}}
+                               {{--placeholder="หมายเหตุ: รายละเอียดเพิ่มเติมอื่น ๆ ที่ต้องการแจ้งผู้ดูแล"/>--}}
                         @if(!$user)
                         <hr>
                         <p><i class="fa fa-user"></i>  รายละเอียดผู้จอง</p>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="student_id" type="text" class="form-control" placeholder="รหัสนิสิต">
+                                            <input required id="student_id" name="student_id" type="text" class="form-control masked" data-format="9999999999" data-placeholder="X" placeholder="รหัสนิสิต 10 หลัก">
+                                            {{--<input required name="student_id" type="text" class="form-control" placeholder="รหัสนิสิต">--}}
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="faculty" type="text" class="form-control" placeholder="คณะ">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6">
-                                            <input required name="name" type="text" class="form-control" placeholder="ชื่อ">
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                            <input required name="surname" type="text" class="form-control" placeholder="นามสกุล">
+                                            <input required id="faculty" name="faculty" type="text" class="form-control" placeholder="คณะ">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="organization" type="text" class="form-control" placeholder="หน่วยงาน">
+                                            <input required id="name" name="name" type="text" class="form-control" placeholder="ชื่อ">
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="phone" type="text" class="form-control" placeholder="เบอร์โทรศัพท์">
+                                            <input required id="surname" name="surname" type="text" class="form-control" placeholder="นามสกุล">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6">
-                                            <input required name="email" type="text" class="form-control" placeholder="อีเมล">
+                                    <div class="fancy-form"><!-- input -->
+                                        <i class="fa fa-phone-square"></i>
+                                        <input  required type="text" id="phone" name="phone" class="form-control masked" data-format="(999) 999-9999" data-placeholder="X" placeholder="เบอร์โทรศัพท์">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <input required id="email" name="email" type="email" class="form-control" placeholder="อีเมล">
                                 </div>
                             </div>
                         </div>
                         @endif
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="submit-btn"><i
+                            <button type="button" class="btn btn-success" id="submit-btn"><i
                                         class="fa fa-check"></i>
                                 ส่งคำจอง
                             </button>
@@ -272,6 +280,9 @@
         /*.timepicker {*/
             /*margin-bottom: 0px;*/
         /*}*/
+        .modal .row {
+            margin-bottom: 0px;
+        }
         .checkbox{
             color: #666;
         }
@@ -293,6 +304,12 @@
             float: right;
             display: inline-block;
             width: 60%;
+        }
+        #numberOfCord {
+            position: absolute;
+            float: right;
+            display: inline-block;
+            width: 50%;
         }
 
         .no-margin-right {
@@ -337,8 +354,11 @@
     @section('js')
             <!-- PAGE LEVEL SCRIPTS -->
     <script type="text/javascript">
-
-        $("#numberOfPeople").keydown(function (e) {
+        ($('#cord').is(':checked'))? $('#numberOfCord').removeClass('hidden'):$('#numberOfCord').addClass('hidden');
+        $('#cord').on('change', function(){
+            ($(this).is(':checked'))? $('#numberOfCord').removeClass('hidden'):$('#numberOfCord').addClass('hidden');
+        });
+        $(".number-only").keydown(function (e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                     (e.keyCode == 65 && e.ctrlKey === true) ||
                     (e.keyCode == 67 && e.ctrlKey === true) ||
@@ -351,8 +371,56 @@
             }
         });
         $('#submit-btn').click(function(){
-
+            if($('#reserve-form').valid()){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+
+                        @if(!$user)'/room/guest/submit_request',
+                        @else '/room/user/submit_request',
+                        @endif
+                        {   date:  $('#apptDate').val(),
+                            organization: $('#organization').val(),
+                            project: $('#project-selection').val(),
+                            numberOfPeople: $('#numberOfPeople').val(),
+                            room: $('#room-selection').val(),
+                            objective: $('#apptEventDescription').val(),
+                            startTime: $('#startTime').val(),
+                            endTime: $('#endTime').val(),
+                            dateStart: $('#dateStart').val(),
+                            dateEnd: $('#dateEnd').val(),
+//                            whiteboard: $('#whiteboard').is(':checked'),
+                            projector: $('#projector').is(':checked'),
+                            cord: $('#cord').is(':checked'),
+                            other: $('#other').is(':checked'),
+                            otherBorrow: $('#otherBorrow').val(),
+                            postscript: $('#postscript').val(),
+                            student_id: $('#student_id').val(),
+                            faculty: $('#faculty').val(),
+                            name: $('#name').val(),
+                            surname: $('#surname').val(),
+                            phone: $('#phone').val(),
+                            email: $('#email').val(),
+                            numberOfCord: $('#numberOfCord').val(),
+                            _token: '{{csrf_token()}}'
+                        }).done(function (input) {
+                    if(input=='fail'){
+                        _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                        return false;
+                    }
+                    else if(input=='noright'){
+                        _toastr("คุณไม่มีสิทธิทำรายการนี้","top-right","error",false);
+                        return false;
+                    }
+                    else {
+                        _toastr("ส่งคำจองสำเร็จ","top-right","success",false);
+                       return false;
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                    return false;
+                });
+            }
         });
+
         /* Calendar Data */
         var date = new Date();
         var d = date.getDate();
@@ -445,6 +513,7 @@
                                         loadScript(plugin_path + "fullcalendar/gcal.js", function () {
                                         jQuery(document).ready(function () {
                                             _calendarInit();
+                                            $('#reserve-form').validate();
                                         });
                                         function _calendarInit() {
                                             _fullCalendar();
