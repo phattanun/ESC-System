@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(SettingTableSeeder::class);
         $this->call(ActivityTableSeeder::class);
+        $this->call(ScheduleSettingSeeder::class);
+        $this->call(AllowScheduleSeeder::class);
 
         Model::reguard();
     }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use app\AllowSchedule;
+use App\AllowSchedule;
 
 class AllowScheduleSeeder extends Seeder
 {
