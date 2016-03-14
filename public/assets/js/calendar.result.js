@@ -24,6 +24,7 @@
 				//header: {
 				//	left: 'title',
 				//},
+				lang: 'th',
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 				allDaySlot: true,
 				events: _calendarEvents,
