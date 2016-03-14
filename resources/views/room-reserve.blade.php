@@ -310,7 +310,9 @@
         #middle {
             padding-top: 0px;
         }
-
+        .fc-unthemed .fc-today {
+            background: rgba(234, 255, 246, 0.41);
+        }
         /*form label {*/
         /*color: #414141;*/
         /*}*/
@@ -404,7 +406,7 @@
     @endsection
 
     @section('js')
-            <!-- PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
     <script type="text/javascript">
         $('#no-needed-activity').click(function(){
             $('#no-needed-activity-div').hide();
@@ -580,11 +582,11 @@
                     loadScript(plugin_path + "moment.js", function () {
                         loadScript(plugin_path + "bootstrap.dialog/dist/js/bootstrap-dialog.min.js", function () {
                             @if($permission&&$permission->room)
-                            loadScript(plugin_path + "fullcalendar/fullcalendar.js", function () {
+                            loadScript(plugin_path + "fullcalendar/fullcalendar.min.js", function () {
                                 @else
                                 loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.js", function () {
                                     @endif
-                                        loadScript(plugin_path + "fullcalendar/gcal.js", function () {
+                                        loadScript(plugin_path + "fullcalendar/lang/th.js", function () {
                                         jQuery(document).ready(function () {
                                             _calendarInit();
                                             $('#reserve-form').validate();
@@ -609,8 +611,8 @@
                                                     },
                                                     select: function (start, end, allDay) {
                                                         if (jQuery("#calendar").attr('data-modal-create') == 'true') {
-                                                            var check = $.fullCalendar.formatDate(start, 'yyyyMMdd');
-                                                            var today = $.fullCalendar.formatDate(new Date(), 'yyyyMMdd');
+                                                            var check = moment(start).format('YYYYMMDD');
+                                                            var today = moment(new Date()).format('YYYYMMDD');
                                                             var next30 = parseInt(today) + 100;
                                                             @if($permission&&$permission->room)
                                                             if (check <= today) {
@@ -621,8 +623,8 @@
                                                                     @endif
                                                             else {
                                                                 $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
-                                                                day = jQuery.fullCalendar.formatDate(start, 'ddd, d MMMM yyyy');
-                                                                date = jQuery.fullCalendar.formatDate(start, 'yyyy-MM-d');
+                                                                day = moment(start).format( 'ddd, DD MMMM YYYY');
+                                                                date = moment(start).format( 'YYYY-MM-DD');
                                                                 @if($permission&&$permission->room)
                                                                 $("#dateStart").val(date);
                                                                 $("#dateEnd").val(date);
