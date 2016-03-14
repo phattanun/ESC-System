@@ -10,7 +10,7 @@
             weekdaysShort: "อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์".split("_"),
             weekdaysMin: "อา._จ._อ._พ._พฤ._ศ._ส.".split("_"),
             longDateFormat: {
-                LT: "HH:mm",
+                LT: "HH:m",
                 LTS: "HH:m:s",
                 L: "YYYY/MM/DD",
                 LL: "D MMMM YYYY",

@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    ผลการจองห้องประชุม
+    จองห้องประชุม/ผลการจองห้องประชุม
 @endsection
 @section('body-attribute')
 
@@ -10,7 +10,7 @@
     active
 @endsection
 @section('bodyTitle')
-    จองห้องประชุม
+    จองห้องประชุม/ผลการจองห้องประชุม
 @endsection
 @section('content')
     <section id="middle">
@@ -42,7 +42,7 @@
                                             </li>
                                             <li><a data-widget="calendar-view" href="#agendaWeek"><i
                                                             class="fa fa-calendar-o color-red"></i>
-                                                    <span>วาระ</span></a></li>
+                                                    <span>แผนงาน</span></a></li>
                                             <li><a data-widget="calendar-view" href="#agendaDay"><i
                                                             class="fa fa-calendar-o color-yellow"></i>
                                                     <span>วันนี้</span></a></li>
@@ -587,7 +587,7 @@
         loadScript(plugin_path + "jquery/jquery.cookie.js", function () {
             loadScript(plugin_path + "jquery/jquery-ui.min.js", function () {
                 loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {
-                    loadScript(plugin_path + "moment.js", function () {
+                    loadScript(plugin_path + "moment.min.js", function () {
                         loadScript(plugin_path + "bootstrap.dialog/dist/js/bootstrap-dialog.min.js", function () {
                             @if($permission&&$permission->room)
                             loadScript(plugin_path + "fullcalendar/fullcalendar.min.js", function () {

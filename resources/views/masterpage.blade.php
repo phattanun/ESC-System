@@ -140,8 +140,7 @@
                                     ห้องประชุม
                                 </a>
                                 <ul class="dropdown-menu">
-                                            <li><a href="{{ URL::to('room/result') }}">ผลการจอง</a></li>
-                                            <li><a href="{{ URL::to('room/reserve') }}">จองห้อง</a></li>
+                                            <li><a href="{{ URL::to('room/reserve') }}">จองห้อง/ผลการจองห้อง</a></li>
                                             <li><a href="">ประวัติการจอง</a></li>
                                             <li><a href="{{ URL::to('room/approve') }}">อนุมัติการจอง</a></li>
                                             <li><a href="">ตั้งค่าห้องประชุม</a></li>
