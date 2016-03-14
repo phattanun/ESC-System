@@ -105,6 +105,17 @@
                                     <option value="div-{{$divisions['div_id']}}">{{$divisions['name']}}</option>
                                 @endforeach
                             </select>
+                            <div  id="no-needed-activity-div">
+                                <a id="no-needed-activity" class="underline-hover">ไม่มีรายการที่คุณต้องการอยู่ในระบบ?</a>
+                            </div>
+
+                            <div>
+                                <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
+                                       placeholder="ระบุชื่อกิจกรรมของคุณ">
+                            </div>
+                            <div  class="hidden margin-top-minus-20 " id="back-to-activity-div">
+                                <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
+                            </div>
                         @endif
                         <input required type="text" class="calendar_event_input_add form-control number-only"
                                name="numberOfPeople" id="numberOfPeople"
@@ -113,7 +124,7 @@
                             <option selected="selected" value="0">เลือกห้องที่ต้องการ</option>
                             <option value="1">ห้อง 1</option>
                         </select>
-                        <textarea required name="objective" class="form-control" id="apptEventDescription"
+                        <textarea required name="objective" class="form-control margin-top-20" id="apptEventDescription"
                                   placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>
                         <input type="hidden" name="date" id="apptDate" value=""/>
                         <div class="row">
@@ -286,6 +297,16 @@
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/css/layout-calendar-reserve.css')}}" rel="stylesheet" type="text/css"/>
     <style>
+        .underline-hover {
+            font-size: 14px;
+        }
+        .underline-hover:hover {
+            text-decoration: underline;
+        }
+        #no-needed-activity-div,#back-to-activity-div {
+            margin-bottom: 20px;
+            text-align: right;
+        }
         #middle {
             padding-top: 0px;
         }
@@ -319,7 +340,9 @@
             padding-right: 0px;
             text-align: center;
         }
-
+        #room-selection {
+            margin-bottom: 20px;
+        }
         .no-margin-left {
             margin-left: 0px;
             /*padding-left: 0px;*/
@@ -347,6 +370,9 @@
         .margin-right-minus-25 {
             margin-right: -25px;
         }
+        .margin-top-minus-20 {
+            margin-top: -20px;
+        }
 
         .fc-day:hover {
             cursor: pointer;
@@ -354,7 +380,6 @@
         }
 
         .select2 {
-            margin-bottom: 20px;
             width: 100% !important;
         }
 
@@ -381,6 +406,18 @@
     @section('js')
             <!-- PAGE LEVEL SCRIPTS -->
     <script type="text/javascript">
+        $('#no-needed-activity').click(function(){
+            $('#no-needed-activity-div').hide();
+            $('#no-needed-activity-div').prev().hide();
+            $('#otherAct').removeClass('hidden');
+            $('#back-to-activity-div').removeClass('hidden');
+        });
+        $('#back-to-activity').click(function(){
+            $('#back-to-activity-div').addClass('hidden');
+            $('.select2-container').show();
+            $('#otherAct').addClass('hidden');
+            $('#no-needed-activity-div').show();
+        });
         ($('#cord').is(':checked')) ? $('#numberOfCord').removeClass('hidden') : $('#numberOfCord').addClass('hidden');
         $('#cord').on('change', function () {
             ($(this).is(':checked')) ? $('#numberOfCord').removeClass('hidden') : $('#numberOfCord').addClass('hidden');
@@ -415,8 +452,10 @@
                             student_id: $('#student_id').val(),
                             faculty: $('#faculty').val(),
                             @endif
-                                    @if($user)
+                            @if($user)
                             project: $('#project-selection').val(),
+                            otherAct:$('#otherAct').val(),
+                            otherActActivated:$('#otherAct').is(":visible"),
                             @endif
                             numberOfPeople: $('#numberOfPeople').val(),
                             room: $('#room-selection').val(),
@@ -557,19 +596,6 @@
                                         function _fullCalendar() {
 
                                             if (jQuery('#calendar').length > 0) {
-                                                /**
-                                                 AVAILABLE BACKGROUNDS:
-                                                 bg-info
-                                                 bg-primary
-                                                 bg-success
-                                                 bg-warning
-                                                 bg-danger
-
-                                                 USAGE:
-                                                 className: ["bg-primary"],
-
-                                                 By default, use "bg-primary"
-                                                 **/
                                                 var _calendarInstance = jQuery('#calendar').fullCalendar({
                                                     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                                                     draggable: false,

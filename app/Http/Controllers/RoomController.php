@@ -70,7 +70,10 @@ class RoomController extends Controller
         $newUserRequest->request_plug = (input::get('cord') === 'true') ? input::get('numberOfCord') : 0;
         $newUserRequest->request_room_id = input::get('room');
         $newUserRequest->student_id = $user['student_id'];
-        if (substr(input::get('project'), 0, 3) == 'act')
+        if(input::get('otherActActivated') === 'true') {
+            $newUserRequest->other_act=input::get('otherAct');
+        }
+        else if (substr(input::get('project'), 0, 3) == 'act')
             $newUserRequest->act_id = substr(input::get('project'), 4);
         else if (substr(input::get('project'), 0, 3) == 'div')
             $newUserRequest->div_id = substr(input::get('project'), 4);

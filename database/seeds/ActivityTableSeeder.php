@@ -25,9 +25,7 @@ class ActivityTableSeeder extends Seeder
             'avail_year' => 1,
             'div_id' => 97,
             'creator_id' => 1,
-            'editor_id' => 1,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
+            'editor_id' => 1
         ]);
 
         Activity::create([
@@ -43,9 +41,7 @@ class ActivityTableSeeder extends Seeder
             'avail_year' => 1,
             'div_id' => 97,
             'creator_id' => 1,
-            'editor_id' => 1,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
+            'editor_id' => 1
         ]);
 
         Activity::create([
@@ -60,10 +56,8 @@ class ActivityTableSeeder extends Seeder
             'status' => 0,
             'avail_year' => 1,
             'div_id' => 97,
-            'creator_id' => 1,
-            'editor_id' => 1,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
+            'creator_id' => 2,
+            'editor_id' => 1
         ]);
 
         Activity::create([
@@ -78,10 +72,8 @@ class ActivityTableSeeder extends Seeder
             'status' => 0,
             'avail_year' => 1,
             'div_id' => 97,
-            'creator_id' => 1,
-            'editor_id' => 1,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
+            'creator_id' => 2,
+            'editor_id' => 1
         ]);
     }
 }

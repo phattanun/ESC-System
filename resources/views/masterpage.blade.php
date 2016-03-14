@@ -167,7 +167,13 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ URL::to('/activity/create') }}">เพิ่มกิจกรรม</a></li>
-                                    <li><a href="">จัดการกิจกรรม</a></li>
+                                    <li><a href="{{URL::to('/activity/list')}}">
+                                        @if(isset($user['activities']))
+                                            จัดการกิจกรรมทั้งหมด
+                                        @else
+                                            จัดการกิจกรรม
+                                        @endif
+                                    </a></li>
                                     <li><a href="">ออกรายงาน</a></li>
                                 </ul>
                             </li>

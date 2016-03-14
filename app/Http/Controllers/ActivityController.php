@@ -32,7 +32,7 @@ class ActivityController extends Controller
     public function create()
     {
         $user = $this->getUser();
-        if(is_null($user) || !isset($user['activities'])||!$user['activities']) return redirect('/');
+        if(is_null($user)) return redirect('/');
         $tmp_d = Division::all();
         $division = [];
         $i = 0;
@@ -152,7 +152,20 @@ class ActivityController extends Controller
             }
         }
         return redirect('/');
+    }
 
+    public function activity_list(){
+        $user = $this->getUser();
+        if(is_null($user)) return redirect('/');
+        $division = Division::all();
+        if(isset($user['activities'])) {
+            $act_list = Activity::all();
+            return view('activity-list',compact('act_list','division'));
+        }
+        else{
+            $act_list = Activity::where('creator_id',$user['student_id'])->get();
+            return view('activity-list',compact('act_list','division'));
+        }
     }
 
 }

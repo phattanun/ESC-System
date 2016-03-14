@@ -40,11 +40,11 @@
                                 <div class="fancy-form fancy-form-select">
                                     <select class="form-control" name="kind_of_activity">
                                         <option value="">--- ประเภทของกิจกรรม ---</option>
-                                        <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
-                                        <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
-                                        <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
-                                        <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
-                                        <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
+                                        <option value="กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
+                                        <option value="กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
+                                        <option value="กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
+                                        <option value="กิจกรรมส่งเสริมศิลปวัฒนธรรม">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
+                                        <option value="กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
                                     </select>
                                     <i class="fancy-arrow"></i>
                                 </div>
