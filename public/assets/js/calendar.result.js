@@ -15,15 +15,16 @@
 					bg-warning
 					bg-danger
 
-				USAGE: 
+				USAGE:
 					className: ["bg-primary"],
-				
+
 				By default, use "bg-primary"
 			**/
 			var _calendarInstance = jQuery('#calendar').fullCalendar({
 				//header: {
 				//	left: 'title',
 				//},
+                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 				allDaySlot: true,
 				events: _calendarEvents,
 				eventRender: function (event, element, icon) {
@@ -52,7 +53,7 @@
 
 		if(_href) {
 
-			jQuery('#calendar').fullCalendar('changeView', _href.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay 
+			jQuery('#calendar').fullCalendar('changeView', _href.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
 			jQuery("#agenda_btn").empty().append(_name);
 
 			// add current view to cookie
