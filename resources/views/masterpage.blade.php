@@ -143,7 +143,7 @@
                                             <li><a href="{{ URL::to('room/result') }}">ผลการจอง</a></li>
                                             <li><a href="{{ URL::to('room/reserve') }}">จองห้อง</a></li>
                                             <li><a href="">ประวัติการจอง</a></li>
-                                            <li><a href="">อนุมัติการจอง</a></li>
+                                            <li><a href="{{ URL::to('room/approve') }}">อนุมัติการจอง</a></li>
                                             <li><a href="">ตั้งค่าห้องประชุม</a></li>
                                             <li><a href="">ออกรายงาน</a></li>
                                 </ul>

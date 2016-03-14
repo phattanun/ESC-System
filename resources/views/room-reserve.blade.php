@@ -283,6 +283,7 @@
 
 @section('css')
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/css/layout-calendar-reserve.css')}}" rel="stylesheet" type="text/css"/>
     <style>
         #middle {
@@ -570,6 +571,7 @@
                                                  By default, use "bg-primary"
                                                  **/
                                                 var _calendarInstance = jQuery('#calendar').fullCalendar({
+                                                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                                                     draggable: false,
                                                     selectable: true,
                                                     selectHelper: true,

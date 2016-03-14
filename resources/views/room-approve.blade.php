@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    ผลการจองห้องประชุม
+    อนุมัติการจองห้องประชุม
 @endsection
 @section('body-attribute')
 
@@ -10,7 +10,7 @@
     active
 @endsection
 @section('bodyTitle')
-    ผลการจองห้องประชุม
+    อนุมัติการจองห้องประชุม
 @endsection
 @section('content')
     <section id="middle">
@@ -80,7 +80,6 @@
 @endsection
 
 @section('js')
-        <!-- PAGE LEVEL SCRIPTS -->
     <script type="text/javascript">
 
         /* Calendar Data */
@@ -91,73 +90,80 @@
 
         var _calendarEvents = [
             {
+                id: '1',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
                 start: new Date(y, m, 1),
                 allDay: false,
-                className: ["bg-primary"],
                 description: 'MT5',
                 icon: 'fa-clock-o'
             },
             {
+                id: '2',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
                 start: new Date(y, m, d-5),
                 end: new Date(y, m, d-2),
                 allDay: false,
-                className: ["bg-primary"],
                 description: '',
                 icon: 'fa-check'
             },
             {
-                id: 999,
+                id: '3',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
                 start: new Date(y, m, d-3, 16, 0),
                 allDay: false,
-                className: ["bg-warning"],
                 description: '',
                 icon: 'fa-clock-o'
             },
             {
-                id: 999,
+                id: '4',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
                 start: new Date(y, m, d+4, 16, 0),
                 allDay: false,
-                className: ["bg-primary"],
                 description: '',
                 icon: 'fa-clock-o'
             },
             {
+                id: '5',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
                 start: new Date(y, m, d, 10, 00),
                 end: new Date(y, m, d, 11, 00),
                 allDay: false,
-                className: ["bg-primary"],
                 description: '',
                 icon: 'fa-lock'
             },
             {
+                id: '6',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
+                resourceId: 'a',
                 start: new Date(y, m, d, 12, 0),
                 end: new Date(y, m, d, 14, 0),
                 allDay: false,
-                className: ["bg-success"],
                 description: '',
                 icon: 'fa-clock-o'
             },
             {
+                id: '7',
+                resourceId: 'a',
                 title: 'วิษณุกรรมบุตร',
                 start: new Date(y, m, d+1, 19, 0),
                 end: new Date(y, m, d+1, 22, 30),
                 allDay: false,
-                className: ["bg-danger"],
                 description: '',
                 icon: ''
             },
             {
+                id: '8',
+                resourceId: 'a',
                 title: 'เข้า Google',
                 start: new Date(y, m, 28),
                 end: new Date(y, m, 29),
                 url: 'http://google.com/',
-                className: ["bg-info"],
                 description: '',
                 icon: 'fa-clock-o'
             }
@@ -172,8 +178,39 @@
         loadScript(plugin_path + "fullcalendar/gcal.js", function(){
         loadScript(plugin_path + "fullcalendar/add-on/scheduler.min.js", function() {
         loadScript(plugin_path + "fullcalendar/lang/th.js", function() {
-        // Load Calendar Demo Script
-        loadScript("{{url('assets/js/calendar.result.js')}}");
+            $('#calendar').fullCalendar({
+                lang: 'th',
+                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                header: {
+                    center: 'month,agendaWeek,agendaDay',
+                },
+                defaultView: 'agendaDay',
+                editable: true,
+    			selectable: true,
+    			eventLimit: true, // allow "more" link when too many events
+                resources: [
+    				{ id: 'a', title: 'ห้อง A' },
+    				{ id: 'b', title: 'ห้อง B', eventColor: 'green' },
+    				{ id: 'c', title: 'ห้อง C', eventColor: 'orange' },
+    				{ id: 'd', title: 'ห้อง D', eventColor: 'red' }
+    			],
+                events: _calendarEvents,
+                select: function(start, end, jsEvent, view, resource) {
+    				console.log(
+    					'select',
+    					start.format(),
+    					end.format(),
+    					resource ? resource.id : '(no resource)'
+    				);
+    			},
+    			dayClick: function(date, jsEvent, view, resource) {
+    				console.log(
+    					'dayClick',
+    					date.format(),
+    					resource ? resource.id : '(no resource)'
+    				);
+    			}
+            });
         });});});});});});});});});
 
     </script>

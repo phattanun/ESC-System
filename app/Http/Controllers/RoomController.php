@@ -37,6 +37,13 @@ class RoomController extends Controller
         return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division]);
     }
 
+    public function viewApprovePage()
+    {
+        $user = Auth::user();
+        $permission = Permission::find($user['student_id']);
+        return view('room-approve');
+    }
+
     public function roomManagePage()
     {
 
