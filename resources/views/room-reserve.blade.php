@@ -105,15 +105,16 @@
                                     <option value="div-{{$divisions['div_id']}}">{{$divisions['name']}}</option>
                                 @endforeach
                             </select>
-                            <div  id="no-needed-activity-div">
-                                <a id="no-needed-activity" class="underline-hover">ไม่มีรายการที่คุณต้องการอยู่ในระบบ?</a>
+                            <div id="no-needed-activity-div">
+                                <a id="no-needed-activity"
+                                   class="underline-hover">ไม่มีรายการที่คุณต้องการอยู่ในระบบ?</a>
                             </div>
 
                             <div>
                                 <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
                                        placeholder="ระบุชื่อกิจกรรมของคุณ">
                             </div>
-                            <div  class="hidden margin-top-minus-20 " id="back-to-activity-div">
+                            <div class="hidden margin-top-minus-20 " id="back-to-activity-div">
                                 <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                             </div>
                         @endif
@@ -294,25 +295,30 @@
 
 @section('css')
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/css/layout-calendar-reserve.css')}}" rel="stylesheet" type="text/css"/>
     <style>
         .underline-hover {
             font-size: 14px;
         }
+
         .underline-hover:hover {
             text-decoration: underline;
         }
-        #no-needed-activity-div,#back-to-activity-div {
+
+        #no-needed-activity-div, #back-to-activity-div {
             margin-bottom: 20px;
             text-align: right;
         }
+
         #middle {
             padding-top: 0px;
         }
+
         .fc-unthemed .fc-today {
             background: rgba(234, 255, 246, 0.41);
         }
+
         /*form label {*/
         /*color: #414141;*/
         /*}*/
@@ -342,9 +348,11 @@
             padding-right: 0px;
             text-align: center;
         }
+
         #room-selection {
             margin-bottom: 20px;
         }
+
         .no-margin-left {
             margin-left: 0px;
             /*padding-left: 0px;*/
@@ -372,6 +380,7 @@
         .margin-right-minus-25 {
             margin-right: -25px;
         }
+
         .margin-top-minus-20 {
             margin-top: -20px;
         }
@@ -403,18 +412,18 @@
             background-color: rgba(255, 164, 142, 0.29);
         }
     </style>
-    @endsection
+@endsection
 
-    @section('js')
+@section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
     <script type="text/javascript">
-        $('#no-needed-activity').click(function(){
+        $('#no-needed-activity').click(function () {
             $('#no-needed-activity-div').hide();
             $('#no-needed-activity-div').prev().hide();
             $('#otherAct').removeClass('hidden');
             $('#back-to-activity-div').removeClass('hidden');
         });
-        $('#back-to-activity').click(function(){
+        $('#back-to-activity').click(function () {
             $('#back-to-activity-div').addClass('hidden');
             $('.select2-container').show();
             $('#otherAct').addClass('hidden');
@@ -456,8 +465,8 @@
                             @endif
                             @if($user)
                             project: $('#project-selection').val(),
-                            otherAct:$('#otherAct').val(),
-                            otherActActivated:$('#otherAct').is(":visible"),
+                            otherAct: $('#otherAct').val(),
+                            otherActActivated: $('#otherAct').is(":visible"),
                             @endif
                             numberOfPeople: $('#numberOfPeople').val(),
                             room: $('#room-selection').val(),
@@ -468,16 +477,15 @@
                             dateStart: $('#dateStart').val(),
                             dateEnd: $('#dateEnd').val(),
                             @endif
-//                            whiteboard: $('#whiteboard').is(':checked'),
+                            //                            whiteboard: $('#whiteboard').is(':checked'),
                             projector: $('#projector').is(':checked'),
                             cord: $('#cord').is(':checked'),
 //                            other: $('#other').is(':checked'),
 //                            otherBorrow: $('#otherBorrow').val(),
 //                            postscript: $('#postscript').val(),
                             numberOfCord: $('#numberOfCord').val(),
-                            _token :'{{csrf_token()}}'
-                        }).
-                done(function (input) {
+                            _token: '{{csrf_token()}}'
+                        }).done(function (input) {
                     if (input == 'fail') {
                         _toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
                         return false;
@@ -586,92 +594,94 @@
                                 @else
                                 loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.min.js", function () {
                                     @endif
+                                    loadScript(plugin_path + "fullcalendar/add-on/scheduler.min.js", function () {
                                         loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
-                                        jQuery(document).ready(function () {
-                                            _calendarInit();
-                                            $('#reserve-form').validate();
-                                        });
-                                        function _calendarInit() {
-                                            _fullCalendar();
-                                        }
+                                            jQuery(document).ready(function () {
+                                                _calendarInit();
+                                                $('#reserve-form').validate();
+                                            });
+                                            function _calendarInit() {
+                                                _fullCalendar();
+                                            }
 
-                                        function _fullCalendar() {
+                                            function _fullCalendar() {
 
-                                            if (jQuery('#calendar').length > 0) {
-                                                var _calendarInstance = jQuery('#calendar').fullCalendar({
-                                                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                                                    draggable: false,
-                                                    selectable: true,
-                                                    selectHelper: true,
-                                                    lang:'th',
-                                                    displayEventEnd:true,
-                                                    unselectAuto: true,
-                                                    disableResizing: true,
-                                                    editable: false,
-                                                    header: {
-                                                        left: 'title',
-                                                    },
-                                                    select: function (start, end, allDay) {
-                                                        if (jQuery("#calendar").attr('data-modal-create') == 'true') {
-                                                            var check = moment(start).format('YYYYMMDD');
-                                                            var today = moment(new Date()).format('YYYYMMDD');
-                                                            var next30 = parseInt(today) + 100;
-                                                            @if($permission&&$permission->room)
-                                                            if (check <= today) {
-                                                            }
-                                                            @else
-                                                            if (check <= today || parseInt(check) > next30) {
-                                                            }
-                                                                    @endif
-                                                            else {
-                                                                $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
-                                                                day = moment(start).format( 'ddd, DD MMMM YYYY');
-                                                                date = moment(start).format( 'YYYY-MM-DD');
+                                                if (jQuery('#calendar').length > 0) {
+                                                    var _calendarInstance = jQuery('#calendar').fullCalendar({
+                                                        lang: 'th',
+                                                        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                                                        draggable: false,
+                                                        selectable: true,
+                                                        selectHelper: true,
+                                                        displayEventEnd: true,
+                                                        unselectAuto: true,
+                                                        disableResizing: true,
+                                                        editable: false,
+                                                        header: {
+                                                            left: 'title',
+                                                        },
+                                                        select: function (start, end, allDay) {
+                                                            if (jQuery("#calendar").attr('data-modal-create') == 'true') {
+                                                                var check = moment(start).format('YYYYMMDD');
+                                                                var today = moment(new Date()).format('YYYYMMDD');
+                                                                var next30 = parseInt(today) + 100;
                                                                 @if($permission&&$permission->room)
-                                                                $("#dateStart").val(date);
-                                                                $("#dateEnd").val(date);
-                                                                @endif
-                                                                $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
-                                                                $("#apptDate").val(date);
-                                                                $('#myModal').modal();
+                                                                if (check <= today) {
+                                                                }
+                                                                @else
+                                                                if (check <= today || parseInt(check) > next30) {
+                                                                }
+                                                                        @endif
+                                                                else {
+                                                                    $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
+                                                                    day = moment(start).format('ddd, DD MMMM YYYY');
+                                                                    date = moment(start).format('YYYY-MM-DD');
+                                                                    @if($permission&&$permission->room)
+                                                                    $("#dateStart").val(date);
+                                                                    $("#dateEnd").val(date);
+                                                                    @endif
+                                                                    $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
+                                                                    $("#apptDate").val(date);
+                                                                    $('#myModal').modal();
+                                                                }
+                                                            }
+                                                        },
+                                                        events: _calendarEvents,
+                                                        eventRender: function (event, element, icon) {
+
+                                                            if (!event.description == '') {
+                                                                element.find('.fc-event-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
+                                                            }
+
+                                                            if (!event.icon == '') {
+                                                                element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
                                                             }
                                                         }
-                                                    },
-                                                    events: _calendarEvents,
-                                                    eventRender: function (event, element, icon) {
-
-                                                        if (!event.description == '') {
-                                                            element.find('.fc-event-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
-                                                        }
-
-                                                        if (!event.icon == '') {
-                                                            element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
-                                                        }
-                                                    }
-                                                });
+                                                    });
+                                                }
                                             }
-                                        }
 
-                                        jQuery("a[data-widget=calendar-view]").bind("click", function (e) {
-                                            e.preventDefault();
-                                            var _href = jQuery(this).attr('href'),
-                                                    _href = _href.replace('#', ''),
-                                                    _name = jQuery('span', this).html();
-                                            if (_href) {
-                                                jQuery('#calendar').fullCalendar('changeView', _href.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
-                                                jQuery("#agenda_btn").empty().append(_name);
-                                                // add current view to cookie
-                                                jQuery.cookie('calendar_view', _href, {expires: 30}); 		// expire 30 days
-                                                jQuery.cookie('calendar_view_name', _name, {expires: 30}); 	// expire 30 days
-                                            }
-                                        });
-                                        jQuery(document).ready(function () {
-                                            var calendar_view = jQuery.cookie('calendar_view');
-                                            var calendar_view_name = jQuery.cookie('calendar_view_name');
-                                            if (calendar_view && calendar_view_name) {
-                                                jQuery('#calendar').fullCalendar('changeView', calendar_view.trim());
-                                                jQuery("#agenda_btn").empty().append(calendar_view_name);
-                                            }
+                                            jQuery("a[data-widget=calendar-view]").bind("click", function (e) {
+                                                e.preventDefault();
+                                                var _href = jQuery(this).attr('href'),
+                                                        _href = _href.replace('#', ''),
+                                                        _name = jQuery('span', this).html();
+                                                if (_href) {
+                                                    jQuery('#calendar').fullCalendar('changeView', _href.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
+                                                    jQuery("#agenda_btn").empty().append(_name);
+                                                    // add current view to cookie
+                                                    jQuery.cookie('calendar_view', _href, {expires: 30}); 		// expire 30 days
+                                                    jQuery.cookie('calendar_view_name', _name, {expires: 30}); 	// expire 30 days
+                                                }
+                                            });
+                                            jQuery(document).ready(function () {
+                                                var calendar_view = jQuery.cookie('calendar_view');
+                                                var calendar_view_name = jQuery.cookie('calendar_view_name');
+                                                if (calendar_view && calendar_view_name) {
+                                                    jQuery('#calendar').fullCalendar('changeView', calendar_view.trim());
+                                                    jQuery("#agenda_btn").empty().append(calendar_view_name);
+                                                }
+                                            });
                                         });
                                     });
                                 });
