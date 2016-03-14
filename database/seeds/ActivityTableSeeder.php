@@ -15,7 +15,7 @@ class ActivityTableSeeder extends Seeder
         Activity::create([
             'name'=> 'ค่ายลานเกียร์ ครั้งที่ 15',
             'year'=> 2558,
-            'category' => 'กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์',
+            'category' => 'academic',
             'tqf_ethics' => false,
             'tqf_knowledge' => true,
             'tqf_cognitive' => true,
@@ -31,7 +31,7 @@ class ActivityTableSeeder extends Seeder
         Activity::create([
             'name'=> 'ค่ายอาสาพัฒนา ยุววิศวกรบพิธ 44',
             'year'=> 2558,
-            'category' => 'กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม',
+            'category' => 'volunteer',
             'tqf_ethics' => false,
             'tqf_knowledge' => true,
             'tqf_cognitive' => false,
@@ -47,7 +47,7 @@ class ActivityTableSeeder extends Seeder
         Activity::create([
             'name'=> 'ละครเงา',
             'year'=> 2558,
-            'category' => 'กิจกรรมส่งเสริมศิลปวัฒนธรรม',
+            'category' => 'culture',
             'tqf_ethics' => false,
             'tqf_knowledge' => false,
             'tqf_cognitive' => false,
@@ -63,7 +63,7 @@ class ActivityTableSeeder extends Seeder
         Activity::create([
             'name'=> 'ค่ายวิษณุกรรมบุตร ครั้งที่ 13',
             'year'=> 2558,
-            'category' => 'กิจกรรมส่งเสริมศิลปวัฒนธรรม',
+            'category' => 'culture',
             'tqf_ethics' => false,
             'tqf_knowledge' => false,
             'tqf_cognitive' => false,

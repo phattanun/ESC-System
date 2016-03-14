@@ -35,7 +35,7 @@ class ActivityController extends Controller
         if(is_null($user)) return redirect('/');
         $tmp_d = Division::all();
         $division = [];
-        $i = 0;
+
         foreach($tmp_d as $d){
             $new_division = [];
             $new_division['div_id'] = $d['div_id'];
@@ -157,7 +157,17 @@ class ActivityController extends Controller
     public function activity_list(){
         $user = $this->getUser();
         if(is_null($user)) return redirect('/');
-        $division = Division::all();
+        $tmp_d = Division::all();
+        $division = [];
+        foreach($tmp_d as $d){
+            $new_division = [];
+            $new_division['div_id'] = $d['div_id'];
+            if($d['type']=='Generation') $new_division['name'] = 'รุ่น '.$d['name'];
+            else if($d['type']=='Group') $new_division['name'] = 'กรุ๊ป '.$d['name'];
+            else if($d['type']=='Department') $new_division['name'] = 'ภาควิชา '.$d['name'];
+            else if($d['type']=='Club') $new_division['name'] = 'ชมรม '.$d['name'];
+            array_push($division,$new_division);
+        }
         if(isset($user['activities'])) {
             $act_list = Activity::all();
             return view('activity-list',compact('act_list','division'));
@@ -166,6 +176,14 @@ class ActivityController extends Controller
             $act_list = Activity::where('creator_id',$user['student_id'])->get();
             return view('activity-list',compact('act_list','division'));
         }
+    }
+
+    public function get_act_detail(Request $request){
+        $act_id = $request->input('act_id');
+        if(Activity::where('act_id',$act_id)->exists()){
+            return Activity::where('act_id',$act_id)->first();
+        }
+        else return 'fail';
     }
 
 }

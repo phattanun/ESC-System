@@ -58,10 +58,11 @@ Route::post('/setting/add_new_permission', 'SettingController@addNewPermission')
 
 // Activity Page
 Route::get('/activity/create','ActivityController@create');
-Route::get('/activity/list','ActivityController@activity_list');
-Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::post('/activity/create/addEditor','ActivityController@addEditor');
 Route::post('/activity/create/send_form','ActivityController@add_activity');
+Route::get('/activity/list','ActivityController@activity_list');
+Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
+Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
