@@ -584,9 +584,9 @@
                             @if($permission&&$permission->room)
                             loadScript(plugin_path + "fullcalendar/fullcalendar.min.js", function () {
                                 @else
-                                loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.js", function () {
+                                loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.min.js", function () {
                                     @endif
-                                        loadScript(plugin_path + "fullcalendar/lang/th.js", function () {
+                                        loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
                                         jQuery(document).ready(function () {
                                             _calendarInit();
                                             $('#reserve-form').validate();
@@ -603,6 +603,8 @@
                                                     draggable: false,
                                                     selectable: true,
                                                     selectHelper: true,
+                                                    lang:'th',
+                                                    displayEventEnd:true,
                                                     unselectAuto: true,
                                                     disableResizing: true,
                                                     editable: false,
