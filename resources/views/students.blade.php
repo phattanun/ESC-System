@@ -123,7 +123,7 @@
                             '<th style="vertical-align:middle" rowspan="1">ชื่อ</th>' +
                             '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>' +
                             '<th style="vertical-align:middle" rowspan="1">ชื่อเล่น</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">ชั้นปี</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">รุ่น</th>' +
                             '<th style="vertical-align:middle" rowspan="1">กรุ๊ป</th>' +
                             '<th style="vertical-align:middle" rowspan="1">ภาควิชา</th>';
                     @if($permission->student)
@@ -158,18 +158,18 @@
                         );
                         @if($permission->student)
                         $('#search-result-table').append(
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>'
+                                '<td>' +  input[counter]["address"]  + '</td>' +
+                                '<td>' +  input[counter]["birth_date"]  + '</td>' +
+                                '<td>' +  input[counter]["phone_number"]  + '</td>' +
+                                '<td>' +  input[counter]["email"]  + '</td>' +
+                                '<td>' +  input[counter]["facebook_link"]  + '</td>' +
+                                '<td>' +  input[counter]["line_id"]  + '</td>' +
+                                '<td>' +  input[counter]["emergency_contact"]  + '</td>' +
+                                '<td>' +  input[counter]["allergy"]  + '</td>' +
+                                '<td>' +  input[counter]["anomaly"]  + '</td>' +
+                                '<td>' +  input[counter]["religion"]  + '</td>' +
+                                '<td>' +  input[counter]["blood_type"]  + '</td>' +
+                                '<td>' +  input[counter]["clothing_size"]  + '</td>'
                         );
                         @endif
                         $('#search-result-table').append('</tr>');
