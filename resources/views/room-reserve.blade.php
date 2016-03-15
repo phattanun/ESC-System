@@ -61,6 +61,15 @@
                         <div class="panel-body">
                             <div id="announcement" class="text-center"><p>ประกาศ: กวศ.
                                     จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
+                            <div id="calendar-info" class="text-right">
+                                <p><span>สถานะ</span> </p>
+                                <p><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                <p><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                <p><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                            </div>
+                            <div id="instruction"  class="text-center">
+                                <p>วิธีจองห้อง: คลิกวันที่ต้องการเพื่อทำการจองห้อง</p>
+                            </div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
 
                         </div>

@@ -67,6 +67,15 @@ class RoomController extends Controller
             else {
                 $title=$queries['other_act'];
             }
+            if($queries['status']==null){
+                $status=["bg-warning"];
+            }
+            else if($queries['status']){
+                $status=["bg-success"];
+            }
+            else {
+                $status=["bg-danger"];
+            }
             array_push($calendarEvents,
                     array(
                         'title' => $title,
@@ -74,7 +83,7 @@ class RoomController extends Controller
                         'end' => $queries['request_end_time'],
                         'id' => $queries['res_id'],
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
-                        'className' => ["bg-warning"],
+                        'className' => $status,
                         'description' => 'MT5',
                         'icon' => 'fa-clock-o',
                     )
