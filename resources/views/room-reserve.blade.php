@@ -211,7 +211,7 @@
                                         <input id="cord" name="borrow[]" type="checkbox" value="cord">
                                         <i></i> ปลั๊กพ่วง
                                     </label>
-                                    <input name="numberOfCord" type="text" class="form-control hidden number-only"
+                                    <input required name="numberOfCord" type="text" class="form-control hidden number-only"
                                            id="numberOfCord"
                                            placeholder="ระบุจำนวนที่ต้องการ"/>
                                 </div>
@@ -371,16 +371,13 @@
                             numberOfCord: $('#numberOfCord').val(),
                             _token: '{{csrf_token()}}'
                         }).done(function (input) {
-                    if (input == 'fail') {
-                        _toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
-                        return false;
-                    }
-                    else if (input == 'noright') {
+                    if (input == 'noright') {
                         _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
                         return false;
                     }
                     else {
                         _toastr("ส่งคำจองสำเร็จ", "top-right", "success", false);
+                        $('#calendar').fullCalendar( 'refetchEvents' );
                         return false;
                     }
                 }).fail(function () {
