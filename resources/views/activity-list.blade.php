@@ -291,9 +291,11 @@
                         if(document.getElementById(input["student_id"])){
                             if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
                                 _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                                editor--;
                             }
                             $('#tuple-'+input["student_id"]).removeClass('hidden');
                             $('#delete-'+input["student_id"]).val("");
+                            editor++;
                         }
                         else {
                             editor++;

@@ -145,14 +145,14 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <div class="table-responsive margin-bottom-30" style="width:50%">
+                        <div class="table-responsive margin-bottom-30 hidden" style="width:50%" id="table-div">
                             <table class="table nomargin" id="permission-table" width="100%">
-                                {{--<tr>--}}
-                                    {{--<th style="vertical-align:middle"></th>--}}
-                                    {{--<th style="vertical-align:middle;" >รหัสนิสิต</th>--}}
-                                    {{--<th style="vertical-align:middle;" >ชื่อ</th>--}}
-                                    {{--<th style="vertical-align:middle;" >นามสกุล</th>--}}
-                                {{--</tr>--}}
+                                <tr>
+                                    <th style="vertical-align:middle"></th>
+                                    <th style="vertical-align:middle;" >รหัสนิสิต</th>
+                                    <th style="vertical-align:middle;" >ชื่อ</th>
+                                    <th style="vertical-align:middle;" >นามสกุล</th>
+                                </tr>
                             </table>
                         </div>
                         <div class = "row">
@@ -176,12 +176,14 @@
 
 @section('js-top')
     <script>
+        var editor = 0;
         function main() {
-            var editor_count = 0;
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
                 $('#delete-'+id).val(true);
+                editor--;
+                if(editor == 0) $('#table-div').addClass('hidden');
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
@@ -198,24 +200,18 @@
                         return false;
                     }
                     else {
+                        if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
                         if(document.getElementById(input["student_id"])){
                             if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
                                 _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                                editor--;
                             }
                             $('#tuple-'+input["student_id"]).removeClass('hidden');
                             $('#delete-'+input["student_id"]).val("");
+                            editor++;
                         }
                         else {
-                            if(editor_count == 0){
-                                $('#permission-table').append('<tr>'
-                                    +'<th style="vertical-align:middle"></th>'
-                                    +'<th style="vertical-align:middle;" >รหัสนิสิต</th>'
-                                    +'<th style="vertical-align:middle;" >ชื่อ</th>'
-                                    +'<th style="vertical-align:middle;" >นามสกุล</th>'
-                               +'</tr>');
-                                editor_count++;
-
-                            }
+                            editor++;
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
                                     +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
