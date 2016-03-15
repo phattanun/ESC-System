@@ -188,4 +188,8 @@ class ActivityController extends Controller
         else return 'fail';
     }
 
+    public function edit_activity(Request $request){
+        return $request;
+    }
+
 }
