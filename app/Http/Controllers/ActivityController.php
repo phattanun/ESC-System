@@ -14,21 +14,6 @@ use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $user = $this->getUser();
@@ -170,17 +155,29 @@ class ActivityController extends Controller
             array_push($division,$new_division);
         }
         if(isset($user['activities'])) {
-            $act_list = Activity::all();
+            $act_list = Activity::all()->sortByDesc('act_id');
             return view('activity-list',compact('act_list','division'));
         }
         else{
             $act_list = Activity::where('creator_id',$user['student_id'])->get();
+            $can_edit_act = CanEditActivity::where('student_id',$user['student_id'])->select('act_id')->get();
+            //return $can_edit_act;
+            foreach($can_edit_act as $id){
+                $add_act = Activity::where('act_id',$id['act_id'])->first();
+                //return $add_act;
+                //var_dump($id);
+                $act_list->push($add_act);
+            }
+            $act_list = $act_list->sortByDesc('act_id');
             return view('activity-list',compact('act_list','division'));
         }
     }
 
     public function get_act_detail(Request $request){
+        $user = $this->getUser();
         $act_id = $request->input('act_id');
+        if(!Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists())
+            return 'fail';
         if(Activity::where('act_id',$act_id)->exists()){
             $act = Activity::where('act_id',$act_id)->first();
             $can_edit = CanEditActivity::where('act_id',$act_id)->join('users','can_edit_activities.student_id','=','users.student_id')->select('users.student_id','users.name','users.surname')->get();
@@ -203,6 +200,11 @@ class ActivityController extends Controller
         $cognitive = isset($tqf['cognitive']);
         $interpersonal = isset($tqf['interpersonal']);
         $communication = isset($tqf['communication']);
+
+        $user = $this->getUser();
+
+        if(!Activity::where('act_id',$request->input('act_id'))->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$request->input('act_id'))->where('student_id',$user['student_id'])->exists())
+            return 'fail';
 
         $act_data['name'] = $request->input('activity_name');
         $act_data['category'] = $request->input('kind_of_activity');
