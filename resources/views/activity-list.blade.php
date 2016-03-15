@@ -130,7 +130,6 @@
                     </fieldset>
                     <div class="table-responsive margin-bottom-30" style="width:50%" id="table-div">
                         <table class="table nomargin" id="permission-table" width="100%">
-
                         </table>
                     </div>
                     <div class = "row">
@@ -246,6 +245,16 @@
 
                     $('#permission-table').empty();
                     for(i=0;i<act_data.can_edit.length;i++){
+                        if(i==0){
+                            $('#permission-table').append(
+                                    '<tr>'
+                                        +'<th style="vertical-align:middle"></th>'
+                                        +'<th style="vertical-align:middle;" >รหัสนิสิต</th>'
+                                        +'<th style="vertical-align:middle;" >ชื่อ</th>'
+                                        +'<th style="vertical-align:middle;" >นามสกุล</th>'
+                                    +'</tr>'
+                            );
+                        }
                         $('#permission-table').append(
                                 '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
                                 +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
