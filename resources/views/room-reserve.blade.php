@@ -121,7 +121,7 @@
 
                             <div>
                                 <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
-                                       placeholder="ระบุชื่อกิจกรรมของคุณ">
+                                       placeholder="ระบุชื่อกิจกรรม / ส่วนงาน / งาน /ของคุณ">
                             </div>
                             <div class="hidden margin-top-minus-20 " id="back-to-activity-div">
                                 <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
@@ -132,7 +132,9 @@
                                placeholder="จำนวนคน"/>
                         <select name="room" class="form-control select2 required" id="room-selection">
                             <option selected="selected" value="0">เลือกห้องที่ต้องการ</option>
-                            <option value="1">ห้อง 1</option>
+                            @foreach($room as $rooms)
+                                <option value="{{$rooms['room_id']}}">{{$rooms['name']}}</option>
+                            @endforeach
                         </select>
                         <textarea required name="objective" class="form-control margin-top-20" id="apptEventDescription"
                                   placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>
@@ -535,7 +537,7 @@
                                                         events: '{{url('/room/get_room_reservation_schedule')}}',
                                                         eventRender: function (event, element, icon) {
                                                             if (!event.description == '') {
-                                                                element.find('.fc-title').append("<br /><span class='font300 fsize11'>ห้อง " + event.description + "</span>");
+                                                                element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
                                                             }
                                                             element.attr('title',event.title);
                                                             element.attr('data-toggle','tooltip');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Division;
 use App\GuestReservation;
+use App\MeetingRoom;
 use App\Permission;
 use App\UserReservation;
 use App\User;
@@ -33,9 +34,10 @@ class RoomController extends Controller
         $permission = Permission::find($user['student_id']);
         $activity = Activity::select('act_id', 'name')->get();
         $division = Division::select('div_id', 'name')->get();
+        $room = MeetingRoom::select('room_id', 'name')->get();
         if (is_null($user))
-            return view('room-reserve', ['permission' => $permission, 'user' => $user]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division]);
+            return view('room-reserve', ['permission' => $permission, 'user' => $user,'room'=>$room]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division,'room'=>$room]);
     }
 
     public function viewApprovePage()
@@ -53,6 +55,7 @@ class RoomController extends Controller
 
     public function getRoomReservationSchedule()
     {
+
         $calendarEvents = [];
         $query = UserReservation::where('request_start_time', '<=', $_REQUEST['end'] . ' 23:59:59')
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
@@ -67,7 +70,7 @@ class RoomController extends Controller
             else {
                 $title=$queries['other_act'];
             }
-            if($queries['status']==null){
+            if(is_null($queries['status'])){
                 $status=["bg-warning"];
             }
             else if($queries['status']){
@@ -84,7 +87,7 @@ class RoomController extends Controller
                         'id' => $queries['res_id'],
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                         'className' => $status,
-                        'description' => 'MT5',
+                        'description' => ($queries['request_room_id']==0)? '':MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
                         'icon' => 'fa-clock-o',
                     )
             );
