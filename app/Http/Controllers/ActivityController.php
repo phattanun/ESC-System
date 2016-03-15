@@ -182,10 +182,14 @@ class ActivityController extends Controller
         $act_id = $request->input('act_id');
         if(Activity::where('act_id',$act_id)->exists()){
             $act = Activity::where('act_id',$act_id)->first();
-            $can_edit = CanEditActivity::where('act_id',$act_id)->get();
+            $can_edit = CanEditActivity::where('act_id',$act_id)->join('users','can_edit_activities.student_id','=','users.student_id')->select('users.student_id','users.name','users.surname')->get();
             return json_encode(array('act'=>$act,'can_edit'=>$can_edit));
         }
         else return 'fail';
+    }
+
+    public function edit_activity(Request $request){
+        return $request;
     }
 
 }
