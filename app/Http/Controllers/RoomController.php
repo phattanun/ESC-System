@@ -58,9 +58,18 @@ class RoomController extends Controller
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
             ->get();
         foreach ($query as $queries) {
+            if($queries['act_id']){
+                $title=Activity::where('act_id','=',$queries['act_id'])->select('name')->get()[0]->name;
+            }
+            else if($queries['div_id']){
+                $title=Division::where('div_id','=',$queries['div_id'])->select('name')->get()[0]->name;
+            }
+            else {
+                $title=$queries['other_act'];
+            }
             array_push($calendarEvents,
                     array(
-                        'title' => ($queries['act_id'])? $queries['act_id']:(($queries['div_id'])? $queries['div_id']:$queries['other_act']),
+                        'title' => $title,
                         'start' => $queries['request_start_time'],
                         'end' => $queries['request_end_time'],
                         'id' => $queries['res_id'],
