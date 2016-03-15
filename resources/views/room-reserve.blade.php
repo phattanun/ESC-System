@@ -297,6 +297,7 @@
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/css/layout-calendar-reserve.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{url('assets\css\fontAwesome_icon_font.min.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
@@ -481,15 +482,10 @@
                                     loadScript(plugin_path + "fullcalendar/add-on/scheduler.min.js", function () {
                                         loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
                                             jQuery(document).ready(function () {
-                                                _calendarInit();
+                                                _fullCalendar();
                                                 $('#reserve-form').validate();
                                             });
-                                            function _calendarInit() {
-                                                _fullCalendar();
-                                            }
-
                                             function _fullCalendar() {
-
                                                 if (jQuery('#calendar').length > 0) {
                                                     var _calendarInstance = jQuery('#calendar').fullCalendar({
                                                         lang: 'th',
@@ -532,13 +528,11 @@
                                                         },
                                                         events: _calendarEvents,
                                                         eventRender: function (event, element, icon) {
-
                                                             if (!event.description == '') {
-                                                                element.find('.fc-event-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
+                                                                element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
                                                             }
-
                                                             if (!event.icon == '') {
-                                                                element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
+                                                                element.find('.fc-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
                                                             }
                                                         }
                                                     });
