@@ -28,7 +28,7 @@
                 </div>
 
                 <!-- body modal -->
-                <form novalidate="novalidate" action="{{url().'/activity/list/edit_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ" data-toastr-position="top-right">
+                <form novalidate="novalidate" action="{{url().'/activity/list/edit_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ<script>window.location='{{url().'/activity/list'}}';</script>" data-toastr-position="top-right">
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <input type="hidden" name="act_id" id = 'act_id' value="">
