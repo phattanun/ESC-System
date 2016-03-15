@@ -528,11 +528,14 @@
                                                             if (!event.description == '') {
                                                                 element.find('.fc-title').append("<br /><span class='font300 fsize11'>ห้อง " + event.description + "</span>");
                                                             }
-                                                            if (!event.icon == '') {
-                                                                element.find('.fc-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
-                                                            }
-                                                        }
-                                                    });
+                                                            element.attr('title',event.title);
+                                                            element.attr('data-toggle','tooltip');
+//
+                                                        },
+                                                        eventAfterAllRender: function(){
+                                                            $('[data-toggle="tooltip"]').tooltip();
+                                                    }
+                                                });
                                                 }
                                             }
 
