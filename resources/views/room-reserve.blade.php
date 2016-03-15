@@ -526,10 +526,10 @@
                                                                 }
                                                             }
                                                         },
-                                                        events: _calendarEvents,
+                                                        events: '{{url('/room/get_room_reservation_schedule')}}',
                                                         eventRender: function (event, element, icon) {
                                                             if (!event.description == '') {
-                                                                element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
+                                                                element.find('.fc-title').append("<br /><span class='font300 fsize11'>ห้อง " + event.description + "</span>");
                                                             }
                                                             if (!event.icon == '') {
                                                                 element.find('.fc-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
