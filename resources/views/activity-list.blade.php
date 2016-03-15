@@ -128,15 +128,22 @@
                             </div>
                         </div>
                     </fieldset>
-                    <div class="table-responsive margin-bottom-30" style="width:50%">
+                    <div class="table-responsive margin-bottom-30" style="width:50%" id="table-div">
                         <table class="table nomargin" id="permission-table" width="100%">
-                            <tr>
-                            <th style="vertical-align:middle"></th>
-                            <th style="vertical-align:middle;" >รหัสนิสิต</th>
-                            <th style="vertical-align:middle;" >ชื่อ</th>
-                            <th style="vertical-align:middle;" >นามสกุล</th>
-                            </tr>
+
                         </table>
+                    </div>
+                    <div class = "row">
+                        <div class="col-md-2 col-sm-2">
+                            <label>ชั้นปีสุดท้ายที่เห็น *</label>
+                            <input name="last_year_seen" value="" class="form-control required"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <button type="submit" id="registerBtn" class="btn  btn-lg btn-success"><i
+                                    class="fa fa-check"></i>ยืนยัน
+                        </button>
                     </div>
                 </div>
             </div>
@@ -206,6 +213,7 @@
 
 @section('js-top')
     <script>
+        var editor = 0;
         function loaddetail(act_id) {
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT + '/activity/list/getdetail',
@@ -216,6 +224,7 @@
                 }
                 else {
                     var act_data = JSON.parse(input);
+                    editor = act_data.can_edit.length;
                     $('#myLargeModalLabel').empty();
                     $('#myLargeModalLabel').append(act_data.act.name);
 
@@ -223,26 +232,89 @@
 
                     $('#kind_of_activity').val(act_data.act.category);
 
-                    $('#ethics').prop('checked',false);
-                    $('#knowledge').prop('checked',false);
-                    $('#cognitive').prop('checked',false);
-                    $('#interpersonal').prop('checked',false);
-                    $('#communication').prop('checked',false);
-                    if(act_data.act.tqf_ethics=='1') $('#ethics').prop('checked',true);
-                    if(act_data.act.tqf_knowledge=='1') $('#knowledge').prop('checked',true);
-                    if(act_data.act.tqf_cognitive=='1') $('#cognitive').prop('checked',true);
-                    if(act_data.act.tqf_interpersonal=='1') $('#interpersonal').prop('checked',true);
-                    if(act_data.act.tqf_communication=='1') $('#communication').prop('checked',true);
+                    act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
+                    act_data.act.tqf_knowledge=='1'? $('#knowledge').prop('checked',true):$('#knowledge').prop('checked',false);
+                    act_data.act.tqf_cognitive=='1'? $('#cognitive').prop('checked',true): $('#cognitive').prop('checked',false);
+                    act_data.act.tqf_interpersonal=='1'? $('#interpersonal').prop('checked',true):$('#interpersonal').prop('checked',false);
+                    act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
 
                     $('#division').val(act_data.act.div_id);
 
+                    if(act_data.can_edit.length == 0)
+                        $('#table-div').addClass('hidden');
+                    else if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
 
-
+                    $('#permission-table').empty();
+                    for(i=0;i<act_data.can_edit.length;i++){
+                        $('#permission-table').append(
+                                '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
+                                +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                +' <i class="fa fa-minus"></i>'
+                                +' <i class="fa fa-trash"></i>'
+                                +' </a></td>'
+                                +' <td><input type="hidden" name="student_id[]" value="'+act_data.can_edit[i].student_id+'"/>'+act_data.can_edit[i].student_id+'</td>'
+                                +' <td>'+act_data.can_edit[i].name+'</td>'
+                                +' <td>'+act_data.can_edit[i].surname+'</td>'
+                                +' </tr>'
+                        );
+                    }
                 }
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
                 return false;
             });
         }
+        function main(){
+            $(document).on('click','.delete-a-tuple',function(){
+                var id =  this.id;
+                $('#tuple-'+id).addClass('hidden');
+                $('#delete-'+id).val(true);
+                editor--;
+                if(editor == 0) $('#table-div').addClass('hidden');
+            });
+            $('#studentInfo').keyup(function(){
+                $('.typeahead').typeahead('destroy');
+                $('.autosuggest').attr('data-queryURL','{!! url('activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                _autosuggest();
+                $(this).trigger( "focus" );
+            });
+            $(document).on('click','#add-new-editor-btn',function(){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+'/activity/create/addEditor',
+                        {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                    if(input=='fail'){
+                        _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                        return false;
+                    }
+                    else {
+                        if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
+                        if(document.getElementById(input["student_id"])){
+                            if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
+                                _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                            }
+                            $('#tuple-'+input["student_id"]).removeClass('hidden');
+                            $('#delete-'+input["student_id"]).val("");
+                        }
+                        else {
+                            editor++;
+                            $('#permission-table').append(
+                                    '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +' <i class="fa fa-minus"></i>'
+                                    +' <i class="fa fa-trash"></i>'
+                                    +' </a></td>'
+                                    +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
+                                    +' <td>'+input["name"]+'</td>'
+                                    +' <td>'+input["surname"]+'</td>'
+                                    +'  </tr>');
+                        }
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                    return false;
+                });
+            });
+        }
+        $( document ).ready(main);
     </script>
 @endsection
