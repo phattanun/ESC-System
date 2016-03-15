@@ -108,6 +108,7 @@ class ActivityController extends Controller
 
     public function add_activity(Request $request){
         $user = $this->getUser();
+        if(is_null($user)) return redirect('/');
         $activity_name = $request->input('activity_name');
         $kind_of_activity = $request->input('kind_of_activity');
         $tqf = $request->input('tqf');
@@ -189,7 +190,30 @@ class ActivityController extends Controller
     }
 
     public function edit_activity(Request $request){
-        return $request;
+        $act_data = Activity::find($request->input('act_id'));
+        $tqf = $request->input('tqf');
+        $student_id = $request->input('student_id');
+
+        $last_year_seen = $request->input('last_year_seen');
+        $division_id = $request->input('division');
+        $deleted = $request->input('deleted');
+
+        $ethics = isset($tqf['ethics']);
+        $knowledge = isset($tqf['knowledge']);
+        $cognitive = isset($tqf['cognitive']);
+        $interpersonal = isset($tqf['interpersonal']);
+        $communication = isset($tqf['communication']);
+
+        $act_data['name'] = $request->input('activity_name');
+        $act_data['category'] = $request->input('kind_of_activity');
+        $act_data['tqf_ethics'] = $ethics;
+        $act_data['tqf_knowledge'] = $knowledge;
+        $act_data['tqf_cognitive'] = $cognitive;
+        $act_data['tqf_interpersonal'] = $interpersonal;
+        $act_data['tqf_communication'] = $communication;
+        $act_data['avail_year'] = $last_year_seen;
+        $act_data['div_id'] = $division_id;
+        $act_data->save();
     }
 
 }
