@@ -181,7 +181,9 @@ class ActivityController extends Controller
     public function get_act_detail(Request $request){
         $act_id = $request->input('act_id');
         if(Activity::where('act_id',$act_id)->exists()){
-            return Activity::where('act_id',$act_id)->first();
+            $act = Activity::where('act_id',$act_id)->first();
+            $can_edit = CanEditActivity::where('act_id',$act_id)->get();
+            return json_encode(array('act'=>$act,'can_edit'=>$can_edit));
         }
         else return 'fail';
     }
