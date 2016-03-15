@@ -94,7 +94,6 @@ class RoomController extends Controller
         }
 //        return $query;
         return json_encode($calendarEvents);
-        return $_REQUEST['start'];
     }
 
     public function UserSubmitRequest()
