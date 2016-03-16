@@ -64,7 +64,7 @@
                     {{--end search box part--}}
 
                     {{--table part--}}
-                    <div class="table-responsive margin-bottom-30">
+                    <div class="table-responsive">
                         <table class="table nomargin" id="search-result-table">
                         </table>
                     </div>
