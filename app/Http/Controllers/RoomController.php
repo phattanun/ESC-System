@@ -72,7 +72,8 @@ class RoomController extends Controller
             else {
                 $title=$queries['other_act'];
             }
-            if(is_null($queries['status'])){
+            $statusIsNull = is_null($queries['status']);
+            if($statusIsNull){
                 $status=["bg-warning"];
             }
             else if($queries['status']){
@@ -84,8 +85,8 @@ class RoomController extends Controller
             array_push($calendarEvents,
                     array(
                         'title' => $title,
-                        'start' => $queries['request_start_time'],
-                        'end' => $queries['request_end_time'],
+                        'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
+                        'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
                         'id' => $queries['res_id'],
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                         'className' => $status,
