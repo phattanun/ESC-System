@@ -28,7 +28,7 @@
                 </div>
 
                 <!-- body modal -->
-                <form novalidate="novalidate" action="{{url().'/activity/list/edit_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ<script>window.location='{{url().'/activity/list'}}';</script>" data-toastr-position="top-right">
+                <form novalidate="novalidate" action="{{url().'/activity/list/edit_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ{{--<script>window.location='{{url().'/activity/list'}}';</script>--}}" data-toastr-position="top-right">
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <input type="hidden" name="act_id" id = 'act_id' value="">
@@ -254,18 +254,30 @@
                     $('#myLargeModalLabel').append(act_data.act.name);
 
                     $('#act_name').val(act_data.act.name);
+                    act_data.act.status =='0'? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
 
                     $('#act_status').val(act_data.act.status);
 
                     $('#kind_of_activity').val(act_data.act.category);
+                    act_data.act.status =='0'? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
 
                     act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
+                    act_data.act.status =='0'? $('#ethics').prop('disabled',false):$('#ethics').prop('disabled',true);
+
                     act_data.act.tqf_knowledge=='1'? $('#knowledge').prop('checked',true):$('#knowledge').prop('checked',false);
+                    act_data.act.status =='0'? $('#knowledge').prop('disabled',false):$('#knowledge').prop('disabled',true);
+
                     act_data.act.tqf_cognitive=='1'? $('#cognitive').prop('checked',true): $('#cognitive').prop('checked',false);
+                    act_data.act.status =='0'? $('#cognitive').prop('disabled',false):$('#cognitive').prop('disabled',true);
+
                     act_data.act.tqf_interpersonal=='1'? $('#interpersonal').prop('checked',true):$('#interpersonal').prop('checked',false);
+                    act_data.act.status =='0'? $('#interpersonal').prop('disabled',false):$('#interpersonal').prop('disabled',true);
+
                     act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
+                    act_data.act.status =='0'? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
 
                     $('#division').val(act_data.act.div_id);
+                    act_data.act.status =='0'? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
 
                     if(act_data.can_edit.length == 0)
                         $('#table-div').addClass('hidden');
@@ -294,6 +306,7 @@
                         );
                     }
                     $('#last_year_seen').val(act_data.act.avail_year);
+                    act_data.act.status =='0'? $('#last_year_seen').prop('disabled',false):$('#last_year_seen').prop('disabled',true);
                 }
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);

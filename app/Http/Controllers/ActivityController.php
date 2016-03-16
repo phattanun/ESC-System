@@ -204,16 +204,16 @@ class ActivityController extends Controller
         if(!isset($user['activities']) &&!Activity::where('act_id',$act_data['act_id'])->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_data['act_id'])->where('student_id',$user['student_id'])->exists())
             return 'fail';
 
-        $act_data['name'] = $request->input('activity_name');
-        $act_data['category'] = $request->input('kind_of_activity');
-        $act_data['status'] = $request->input('act_status');
+        if(!is_null($request->input('activity_name')))$act_data['name'] = $request->input('activity_name');
+        if(!is_null($request->input('kind_of_activity')))$act_data['category'] = $request->input('kind_of_activity');
+        if(!is_null($request->input('act_status')))$act_data['status'] = $request->input('act_status');
         $act_data['tqf_ethics'] = $ethics;
         $act_data['tqf_knowledge'] = $knowledge;
         $act_data['tqf_cognitive'] = $cognitive;
         $act_data['tqf_interpersonal'] = $interpersonal;
         $act_data['tqf_communication'] = $communication;
         $act_data['avail_year'] = $request->input('last_year_seen');
-        $act_data['div_id'] = $request->input('division');
+        if(!is_null($request->input('division')))$act_data['div_id'] = $request->input('division');
         $act_data->save();
 
         if(!is_null($student_id)) {
