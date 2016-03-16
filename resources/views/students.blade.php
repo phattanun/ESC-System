@@ -21,42 +21,40 @@
     <section style="margin-top: -40px">
         <div class="container">
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><i class="fa fa-user"></i> ค้นหาข้อมูลนิสิต</h2>
+                </div>
                 <div class="panel-body">
                     {{--search box part--}}
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <label class="margin-bottom-20 "><i class="fa fa-user"></i> ค้นหาข้อมูลนิสิต</label>
-                            </div>
-                        </div>
-                        <div class="row">
+                        <div class="row text-center">
                             <div class="form-group">
-                                <div class="col-md-2 col-sm-2">
+                                <div class="col-md-2">
                                     <input required id="studentID" name="studentID" required type="text" class="form-control"
                                            placeholder="รหัสนิสิต">
                                 </div>
-                                <div class="col-md-2 col-sm-2">
+                                <div class="col-md-2">
                                     <input required id="studentFName" name="studentFName" required type="text" class="form-control"
                                            placeholder="ชื่อ">
                                 </div>
-                                <div class="col-md-2 col-sm-2">
+                                <div class="col-md-2">
                                     <input required id="studentLName" name="studentLName" required type="text" class="form-control"
                                            placeholder="นามสกุล">
                                 </div>
-                                <div class="col-md-2 col-sm-2">
+                                <div class="col-md-2">
                                     <input required id="studentNName" name="studentNName" required type="text" class="form-control"
                                            placeholder="ชื่อเล่น">
                                 </div>
-                                <div class="col-md-1 col-sm-1">
+                                <div class="col-md-1">
                                     <input required id="studentGroup" name="studentGroup" required type="text" class="form-control"
                                            placeholder="กรุ๊ป">
                                 </div>
-                                <div class="col-md-2 col-sm-2">
+                                <div class="col-md-2">
                                     <input required id="StudentDept" name="StudentDept" required type="text" class="form-control"
                                            placeholder="ภาควิชา">
                                 </div>
-                                 <span id="search-student-btn">
+                                 <span class="col-md-1" id="search-student-btn">
                                      <a class="btn btn-success">ค้นหา</a>
                                  </span>
                             </div>
@@ -89,6 +87,9 @@
     <style>
         .table-responsive {
             word-break: keep-all;
+        }
+        input {
+            margin-bottom: 10px;
         }
     </style>
 
