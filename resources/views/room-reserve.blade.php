@@ -60,9 +60,11 @@
                         <!-- panel content -->
                         <div class="panel-body">
                             <div id="calendar-info" class="text-center">
-                                <p><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
-                                <p><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
-                                <p><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                                <div class="row">
+                                    <p class="col-md-offset-3 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                                </div>
                             </div>
                         </div>
                         <!-- /panel content -->
