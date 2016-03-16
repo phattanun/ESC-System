@@ -25,7 +25,7 @@ class StudentController extends Controller
     }
 
     public function search(Request $request){
-        $user = User::select(['student_id','name','surname','nickname','sex','group','department','generation'])->where(function ($query) use ($request) {
+        $user = User::select(['student_id','name','surname','nickname','sex','group','department','generation','address','birthdate','phone_number','email','facebook_link','line_id','emergency_contact','anomaly','allergy','religion','blood_type','clothing_size'])->where(function ($query) use ($request) {
                     if($request->input('studentID')) $query->where('student_id', 'LIKE', '%'.$request->input('studentID').'%');
                     if($request->input('studentFName')) $query->where('name', 'LIKE', '%'.$request->input('studentFName').'%');
                     if($request->input('studentLName')) $query->where('surname', 'LIKE', '%'.$request->input('studentLName').'%');

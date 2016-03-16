@@ -176,7 +176,7 @@ class ActivityController extends Controller
     public function get_act_detail(Request $request){
         $user = $this->getUser();
         $act_id = $request->input('act_id');
-        if(!Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists())
+        if(!isset($user['activities']) &&!Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists())
             return 'fail';
         if(Activity::where('act_id',$act_id)->exists()){
             $act = Activity::where('act_id',$act_id)->first();
@@ -191,8 +191,6 @@ class ActivityController extends Controller
         $tqf = $request->input('tqf');
         $student_id = $request->input('student_id');
 
-        $last_year_seen = $request->input('last_year_seen');
-        $division_id = $request->input('division');
         $deleted = $request->input('deleted');
 
         $ethics = isset($tqf['ethics']);
@@ -203,19 +201,37 @@ class ActivityController extends Controller
 
         $user = $this->getUser();
 
-        if(!Activity::where('act_id',$request->input('act_id'))->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$request->input('act_id'))->where('student_id',$user['student_id'])->exists())
+        if(!isset($user['activities']) &&!Activity::where('act_id',$act_data['act_id'])->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_data['act_id'])->where('student_id',$user['student_id'])->exists())
             return 'fail';
 
         $act_data['name'] = $request->input('activity_name');
         $act_data['category'] = $request->input('kind_of_activity');
+        $act_data['status'] = $request->input('act_status');
         $act_data['tqf_ethics'] = $ethics;
         $act_data['tqf_knowledge'] = $knowledge;
         $act_data['tqf_cognitive'] = $cognitive;
         $act_data['tqf_interpersonal'] = $interpersonal;
         $act_data['tqf_communication'] = $communication;
-        $act_data['avail_year'] = $last_year_seen;
-        $act_data['div_id'] = $division_id;
+        $act_data['avail_year'] = $request->input('last_year_seen');
+        $act_data['div_id'] = $request->input('division');
         $act_data->save();
+
+        if(!is_null($student_id)) {
+            foreach ($student_id as $sid) {
+                if ($deleted[$sid] != "true" && !CanEditActivity::where('act_id',$act_data['act_id'])->where('student_id',$sid)->exists()) {
+                    CanEditActivity::create([
+                        'act_id' => $act_data['act_id'],
+                        'student_id' => $sid
+                    ]);
+                }
+                else if ($deleted[$sid] == "true" && CanEditActivity::where('act_id',$act_data['act_id'])->where('student_id',$sid)->exists()) {
+                    CanEditActivity::where('act_id',$act_data['act_id'])->where('student_id',$sid)->delete();
+                }
+            }
+        }
+        else{
+            CanEditActivity::where('act_id',$act_data['act_id'])->delete();
+        }
     }
 
 }

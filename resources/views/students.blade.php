@@ -123,7 +123,7 @@
                             '<th style="vertical-align:middle" rowspan="1">ชื่อ</th>' +
                             '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>' +
                             '<th style="vertical-align:middle" rowspan="1">ชื่อเล่น</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">ชั้นปี</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">รุ่น</th>' +
                             '<th style="vertical-align:middle" rowspan="1">กรุ๊ป</th>' +
                             '<th style="vertical-align:middle" rowspan="1">ภาควิชา</th>';
                     @if($permission->student)
@@ -144,8 +144,7 @@
 
                     //--row data--
                     for (var counter = 0; counter < input.length; counter++) {
-                        $('#search-result-table').append(
-                                '<tr>' +
+                        var tabledata = '<tr>' +
                                 '<td>' + (counter + 1) + '</td>' +
                                 '<td>' + input[counter]["student_id"] + '</td>' +
                                 '<td>' + (input[counter]["sex"] == 0 ? 'นาย' : 'นางสาว') + '</td>' +
@@ -154,25 +153,25 @@
                                 '<td>' + input[counter]["nickname"] + '</td>' +
                                 '<td>' + input[counter]["generation"] + '</td>' +
                                 '<td>' + input[counter]["group"][0]['name'] + '</td>' +
-                                '<td>' + input[counter]["department"][0]['name'] + '</td>'
-                        );
+                                '<td>' + input[counter]["department"][0]['name'] + '</td>';
+
                         @if($permission->student)
-                        $('#search-result-table').append(
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>' +
-                                '<td>' + '' + '</td>'
-                        );
+                                tabledata +=
+                                '<td>' +  input[counter]["address"]  + '</td>' +
+                                '<td>' +  input[counter]["birthdate"]  + '</td>' +
+                                '<td>' +  input[counter]["phone_number"]  + '</td>' +
+                                '<td>' +  input[counter]["email"]  + '</td>' +
+                                '<td><a href="//' + input[counter]["facebook_link"]  + '">logo</a></td>' +
+                                '<td>' +  input[counter]["line_id"]  + '</td>' +
+                                '<td>' +  input[counter]["emergency_contact"]  + '</td>' +
+                                '<td>' +  input[counter]["allergy"]  + '</td>' +
+                                '<td>' +  input[counter]["anomaly"]  + '</td>' +
+                                '<td>' +  input[counter]["religion"]  + '</td>' +
+                                '<td>' +  input[counter]["blood_type"]  + '</td>' +
+                                '<td>' +  input[counter]["clothing_size"]  + '</td>';
                         @endif
-                        $('#search-result-table').append('</tr>');
+                        tabledata += '</tr>';
+                        $('#search-result-table').append(tabledata);
                     }
 
                     //--excel button part--
