@@ -144,8 +144,7 @@
 
                     //--row data--
                     for (var counter = 0; counter < input.length; counter++) {
-                        $('#search-result-table').append(
-                                '<tr>' +
+                        var tabledata = '<tr>' +
                                 '<td>' + (counter + 1) + '</td>' +
                                 '<td>' + input[counter]["student_id"] + '</td>' +
                                 '<td>' + (input[counter]["sex"] == 0 ? 'นาย' : 'นางสาว') + '</td>' +
@@ -154,25 +153,25 @@
                                 '<td>' + input[counter]["nickname"] + '</td>' +
                                 '<td>' + input[counter]["generation"] + '</td>' +
                                 '<td>' + input[counter]["group"][0]['name'] + '</td>' +
-                                '<td>' + input[counter]["department"][0]['name'] + '</td>'
-                        );
+                                '<td>' + input[counter]["department"][0]['name'] + '</td>';
+
                         @if($permission->student)
-                        $('#search-result-table').append(
+                                tabledata +=
                                 '<td>' +  input[counter]["address"]  + '</td>' +
-                                '<td>' +  input[counter]["birth_date"]  + '</td>' +
+                                '<td>' +  input[counter]["birthdate"]  + '</td>' +
                                 '<td>' +  input[counter]["phone_number"]  + '</td>' +
                                 '<td>' +  input[counter]["email"]  + '</td>' +
-                                '<td>' +  input[counter]["facebook_link"]  + '</td>' +
+                                '<td><a href="//' + input[counter]["facebook_link"]  + '">logo</a></td>' +
                                 '<td>' +  input[counter]["line_id"]  + '</td>' +
                                 '<td>' +  input[counter]["emergency_contact"]  + '</td>' +
                                 '<td>' +  input[counter]["allergy"]  + '</td>' +
                                 '<td>' +  input[counter]["anomaly"]  + '</td>' +
                                 '<td>' +  input[counter]["religion"]  + '</td>' +
                                 '<td>' +  input[counter]["blood_type"]  + '</td>' +
-                                '<td>' +  input[counter]["clothing_size"]  + '</td>'
-                        );
+                                '<td>' +  input[counter]["clothing_size"]  + '</td>';
                         @endif
-                        $('#search-result-table').append('</tr>');
+                        tabledata += '</tr>';
+                        $('#search-result-table').append(tabledata);
                     }
 
                     //--excel button part--
