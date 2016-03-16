@@ -38,6 +38,23 @@
                                 <input name="activity_name" value="" id="act_name" class="form-control required"
                                        type="text">
                             </div>
+                            <div class="col-md-1 col-sm-1">
+                            </div>
+                            @if(isset($user['activities']))
+                                <div class="col-md-4 col-sm-4">
+                                    <label>สถานะของกิจกรรม *</label>
+                                    <div class="fancy-form fancy-form-select">
+                                        <select class="form-control" name="act_status" id="act_status">
+                                            <option value="0">รอเปิดโครงการ</option>
+                                            <option value="1">กวศ อนุมัติ</option>
+                                            <option value="2">คณบดี อนุมัติ</option>
+                                            <option value="3">รอปิดโครงการ</option>
+                                            <option value="4">ปิดโครงการ</option>
+                                        </select>
+                                        <i class="fancy-arrow"></i>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <div class = "row">
                             <div class="col-md-6 col-sm-6">
@@ -131,6 +148,12 @@
                         </fieldset>
                         <div class="table-responsive margin-bottom-30" style="width:50%" id="table-div">
                             <table class="table nomargin" id="permission-table" width="100%">
+                                <tr id="table-header">
+                                    <th style="vertical-align:middle"></th>
+                                    <th style="vertical-align:middle" >รหัสนิสิต</th>
+                                    <th style="vertical-align:middle" >ชื่อ</th>
+                                    <th style="vertical-align:middle" >นามสกุล</th>
+                                </tr>
                             </table>
                         </div>
                         <div class = "row">
@@ -188,13 +211,13 @@
                                         @if($act['status']==0)
                                             <td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>
                                         @elseif($act['status']==1)
-                                            <td style="vertical-align: middle;text-align: center"><span class="text-green">กวศ อนุมัติ</span></td>
+                                            <td style="vertical-align: middle;text-align: center"><span class="text-olive">กวศ อนุมัติ</span></td>
                                         @elseif($act['status']==2)
                                         <td style="vertical-align: middle;text-align: center"><span class="text-green">คณบดี อนุมัติ</span></td>
                                         @elseif($act['status']==3)
-                                        <td style="vertical-align: middle;text-align: center"><span class="text-green">รอปิดโครงการ</span></td>
+                                        <td style="vertical-align: middle;text-align: center"><span class="text-red">รอปิดโครงการ</span></td>
                                         @elseif($act['status']==4)
-                                        <td style="vertical-align: middle;text-align: center"><span class="text-black">ปิดโตรงการ</span></td>
+                                        <td style="vertical-align: middle;text-align: center"><span class="text-black">ปิดโครงการ</span></td>
                                         @endif
                                     <td style="vertical-align: middle;text-align: center">
                                         <button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail({{$act['act_id']}})">
@@ -232,6 +255,8 @@
 
                     $('#act_name').val(act_data.act.name);
 
+                    $('#act_status').val(act_data.act.status);
+
                     $('#kind_of_activity').val(act_data.act.category);
 
                     act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
@@ -247,27 +272,25 @@
                     else if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
 
                     $('#permission-table').empty();
+                    $('#permission-table').append(
+                            '<tr id="table-header">'
+                            + '<th style="vertical-align:middle"></th>'
+                            + '<th style="vertical-align:middle;" >รหัสนิสิต</th>'
+                            + '<th style="vertical-align:middle;" >ชื่อ</th>'
+                            + '<th style="vertical-align:middle;" >นามสกุล</th>'
+                            + '</tr>'
+                    );
                     for(i=0;i<act_data.can_edit.length;i++){
-                        if(i==0){
-                            $('#permission-table').append(
-                                    '<tr>'
-                                        +'<th style="vertical-align:middle"></th>'
-                                        +'<th style="vertical-align:middle;" >รหัสนิสิต</th>'
-                                        +'<th style="vertical-align:middle;" >ชื่อ</th>'
-                                        +'<th style="vertical-align:middle;" >นามสกุล</th>'
-                                    +'</tr>'
-                            );
-                        }
                         $('#permission-table').append(
-                                '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
-                                +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
-                                +' <i class="fa fa-minus"></i>'
-                                +' <i class="fa fa-trash"></i>'
-                                +' </a></td>'
-                                +' <td><input type="hidden" name="student_id[]" value="'+act_data.can_edit[i].student_id+'"/>'+act_data.can_edit[i].student_id+'</td>'
-                                +' <td>'+act_data.can_edit[i].name+'</td>'
-                                +' <td>'+act_data.can_edit[i].surname+'</td>'
-                                +' </tr>'
+                            '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
+                            +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                            +' <i class="fa fa-minus"></i>'
+                            +' <i class="fa fa-trash"></i>'
+                            +' </a></td>'
+                            +' <td><input type="hidden" name="student_id[]" value="'+act_data.can_edit[i].student_id+'"/>'+act_data.can_edit[i].student_id+'</td>'
+                            +' <td>'+act_data.can_edit[i].name+'</td>'
+                            +' <td>'+act_data.can_edit[i].surname+'</td>'
+                            +' </tr>'
                         );
                     }
                     $('#last_year_seen').val(act_data.act.avail_year);
@@ -283,7 +306,9 @@
                 $('#tuple-'+id).addClass('hidden');
                 $('#delete-'+id).val(true);
                 editor--;
-                if(editor == 0) $('#table-div').addClass('hidden');
+                if(editor == 0) {
+                    $('#table-div').addClass('hidden');
+                }
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
@@ -306,12 +331,12 @@
                                 _toastr("ข้อมูลซ้ำ","top-right","warning",false);
                                 editor--;
                             }
+
                             $('#tuple-'+input["student_id"]).removeClass('hidden');
                             $('#delete-'+input["student_id"]).val("");
                             editor++;
                         }
                         else {
-                            editor++;
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
                                     +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
@@ -321,7 +346,9 @@
                                     +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
                                     +' <td>'+input["name"]+'</td>'
                                     +' <td>'+input["surname"]+'</td>'
-                                    +'  </tr>');
+                                    +'  </tr>'
+                            );
+                            editor++;
                         }
                     }
                 }).fail(function () {
