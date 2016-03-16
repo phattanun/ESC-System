@@ -28,8 +28,9 @@
                     {{--search box part--}}
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                        <div class="row text-center">
+
                             <div class="form-group">
+                                <div class="row text-center">
                                 <div class="col-md-2">
                                     <input required id="studentID" name="studentID" required type="text" class="form-control"
                                            placeholder="รหัสนิสิต">
@@ -90,6 +91,11 @@
         }
         input {
             margin-bottom: 10px;
+        }
+        @media only screen and (max-width: 768px) {
+            section div.row > div {
+                 margin-bottom:0px;
+            }
         }
     </style>
 
