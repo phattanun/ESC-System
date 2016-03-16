@@ -575,13 +575,14 @@
                                                                 else {
                                                                     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
                                                                     day = moment(start).format('ddd, DD MMMM YYYY');
-                                                                    date = moment(start).format('YYYY-MM-DD');
+                                                                    dateStart = moment(start).format('YYYY-MM-DD');
+                                                                    dateEnd = moment(end).format('YYYY-MM-DD');
                                                                     @if($permission&&$permission->room)
-                                                                    $("#dateStart").val(date);
-                                                                    $("#dateEnd").val(date);
+                                                                    $("#dateStart").val(dateStart);
+                                                                    $("#dateEnd").val(dateStart);
                                                                     @endif
                                                                     $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
-                                                                    $("#apptDate").val(date);
+                                                                    $("#apptDate").val(dateStart);
                                                                     $('#myModal').modal();
                                                                 }
                                                             }
