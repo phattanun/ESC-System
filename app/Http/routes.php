@@ -31,6 +31,7 @@ Route::post('save_news', 'NewsController@save_news');
 Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
 Route::get ('/room/approve', 'RoomController@viewApprovePage');
+Route::get ('/room/get_room_reservation_schedule', 'RoomController@getRoomReservationSchedule');
 Route::post('/room/user/submit_request', 'RoomController@UserSubmitRequest');
 Route::post('/room/guest/submit_request', 'RoomController@GuestSubmitRequest');
 Route::get ('/room/room-manage', 'RoomController@roomManagePage');
@@ -62,6 +63,7 @@ Route::post('/activity/create/addEditor','ActivityController@addEditor');
 Route::post('/activity/create/send_form','ActivityController@add_activity');
 Route::get('/activity/list','ActivityController@activity_list');
 Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
+Route::post('/activity/list/edit_form','ActivityController@edit_activity');
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 
 // Contact Page

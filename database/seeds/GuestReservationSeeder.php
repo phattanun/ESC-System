@@ -14,8 +14,8 @@ class GuestReservationSeeder extends Seeder
         GuestReservation::create([
             'reason'=>'ประชุมวิชา Indiv - Data mining',
             'number_of_people'=>7,
-            'request_start_time'=>"2015-03-07 8:00:00",
-            'request_end_time'=>"2015-03-07 13:15:00",
+            'request_start_time'=>"2016-03-07 8:00:00",
+            'request_end_time'=>"2016-03-07 13:15:00",
             'request_projector'=>true,
             'request_plug'=>2,
             'allow_plug'=>0,

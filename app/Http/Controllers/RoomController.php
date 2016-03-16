@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Division;
 use App\GuestReservation;
+use App\MeetingRoom;
 use App\Permission;
 use App\UserReservation;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,9 +34,10 @@ class RoomController extends Controller
         $permission = Permission::find($user['student_id']);
         $activity = Activity::select('act_id', 'name')->get();
         $division = Division::select('div_id', 'name')->get();
+        $room = MeetingRoom::select('room_id', 'name')->get();
         if (is_null($user))
-            return view('room-reserve', ['permission' => $permission, 'user' => $user]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division]);
+            return view('room-reserve', ['permission' => $permission, 'user' => $user,'room'=>$room]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division,'room'=>$room]);
     }
 
     public function viewApprovePage()
@@ -48,6 +51,49 @@ class RoomController extends Controller
     {
 
         return view('room-manage');
+    }
+
+    public function getRoomReservationSchedule()
+    {
+
+        $calendarEvents = [];
+        $query = UserReservation::where('request_start_time', '<=', $_REQUEST['end'] . ' 23:59:59')
+            ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
+            ->get();
+        foreach ($query as $queries) {
+            if($queries['act_id']){
+                $title=Activity::where('act_id','=',$queries['act_id'])->select('name')->get()[0]->name;
+            }
+            else if($queries['div_id']){
+                $title=Division::where('div_id','=',$queries['div_id'])->select('name')->get()[0]->name;
+            }
+            else {
+                $title=$queries['other_act'];
+            }
+            if(is_null($queries['status'])){
+                $status=["bg-warning"];
+            }
+            else if($queries['status']){
+                $status=["bg-success"];
+            }
+            else {
+                $status=["bg-danger"];
+            }
+            array_push($calendarEvents,
+                    array(
+                        'title' => $title,
+                        'start' => $queries['request_start_time'],
+                        'end' => $queries['request_end_time'],
+                        'id' => $queries['res_id'],
+                        'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
+                        'className' => $status,
+                        'description' => ($queries['request_room_id']==0)? '':MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
+                        'icon' => 'fa-clock-o',
+                    )
+            );
+        }
+//        return $query;
+        return json_encode($calendarEvents);
     }
 
     public function UserSubmitRequest()
@@ -70,13 +116,13 @@ class RoomController extends Controller
         $newUserRequest->request_plug = (input::get('cord') === 'true') ? input::get('numberOfCord') : 0;
         $newUserRequest->request_room_id = input::get('room');
         $newUserRequest->student_id = $user['student_id'];
-        if(input::get('otherActActivated') === 'true') {
-            $newUserRequest->other_act=input::get('otherAct');
-        }
-        else if (substr(input::get('project'), 0, 3) == 'act')
+        if (input::get('otherActActivated') === 'true') {
+            $newUserRequest->other_act = input::get('otherAct');
+        } else if (substr(input::get('project'), 0, 3) == 'act')
             $newUserRequest->act_id = substr(input::get('project'), 4);
         else if (substr(input::get('project'), 0, 3) == 'div')
             $newUserRequest->div_id = substr(input::get('project'), 4);
+        $newUserRequest->create_at = Carbon::now();
         $newUserRequest->save();
         return 'success';
     }
@@ -98,6 +144,7 @@ class RoomController extends Controller
         $newGuestRequest->guest_email = input::get('email');
         $newGuestRequest->guest_org = input::get('organization');
         $newGuestRequest->request_room_id = input::get('room');
+        $newGuestRequest->create_at = Carbon::now();
         $newGuestRequest->save();
     }
 

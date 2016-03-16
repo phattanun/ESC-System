@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GuestReservationSeeder::class);
         $this->call(ScheduleSettingSeeder::class);
         $this->call(AllowScheduleSeeder::class);
+        $this->call(CanEditActivitySeeder::class);
 
         Model::reguard();
     }

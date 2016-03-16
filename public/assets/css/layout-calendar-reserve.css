@@ -386,3 +386,11 @@ label.error {
 	font-size: 20px;
 	margin-bottom: 0px;
 }
+#calendar-info p{
+	margin-bottom: 10px;
+}
+#calendar-info p span{
+	padding: 3px 3px 3px 3px;
+	border-radius: 3px;
+	color: white;
+}

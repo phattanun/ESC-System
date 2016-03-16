@@ -14,8 +14,8 @@ class UserReservationSeeder extends Seeder
         UserReservation::create([
             'reason'=>'ประชุมวิชา SA & DB',
             'number_of_people'=>40,
-            'request_start_time'=>"2015-03-07 13:00:00",
-            'request_end_time'=>"2015-03-07 15:45:00",
+            'request_start_time'=>"2016-03-07 13:00:00",
+            'request_end_time'=>"2016-03-07 15:45:00",
             'request_projector'=>true,
             'request_plug'=>40,
             'allow_plug'=>0,

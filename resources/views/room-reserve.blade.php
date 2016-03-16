@@ -61,6 +61,15 @@
                         <div class="panel-body">
                             <div id="announcement" class="text-center"><p>ประกาศ: กวศ.
                                     จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
+                            <div id="calendar-info" class="text-right">
+                                <p><span>สถานะ</span> </p>
+                                <p><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                <p><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                <p><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                            </div>
+                            <div id="instruction"  class="text-center">
+                                <p>วิธีจองห้อง: คลิกวันที่ต้องการเพื่อทำการจองห้อง</p>
+                            </div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
 
                         </div>
@@ -112,7 +121,7 @@
 
                             <div>
                                 <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
-                                       placeholder="ระบุชื่อกิจกรรมของคุณ">
+                                       placeholder="ระบุชื่อกิจกรรม / ส่วนงาน / งาน /ของคุณ">
                             </div>
                             <div class="hidden margin-top-minus-20 " id="back-to-activity-div">
                                 <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
@@ -123,7 +132,9 @@
                                placeholder="จำนวนคน"/>
                         <select name="room" class="form-control select2 required" id="room-selection">
                             <option selected="selected" value="0">เลือกห้องที่ต้องการ</option>
-                            <option value="1">ห้อง 1</option>
+                            @foreach($room as $rooms)
+                                <option value="{{$rooms['room_id']}}">{{$rooms['name']}}</option>
+                            @endforeach
                         </select>
                         <textarea required name="objective" class="form-control margin-top-20" id="apptEventDescription"
                                   placeholder="จุดประสงค์ในการขอใช้สถานที่" rows="3"></textarea>
@@ -211,7 +222,7 @@
                                         <input id="cord" name="borrow[]" type="checkbox" value="cord">
                                         <i></i> ปลั๊กพ่วง
                                     </label>
-                                    <input name="numberOfCord" type="text" class="form-control hidden number-only"
+                                    <input required name="numberOfCord" type="text" class="form-control hidden number-only"
                                            id="numberOfCord"
                                            placeholder="ระบุจำนวนที่ต้องการ"/>
                                 </div>
@@ -297,6 +308,7 @@
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/css/layout-calendar-reserve.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{url('assets\css\fontAwesome_icon_font.min.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
@@ -370,16 +382,13 @@
                             numberOfCord: $('#numberOfCord').val(),
                             _token: '{{csrf_token()}}'
                         }).done(function (input) {
-                    if (input == 'fail') {
-                        _toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
-                        return false;
-                    }
-                    else if (input == 'noright') {
+                    if (input == 'noright') {
                         _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
                         return false;
                     }
                     else {
                         _toastr("ส่งคำจองสำเร็จ", "top-right", "success", false);
+                        $('#calendar').fullCalendar( 'refetchEvents' );
                         return false;
                     }
                 }).fail(function () {
@@ -481,15 +490,10 @@
                                     loadScript(plugin_path + "fullcalendar/add-on/scheduler.min.js", function () {
                                         loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
                                             jQuery(document).ready(function () {
-                                                _calendarInit();
+                                                _fullCalendar();
                                                 $('#reserve-form').validate();
                                             });
-                                            function _calendarInit() {
-                                                _fullCalendar();
-                                            }
-
                                             function _fullCalendar() {
-
                                                 if (jQuery('#calendar').length > 0) {
                                                     var _calendarInstance = jQuery('#calendar').fullCalendar({
                                                         lang: 'th',
@@ -530,18 +534,19 @@
                                                                 }
                                                             }
                                                         },
-                                                        events: _calendarEvents,
+                                                        events: '{{url('/room/get_room_reservation_schedule')}}',
                                                         eventRender: function (event, element, icon) {
-
                                                             if (!event.description == '') {
-                                                                element.find('.fc-event-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
+                                                                element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
                                                             }
-
-                                                            if (!event.icon == '') {
-                                                                element.find('.fc-event-title').append("<i class='fc-icon fa " + event.icon + "'></i>");
-                                                            }
-                                                        }
-                                                    });
+                                                            element.attr('title',event.title);
+                                                            element.attr('data-toggle','tooltip');
+//
+                                                        },
+                                                        eventAfterAllRender: function(){
+                                                            $('[data-toggle="tooltip"]').tooltip();
+                                                    }
+                                                });
                                                 }
                                             }
 
