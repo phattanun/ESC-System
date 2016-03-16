@@ -33,11 +33,13 @@ class RoomController extends Controller
         $user = Auth::user();
         $permission = Permission::find($user['student_id']);
         $activity = Activity::select('act_id', 'name')->get();
-        $division = Division::select('div_id', 'name')->get();
+        $department = Division::select('div_id', 'name')->where('type','=','Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
         $room = MeetingRoom::select('room_id', 'name')->get();
         if (is_null($user))
             return view('room-reserve', ['permission' => $permission, 'user' => $user,'room'=>$room]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'division' => $division,'room'=>$room]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department,'generation' => $generation,'group'=>$group,'room'=>$room]);
     }
 
     public function viewApprovePage()

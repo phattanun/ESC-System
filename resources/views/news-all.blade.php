@@ -3,9 +3,9 @@
 @section('title')
     ประกาศข่าวสาร
 @endsection
-@section('body-attribute')
-    style ="background-color:#F6F6F6;"
-@endsection
+
+@endsection@section('body-attribute')
+    style ="background-color:#FCFCFC;"
 @section('newsNavToggle')
     active
 @endsection

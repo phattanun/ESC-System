@@ -5,7 +5,7 @@
 @endsection
 
 @section('body-attribute')
-    style ="background-color:#F6F6F6;"
+    style ="background-color:#FCFCFC;"
 @endsection
 
 @section('bodyTitle')
@@ -16,15 +16,18 @@
     <section style="margin-top: -40px">
         <div class="container" >
             <div class="panel panel-default">
+                <div class="panel-heading">
+								<span class="title elipsis">
+									<strong>ปีการศึกษา</strong> <!-- panel title -->
+								</span>
+                </div>
                 <div class="panel-body">
                     <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_year'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/setting';</script>" data-toastr-position="top-right">
                         <fieldset>
-                            <!-- required [php action request] -->
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                             <div class="row" >
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
-                                        <label class="margin-bottom-20">ปีการศึกษา </label>
                                         <label class="margin-bottom-20 currentYear pull-left">{{$year}}</label>
                                         <div id="editYearButton" class="pull-left">
                                             <a class="btn btn-3d btn-reveal btn-yellow">
@@ -64,6 +67,11 @@
         </div>
         <div class="container" >
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="title elipsis">
+                        <strong>เพิ่มผู้จัดการข้อมูล</strong> <!-- panel title -->
+                    </span>
+                </div>
                 <div class="panel-body">
                     <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
                         <fieldset>
@@ -71,7 +79,6 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
-                                        <label class="margin-bottom-20 ">เพิ่มผู้จัดการข้อมูล</label>
                                         <div class="input-group autosuggest" data-minLength="1" data-queryURL="{{url('setting/auto_suggest?limit=10&search=1')}}">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">

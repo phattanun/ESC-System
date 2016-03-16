@@ -4,7 +4,7 @@
     จองห้องประชุม/ผลการจองห้องประชุม
 @endsection
 @section('body-attribute')
-
+    style ="background-color:#FCFCFC;"
 @endsection
 @section('conferenceNavToggle')
     active
@@ -13,11 +13,66 @@
     จองห้องประชุม/ผลการจองห้องประชุม
 @endsection
 @section('content')
-    <section id="middle">
+    <section  id="middle">
 
 
         <div id="content" class="padding-20">
 
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <!-- Panel -->
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+
+								<span class="title elipsis">
+									<strong>ประกาศ</strong> <!-- panel title -->
+								</span>
+                        </div>
+
+                        <!-- panel content -->
+                        <div class="panel-body">
+                            <div id="announcement" class="text-center"><p>กวศ.
+                                    จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
+                        </div>
+                        <!-- /panel content -->
+
+                    </div>
+                    <!-- /Panel -->
+
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <!-- Panel -->
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+
+								<span class="title elipsis">
+									<strong>สถานะ</strong> <!-- panel title -->
+								</span>
+                        </div>
+
+                        <!-- panel content -->
+                        <div class="panel-body">
+                            <div id="calendar-info" class="text-center">
+                                <p><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                <p><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                <p><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                            </div>
+                        </div>
+                        <!-- /panel content -->
+
+                    </div>
+                    <!-- /Panel -->
+
+                </div>
+
+            </div>
             <div class="row">
 
                 <div class="col-sm-12 col-md-12 col-lg-12">
@@ -59,14 +114,6 @@
 
                         <!-- panel content -->
                         <div class="panel-body">
-                            <div id="announcement" class="text-center"><p>ประกาศ: กวศ.
-                                    จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
-                            <div id="calendar-info" class="text-right">
-                                <p><span>สถานะ</span> </p>
-                                <p><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
-                                <p><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
-                                <p><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
-                            </div>
                             <div id="instruction"  class="text-center">
                                 <p>วิธีจองห้อง: คลิกวันที่ต้องการเพื่อทำการจองห้อง</p>
                             </div>
@@ -82,11 +129,8 @@
 
             </div>
 
-
         </div>
     </section>
-
-
     <div id="myModal" class="modal type-danger fade size-normal" role="dialog">
         <div class="modal-dialog">
 
@@ -110,8 +154,14 @@
                                 @foreach($activity as $activities)
                                     <option value="act-{{$activities['act_id']}}">{{$activities['name']}}</option>
                                 @endforeach
-                                @foreach($division as $divisions)
-                                    <option value="div-{{$divisions['div_id']}}">{{$divisions['name']}}</option>
+                                @foreach($generation as $generations)
+                                    <option value="div-{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
+                                @endforeach
+                                @foreach($group as $groups)
+                                    <option value="div-{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
+                                @endforeach
+                                @foreach($department as $departments)
+                                    <option value="div-{{$departments['div_id']}}">ภาควิชา{{$departments['name']}}</option>
                                 @endforeach
                             </select>
                             <div id="no-needed-activity-div">

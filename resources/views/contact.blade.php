@@ -5,7 +5,7 @@
 @endsection
 
 @section('body-attribute')
-    style ="background-color:#F6F6F6;"
+    style ="background-color:#FCFCFC;"
 @endsection
 
 @section('contactNavToggle')
