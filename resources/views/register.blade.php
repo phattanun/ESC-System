@@ -4,12 +4,14 @@
     ลงทะเบียน
 @endsection
 
-style ="background-color:#FCFCFC;"
+@section('body-attribute')
+    style ="background-color:#FCFCFC;"
 @endsection
 
 @section('bodyTitle')
     ลงทะเบียน
 @endsection
+
 @section('bodyTitle-attribute')
 
 @endsection
