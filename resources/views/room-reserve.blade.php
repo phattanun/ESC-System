@@ -173,7 +173,7 @@
 
                             <div>
                                 <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
-                                       placeholder="ระบุชื่อกิจกรรม / ส่วนงาน / งาน /ของคุณ">
+                                       placeholder="ระบุชื่อกิจกรรม / ส่วนงาน / งาน ของคุณ">
                             </div>
                             <div class="hidden margin-top-minus-20 " id="back-to-activity-div">
                                 <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
@@ -438,6 +438,18 @@
                         _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
                         return false;
                     }
+                    else if (input == 'peoplenotnumber') {
+                        _toastr("กรุณาระบุจำนวนคนเป็นตัวเลข", "top-right", "error", false);
+                        return false;
+                    }
+                    else if (input == 'cordnotnumber') {
+                        _toastr("กรุณาระบุจำนวนปลั๊กพ่วงเป็นตัวเลข", "top-right", "error", false);
+                        return false;
+                    }
+                    else if (input == 'noproject') {
+                        _toastr("โปรดระบุส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี หรืออื่นๆ", "top-right", "error", false);
+                        return false;
+                    }
                     else {
                         _toastr("ส่งคำจองสำเร็จ", "top-right", "success", false);
                         $('#calendar').fullCalendar( 'refetchEvents' );
@@ -449,86 +461,6 @@
                 });
             }
         });
-
-        /* Calendar Data */
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-
-        var _calendarEvents = [
-            {
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, 1),
-                allDay: false,
-                className: ["bg-primary"],
-                description: 'MT5',
-                icon: 'fa-clock-o'
-            },
-            {
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                allDay: false,
-                className: ["bg-primary"],
-                description: '',
-                icon: 'fa-check'
-            },
-            {
-                id: 999,
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d - 3, 16, 0),
-                allDay: false,
-                className: ["bg-warning"],
-                description: '',
-                icon: 'fa-clock-o'
-            },
-            {
-                id: 999,
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d + 4, 16, 0),
-                allDay: false,
-                className: ["bg-primary"],
-                description: '',
-                icon: 'fa-clock-o'
-            },
-            {
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d, 10, 00),
-                end: new Date(y, m, d, 11, 00),
-                allDay: false,
-                className: ["bg-primary"],
-                description: '',
-                icon: 'fa-lock'
-            },
-            {
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                className: ["bg-success"],
-                description: '',
-                icon: 'fa-clock-o'
-            },
-            {
-                title: 'วิษณุกรรมบุตร',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                className: ["bg-danger"],
-                description: '',
-                icon: ''
-            },
-            {
-                title: 'เข้า Google',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: 'http://google.com/',
-                className: ["bg-info"],
-                description: '',
-                icon: 'fa-clock-o'
-            }
-        ];
         loadScript(plugin_path + "jquery/jquery.cookie.js", function () {
             loadScript(plugin_path + "jquery/jquery-ui.min.js", function () {
                 loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {

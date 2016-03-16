@@ -90,7 +90,7 @@ class RoomController extends Controller
                         'id' => $queries['res_id'],
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                         'className' => $status,
-                        'description' => ($queries['request_room_id']==0)? '':MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
+                        'description' => ($queries['request_room_id']==0)? 'ไม่ระบุห้อง':MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
                         'icon' => 'fa-clock-o',
                     )
             );
@@ -104,6 +104,10 @@ class RoomController extends Controller
         $user = Auth::user();
         if (is_null($user))
             return 'noright';
+        if(!is_numeric(input::get('numberOfPeople')))
+            return 'peoplenotnumber';
+        if((input::get('cord') === 'true'&&!is_numeric(input::get('numberOfCord'))))
+            return 'cordnotnumber';
         $permission = Permission::find($user['student_id']);
         $newUserRequest = new UserReservation();
         $newUserRequest->reason = input::get('objective');
@@ -117,7 +121,7 @@ class RoomController extends Controller
         }
         $newUserRequest->request_projector = (input::get('projector') === 'true') ? true : false;
         $newUserRequest->request_plug = (input::get('cord') === 'true') ? input::get('numberOfCord') : 0;
-        $newUserRequest->request_room_id = input::get('room');
+        $newUserRequest->request_room_id = (MeetingRoom::where('room_id','=',input::get('room'))->exists())?input::get('room'):'0';
         $newUserRequest->student_id = $user['student_id'];
         if (input::get('otherActActivated') === 'true') {
             $newUserRequest->other_act = input::get('otherAct');
@@ -125,6 +129,9 @@ class RoomController extends Controller
             $newUserRequest->act_id = substr(input::get('project'), 4);
         else if (substr(input::get('project'), 0, 3) == 'div')
             $newUserRequest->div_id = substr(input::get('project'), 4);
+        else {
+            return 'noproject';
+        }
         $newUserRequest->create_at = Carbon::now();
         $newUserRequest->save();
         return 'success';
@@ -132,6 +139,10 @@ class RoomController extends Controller
 
     public function GuestSubmitRequest()
     {
+        if(!is_numeric(input::get('numberOfPeople')))
+            return 'peoplenotnumber';
+        if((input::get('cord') === 'true'&&!is_numeric(input::get('numberOfCord'))))
+            return 'cordnotnumber';
         $newGuestRequest = new GuestReservation();
         $newGuestRequest->reason = input::get('objective');
         $newGuestRequest->number_of_people = input::get('numberOfPeople');
