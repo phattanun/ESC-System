@@ -203,6 +203,8 @@ class ActivityController extends Controller
 
         if(!isset($user['activities']) &&!Activity::where('act_id',$act_data['act_id'])->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_data['act_id'])->where('student_id',$user['student_id'])->exists())
             return 'fail';
+        if($act_data['status']!=0 && !isset($user['activities']))
+            return 'fail';
 
         if(!is_null($request->input('activity_name')))$act_data['name'] = $request->input('activity_name');
         if(!is_null($request->input('kind_of_activity')))$act_data['category'] = $request->input('kind_of_activity');
