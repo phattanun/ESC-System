@@ -75,6 +75,10 @@ class StudentController extends Controller
                 })
                 ->orderby('student_id')
                 ->get();
+            for ($i = 0; $i < sizeof($users); $i++) {
+                $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get()[0]->name;
+                $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get()[0]->name;
+            }
         } else {
             $users = User::select(['student_id', 'name', 'surname', 'nickname', 'sex', 'group', 'department', 'generation'])->where(function ($query) use ($request) {
                 if ($request->input('studentID')) $query->where('student_id', 'LIKE', '%' . $request->input('studentID') . '%');
@@ -90,6 +94,10 @@ class StudentController extends Controller
                 })
                 ->orderby('student_id')
                 ->get();
+            for ($i = 0; $i < sizeof($users); $i++) {
+                $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get()[0]->name;
+                $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get()[0]->name;
+            }
         }
         Excel::create('ข้อมูลนิสิตจากการค้นหาของ' . $user->name, function ($excel) use ($users, $permission) {
             $excel->setTitle('ข้อมูลนิสิต');
