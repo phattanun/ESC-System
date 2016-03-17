@@ -238,6 +238,7 @@
 @section('js-top')
     <script>
         var editor = 0;
+        var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
         function loaddetail(act_id) {
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT + '/activity/list/getdetail',
@@ -254,30 +255,30 @@
                     $('#myLargeModalLabel').append(act_data.act.name);
 
                     $('#act_name').val(act_data.act.name);
-                    act_data.act.status =='0'? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
 
                     $('#act_status').val(act_data.act.status);
 
                     $('#kind_of_activity').val(act_data.act.category);
-                    act_data.act.status =='0'? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
 
                     act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
-                    act_data.act.status =='0'? $('#ethics').prop('disabled',false):$('#ethics').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#ethics').prop('disabled',false):$('#ethics').prop('disabled',true);
 
                     act_data.act.tqf_knowledge=='1'? $('#knowledge').prop('checked',true):$('#knowledge').prop('checked',false);
-                    act_data.act.status =='0'? $('#knowledge').prop('disabled',false):$('#knowledge').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#knowledge').prop('disabled',false):$('#knowledge').prop('disabled',true);
 
                     act_data.act.tqf_cognitive=='1'? $('#cognitive').prop('checked',true): $('#cognitive').prop('checked',false);
-                    act_data.act.status =='0'? $('#cognitive').prop('disabled',false):$('#cognitive').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#cognitive').prop('disabled',false):$('#cognitive').prop('disabled',true);
 
                     act_data.act.tqf_interpersonal=='1'? $('#interpersonal').prop('checked',true):$('#interpersonal').prop('checked',false);
-                    act_data.act.status =='0'? $('#interpersonal').prop('disabled',false):$('#interpersonal').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#interpersonal').prop('disabled',false):$('#interpersonal').prop('disabled',true);
 
                     act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
-                    act_data.act.status =='0'? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
 
                     $('#division').val(act_data.act.div_id);
-                    act_data.act.status =='0'? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
 
                     if(act_data.can_edit.length == 0)
                         $('#table-div').addClass('hidden');
@@ -306,7 +307,7 @@
                         );
                     }
                     $('#last_year_seen').val(act_data.act.avail_year);
-                    act_data.act.status =='0'? $('#last_year_seen').prop('disabled',false):$('#last_year_seen').prop('disabled',true);
+                    act_data.act.status =='0' || user['activities'] ? $('#last_year_seen').prop('disabled',false):$('#last_year_seen').prop('disabled',true);
                 }
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
