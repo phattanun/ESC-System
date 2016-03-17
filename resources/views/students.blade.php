@@ -52,7 +52,7 @@
                                            placeholder="กรุ๊ป">
                                 </div>
                                 <div class="col-md-2">
-                                    <input required id="StudentDept" name="StudentDept" required type="text" class="form-control"
+                                    <input required id="studentDept" name="StudentDept" required type="text" class="form-control"
                                            placeholder="ภาควิชา">
                                 </div>
                                  <span class="col-md-1" id="search-student-btn">
@@ -102,16 +102,26 @@
 @endsection
 @section('js')
     <script>
+        $('#save-excel-btn').click(function(){
+            window.location="{{url('/students/getExcelFile?studentID=')}}"+history['studentID']+"&studentFName="+history['studentFName']+"&studentLName="+history['studentLName']+"&studentNName="+history['studentNName']+"&studentGroup="+history['studentGroup']+"&studentDept="+history['studentDept']+"";
+        });
+        var history;
         $('#search-student-btn').click(function () {
+            history['studentID']= $('#studentID').val();
+            history['studentFName']=$('#studentFName').val();
+            history['studentLName']=$('#studentLName').val();
+            history['studentNName']=$('#studentNName').val();
+            history['studentGroup']=$('#studentGroup').val();
+            history['studentDept']=$('#studentDept').val();
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT + '/students/search',
                     {
-                        studentID: $('#studentID').val(),
-                        studentFName: $('#studentFName').val(),
-                        studentLName: $('#studentLName').val(),
-                        studentNName: $('#studentNName').val(),
-                        studentGroup: $('#studentGroup').val(),
-                        studentDept: $('#studentDept').val(),
+                        studentID: history['studentID'],
+                        studentFName: history['studentFName'],
+                        studentLName: history['studentLName'],
+                        studentNName: history['studentNName'],
+                        studentGroup: history['studentGroup'],
+                        studentDept: history['studentDept'],
                         _token: '{{csrf_token()}}'
                     }).done(function (input) {
                 if (input == 'fail') {
@@ -119,6 +129,9 @@
                     return false;
                 }
                 else {
+
+
+
                     $('#search-result-table').html('');
                     //--table header part--
 

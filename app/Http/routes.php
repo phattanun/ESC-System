@@ -42,6 +42,7 @@ Route::get ('/supplies', 'PagesController@suppliesPage');
 
 // Students
 Route::get ('/students', 'StudentController@studentsPage');
+Route::get ('/students/getExcelFile', 'StudentController@generateXLS');
 Route::post('/students/search', 'StudentController@search');
 
 // Login/Logout Register
