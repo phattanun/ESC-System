@@ -7,6 +7,7 @@ use App\Division;
 use App\GuestReservation;
 use App\MeetingRoom;
 use App\Permission;
+use App\ScheduleSetting;
 use App\UserReservation;
 use App\User;
 use Carbon\Carbon;
@@ -168,6 +169,11 @@ class RoomController extends Controller
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
         $event = Input::get('event');
-        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+
+
+//        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+        // _dupplicate-data_ "ข้อมูลซ้ำ"
+        // _incomplete-data_ "กรอกข้อมูลไม่ครบ"
+        return "success";
     }
 }
