@@ -49,6 +49,7 @@ class StudentController extends Controller
         for ($i = 0; $i < sizeof($users); $i++) {
             $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get();
             $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get();
+            $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
         }
         return $users;
     }
@@ -78,6 +79,7 @@ class StudentController extends Controller
             for ($i = 0; $i < sizeof($users); $i++) {
                 $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get()[0]->name;
                 $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get()[0]->name;
+                $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
             }
         } else {
             $users = User::select(['student_id', 'name', 'surname', 'nickname', 'sex', 'group', 'department', 'generation'])->where(function ($query) use ($request) {
@@ -97,6 +99,7 @@ class StudentController extends Controller
             for ($i = 0; $i < sizeof($users); $i++) {
                 $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get()[0]->name;
                 $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get()[0]->name;
+                $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
             }
         }
         Excel::create('ข้อมูลนิสิตจากการค้นหาของ' . $user->name, function ($excel) use ($users, $permission) {
