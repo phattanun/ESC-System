@@ -2415,10 +2415,16 @@
 											// CAPTCHA ERROR
 											else if(data == '_captcha_') {
 												_toastr("Invalid Captcha!",_Tposition,"error",false);
+											}
 
-
+											else if(data == '_incomplete-data_') {
+												_toastr("กรอกข้อมูลไม่ครบ",_Tposition,"error",false);
+											}
+											else if(data == '_dupplicate-data_') {
+												_toastr("ข้อมูลซ้ำ",_Tposition,"error",false);
+											}
 											// SUCCESS
-											} else {
+											else {
 
 												// Remove spin icon
 												jQuery(form).find('.input-group-addon').find('.fa-refresh').removeClass('fa-refresh fa-spin').addClass('fa-envelope');

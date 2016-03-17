@@ -107,7 +107,7 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
+                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!" {{--data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ"--}} data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
 
 {{--เพิ่มลดแก้ไขห้องประชุม--------------------------------------------------------------------------------------------}}
@@ -309,7 +309,7 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label class="margin-bottom-20 ">กรณีพิเศษ</label>
                                     <div class="table-responsive margin-bottom-30">
-                                        <table class="table time-table" id="permission-table">
+                                        <table class="table event-table" id="permission-table">
                                             <tr>
                                                 <th style="vertical-align:middle">ตั้งแต่วันที่</th>
                                                 <th style="vertical-align:middle">ถึงวันที่</th>
@@ -331,7 +331,7 @@
                                                         <i class="fa fa-times"></i>
                                                         <span>ยกเลิก</span>
                                                     </a>
-                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove(1)" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด" style="vertical-align:middle">
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove(1)" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">
                                                         <i class="fa fa-minus"></i>
                                                         <i class="fa fa-trash"  data-toggle="modal" data-target=".event-modal"></i>
                                                     </a>
@@ -373,15 +373,15 @@
 
 @section('css')
     <style>
-        .time-table th,.time-table td{
+        .event-table th,.event-table td{
             text-align: center;
         }
-        .time-table td{
+        .event-table td{
             line-height: 2.5 !important;
             width: 10%;
         }
         @media screen and (max-width: 700px) {
-            .time-table input {
+            .event-table input {
                 min-width: 90px;
             }
         }
@@ -407,6 +407,7 @@
 @section('js-top')
     <script>
         var room_count = 2;
+        var event_count = 1;
         function roomEdit(id){
             $("#room-name-"+id).addClass("hide");
             $("#room-size-"+id).addClass("hide");
@@ -414,7 +415,7 @@
             $("#room-input-size-"+id).removeClass("hide");
             $("#room-edit-button-"+id).addClass("hide");
             $("#room-cancel-button-"+id).removeClass("hide");
-
+            //เช็คชื่อซ้ำด้วย
             var status = document.getElementById("room-status-"+id).value;
             if(status==""){
                 $("#room-status-"+id).attr("value","update");
@@ -454,7 +455,7 @@
                 _toastr("กรอกข้อมูลไม่ครบ","top-right","error",false);
                 return;
             }
-            /////ต้องเช็คชื่อซ้ำมั้ย
+            /////ต้องเช็คชื่อซ้ำมั้ย เช็คชื่อซ้ำด้วย
             document.getElementById("room-input-name-new").value = "";
             document.getElementById("room-input-size-new").value = "";
             room_count = room_count + 1;
@@ -503,8 +504,40 @@
             document.getElementById("event-date-start-new").value = "";
             document.getElementById("event-date-end-new").value = "";
             document.getElementById("event-time-start-new").value = "";
-            document.getElementById("event-time-end-new").value = ""
-            alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd);
+            document.getElementById("event-time-end-new").value = "";
+            //เช็คเวลาชนด้วย
+            event_count = event_count + 1;
+            var tmp = timeStart.split(" ");
+            var timeStartHour = tmp[0];
+            var timeStartMin = tmp[2];
+            tmp = timeEnd.split(" ");
+            var timeEndHour = tmp[0];
+            var timeEndMin = tmp[2];
+            alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd + " " + event_count + " " + timeStartHour + " " + timeStartMin + " " + timeEndHour + " " + timeEndMin);
+
+            var txt =
+                    '<tr id="event-'+event_count+'"><input type="hidden" id="event-status-'+event_count+'" name="event['+event_count+'][status]" value="new" />'+
+                    '   <td><div id="event-date-start-'+event_count+'">'+dateStart+'</div><input type="text" id="event-input-date-start-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateStart+'" name="event['+event_count+'][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'+
+                    '   <td><div id="event-date-end-'+event_count+'">'+dateEnd+'</div><input type="text" id="event-input-date-end-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateEnd+'" name="event['+event_count+'][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'+
+                    '   <td><div id="event-time-start-'+event_count+'">'+timeStart+'</div><input type="text" id="event-input-time-start-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeStart+'" name="event['+event_count+'][time-start]" data-timepicki-tim="'+timeStartHour+'" data-timepicki-mini="'+timeStartMin+'"></td>'+
+                    '   <td><div id="event-time-end-'+event_count+'">'+timeEnd+'</div><input type="text" id="event-input-time-end-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeEnd+'" name="event['+event_count+'][time-end]" data-timepicki-tim="'+timeEndHour+'" data-timepicki-mini="'+timeEndMin+'"></td>'+
+                    '   <td class="text-center" style="padding-right: 0px; padding-left: 0px;">'+
+                    '       <a id="event-edit-button-'+event_count+'" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit('+event_count+')">'+
+                    '           <i class="fa fa-edit"></i>'+
+                    '           <span>แก้ไข</span>'+
+                    '       </a>'+
+                    '       <a id="event-cancel-button-'+event_count+'" onclick="eventCancel('+event_count+')" class="btn btn-3d btn-reveal btn-red hide">'+
+                    '           <i class="fa fa-times"></i>'+
+                    '           <span>ยกเลิก</span>'+
+                    '       </a>'+
+                    '       <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove('+event_count+')" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">'+
+                    '           <i class="fa fa-minus"></i>'+
+                    '           <i class="fa fa-trash"  data-toggle="modal" data-target=".event-modal"></i>'+
+                    '       </a>'+
+                    '   </td>'+
+                    '</tr>';
+            $('.event-table').append(txt);
+            _pickers();
         }
 
         function eventEdit(id){
@@ -518,6 +551,11 @@
             $("#event-input-time-end-"+id).removeClass("hide");
             $("#event-edit-button-"+id).addClass("hide");
             $("#event-cancel-button-"+id).removeClass("hide");
+            //เช็คเวลาด้วย
+            var status = document.getElementById("event-status-"+id).value;
+            if(status==""){
+                $("#event-status-"+id).attr("value","update");
+            }
         }
         function eventCancel(id){
             $("#event-date-start-"+id).removeClass("hide");
@@ -530,6 +568,11 @@
             $("#event-input-time-end-"+id).addClass("hide");
             $("#event-edit-button-"+id).removeClass("hide");
             $("#event-cancel-button-"+id).addClass("hide");
+
+            var status = document.getElementById("event-status-"+id).value;
+            if(status=="update"){
+                $("#event-status-"+id).attr("value","");
+            }
         }
 
         function eventRemove(id){
@@ -537,6 +580,195 @@
         }
         function eventConfirmRemove(id){
             $("#event-"+id).addClass("hide");
+            $("#room-status-"+id).attr("value","deleted");
+        }
+
+
+        /** Pickers
+         **************************************************************** **/
+        function _pickers() {
+
+            /** Date Picker
+             <input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
+             ******************* **/
+            var _container_1 = jQuery('.datepicker');
+
+            if(_container_1.length > 0) {
+                loadScript(plugin_path + 'bootstrap.datepicker/js/bootstrap-datepicker.min.js', function() {
+
+                    if(jQuery().datepicker) {
+
+                        _container_1.each(function() {
+                            var _t 		= jQuery(this),
+                                    _lang 	=	_t.attr('data-lang') || 'en';
+
+                            if(_lang != 'en' && _lang != '') { // load language file
+                                loadScript(plugin_path + 'bootstrap.datepicker/locales/bootstrap-datepicker.'+_lang+'.min.js');
+                            }
+
+                            jQuery(this).datepicker({
+                                format:			_t.attr('data-format') 			|| 'yyyy-mm-dd',
+                                language: 		_lang,
+                                rtl: 			_t.attr('data-RTL') 			== "true"  ? true  : false,
+                                changeMonth: 	_t.attr('data-changeMonth') 	== "false" ? false : true,
+                                todayBtn: 		_t.attr('data-todayBtn') 		== "false" ? false : "linked",
+                                calendarWeeks: 	_t.attr('data-calendarWeeks') 	== "false" ? false : true,
+                                autoclose: 		_t.attr('data-autoclose') 		== "false" ? false : true,
+                                todayHighlight: _t.attr('data-todayHighlight') 	== "false" ? false : true,
+
+                                onRender: function(date) {
+                                    // return date.valueOf() < nowDate.valueOf() ? 'disabled' : '';
+                                }
+                            }).on('changeDate', function(ev) {
+
+                                // AJAX POST - OPTIONAL
+
+                            }).data('datepicker');
+                        });
+
+                    }
+
+                });
+            }
+
+
+
+
+            /** Range Picker
+             <input type="text" class="form-control rangepicker" value="2015-01-01 - 2016-12-31" data-format="yyyy-mm-dd" data-from="2015-01-01" data-to="2016-12-31">
+             ******************* **/
+            var _container_2 = jQuery('.rangepicker');
+
+            if(_container_2.length > 0) {
+                loadScript(plugin_path + 'bootstrap.daterangepicker/moment.min.js', function() {
+                    loadScript(plugin_path + 'bootstrap.daterangepicker/daterangepicker.js', function() {
+
+                        if(jQuery().datepicker) {
+
+                            _container_2.each(function() {
+
+                                var _t 		= jQuery(this),
+                                        _format = _t.attr('data-format').toUpperCase() || 'YYYY-MM-DD';
+
+                                _t.daterangepicker(
+                                        {
+                                            format: 		_format,
+                                            startDate: 		_t.attr('data-from'),
+                                            endDate: 		_t.attr('data-to'),
+
+                                            ranges: {
+                                                'Today': [moment(), moment()],
+                                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                            }
+                                        },
+                                        function(start, end, label) {
+                                            // alert("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                                        });
+
+                            });
+
+                        }
+
+                    });
+                });
+            }
+
+
+
+            /** Time Picker
+             <input type="text" class="form-control timepicker" value="11 : 55 : PM">
+             ******************* **/
+            var _container_3 = jQuery('.timepicker');
+
+            if(_container_3.length > 0) {
+                loadScript(plugin_path + 'timepicki/timepicki.min.js', function() {
+
+                    if(jQuery().timepicki) {
+
+                        _container_3.timepicki();
+
+                    }
+
+                });
+            }
+
+
+
+            /** Color Picker
+             ******************* **/
+            var _container_4 = jQuery('.colorpicker');
+
+            if(_container_4.length > 0) {
+                loadScript(plugin_path + 'spectrum/spectrum.min.js', function() {
+
+                    if(jQuery().spectrum) {
+
+                        _container_4.each(function() {
+                            var _t 					= jQuery(this),
+                                    _preferredFormat 	= _t.attr('data-format') 		|| "hex", // hex, hex3, hsl, rgb, name
+                                    _palletteOnly		= _t.attr('data-palletteOnly') 	|| "false",
+                                    _fullPicker			= _t.attr('data-fullpicker') 	|| "false",
+                                    _allowEmpty			= _t.attr('data-allowEmpty') 	|| false;
+                            _flat				= _t.attr('data-flat') 			|| false;
+
+                            if(_palletteOnly == "true" || _fullPicker == "true") {
+
+                                var _palette = [
+                                    ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+                                    ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+                                    ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+                                    ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+                                    ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+                                    ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+                                    ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+                                    ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+                                ];
+
+                            } else {
+                                _palette = null;
+                            }
+
+                            if(_t.attr('data-defaultColor')) {
+                                _color = _t.attr('data-defaultColor');
+                            } else {
+                                _color = "#ff0000";
+                            }
+
+                            if(!_t.attr('data-defaultColor') && _allowEmpty == "true") {
+                                _color = null;
+                            }
+
+                            _t.spectrum({
+                                showPaletteOnly: 	_palletteOnly == "true" ? true : false,
+                                togglePaletteOnly: 	_palletteOnly == "true" ? true : false,
+
+                                flat:				_flat 		== "true" ? true : false,
+                                showInitial: 		_allowEmpty == "true" ? true : false,
+                                showInput: 			_allowEmpty == "true" ? true : false,
+                                allowEmpty:			_allowEmpty == "true" ? true : false,
+
+                                chooseText: 		_t.attr('data-chooseText') || "Coose",
+                                cancelText: 		_t.attr('data-cancelText') || "Cancel",
+
+                                color: 				_color,
+                                showInput:			true,
+                                showPalette: 		true,
+                                preferredFormat: 	_preferredFormat,
+                                showAlpha: 			_preferredFormat == "rgb" ? true : false,
+                                palette: 			_palette
+                            });
+
+                        });
+
+                    }
+
+                });
+            }
+
         }
     </script>
 @endsection
