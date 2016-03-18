@@ -37,17 +37,14 @@
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>ประเภท *</label>
-                                <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="kind_of_activity">
-                                        <option value="">--- ประเภทของกิจกรรม ---</option>
-                                        <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
-                                        <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
-                                        <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
-                                        <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
-                                        <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
-                                    </select>
-                                    <i class="fancy-arrow"></i>
-                                </div>
+                                <select class="form-control select2" name="kind_of_activity">
+                                    <option value="">--- ประเภทของกิจกรรม ---</option>
+                                    <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
+                                    <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
+                                    <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
+                                    <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
+                                    <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -107,25 +104,12 @@
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
-                                <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="division">
-                                        <option value="">--- หน่วยงานที่เกี่ยวข้อง ---</option>
-                                        {{--<option value="1">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>--}}
-                                        {{--<option value="2">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>--}}
-                                        {{--<option value="3">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>--}}
-                                        {{--<option value="4">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>--}}
-                                        {{--<option value="5">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>--}}
-                                        @foreach($division as $d)
-                                            <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
-                                        @endforeach
-                                    </select>
-
-                                    <!--
-                                        .fancy-arrow
-                                        .fancy-arrow-double
-                                    -->
-                                    <i class="fancy-arrow"></i>
-                                </div>
+                                <select class="form-control select2" name="division">
+                                    <option value="">--- หน่วยงานที่เกี่ยวข้อง ---</option>
+                                    @foreach($division as $d)
+                                        <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <fieldset>
