@@ -25,6 +25,7 @@
                     <h2 class="panel-title"><i class="fa fa-user"></i> ค้นหาข้อมูลนิสิต</h2>
                 </div>
                 <div class="panel-body">
+                    </br>
                     {{--search box part--}}
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
@@ -43,17 +44,33 @@
                                     <input required id="studentLName" name="studentLName" required type="text" class="form-control"
                                            placeholder="นามสกุล">
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <input required id="studentNName" name="studentNName" required type="text" class="form-control"
                                            placeholder="ชื่อเล่น">
                                 </div>
                                 <div class="col-md-1">
-                                    <input required id="studentGroup" name="studentGroup" required type="text" class="form-control"
-                                           placeholder="กรุ๊ป">
+                                    <select name="division" class="form-control select2 required" id="studentGen">
+                                        <option selected="selected" value="0">รุ่น</option>
+                                        @foreach($generation as $generations)
+                                            <option value="{{$generations['name']}}">{{$generations['name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <select name="division" class="form-control select2 required" id="studentGroup">
+                                        <option selected="selected" value="0">กรุ๊ป</option>
+                                        @foreach($group as $groups)
+                                            <option value="{{$groups['name']}}">{{$groups['name']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <input required id="studentDept" name="StudentDept" required type="text" class="form-control"
-                                           placeholder="ภาควิชา">
+                                    <select name="division" class="form-control select2 required" id="studentDept">
+                                        <option selected="selected" value="0">ภาควิชา</option>
+                                        @foreach($department as $departments)
+                                            <option value="{{$departments['name']}}">{{$departments['name']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                  <span class="col-md-1" id="search-student-btn">
                                      <a class="btn btn-success">ค้นหา</a>
@@ -71,9 +88,10 @@
                     {{--end table part--}}
 
                     {{--excel button part--}}
-                    <span class="btn pull-right hidden" id="save-excel-btn">
+                    <span class="pull-right hidden" id="save-excel-btn">
+                        </br>
                         <a class="btn btn-success">บันทึกเป็นไฟล์ .xlsx</a>
-                        </br></br>
+                        </br>
                     </span>
                     {{--end excel button part--}}
 
@@ -97,6 +115,13 @@
                  margin-bottom:0px;
             }
         }
+        .clickrowcss:hover {
+            background-color: rgb(237, 237, 237);
+        }
+        .clickrow:hover {
+            cursor: pointer !important;
+
+        }
     </style>
 
 @endsection
@@ -105,12 +130,18 @@
         $('#save-excel-btn').click(function(){
             window.location="{{url('/students/getExcelFile?studentID=')}}"+history['studentID']+"&studentFName="+history['studentFName']+"&studentLName="+history['studentLName']+"&studentNName="+history['studentNName']+"&studentGroup="+history['studentGroup']+"&studentDept="+history['studentDept']+"";
         });
+
+        $(document).on('click','.clickrow',function(){
+            window.location="{{url('/profile')}}"+"/"+ this.id;
+        });
+
         var history;
         $('#search-student-btn').click(function () {
             history['studentID']= $('#studentID').val();
             history['studentFName']=$('#studentFName').val();
             history['studentLName']=$('#studentLName').val();
             history['studentNName']=$('#studentNName').val();
+            history['studentGen']=$('#studentGen').val();
             history['studentGroup']=$('#studentGroup').val();
             history['studentDept']=$('#studentDept').val();
             var URL_ROOT = '{{Request::root()}}';
@@ -120,12 +151,16 @@
                         studentFName: history['studentFName'],
                         studentLName: history['studentLName'],
                         studentNName: history['studentNName'],
+                        studentGen: history['studentGen'],
                         studentGroup: history['studentGroup'],
                         studentDept: history['studentDept'],
                         _token: '{{csrf_token()}}'
                     }).done(function (input) {
                 if (input == 'fail') {
-                    _toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
+                    //_toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
+                    $('#search-result-table').html('');
+                    $('#search-result-table').append('<div class = \'text-center\'>ไม่พบข้อมูลนิสิตที่ต้องการ</div>');
+                    $('#save-excel-btn').addClass('hidden');
                     return false;
                 }
                 else {
@@ -146,7 +181,7 @@
                             '<th style="vertical-align:middle" rowspan="1">รุ่น</th>' +
                             '<th style="vertical-align:middle" rowspan="1">กรุ๊ป</th>' +
                             '<th style="vertical-align:middle" rowspan="1">ภาควิชา</th>';
-                    @if($permission->student)
+                    @if($permission&&$permission->student)
                             tableHeader += '<th style="vertical-align:middle" rowspan="1">ที่อยู่</th>' +
                             '<th style="vertical-align:middle" rowspan="1">วันเกิด</th>' +
                             '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>' +
@@ -164,9 +199,13 @@
 
                     //--row data--
                     for (var counter = 0; counter < input.length; counter++) {
-                        var tabledata = '<tr>' +
-                                '<td>' + (counter + 1) + '</td>' +
-                                '<td>' + input[counter]["student_id"] + '</td>' +
+                        var tabledata = '<tr class = "clickrowcss';
+                        @if($permission&&$permission->student)
+                            tabledata += ' data-toggle="tooltip" data-placement="top" title="คลิกเพื่อแก้ไขข้อมูล" clickrow" id = "'+input[counter]["student_id"];
+                        @endif
+                        tabledata += '" >'+
+                                '<td>' + (counter + 1) + '</td>'+
+                                '<td>' + input[counter]["student_id"] + '</td>'+
                                 '<td>' + (input[counter]["sex"] == 0 ? 'นาย' : 'นางสาว') + '</td>' +
                                 '<td>' + input[counter]["name"] + '</td>' +
                                 '<td>' + input[counter]["surname"] + '</td>' +
@@ -175,13 +214,13 @@
                                 '<td>' + input[counter]["group"][0]['name'] + '</td>' +
                                 '<td>' + input[counter]["department"][0]['name'] + '</td>';
 
-                        @if($permission->student)
+                        @if($permission&&$permission->student)
                                 tabledata +=
                                 '<td>' +  input[counter]["address"]  + '</td>' +
                                 '<td>' +  input[counter]["birthdate"]  + '</td>' +
                                 '<td>' +  input[counter]["phone_number"]  + '</td>' +
                                 '<td>' +  input[counter]["email"]  + '</td>' +
-                                '<td><a href="//' + input[counter]["facebook_link"]  + '">logo</a></td>' +
+                                '<td><a href="//' + input[counter]["facebook_link"]  + '"><i class="fa fa-facebook-official data-toggle="tooltip" data-placement="top" title="'+input[counter]["facebook_link"]+'"></i></a></td>' +
                                 '<td>' +  input[counter]["line_id"]  + '</td>' +
                                 '<td>' +  input[counter]["emergency_contact"]  + '</td>' +
                                 '<td>' +  input[counter]["allergy"]  + '</td>' +

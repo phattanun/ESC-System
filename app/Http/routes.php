@@ -25,7 +25,7 @@ Route::post('/news/create/content', 'NewsController@create_content');
 Route::post('/news/upload/image', 'NewsController@upload_image');
 Route::post('/news/update/{news_id}', 'NewsController@update');
 Route::post('/news/remove', 'NewsController@remove');
-Route::post('save_news', 'NewsController@save_news');
+Route::post('/save_news', 'NewsController@save_news');
 
 // Meeting Room
 Route::get ('/room/result', 'RoomController@viewResultPage');
@@ -59,12 +59,13 @@ Route::post('/setting/delete_permission', 'SettingController@deletePermission');
 Route::post('/setting/add_new_permission', 'SettingController@addNewPermission');
 
 // Activity Page
-Route::get('/activity/create','ActivityController@create');
+Route::get ('/activity/create','ActivityController@create');
 Route::post('/activity/create/addEditor','ActivityController@addEditor');
 Route::post('/activity/create/send_form','ActivityController@add_activity');
-Route::get('/activity/list','ActivityController@activity_list');
+Route::get ('/activity/list','ActivityController@activity_list');
 Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
 Route::post('/activity/list/edit_form','ActivityController@edit_activity');
+Route::post('/activity/list/search_activity','ActivityController@search_activity');
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 
 // Contact Page
@@ -74,3 +75,5 @@ Route::post('/contact/update_contact', 'ContactController@updateContact');
 Route::post('/contact/drop_contact', 'ContactController@dropContact');
 
 Route::get ('/profile', 'PagesController@profilePage');
+Route::get ('/profile/{user_id}', 'PagesController@editProfilePage');
+Route::post('/profile/{user_id}', 'PagesController@saveProfile');

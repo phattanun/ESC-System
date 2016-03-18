@@ -136,6 +136,7 @@ class SettingController extends Controller
     {
         if($request->input('data')){
             $user = explode(' ',$request->input('data'));
+            if(sizeof($user)<3) return 'fail';
             if(sizeof($user)==3){
                 if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
                     return User::select(['student_id','name','surname'])->find($user[0]);

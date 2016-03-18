@@ -22,9 +22,12 @@ class StudentController extends Controller
     {
         $user = $this->getUser();
         $permission = Permission::find($user['student_id']);
+        $department = Division::select('div_id', 'name')->where('type','=','Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
         if (is_null($user))
             return redirect('/');
-        return view('students', ['permission' => $permission]);
+        return view('students', ['permission' => $permission, 'user' => $user, 'department' => $department,'generation' => $generation,'group'=>$group]);
     }
 
     public function search(Request $request)
@@ -45,12 +48,16 @@ class StudentController extends Controller
             ->whereHas('department', function ($query) use ($request) {
                 if ($request->input('studentDept')) $query->where('name', 'LIKE', '%' . $request->input('studentDept') . '%')->where('type', '=', 'Department');
             })
+            ->whereHas('generation', function ($query) use ($request) {
+                if ($request->input('studentGen')) $query->where('name', '=', $request->input('studentGen'))->where('type', '=', 'Generation');
+            })
             ->get();
         for ($i = 0; $i < sizeof($users); $i++) {
             $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get();
             $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get();
             $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
         }
+        if(sizeof($users)==0) return 'fail';
         return $users;
     }
 
@@ -61,7 +68,7 @@ class StudentController extends Controller
         if (is_null($user))
             return redirect('/');
         $permission = Permission::find($user['student_id']);
-        if ($permission->student) {
+        if ($permission&&$permission->student) {
             $users = User::select(['student_id', 'name', 'surname', 'nickname', 'sex', 'group', 'department', 'generation', 'address', 'birthdate', 'phone_number', 'email', 'facebook_link', 'line_id', 'emergency_contact', 'anomaly', 'allergy', 'religion', 'blood_type', 'clothing_size'])->where(function ($query) use ($request) {
                 if ($request->input('studentID')) $query->where('student_id', 'LIKE', '%' . $request->input('studentID') . '%');
                 if ($request->input('studentFName')) $query->where('name', 'LIKE', '%' . $request->input('studentFName') . '%');
@@ -73,6 +80,9 @@ class StudentController extends Controller
                 })
                 ->whereHas('department', function ($query) use ($request) {
                     if ($request->input('studentDept')) $query->where('name', 'LIKE', '%' . $request->input('studentDept') . '%')->where('type', '=', 'Department');
+                })
+                ->whereHas('generation', function ($query) use ($request) {
+                    if ($request->input('studentGen')) $query->where('name', '=', $request->input('studentGen'))->where('type', '=', 'Generation');
                 })
                 ->orderby('student_id')
                 ->get();
@@ -94,6 +104,9 @@ class StudentController extends Controller
                 ->whereHas('department', function ($query) use ($request) {
                     if ($request->input('studentDept')) $query->where('name', 'LIKE', '%' . $request->input('studentDept') . '%')->where('type', '=', 'Department');
                 })
+                ->whereHas('generation', function ($query) use ($request) {
+                    if ($request->input('studentGen')) $query->where('name', '=', $request->input('studentGen'))->where('type', '=', 'Generation');
+                })
                 ->orderby('student_id')
                 ->get();
             for ($i = 0; $i < sizeof($users); $i++) {
@@ -109,7 +122,7 @@ class StudentController extends Controller
             $excel->setDescription('ข้อมูลนิสิตที่ต้องการจากการค้นหา');
             $excel->sheet('ข้อมูลนิสิต', function ($sheet) use ($users, $permission) {
                 $sheet->fromArray($users, null, 'A2', true, false);
-                if ($permission->student)
+                if ($permission&&$permission->student)
                     $sheet->row(1, array(
                         'รหัสนิสิต', 'ชื่อ', 'นามสกุล', 'ชื่อเล่น', 'เพศ', 'กรุ๊ป', 'ภาค', 'รุ่น', 'ที่อยู่', 'วันเกิด', 'เบอร์โทรศัพท์', 'อีเมล', 'Facebook', 'Line ID', 'เบอร์โทรติดต่อกรณีฉุกเฉิน', 'อาหารที่แพ้', 'ภูมิแพ้', 'ศาสนา', 'กรุ๊ปเลือด', 'ไซส์เสื้อ'
                     ));
