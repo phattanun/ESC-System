@@ -196,7 +196,7 @@
                             <tr>
                                 <th style="vertical-align:middle;text-align: center" >ชื่อกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center" >ปีการศึกษา</th>
-                                <th style="vertical-align: middle;text-align: center">สถานะกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center" ></th>
                             </tr>
                             @foreach($act_list as $act)
