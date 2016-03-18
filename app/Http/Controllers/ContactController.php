@@ -30,6 +30,7 @@ class ContactController extends Controller
     public function addNewContact(Request $request) {
         if($request->input('data')){
             $user = explode(' ',$request->input('data'));
+            if(sizeof($user)<3) return 'fail';
             if(sizeof($user)==3){
                 if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
                     return User::select(['student_id','name','surname','nickname','phone_number','email','line_id','facebook_link'])->find($user[0]);
@@ -58,10 +59,15 @@ class ContactController extends Controller
         $user = $this->getUser();
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
-
-        $contact = $_POST;
-        if(isset($contact)) {
-            foreach($contact as $id) {
+        $contact = Input::get('contact');
+        $sid = array_unique(Input::get('sid'));
+        Contact::truncate();
+        if(isset($sid)) {
+            foreach($sid as $id) {
+                if(isset($contact[$id])){
+                    foreach($contact[$id] as $position)
+                    Contact::create(['student_id'=>$id,'position'=>$position]);
+                }
             }
         }
     }

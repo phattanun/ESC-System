@@ -68,7 +68,7 @@
                                 @foreach($all_contact as $contact)
                                     <tr id="tuple-{{$contact['position']}}-{{$contact['student_id']}}">
                                         @if($admin)
-                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" />
+                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" /><input type="hidden" name="sid[]" value="{{$contact['student_id']}}" />
                                         <td class="text-center"><a id="{{$contact['position']}}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
                                                 <i class="fa fa-minus"></i>
                                                 <i class="fa fa-trash"></i>
@@ -183,7 +183,7 @@
                             }
                         }
                         else {
-                            $('#contact-table').append('<tr id="tuple-'+position+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" />'
+                            $('#contact-table').append('<tr id="tuple-'+position+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" /><input type="hidden" name="sid[]" value="'+input['student_id']+'" />'
                                     +'<td class="text-center"><a id="'+position+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
                                     +'<i class="fa fa-minus"></i>'
                                     +'<i class="fa fa-trash"></i>'
