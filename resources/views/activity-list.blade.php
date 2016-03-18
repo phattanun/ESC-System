@@ -203,10 +203,12 @@
                             @foreach($act_list as $act)
                                 <tr class="actlist" id='activity-{{$act['act_id']}}'>
                                     <td class="text-center">
+                                        @if(isset($user['activities']) || $act['status']==0)
                                         <a class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>

@@ -302,7 +302,11 @@ class ActivityController extends Controller
     public function delete_activity(Request $request){
         $user = $this->getUser();
         $act_id = $request->input('act_id');
-        if(!isset($user['activities'])) return 'fail';
+        if(!isset($user['activities']) &&!Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists())
+            return 'fail';
+        $act = Activity::find($act_id);
+        if((Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() || CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists()) && $act['status']!=0)
+            return 'fail';
         Activity::find($act_id)->delete();
         return 'success';
 
