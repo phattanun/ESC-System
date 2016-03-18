@@ -93,13 +93,14 @@
                                 </label>
                             </div>
                         </div>
-                        {{--<div class="row">--}}
-                            {{--<div class="col-md-8">--}}
-                                {{--<label>ไฟล์ *</label>--}}
-                                {{--<input class="custom-file-upload" type="file" id="file" name="file" id="file" data-btn-text="Select a File" />--}}
-                                {{--<small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>ไฟล์ *</label>
+                                <input class="custom-file-upload" type="file" name="file" id="file" data-btn-text="Select a File" />
+                                <small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>
+                            </div>
+                        </div>
 
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">

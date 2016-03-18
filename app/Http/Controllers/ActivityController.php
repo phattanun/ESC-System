@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\ActivityFile;
 use App\CanEditActivity;
 use App\Division;
 use App\Setting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
 use App\Activity;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
@@ -133,7 +136,7 @@ class ActivityController extends Controller
         $communication = isset($tqf['communication']);
 
         $setting = Setting::all();
-        Activity::create([
+        $newAct = Activity::create([
             'name'=> $activity_name,
             'year'=> $setting[0]['year'],
             'category' => $kind_of_activity,
@@ -148,6 +151,26 @@ class ActivityController extends Controller
             'creator_id' => $user['student_id'],
             'editor_id' => $user['student_id']
         ]);
+        DB::disableQueryLog();
+        if(isset($_FILES['file']['size']) > 0) {
+            $fileName = $_FILES['file']['name'];
+            $tmpName = $_FILES['file']['tmp_name'];
+            $fileSize = $_FILES['file']['size'];
+            $fileType = $_FILES['file']['type'];
+            $fp = fopen($tmpName, 'r');
+            $content = fread($fp, filesize($tmpName));
+//            $content = addslashes($content);
+            fclose($fp);
+            $newd = ActivityFile::create([
+                'act_id'=>$newAct->act_id,
+                'file_name'=>$fileName,
+                'size'=>$fileSize,
+                'type'=>$fileType,
+                'content'=>$content,
+                'create_at'=>Carbon::now(),
+                'uploader_id'=>$user['student_id']
+            ]);
+        }
 
         $act_id = Activity::all()->max('act_id');
         if(!is_null($student_id)) {
@@ -161,6 +184,13 @@ class ActivityController extends Controller
             }
         }
         return redirect('/');
+    }
+    public function getFile($act_id){
+        $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id])->first();
+        header("Content-length: $file->size");
+        header("Content-type: $file->type");
+        header("Content-Disposition: attachment; filename=$file->file_name");
+        echo $file->content;
     }
 
     public function activity_list(){

@@ -67,6 +67,7 @@ Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
 Route::post('/activity/list/edit_form','ActivityController@edit_activity');
 Route::post('/activity/list/search_activity','ActivityController@search_activity');
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
+Route::get('/activity/download/{act_id}','ActivityController@getFile');
 
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
