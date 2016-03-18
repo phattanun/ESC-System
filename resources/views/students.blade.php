@@ -68,7 +68,7 @@
                     {{--end search box part--}}
 
                     {{--table part--}}
-                    <div class="table-responsive text-center">
+                    <div class="table-responsive">
                         <table class="table nomargin" id="search-result-table">
                         </table>
                     </div>
@@ -133,7 +133,8 @@
                 if (input == 'fail') {
                     //_toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
                     $('#search-result-table').html('');
-                    $('#search-result-table').append('ไม่พบข้อมูลนิสิตที่ต้องการ');
+                    $('#search-result-table').append('<div class = \'text-center\'>ไม่พบข้อมูลนิสิตที่ต้องการ</div>');
+                    $('#save-excel-btn').addClass('hidden');
                     return false;
                 }
                 else {
@@ -154,7 +155,7 @@
                             '<th style="vertical-align:middle" rowspan="1">รุ่น</th>' +
                             '<th style="vertical-align:middle" rowspan="1">กรุ๊ป</th>' +
                             '<th style="vertical-align:middle" rowspan="1">ภาควิชา</th>';
-                    @if($permission->student)
+                    @if($permission&&$permission->student)
                             tableHeader += '<th style="vertical-align:middle" rowspan="1">ที่อยู่</th>' +
                             '<th style="vertical-align:middle" rowspan="1">วันเกิด</th>' +
                             '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>' +
@@ -183,7 +184,7 @@
                                 '<td>' + input[counter]["group"][0]['name'] + '</td>' +
                                 '<td>' + input[counter]["department"][0]['name'] + '</td>';
 
-                        @if($permission->student)
+                        @if($permission&&$permission->student)
                                 tabledata +=
                                 '<td>' +  input[counter]["address"]  + '</td>' +
                                 '<td>' +  input[counter]["birthdate"]  + '</td>' +
