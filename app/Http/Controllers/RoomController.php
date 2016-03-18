@@ -177,13 +177,13 @@ class RoomController extends Controller
             AllowSchedule::insert([
                 'id'=> $i,
                 'start_date'=> $event[$i]["date-start"],
-                'end_date'=> $event[$i]["date-end"],
-                'start_time'=> $event[$i]["time-start"],
+                'end_date'=> strtotime($event[$i]["date-end"]),
+                'start_time'=> strtotime($event[$i]["time-start"]),
                 'end_time'=> $event[$i]["time-end"]
             ]);
         }
 
-        $tmp2 = $event[1]["date-start"];
+        $tmp2 = strtotime($event[$i]["time-start"]);
         $tmp = AllowSchedule::all();
         return compact('tmp', 'event','tmp2');
 return "success";
