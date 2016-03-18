@@ -25,6 +25,7 @@
                     <h2 class="panel-title"><i class="fa fa-user"></i> ค้นหาข้อมูลนิสิต</h2>
                 </div>
                 <div class="panel-body">
+                    </br>
                     {{--search box part--}}
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
@@ -48,16 +49,28 @@
                                            placeholder="ชื่อเล่น">
                                 </div>
                                 <div class="col-md-1">
-                                    <input required id="studentGen" name="studentGen" required type="text" class="form-control"
-                                           placeholder="รุ่น">
+                                    <select name="division" class="form-control select2 required" id="studentGen">
+                                        <option selected="selected" value="0">รุ่น</option>
+                                        @foreach($generation as $generations)
+                                            <option value="{{$generations['name']}}">{{$generations['name']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-1">
-                                    <input required id="studentGroup" name="studentGroup" required type="text" class="form-control"
-                                           placeholder="กรุ๊ป">
+                                    <select name="division" class="form-control select2 required" id="studentGroup">
+                                        <option selected="selected" value="0">กรุ๊ป</option>
+                                        @foreach($group as $groups)
+                                            <option value="{{$groups['name']}}">{{$groups['name']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <input required id="studentDept" name="StudentDept" required type="text" class="form-control"
-                                           placeholder="ภาควิชา">
+                                    <select name="division" class="form-control select2 required" id="studentDept">
+                                        <option selected="selected" value="0">ภาควิชา</option>
+                                        @foreach($department as $departments)
+                                            <option value="{{$departments['name']}}">{{$departments['name']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                  <span class="col-md-1" id="search-student-btn">
                                      <a class="btn btn-success">ค้นหา</a>
@@ -75,9 +88,10 @@
                     {{--end table part--}}
 
                     {{--excel button part--}}
-                    <span class="btn pull-right hidden" id="save-excel-btn">
+                    <span class="pull-right hidden" id="save-excel-btn">
+                        </br>
                         <a class="btn btn-success">บันทึกเป็นไฟล์ .xlsx</a>
-                        </br></br>
+                        </br>
                     </span>
                     {{--end excel button part--}}
 
