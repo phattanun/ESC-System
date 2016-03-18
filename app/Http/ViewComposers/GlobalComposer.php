@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use \App\Permission;
 use \App\Setting;
+use Illuminate\Support\Facades\Session;
 
 class GlobalComposer {
 
@@ -19,7 +20,7 @@ class GlobalComposer {
     {
         $user = Auth::user();
         if(is_null($user))
-            return null;
+            $view->with('hasError',Session::get('hasError'));
         $permission_json = Permission::where('student_id',$user['student_id'])->select('room','news','supplies','activities','student')->first();
         if($permission_json['news']) $user['news'] = true;
         if($permission_json['room']) $user['room'] = true;

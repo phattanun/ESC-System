@@ -45,38 +45,6 @@
 
             </div>
             <div class="row">
-
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <!-- Panel -->
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading">
-
-								<span class="title elipsis">
-									<strong>สถานะ</strong> <!-- panel title -->
-								</span>
-                        </div>
-
-                        <!-- panel content -->
-                        <div class="panel-body">
-                            <div id="calendar-info" class="text-center">
-                                <div class="row">
-                                    <p class="col-md-offset-3 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
-                                    <p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
-                                    <p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /panel content -->
-
-                    </div>
-                    <!-- /Panel -->
-
-                </div>
-
-            </div>
-            <div class="row">
-
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <!-- Panel -->
                     <div id="panel-calendar" class="panel panel-default">
@@ -119,6 +87,13 @@
                             <div id="instruction"  class="text-center">
                                 <p>วิธีจองห้อง: คลิกวันที่ต้องการเพื่อทำการจองห้อง</p>
                             </div>
+                            <div id="calendar-info" class="text-center">
+                                <div class="row">
+                                    <p class="col-md-offset-3 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                                </div>
+                            </div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
 
                         </div>
@@ -152,38 +127,50 @@
                             </div>
                         @else
                             <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">ส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี</option>
+                                <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
                                 @foreach($activity as $activities)
-                                    <option value="act-{{$activities['act_id']}}">{{$activities['name']}}</option>
-                                @endforeach
-                                @foreach($generation as $generations)
-                                    <option value="div-{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
-                                @endforeach
-                                @foreach($group as $groups)
-                                    <option value="div-{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
-                                @endforeach
-                                @foreach($department as $departments)
-                                    <option value="div-{{$departments['div_id']}}">ภาควิชา{{$departments['name']}}</option>
+                                    <option value="{{$activities['act_id']}}">{{$activities['name']}}</option>
                                 @endforeach
                             </select>
                             <div id="no-needed-activity-div">
                                 <a id="no-needed-activity"
-                                   class="underline-hover">ไม่มีรายการที่คุณต้องการอยู่ในระบบ?</a>
+                                   class="underline-hover">ไม่มีโครงการ/กิจกรรมที่คุณต้องการอยู่ในระบบ?</a>
                             </div>
-
                             <div>
                                 <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
-                                       placeholder="ระบุชื่อกิจกรรม / ส่วนงาน / งาน ของคุณ">
+                                       placeholder="ระบุโครงการ / กิจกรรมของคุณ">
                             </div>
                             <div class="hidden margin-top-minus-20 " id="back-to-activity-div">
                                 <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
+                            </div>
+                            <select name="division" class="form-control select2 required" id="division-selection">
+                                <option selected="selected" value="0">หน่วยงาน</option>
+                                @foreach($generation as $generations)
+                                    <option value="{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
+                                @endforeach
+                                @foreach($group as $groups)
+                                    <option value="{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
+                                @endforeach
+                                @foreach($department as $departments)
+                                    <option value="{{$departments['div_id']}}">ภาควิชา{{$departments['name']}}</option>
+                                @endforeach
+                            </select>
+                            <div id="no-needed-division-div" class="margin-bottom-20 text-right">
+                                <a id="no-needed-division"
+                                   class="underline-hover">ไม่มีหน่วยงานที่คุณต้องการอยู่ในระบบ?</a>
+                            </div>
+                            <div>
+                                <input required id="otherDiv" name="otherDiv" type="text" class="form-control hidden"
+                                       placeholder="ระบุหน่วยงานของคุณ">
+                            </div>
+                            <div class="hidden margin-top-minus-20 margin-bottom-20 text-right" id="back-to-division-div">
+                                <a id="back-to-division" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                             </div>
                         @endif
                         <input required type="text" class="calendar_event_input_add form-control number-only"
                                name="numberOfPeople" id="numberOfPeople"
                                placeholder="จำนวนคน"/>
                         <select name="room" class="form-control select2 required" id="room-selection">
-                            <option selected="selected" value="0">เลือกห้องที่ต้องการ</option>
                             @foreach($room as $rooms)
                                 <option value="{{$rooms['room_id']}}">{{$rooms['name']}}</option>
                             @endforeach
@@ -373,9 +360,21 @@
         });
         $('#back-to-activity').click(function () {
             $('#back-to-activity-div').addClass('hidden');
-            $('.select2-container').show();
+            $('#project-selection').next().show();
             $('#otherAct').addClass('hidden');
             $('#no-needed-activity-div').show();
+        });
+        $('#no-needed-division').click(function () {
+            $('#no-needed-division-div').hide();
+            $('#no-needed-division-div').prev().hide();
+            $('#otherDiv').removeClass('hidden');
+            $('#back-to-division-div').removeClass('hidden');
+        });
+        $('#back-to-division').click(function () {
+            $('#back-to-division-div').addClass('hidden');
+            $('#division-selection').next().show();
+            $('#otherDiv').addClass('hidden');
+            $('#no-needed-division-div').show();
         });
         ($('#cord').is(':checked')) ? $('#numberOfCord').removeClass('hidden') : $('#numberOfCord').addClass('hidden');
         $('#cord').on('change', function () {
@@ -413,8 +412,11 @@
                             @endif
                             @if($user)
                             project: $('#project-selection').val(),
+                            division: $('#division-selection').val(),
                             otherAct: $('#otherAct').val(),
                             otherActActivated: $('#otherAct').is(":visible"),
+                            otherDiv: $('#otherDiv').val(),
+                            otherDivActivated: $('#otherDiv').is(":visible"),
                             @endif
                             numberOfPeople: $('#numberOfPeople').val(),
                             room: $('#room-selection').val(),
@@ -447,7 +449,11 @@
                         return false;
                     }
                     else if (input == 'noproject') {
-                        _toastr("โปรดระบุส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี หรืออื่นๆ", "top-right", "error", false);
+                        _toastr("โปรดระบุโครงการหรือกิจกรรมให้ถูกต้อง", "top-right", "error", false);
+                        return false;
+                    }
+                    else if (input == 'nodivision') {
+                        _toastr("โปรดระบุหน่วยงานให้ถูกต้อง", "top-right", "error", false);
                         return false;
                     }
                     else {

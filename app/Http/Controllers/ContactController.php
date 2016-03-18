@@ -7,10 +7,16 @@ use App\Setting;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class ContactController extends Controller
 {
     public function contactPage() {
+        $user = $this->getUser();
+        $admin = true;
+        if(is_null($user)||!isset($user['admin'])||!$user['admin'])
+            $admin = false;
+
         $year = Setting::all()->first();
         $year = $year['year'];
 
@@ -18,7 +24,7 @@ class ContactController extends Controller
             ->select('contacts.student_id','contacts.position','users.name','users.surname','users.nickname','users.phone_number',
                 'users.email','users.facebook_link','users.line_id')
             ->get();
-        return view('contact',compact('year','all_contact'));
+        return view('contact',compact('admin','year','all_contact'));
     }
 
     public function addNewContact(Request $request) {
@@ -26,7 +32,7 @@ class ContactController extends Controller
             $user = explode(' ',$request->input('data'));
             if(sizeof($user)==3){
                 if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
-                    return User::select(['name','surname','nickname','phone_number','email','line_id','facebook_link'])->find($user[0]);
+                    return User::select(['student_id','name','surname','nickname','phone_number','email','line_id','facebook_link'])->find($user[0]);
                 }
                 else {
                     return 'fail';
@@ -38,7 +44,7 @@ class ContactController extends Controller
                     for($i = 2;$i<sizeof($user);$i++)
                         $query->where('surname', 'LIKE', '%'.$user[$i].'%');
                 })->exists()){
-                    return User::select(['name','surname','nickname','phone_number','email','line_id','facebook_link'])->find($user[0]);
+                    return User::select(['student_id','name','surname','nickname','phone_number','email','line_id','facebook_link'])->find($user[0]);
                 }
                 else {
                     return 'fail';
@@ -46,5 +52,21 @@ class ContactController extends Controller
             }
         }
         else return 'fail';
+    }
+
+    public function updateContact() {
+        $user = $this->getUser();
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
+
+        $contact = $_POST;
+        if(isset($contact)) {
+            foreach($contact as $id) {
+            }
+        }
+    }
+
+    public function dropContact() {
+        Contact::truncate();
     }
 }
