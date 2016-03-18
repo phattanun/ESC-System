@@ -45,12 +45,16 @@ class StudentController extends Controller
             ->whereHas('department', function ($query) use ($request) {
                 if ($request->input('studentDept')) $query->where('name', 'LIKE', '%' . $request->input('studentDept') . '%')->where('type', '=', 'Department');
             })
+            ->whereHas('generation', function ($query) use ($request) {
+                if ($request->input('studentGen')) $query->where('name', '=', $request->input('studentDept'))->where('type', '=', 'Generation');
+            })
             ->get();
         for ($i = 0; $i < sizeof($users); $i++) {
             $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get();
             $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get();
             $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
         }
+        if(sizeof($users)==0) return 'fail';
         return $users;
     }
 

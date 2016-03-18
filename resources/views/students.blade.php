@@ -43,9 +43,13 @@
                                     <input required id="studentLName" name="studentLName" required type="text" class="form-control"
                                            placeholder="นามสกุล">
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <input required id="studentNName" name="studentNName" required type="text" class="form-control"
                                            placeholder="ชื่อเล่น">
+                                </div>
+                                <div class="col-md-1">
+                                    <input required id="studentGen" name="studentGen" required type="text" class="form-control"
+                                           placeholder="รุ่น">
                                 </div>
                                 <div class="col-md-1">
                                     <input required id="studentGroup" name="studentGroup" required type="text" class="form-control"
@@ -64,7 +68,7 @@
                     {{--end search box part--}}
 
                     {{--table part--}}
-                    <div class="table-responsive">
+                    <div class="table-responsive text-center">
                         <table class="table nomargin" id="search-result-table">
                         </table>
                     </div>
@@ -111,6 +115,7 @@
             history['studentFName']=$('#studentFName').val();
             history['studentLName']=$('#studentLName').val();
             history['studentNName']=$('#studentNName').val();
+            history['studentGen']=$('#studentGen').val();
             history['studentGroup']=$('#studentGroup').val();
             history['studentDept']=$('#studentDept').val();
             var URL_ROOT = '{{Request::root()}}';
@@ -120,12 +125,15 @@
                         studentFName: history['studentFName'],
                         studentLName: history['studentLName'],
                         studentNName: history['studentNName'],
+                        studentGen: history['studentGen'],
                         studentGroup: history['studentGroup'],
                         studentDept: history['studentDept'],
                         _token: '{{csrf_token()}}'
                     }).done(function (input) {
                 if (input == 'fail') {
-                    _toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
+                    //_toastr("ไม่พบนิสิตในระบบ", "top-right", "error", false);
+                    $('#search-result-table').html('');
+                    $('#search-result-table').append('ไม่พบข้อมูลนิสิตที่ต้องการ');
                     return false;
                 }
                 else {
