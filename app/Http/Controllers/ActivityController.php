@@ -63,26 +63,49 @@ class ActivityController extends Controller
 
     public function autoSuggest()
     {
+        $user = $this->getUser();
         if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])) {
             $LIMIT 		= isset($_REQUEST['limit']) 	? (int) 	$_REQUEST['limit'] 		: 30;
             $KEYWORD 	= isset($_REQUEST['search']) 	? (string) 	$_REQUEST['search'] 	: null;
             $KEYWORD_splitted = explode(' ',$KEYWORD);
 
-            $user=User::select(['student_id','name','surname'])
-                ->where(function ($query) use ($KEYWORD_splitted) {
-                    foreach($KEYWORD_splitted as $KEYWORD)
-                        $query->where('student_id', 'LIKE', '%'.$KEYWORD.'%');
-                    $query->orWhere('name', 'LIKE', '%'.$KEYWORD.'%');
-                    $query->orWhere('surname', 'LIKE', '%'.$KEYWORD.'%');
-                })
-                ->take($LIMIT)
-                ->orderBy('student_id', 'asc')
-                ->get();
+            if(isset($user['activities'])) {
+                $own_act = Activity::select('name','year')
+                    ->where(function ($query) use ($KEYWORD_splitted) {
+                        foreach ($KEYWORD_splitted as $KEYWORD)
+                            $query->where('name', 'LIKE', '%' . $KEYWORD . '%');
+                    })
+                    ->take($LIMIT)
+                    ->get();
+            }
+            else {
+                $own_act = Activity::select('name','year')
+                    ->where('creator_id', $user['student_id'])
+                    ->where(function ($query) use ($KEYWORD_splitted) {
+                        foreach ($KEYWORD_splitted as $KEYWORD)
+                            $query->where('name', 'LIKE', '%' . $KEYWORD . '%');
+                    })
+                    ->take($LIMIT)
+                    ->get();
 
+                $can_edit_act = CanEditActivity::where('student_id',$user['student_id'])
+                    ->join('activities','can_edit_activities.act_id','=','activities.act_id')
+                    ->where(function ($query) use ($KEYWORD_splitted) {
+                        foreach ($KEYWORD_splitted as $KEYWORD)
+                            $query->where('activities.name', 'LIKE', '%' . $KEYWORD . '%');
+                    })
+                    ->take($LIMIT)
+                    ->get();
+            }
             $array=[];
-            if(isset($user)&&$user != null){
-                foreach($user as $users){
-                    array_push($array,$users->student_id." ".$users->name." ".$users->surname);
+            if(isset($own_act)&&$own_act != null){
+                foreach($own_act as $own_acts){
+                    array_push($array,$own_acts['name']." "."| ปีการศึกษา"." ".$own_acts['year']);
+                }
+            }
+            if(isset($can_edit_act)&&$can_edit_act != null){
+                foreach($can_edit_act as $can_edit_acts){
+                    array_push($array,$can_edit_acts['name']." "."| ปีการศึกษา"." ".$can_edit_acts['year']);
                 }
             }
             $json = json_encode($array);
@@ -235,5 +258,12 @@ class ActivityController extends Controller
             CanEditActivity::where('act_id',$act_data['act_id'])->delete();
         }
     }
-
+    public function search_activity(Request $request){
+        if($request->input('act_name')){
+            $search_act_info = explode('| ปีการศึกษา',$request->input('act_name'));
+            $act_info = Activity::where('name',trim($search_act_info[0]))->where('year',$search_act_info[1])->get();
+            return $act_info;
+        }
+        else return 'fail';
+    }
 }

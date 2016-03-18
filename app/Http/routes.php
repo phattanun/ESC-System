@@ -65,6 +65,7 @@ Route::post('/activity/create/send_form','ActivityController@add_activity');
 Route::get('/activity/list','ActivityController@activity_list');
 Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
 Route::post('/activity/list/edit_form','ActivityController@edit_activity');
+Route::post('/activity/list/search_activity','ActivityController@search_activity');
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 
 // Contact Page
