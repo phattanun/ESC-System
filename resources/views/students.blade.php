@@ -201,7 +201,7 @@
                     for (var counter = 0; counter < input.length; counter++) {
                         var tabledata = '<tr class = "clickrowcss';
                         @if($permission&&$permission->student)
-                            tabledata += ' data-toggle="tooltip" data-placement="top" title="คลิกเพื่อแก้ไขข้อมูล" clickrow" id = "'+input[counter]["student_id"];
+                            tabledata += ' clickrow" data-toggle="tooltip" data-placement="top" title="คลิกเพื่อแก้ไขข้อมูล" id = "'+input[counter]["student_id"];
                         @endif
                         tabledata += '" >'+
                                 '<td>' + (counter + 1) + '</td>'+
