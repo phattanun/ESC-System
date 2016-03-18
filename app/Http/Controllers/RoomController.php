@@ -127,10 +127,17 @@ class RoomController extends Controller
         $newUserRequest->student_id = $user['student_id'];
         if (input::get('otherActActivated') === 'true') {
             $newUserRequest->other_act = input::get('otherAct');
-        } else if (substr(input::get('project'), 0, 3) == 'act')
-            $newUserRequest->act_id = substr(input::get('project'), 4);
-        else if (substr(input::get('project'), 0, 3) == 'div')
-            $newUserRequest->div_id = substr(input::get('project'), 4);
+        } else if(input::get('project')) {
+            $newUserRequest->act_id = input::get('project');
+        }
+        else {
+            return 'noproject';
+        }
+        if (input::get('otherDivActivated') === 'true') {
+            $newUserRequest->other_act = input::get('otherDiv');
+        } else if(input::get('division')) {
+            $newUserRequest->act_id = input::get('division');
+        }
         else {
             return 'noproject';
         }
