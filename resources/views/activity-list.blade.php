@@ -204,7 +204,7 @@
                                 <tr class="actlist" id='activity-{{$act['act_id']}}'>
                                     <td class="text-center">
                                         @if(isset($user['activities']) || $act['status']==0)
-                                        <a class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
+                                        <a id="delete-button-{{$act['act_id']}}"class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -373,7 +373,8 @@
                         else {
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
-                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                    +'<td class="text-center">'
+                                    +'<a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +' <i class="fa fa-minus"></i>'
                                     +' <i class="fa fa-trash"></i>'
                                     +' </a></td>'
@@ -414,7 +415,7 @@
                             $('#activity-table').append(
                                 '<tr id="table-header">'
                                 +'<td class="text-center">'
-                                +'<a id='+input[i]['act_id']+' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                +'<a id="delete-button-'+input[i]['act_id']+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                 +'<i class="fa fa-minus"></i>'
                                 +'<i class="fa fa-trash"></i>'
                                 +'</a>'
@@ -430,6 +431,11 @@
                                 +'</td>'
                                 +'</tr>'
                             );
+                            if(user['activities']==null && input['status']!='0')
+                            {
+                                $('#delete-button-{{$act['act_id']}}').empty();
+                                $('#delete-button-{{$act['act_id']}}').remove();
+                            }
                         }
                     }
                 }).fail(function () {
