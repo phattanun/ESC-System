@@ -174,12 +174,17 @@ class RoomController extends Controller
         AllowSchedule::truncate();
         for($i=1;$i<=count($event);$i++)
         {
+            $start_date = date('Y-m-d',strtotime($event[$i]["date-start"]));
+            $end_date = date('Y-m-d',strtotime($event[$i]["date-end"]));
+            $start_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-start'])));
+            $end_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-end'])));
+            var_dump($start_time);
             AllowSchedule::insert([
                 'id'=> $i,
-                'start_date'=> $event[$i]["date-start"],
-                'end_date'=> strtotime($event[$i]["date-end"]),
-                'start_time'=> strtotime($event[$i]["time-start"]),
-                'end_time'=> $event[$i]["time-end"]
+                'start_date'=> $start_date,
+                'end_date'=> $end_date,
+                'start_time'=> $start_time,
+                'end_time'=> $end_time
             ]);
         }
 

@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
-                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="{{url('setting/auto_suggest?limit=10&search=1')}}">
+                                        <div class="input-group autosuggest" data-minLength="1">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
                                             <span class="input-group-btn" id="add-new-permission-btn">

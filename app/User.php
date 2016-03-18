@@ -15,28 +15,21 @@ class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
-
-
     public $timestamps = false;
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $primaryKey = 'student_id';
     protected $table = 'users';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['student_id','password','name','surname','nickname','address','birthdate','phone_number','email','facebook_link','line_id','emergency_contact','department_id','group','allergy','anomaly','religion','blood_type','clothing_size'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = ['password', 'remember_token'];
+    public function department()
+    {
+        return $this->belongsTo('App\Division', 'department');
+    }
+    public function group()
+    {
+        return $this->belongsTo('App\Division', 'group');
+    }
+    public function generation()
+    {
+        return $this->belongsTo('App\Division', 'generation');
+    }
 }
