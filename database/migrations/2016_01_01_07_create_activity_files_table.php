@@ -15,6 +15,8 @@ class CreateActivityFilesTable extends Migration
         Schema::create('activity_files', function (Blueprint $table) {
             $table->integer('act_id')->unsigned();
             $table->string('file_name');
+            $table->string('type');
+            $table->bigInteger('size')->unsigned();
             $table->timestamp('create_at');
             $table->bigInteger('uploader_id')->unsigned();
             $table->primary(array('act_id','file_name','create_at'));
@@ -22,6 +24,7 @@ class CreateActivityFilesTable extends Migration
             $table->foreign('act_id')->references('act_id')->on('activities');
             $table->foreign('uploader_id')->references('student_id')->on('users');
         });
+        DB::statement("ALTER TABLE activity_files ADD content LONGBLOB");
     }
 
     /**

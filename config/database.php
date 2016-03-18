@@ -62,6 +62,7 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
+//            'options' => array(PDO::MYSQL_ATTR_MAX_BUFFER_SIZE => 16777216),
         ],
 
         'pgsql' => [

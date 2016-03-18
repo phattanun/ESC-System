@@ -250,7 +250,7 @@
 <!-- /wrapper -->
 
 <!-- SCROLL TO TOP -->
-<a href="#" id="toTop"></a>
+<a href="#" id="toTop" style="z-index:9999"></a>
 @if(!(isset($user) && $user))
 <script>
     $(function () {
