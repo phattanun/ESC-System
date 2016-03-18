@@ -209,6 +209,33 @@ class RoomController extends Controller
         $timeEndDefault = Input::get('time-end-default');
         $event = Input::get('event');
 //        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+
+//        for($i=1;$i<=count($room);$i++)
+//        {
+//            if($room[$i]['status']=="update"){
+//                $r = MeetingRoom::where('name',$room[$i]["name"])->first();
+//
+//                $r->name = $room[$i]["name"];
+//                $r->size = $room[$i]["size"];
+//                $r->priority = 0;
+//                $r->save();
+//            }
+//            if($room[$i]['status']=="new") {
+//                MeetingRoom::insert([
+//                    'room_id' => $i,
+//                    'name' => $room[$i]["name"],
+//                    'size' => $room[$i]["size"],
+//                    'priority' => 0
+//                ]);
+//            }
+//        }
+
+        ScheduleSetting::truncate();
+        ScheduleSetting::insert([
+            'start'=>date('H:i:s',strtotime(str_replace(" ",'',$timeStartDefault))),
+            'end'=>date('H:i:s',strtotime(str_replace(" ",'',$timeEndDefault)))
+        ]);
+
         AllowSchedule::truncate();
         for($i=1;$i<=count($event);$i++)
         {
@@ -216,7 +243,7 @@ class RoomController extends Controller
             $end_date = date('Y-m-d',strtotime($event[$i]["date-end"]));
             $start_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-start'])));
             $end_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-end'])));
-            var_dump($start_time);
+//            var_dump($start_time);
             AllowSchedule::insert([
                 'id'=> $i,
                 'start_date'=> $start_date,
@@ -226,10 +253,12 @@ class RoomController extends Controller
             ]);
         }
 
-        $tmp2 = strtotime($event[$i]["time-start"]);
+
         $tmp = AllowSchedule::all();
-        return compact('tmp', 'event','tmp2');
-return "success";
+        $tmp2 = ScheduleSetting::all();
+        $tmp3 = MeetingRoom::all();
+        return compact('tmp', 'event','tmp2','tmp3','room');
+        return "success";
         ScheduleSetting::truncate();
 
 

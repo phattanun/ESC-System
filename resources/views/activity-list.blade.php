@@ -194,13 +194,20 @@
                     <div class="table-responsive margin-bottom-30">
                         <table class="table nomargin" id="activity-table" width="100%">
                             <tr>
-                                <th style="vertical-align:middle;text-align: center" >ชื่อกิจกรรม</th>
-                                <th style="vertical-align:middle;text-align: center" >ปีการศึกษา</th>
+                                <th style="vertical-align: middle;text-align: center"></th>
+                                <th style="vertical-align:middle;text-align: center">ชื่อกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center">ปีการศึกษา</th>
                                 <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
-                                <th style="vertical-align:middle;text-align: center" ></th>
+                                <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
                             @foreach($act_list as $act)
                                 <tr class="actlist">
+                                    <td class="text-center">
+                                        <a id='activity-{{$act['act_id']}}' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>
                                         @if($act['status']==0)
@@ -291,7 +298,7 @@
                     for(i=0;i<act_data.can_edit.length;i++){
                         $('#permission-table').append(
                             '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
-                            +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                            +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
                             +' <i class="fa fa-minus"></i>'
                             +' <i class="fa fa-trash"></i>'
                             +' </a></td>'
@@ -309,8 +316,18 @@
                 return false;
             });
         }
+        function deleteActivity(id){
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT + '/activity/list/delete',
+                    {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
+
+            }).fail(function () {
+                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                return false;
+            });
+        }
         function main(){
-            $(document).on('click','.delete-a-tuple',function(){
+            $(document).on('click','.delete-user-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
                 $('#delete-'+id).val(true);
@@ -354,7 +371,7 @@
                         else {
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
-                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +' <i class="fa fa-minus"></i>'
                                     +' <i class="fa fa-trash"></i>'
                                     +' </a></td>'
@@ -393,17 +410,23 @@
                                 case 4: status = 'ปิดโครงการ';color = 'text-black';break;
                             }
                             $('#activity-table').append(
-                                    '<tr id="table-header">'
-                                    +'<td style="vertical-align:middle;text-align: center">'+input[i]['name']+'</td>'
-                                    +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
-                                    +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
-                                    +'<td style="vertical-align:middle;text-align: center">'
-                                    +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+{{$act['act_id']}}+ ')">'
-                                    +'<i class="fa fa-edit"></i>'
-                                    +'<span>แก้ไข</span>'
-                                    +'</button>'
-                                    +'</td>'
-                                    +'</tr>'
+                                '<tr id="table-header">'
+                                +'<td class="text-center">'
+                                +'<a id='+input[i]['act_id']+' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                +'<i class="fa fa-minus"></i>'
+                                +'<i class="fa fa-trash"></i>'
+                                +'</a>'
+                                +'</td>'
+                                +'<td style="vertical-align:middle;text-align: center">'+input[i]['name']+'</td>'
+                                +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
+                                +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
+                                +'<td style="vertical-align:middle;text-align: center">'
+                                +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+{{$act['act_id']}}+ ')">'
+                                +'<i class="fa fa-edit"></i>'
+                                +'<span>แก้ไข</span>'
+                                +'</button>'
+                                +'</td>'
+                                +'</tr>'
                             );
                         }
                     }
