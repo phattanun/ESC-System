@@ -13,7 +13,7 @@ class MeetingRoomSeeder extends Seeder
     {
         MeetingRoom::create([
             'room_id'=>0,
-            'name'=>'ไม่ระบห้อง',
+            'name'=>'ไม่ระบุห้อง',
             'size'=>'ไม่จำกัด',
             'priority'=>0
         ]);
