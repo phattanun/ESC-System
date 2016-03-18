@@ -158,6 +158,7 @@
                     element.find('.fc-title').append("<br><span class='color-red'>" + event._start + "-" + event._end + "</span")
                     element.attr('title',event.title);
                     element.attr('data-toggle','tooltip');
+                    element.find('.fc-bg').css('border','black 1px solid');
                 },
                 eventAfterAllRender: function(){
                     $('[data-toggle="tooltip"]').tooltip();
