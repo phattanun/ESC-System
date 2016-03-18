@@ -45,7 +45,6 @@
 
             </div>
             <div class="row">
-
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <!-- Panel -->
                     <div id="panel-calendar" class="panel panel-default">
@@ -128,31 +127,44 @@
                             </div>
                         @else
                             <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">ส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี</option>
+                                <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
                                 @foreach($activity as $activities)
-                                    <option value="act-{{$activities['act_id']}}">{{$activities['name']}}</option>
-                                @endforeach
-                                @foreach($generation as $generations)
-                                    <option value="div-{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
-                                @endforeach
-                                @foreach($group as $groups)
-                                    <option value="div-{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
-                                @endforeach
-                                @foreach($department as $departments)
-                                    <option value="div-{{$departments['div_id']}}">ภาควิชา{{$departments['name']}}</option>
+                                    <option value="{{$activities['act_id']}}">{{$activities['name']}}</option>
                                 @endforeach
                             </select>
                             <div id="no-needed-activity-div">
                                 <a id="no-needed-activity"
-                                   class="underline-hover">ไม่มีรายการที่คุณต้องการอยู่ในระบบ?</a>
+                                   class="underline-hover">ไม่มีโครงการ/กิจกรรมที่คุณต้องการอยู่ในระบบ?</a>
                             </div>
-
                             <div>
                                 <input required id="otherAct" name="otherAct" type="text" class="form-control hidden"
-                                       placeholder="ระบุชื่อกิจกรรม / ส่วนงาน / งาน ของคุณ">
+                                       placeholder="ระบุโครงการ / กิจกรรมของคุณ">
                             </div>
                             <div class="hidden margin-top-minus-20 " id="back-to-activity-div">
                                 <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
+                            </div>
+                            <select name="division" class="form-control select2 required" id="division-selection">
+                                <option selected="selected" value="0">หน่วยงาน</option>
+                                @foreach($generation as $generations)
+                                    <option value="{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
+                                @endforeach
+                                @foreach($group as $groups)
+                                    <option value="{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
+                                @endforeach
+                                @foreach($department as $departments)
+                                    <option value="{{$departments['div_id']}}">ภาควิชา{{$departments['name']}}</option>
+                                @endforeach
+                            </select>
+                            <div id="no-needed-division-div" class="margin-bottom-20 text-right">
+                                <a id="no-needed-division"
+                                   class="underline-hover">ไม่มีหน่วยงานที่คุณต้องการอยู่ในระบบ?</a>
+                            </div>
+                            <div>
+                                <input required id="otherDiv" name="otherDiv" type="text" class="form-control hidden"
+                                       placeholder="ระบุหน่วยงานของคุณ">
+                            </div>
+                            <div class="hidden margin-top-minus-20 margin-bottom-20 text-right" id="back-to-division-div">
+                                <a id="back-to-division" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                             </div>
                         @endif
                         <input required type="text" class="calendar_event_input_add form-control number-only"
@@ -353,6 +365,18 @@
             $('#otherAct').addClass('hidden');
             $('#no-needed-activity-div').show();
         });
+        $('#no-needed-division').click(function () {
+            $('#no-needed-division-div').hide();
+            $('#no-needed-division-div').prev().hide();
+            $('#otherDiv').removeClass('hidden');
+            $('#back-to-division-div').removeClass('hidden');
+        });
+        $('#back-to-division').click(function () {
+            $('#back-to-division-div').addClass('hidden');
+            $('.select2-container').show();
+            $('#otherDiv').addClass('hidden');
+            $('#no-needed-division-div').show();
+        });
         ($('#cord').is(':checked')) ? $('#numberOfCord').removeClass('hidden') : $('#numberOfCord').addClass('hidden');
         $('#cord').on('change', function () {
             ($(this).is(':checked')) ? $('#numberOfCord').removeClass('hidden') : $('#numberOfCord').addClass('hidden');
@@ -389,8 +413,11 @@
                             @endif
                             @if($user)
                             project: $('#project-selection').val(),
+                            division: $('#division-selection').val(),
                             otherAct: $('#otherAct').val(),
                             otherActActivated: $('#otherAct').is(":visible"),
+                            otherDiv: $('#otherDiv').val(),
+                            otherDivActivated: $('#otherDiv').is(":visible"),
                             @endif
                             numberOfPeople: $('#numberOfPeople').val(),
                             room: $('#room-selection').val(),
