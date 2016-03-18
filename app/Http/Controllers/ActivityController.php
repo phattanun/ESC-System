@@ -152,6 +152,7 @@ class ActivityController extends Controller
             'editor_id' => $user['student_id']
         ]);
         DB::disableQueryLog();
+        ini_set("memory_limit","2048M");
         if(isset($_FILES['file']['size']) > 0) {
             $fileName = $_FILES['file']['name'];
             $tmpName = $_FILES['file']['tmp_name'];
@@ -159,7 +160,8 @@ class ActivityController extends Controller
             $fileType = $_FILES['file']['type'];
             $fp = fopen($tmpName, 'r');
             $content = fread($fp, filesize($tmpName));
-//            $content = addslashes($content);
+            $content = addslashes($content);
+            $fileName = addslashes($fileName);
             fclose($fp);
             $newd = ActivityFile::create([
                 'act_id'=>$newAct->act_id,
@@ -189,8 +191,8 @@ class ActivityController extends Controller
         $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id])->first();
         header("Content-length: $file->size");
         header("Content-type: $file->type");
-        header("Content-Disposition: attachment; filename=$file->file_name");
-        echo $file->content;
+        header("Content-Disposition: attachment; filename=".stripslashes($file->file_name));
+        echo stripslashes($file->content);
     }
 
     public function activity_list(){
