@@ -48,37 +48,6 @@
 
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <!-- Panel -->
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading">
-
-								<span class="title elipsis">
-									<strong>สถานะ</strong> <!-- panel title -->
-								</span>
-                        </div>
-
-                        <!-- panel content -->
-                        <div class="panel-body">
-                            <div id="calendar-info" class="text-center">
-                                <div class="row">
-                                    <p class="col-md-offset-3 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
-                                    <p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
-                                    <p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /panel content -->
-
-                    </div>
-                    <!-- /Panel -->
-
-                </div>
-
-            </div>
-            <div class="row">
-
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <!-- Panel -->
                     <div id="panel-calendar" class="panel panel-default">
 
                         <div class="panel-heading">
@@ -118,6 +87,13 @@
                         <div class="panel-body">
                             <div id="instruction"  class="text-center">
                                 <p>วิธีจองห้อง: คลิกวันที่ต้องการเพื่อทำการจองห้อง</p>
+                            </div>
+                            <div id="calendar-info" class="text-center">
+                                <div class="row">
+                                    <p class="col-md-offset-3 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                                </div>
                             </div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
 
