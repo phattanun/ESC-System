@@ -107,13 +107,21 @@
         .table-responsive {
             word-break: keep-all;
         }
-        input {
+        .form-control,.select2 {
             margin-bottom: 10px;
+            width: 100%;
         }
         @media only screen and (max-width: 768px) {
             section div.row > div {
                  margin-bottom:0px;
             }
+        }
+        .clickrowcss:hover {
+            background-color: rgb(237, 237, 237);
+        }
+        .clickrow:hover {
+            cursor: pointer !important;
+
         }
     </style>
 
@@ -123,6 +131,11 @@
         $('#save-excel-btn').click(function(){
             window.location="{{url('/students/getExcelFile?studentID=')}}"+history['studentID']+"&studentFName="+history['studentFName']+"&studentLName="+history['studentLName']+"&studentNName="+history['studentNName']+"&studentGroup="+history['studentGroup']+"&studentDept="+history['studentDept']+"";
         });
+
+        $(document).on('click','.clickrow',function(){
+            window.location="{{url('/profile')}}"+"/"+ this.id;
+        });
+
         var history;
         $('#search-student-btn').click(function () {
             history['studentID']= $('#studentID').val();
@@ -187,16 +200,20 @@
 
                     //--row data--
                     for (var counter = 0; counter < input.length; counter++) {
-                        var tabledata = '<tr>' +
-                                '<td>' + (counter + 1) + '</td>' +
-                                '<td>' + input[counter]["student_id"] + '</td>' +
+                        var tabledata = '<tr class = "clickrowcss';
+                        @if($permission&&$permission->student)
+                            tabledata += ' clickrow" data-toggle="tooltip" data-placement="top" title="คลิกเพื่อแก้ไขข้อมูล" id = "'+input[counter]["student_id"];
+                        @endif
+                        tabledata += '" >'+
+                                '<td>' + (counter + 1) + '</td>'+
+                                '<td>' + input[counter]["student_id"] + '</td>'+
                                 '<td>' + (input[counter]["sex"] == 0 ? 'นาย' : 'นางสาว') + '</td>' +
                                 '<td>' + input[counter]["name"] + '</td>' +
                                 '<td>' + input[counter]["surname"] + '</td>' +
                                 '<td>' + input[counter]["nickname"] + '</td>' +
                                 '<td>' + input[counter]["generation"] + '</td>' +
-                                '<td>' + input[counter]["group"][0]['name'] + '</td>' +
-                                '<td>' + input[counter]["department"][0]['name'] + '</td>';
+                                '<td>' + input[counter]["group"] + '</td>' +
+                                '<td>' + input[counter]["department"] + '</td>';
 
                         @if($permission&&$permission->student)
                                 tabledata +=
@@ -204,7 +221,7 @@
                                 '<td>' +  input[counter]["birthdate"]  + '</td>' +
                                 '<td>' +  input[counter]["phone_number"]  + '</td>' +
                                 '<td>' +  input[counter]["email"]  + '</td>' +
-                                '<td><a href="//' + input[counter]["facebook_link"]  + '">logo</a></td>' +
+                                '<td><a href="//' + input[counter]["facebook_link"]  + '"><i class="fa fa-facebook-official data-toggle="tooltip" data-placement="top" title="'+input[counter]["facebook_link"]+'"></i></a></td>' +
                                 '<td>' +  input[counter]["line_id"]  + '</td>' +
                                 '<td>' +  input[counter]["emergency_contact"]  + '</td>' +
                                 '<td>' +  input[counter]["allergy"]  + '</td>' +

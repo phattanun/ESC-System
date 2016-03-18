@@ -18,7 +18,7 @@
 
 @section('content')
     {{----------------------------------------Modal Section--------------------------------------------}}
-    <div class="modal fade act_detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade act_detail" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- header modal -->
@@ -59,16 +59,13 @@
                         <div class = "row">
                             <div class="col-md-6 col-sm-6">
                                 <label>ประเภท *</label>
-                                <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="kind_of_activity" id="kind_of_activity">
-                                        <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
-                                        <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
-                                        <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
-                                        <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
-                                        <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
-                                    </select>
-                                    <i class="fancy-arrow"></i>
-                                </div>
+                                <select class="form-control select2" name="kind_of_activity" id="kind_of_activity" style="width: 100%">
+                                    <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
+                                    <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
+                                    <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
+                                    <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
+                                    <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -120,14 +117,11 @@
                         <div class = "row">
                             <div class="col-md-6 col-sm-6">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
-                                <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="division" id="division">
-                                        @foreach($division as $d)
-                                            <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
-                                        @endforeach
-                                    </select>
-                                    <i class="fancy-arrow"></i>
-                                </div>
+                                <select class="form-control select2" name="division" id="division" style="width: 100%">
+                                    @foreach($division as $d)
+                                        <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <fieldset>
@@ -181,33 +175,41 @@
                 {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
                 {{--</div>--}}
                 <div class = "panel-body">
-                    {{--<fieldset>--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="form-group">--}}
-                                {{--<div class="col-md-6 col-sm-6">--}}
-                                    {{--<label class="margin-bottom-20 ">เพิ่มผู้จัดการกิจกรรม</label>--}}
-                                    {{--<div class="input-group autosuggest" data-minLength="1" >--}}
-                                        {{--<span class="input-group-addon"><i class="fa fa-user"></i></span>--}}
-                                        {{--<input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">--}}
-                                            {{--<span class="input-group-btn" id="add-new-editor-btn">--}}
-                                                {{--<a class="btn btn-success">เพิ่ม</a>--}}
-                                            {{--</span>--}}
-                                    {{--</div>--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</fieldset>--}}
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="margin-bottom-20 ">ค้นหากิจกรรม</label>
+                                    <div class="input-group autosuggest" data-minLength="1" >
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="activityInfo" name="activityInfo" class="form-control typeahead" placeholder="กรอกชื่อกิจกรรม" type="text">
+                                            <span class="input-group-btn" id="search-activity-btn">
+                                                <a class="btn btn-success">ค้นหา</a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
                     <div class="table-responsive margin-bottom-30">
-                        <table class="table nomargin" id="permission-table" width="100%">
+                        <table class="table nomargin" id="activity-table" width="100%">
                             <tr>
-                                <th style="vertical-align:middle;text-align: center" >ชื่อกิจกรรม</th>
-                                <th style="vertical-align: middle;text-align: center">สถานะกิจกรรม</th>
-                                <th style="vertical-align:middle;text-align: center" ></th>
+                                <th style="vertical-align: middle;text-align: center"></th>
+                                <th style="vertical-align:middle;text-align: center">ชื่อกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center">ปีการศึกษา</th>
+                                <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
                             @foreach($act_list as $act)
-                                <tr>
+                                <tr class="actlist">
+                                    <td class="text-center">
+                                        <a id='activity-{{$act['act_id']}}' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
+                                    <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>
                                         @if($act['status']==0)
                                             <td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>
                                         @elseif($act['status']==1)
@@ -296,7 +298,7 @@
                     for(i=0;i<act_data.can_edit.length;i++){
                         $('#permission-table').append(
                             '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
-                            +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                            +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
                             +' <i class="fa fa-minus"></i>'
                             +' <i class="fa fa-trash"></i>'
                             +' </a></td>'
@@ -314,8 +316,18 @@
                 return false;
             });
         }
+        function deleteActivity(id){
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT + '/activity/list/delete',
+                    {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
+
+            }).fail(function () {
+                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                return false;
+            });
+        }
         function main(){
-            $(document).on('click','.delete-a-tuple',function(){
+            $(document).on('click','.delete-user-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
                 $('#delete-'+id).val(true);
@@ -326,7 +338,13 @@
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                $('.autosuggest').attr('data-queryURL','{!! url('/setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                _autosuggest();
+                $(this).trigger( "focus" );
+            });
+            $('#activityInfo').keyup(function(){
+                $('.typeahead').typeahead('destroy');
+                $('.autosuggest').attr('data-queryURL','{!! url('/activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
                 _autosuggest();
                 $(this).trigger( "focus" );
             });
@@ -353,7 +371,7 @@
                         else {
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
-                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +' <i class="fa fa-minus"></i>'
                                     +' <i class="fa fa-trash"></i>'
                                     +' </a></td>'
@@ -370,8 +388,52 @@
                     return false;
                 });
             });
-            $(document).on('click','#submitBtn',function(){
-
+            $(document).on('click','#search-activity-btn', function () {
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT + '/activity/list/search_activity',
+                        {act_name: $('#activityInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                    if (input == 'fail') {
+                        _toastr("ไม่พบกิจกรรมในระบบ", "top-right", "error", false);
+                        return false;
+                    }
+                    else {
+                        $('.actlist').remove();
+                        for(i=0;i<input.length;i++){
+                            var status;
+                            var color;
+                            console.log(typeof input[i]['status']);
+                            switch(input[i]['status']){
+                                case 0: status = 'รอเปิดโครงการ';color = 'text-orange';break;
+                                case 1: status = 'กวศ อนุมัติ';color = 'text-olive';break;
+                                case 2: status = 'คณบดี อนุมัติ';color = 'text-green';break;
+                                case 3: status = 'รอปิดโครงการ';color = 'text-red';break;
+                                case 4: status = 'ปิดโครงการ';color = 'text-black';break;
+                            }
+                            $('#activity-table').append(
+                                '<tr id="table-header">'
+                                +'<td class="text-center">'
+                                +'<a id='+input[i]['act_id']+' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                +'<i class="fa fa-minus"></i>'
+                                +'<i class="fa fa-trash"></i>'
+                                +'</a>'
+                                +'</td>'
+                                +'<td style="vertical-align:middle;text-align: center">'+input[i]['name']+'</td>'
+                                +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
+                                +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
+                                +'<td style="vertical-align:middle;text-align: center">'
+                                +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+{{$act['act_id']}}+ ')">'
+                                +'<i class="fa fa-edit"></i>'
+                                +'<span>แก้ไข</span>'
+                                +'</button>'
+                                +'</td>'
+                                +'</tr>'
+                            );
+                        }
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                    return false;
+                });
             });
         }
         $( document ).ready(main);

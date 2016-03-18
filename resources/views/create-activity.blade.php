@@ -37,17 +37,14 @@
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>ประเภท *</label>
-                                <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="kind_of_activity">
-                                        <option value="">--- ประเภทของกิจกรรม ---</option>
-                                        <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
-                                        <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
-                                        <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
-                                        <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
-                                        <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
-                                    </select>
-                                    <i class="fancy-arrow"></i>
-                                </div>
+                                <select class="form-control select2" name="kind_of_activity">
+                                    <option value="">--- ประเภทของกิจกรรม ---</option>
+                                    <option value="sport">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>
+                                    <option value="volunteer">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>
+                                    <option value="academic">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
+                                    <option value="culture">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>
+                                    <option value="ethics">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -107,25 +104,12 @@
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
-                                <div class="fancy-form fancy-form-select">
-                                    <select class="form-control" name="division">
-                                        <option value="">--- หน่วยงานที่เกี่ยวข้อง ---</option>
-                                        {{--<option value="1">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</option>--}}
-                                        {{--<option value="2">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</option>--}}
-                                        {{--<option value="3">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>--}}
-                                        {{--<option value="4">กิจกรรมส่งเสริมศิลปวัฒนธรรม</option>--}}
-                                        {{--<option value="5">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</option>--}}
-                                        @foreach($division as $d)
-                                            <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
-                                        @endforeach
-                                    </select>
-
-                                    <!--
-                                        .fancy-arrow
-                                        .fancy-arrow-double
-                                    -->
-                                    <i class="fancy-arrow"></i>
-                                </div>
+                                <select class="form-control select2" name="division">
+                                    <option value="">--- หน่วยงานที่เกี่ยวข้อง ---</option>
+                                    @foreach($division as $d)
+                                        <option value = "{{$d['div_id']}}">{{$d['name']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <fieldset>
@@ -187,7 +171,7 @@
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                $('.autosuggest').attr('data-queryURL','{!! url('setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
                 _autosuggest();
                 $(this).trigger( "focus" );
             });
@@ -214,7 +198,7 @@
                             editor++;
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
-                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +' <i class="fa fa-minus"></i>'
                                     +' <i class="fa fa-trash"></i>'
                                     +' </a></td>'

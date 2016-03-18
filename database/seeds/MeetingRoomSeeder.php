@@ -12,6 +12,12 @@ class MeetingRoomSeeder extends Seeder
     public function run()
     {
         MeetingRoom::create([
+            'room_id'=>0,
+            'name'=>'ไม่ระบุห้อง',
+            'size'=>'ไม่จำกัด',
+            'priority'=>0
+        ]);
+        MeetingRoom::create([
             'room_id'=>1,
             'name'=>'ห้องเขียว',
             'size'=>'ไม่จำกัด',

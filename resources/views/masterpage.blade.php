@@ -86,7 +86,7 @@
                                     <strong>ขออภัย!</strong> ข้อมูลผิดพลาด
                                     </div><!-- /ALERT -->
                                 @endif
-                                    <!-- login form -->
+                                        <!-- login form -->
                                     <form action="{{url().'/login'}}" method="post">
                                         {{csrf_field()}}
                                         <div class="clearfix">
@@ -241,7 +241,7 @@
                     <img src="{{url('assets/images/chula-engineering.png')}}" height="30px" style="margin-right: 30px;">
                     <a href="//www.facebook.com/clique.chula"><img src="{{url('assets/images/clique_logo_all_final.png')}}" height="30px" ></a>made © 2015
                 </div>
-                &copy; สงวนลิขสิทธิ์, กรรมการนิสิตคณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย
+                &copy; สงวนลิขสิทธิ์, กรรมการนิสิตคณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย @if(isset($hasError) && $hasError) Yeah @endif
             </div>
         </div>
     </footer>
@@ -253,11 +253,18 @@
 <a href="#" id="toTop" style="z-index:9999"></a>
 @if(!(isset($user) && $user))
 <script>
-  $(function () {
-    $('#loginButton').click(function () {
-        setTimeout(function(){$('#studentID').focus();},0);
+    $(function () {
+        $('#loginButton').click(function () {
+            setTimeout(function(){$('#studentID').focus();},0);
+        });
     });
-  });
+    $(document).ready(function(){
+        var hasError = @if(isset($hasError) && $hasError)true; @else false; @endif
+        if(hasError){
+            _toastr("การลงชื่อเข้าสู่ระบบล้มเหลว","top-right","error",false);
+        }
+    });
+
 </script>
 @endif
 @yield('js')
