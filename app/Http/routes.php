@@ -71,6 +71,8 @@ Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
 Route::post('/contact/add_new_contact', 'ContactController@addNewContact');
+Route::post('/contact/update_contact', 'ContactController@updateContact');
+Route::post('/contact/drop_contact', 'ContactController@dropContact');
 
 Route::get ('/profile', 'PagesController@profilePage');
 Route::get ('/profile/{user_id}', 'PagesController@editProfilePage');
