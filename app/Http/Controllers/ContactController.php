@@ -30,6 +30,7 @@ class ContactController extends Controller
     public function addNewContact(Request $request) {
         if($request->input('data')){
             $user = explode(' ',$request->input('data'));
+            if(sizeof($user)<3) return 'fail';
             if(sizeof($user)==3){
                 if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
                     return User::select(['student_id','name','surname','nickname','phone_number','email','line_id','facebook_link'])->find($user[0]);
