@@ -171,7 +171,7 @@
             });
             $('#studentInfo').keyup(function(){
                 $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                $('.autosuggest').attr('data-queryURL','{!! url('setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
                 _autosuggest();
                 $(this).trigger( "focus" );
             });
