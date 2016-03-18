@@ -17,7 +17,7 @@ class CreateCanEditActivitiesTable extends Migration
             $table->bigInteger('student_id')->unsigned();
             $table->primary(array('act_id','student_id'));
 
-            $table->foreign('act_id')->references('act_id')->on('activities');
+            $table->foreign('act_id')->references('act_id')->on('activities')->onDelete('cascade');
             $table->foreign('student_id')->references('student_id')->on('users');
         });
     }

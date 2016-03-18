@@ -201,9 +201,9 @@
                                 <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
                             @foreach($act_list as $act)
-                                <tr class="actlist">
+                                <tr class="actlist" id='activity-{{$act['act_id']}}'>
                                     <td class="text-center">
-                                        <a id='activity-{{$act['act_id']}}' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
+                                        <a class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -316,11 +316,11 @@
                 return false;
             });
         }
-        function deleteActivity(id){
+        function deleteActivity(act_id){
             var URL_ROOT = '{{Request::root()}}';
-            $.post(URL_ROOT + '/activity/list/delete',
+            $.post(URL_ROOT + '/activity/list/delete_activity',
                     {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
-
+                $('#activity-'+act_id).remove();
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
                 return false;

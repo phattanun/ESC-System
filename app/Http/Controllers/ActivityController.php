@@ -266,4 +266,13 @@ class ActivityController extends Controller
         }
         else return 'fail';
     }
+
+    public function delete_activity(Request $request){
+        $user = $this->getUser();
+        $act_id = $request->input('act_id');
+        if(!isset($user['activities'])) return 'fail';
+        Activity::find($act_id)->delete();
+        return 'success';
+
+    }
 }
