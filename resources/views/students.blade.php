@@ -211,8 +211,8 @@
                                 '<td>' + input[counter]["surname"] + '</td>' +
                                 '<td>' + input[counter]["nickname"] + '</td>' +
                                 '<td>' + input[counter]["generation"] + '</td>' +
-                                '<td>' + input[counter]["group"][0]['name'] + '</td>' +
-                                '<td>' + input[counter]["department"][0]['name'] + '</td>';
+                                '<td>' + input[counter]["group"] + '</td>' +
+                                '<td>' + input[counter]["department"] + '</td>';
 
                         @if($permission&&$permission->student)
                                 tabledata +=
