@@ -58,10 +58,15 @@ class ContactController extends Controller
         $user = $this->getUser();
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
-
-        $contact = $_POST;
-        if(isset($contact)) {
-            foreach($contact as $id) {
+        $contact = Input::get('contact');
+        $sid = array_unique(Input::get('sid'));
+        Contact::truncate();
+        if(isset($sid)) {
+            foreach($sid as $id) {
+                if(isset($contact[$id])){
+                    foreach($contact[$id] as $position)
+                    Contact::create(['student_id'=>$id,'position'=>$position]);
+                }
             }
         }
     }
