@@ -23,5 +23,29 @@ class MeetingRoomSeeder extends Seeder
             'size'=>'ไม่จำกัด',
             'priority'=>1
         ]);
+        MeetingRoom::create([
+            'room_id'=>2,
+            'name'=>'ห้องชมพู',
+            'size'=>'ใหญ่กว่าห้องเขียว',
+            'priority'=>2
+        ]);
+        MeetingRoom::create([
+            'room_id'=>3,
+            'name'=>'ห้องสวีท',
+            'size'=>'1-3 คน',
+            'priority'=>3
+        ]);
+        MeetingRoom::create([
+            'room_id'=>4,
+            'name'=>'ห้องประชุม',
+            'size'=>'ใหญ่มาก',
+            'priority'=>1
+        ]);
+        MeetingRoom::create([
+            'room_id'=>5,
+            'name'=>'ห้องเก็บของ',
+            'size'=>'เล็กมาก',
+            'priority'=>3
+        ]);
     }
 }
