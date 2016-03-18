@@ -57,9 +57,25 @@ class RoomController extends Controller
         return view('room-manage');
     }
 
+    public function getMeetingRoom()
+    {
+        $roomList = [];
+        $rooms = MeetingRoom::all();
+        foreach($rooms as $room) {
+            array_push($roomList,
+                array(
+                    'id' => $room->room_id,
+                    'title' => $room->name,
+                    'size' => $room->size,
+                    'priority' => $room->priority
+                )
+            );
+        }
+        return $roomList;
+    }
+
     public function getRoomReservationSchedule()
     {
-
         $calendarEvents = [];
         $query = UserReservation::where('request_start_time', '<=', $_REQUEST['end'] . ' 23:59:59')
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
@@ -90,7 +106,8 @@ class RoomController extends Controller
                         'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
                         'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
                         'id' => $queries['res_id'],
-                        'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
+                        'resourceId' =>$queries['request_room_id'],
+                        'allDay' => false,
                         'className' => $status,
                         'description' => ($queries['request_room_id']==0)? 'ไม่ระบุห้อง':MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
                         'icon' => 'fa-clock-o',
@@ -98,6 +115,7 @@ class RoomController extends Controller
             );
         }
 //        return $query;
+        // return $calendarEvents;
         return json_encode($calendarEvents);
     }
 
