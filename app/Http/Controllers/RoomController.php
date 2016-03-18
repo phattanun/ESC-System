@@ -68,12 +68,16 @@ class RoomController extends Controller
             if($queries['act_id']){
                 $title=Activity::where('act_id','=',$queries['act_id'])->select('name')->get()[0]->name;
             }
-            else if($queries['div_id']){
-                $title=Division::where('div_id','=',$queries['div_id'])->select('name')->get()[0]->name;
-            }
             else {
                 $title=$queries['other_act'];
             }
+            if($queries['div_id']){
+                $div=Division::where('div_id','=',$queries['div_id'])->select('name')->get()[0]->name;
+            }
+            else {
+                $div=$queries['other_div'];
+            }
+            $title .=" ".$div;
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
@@ -89,12 +93,40 @@ class RoomController extends Controller
                         'title' => $title,
                         'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
                         'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
-                        'id' => $queries['res_id'],
+                        'id' => 'u-'.$queries['res_id'],
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                         'className' => $status,
-                        'description' => ($queries['request_room_id']==0)? 'ไม่ระบุห้อง':MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
+                        'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
                         'icon' => 'fa-clock-o',
                     )
+            );
+        }
+
+        $guest = GuestReservation::where('request_start_time', '<=', $_REQUEST['end'] . ' 23:59:59')
+            ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
+            ->get();
+        foreach ($guest as $queries) {
+            $statusIsNull = is_null($queries['status']);
+            if($statusIsNull){
+                $status=["bg-warning"];
+            }
+            else if($queries['status']){
+                $status=["bg-success"];
+            }
+            else {
+                $status=["bg-danger"];
+            }
+            array_push($calendarEvents,
+                array(
+                    'title' => $queries['guest_org'],
+                    'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
+                    'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
+                    'id' => 'g-'.$queries['res_id'],
+                    'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
+                    'className' => $status,
+                    'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
+                    'icon' => 'fa-clock-o',
+                )
             );
         }
 //        return $query;
@@ -127,19 +159,19 @@ class RoomController extends Controller
         $newUserRequest->student_id = $user['student_id'];
         if (input::get('otherActActivated') === 'true') {
             $newUserRequest->other_act = input::get('otherAct');
-        } else if(input::get('project')) {
+        } else if(input::get('project')&&input::get('project')!=0) {
             $newUserRequest->act_id = input::get('project');
         }
         else {
             return 'noproject';
         }
         if (input::get('otherDivActivated') === 'true') {
-            $newUserRequest->other_act = input::get('otherDiv');
-        } else if(input::get('division')) {
-            $newUserRequest->act_id = input::get('division');
+            $newUserRequest->other_div = input::get('otherDiv');
+        } else if(input::get('division')&&input::get('division')!='0') {
+            $newUserRequest->div_id = input::get('division');
         }
         else {
-            return 'noproject';
+            return 'nodivision';
         }
         $newUserRequest->create_at = Carbon::now();
         $newUserRequest->save();

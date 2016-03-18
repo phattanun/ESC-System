@@ -171,7 +171,6 @@
                                name="numberOfPeople" id="numberOfPeople"
                                placeholder="จำนวนคน"/>
                         <select name="room" class="form-control select2 required" id="room-selection">
-                            <option selected="selected" value="0">เลือกห้องที่ต้องการ</option>
                             @foreach($room as $rooms)
                                 <option value="{{$rooms['room_id']}}">{{$rooms['name']}}</option>
                             @endforeach
@@ -361,7 +360,7 @@
         });
         $('#back-to-activity').click(function () {
             $('#back-to-activity-div').addClass('hidden');
-            $('.select2-container').show();
+            $('#project-selection').next().show();
             $('#otherAct').addClass('hidden');
             $('#no-needed-activity-div').show();
         });
@@ -373,7 +372,7 @@
         });
         $('#back-to-division').click(function () {
             $('#back-to-division-div').addClass('hidden');
-            $('.select2-container').show();
+            $('#division-selection').next().show();
             $('#otherDiv').addClass('hidden');
             $('#no-needed-division-div').show();
         });
@@ -450,7 +449,11 @@
                         return false;
                     }
                     else if (input == 'noproject') {
-                        _toastr("โปรดระบุส่วนงาน / งาน / ชมรม / ฝ่าย / ชั้นปี หรืออื่นๆ", "top-right", "error", false);
+                        _toastr("โปรดระบุโครงการหรือกิจกรรมให้ถูกต้อง", "top-right", "error", false);
+                        return false;
+                    }
+                    else if (input == 'nodivision') {
+                        _toastr("โปรดระบุหน่วยงานให้ถูกต้อง", "top-right", "error", false);
                         return false;
                     }
                     else {
