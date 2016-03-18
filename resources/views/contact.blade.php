@@ -21,7 +21,11 @@
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_permission'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ" data-toastr-position="top-right">
+
+                    <form novalidate="novalidate" class="validate" action="{{url().'/contact/update_contact'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงข้อมูลสำเร็จ" data-toastr-position="top-right">
+
+                        @if($admin)
+                        {{-- begin add box --}}
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <div class="row">
                             <div class="form-group">
@@ -42,10 +46,14 @@
                                 </span>
                             </div>
                         </div>
+                        {{-- end add box --}}
+                        @endif
+
+                        {{-- begin table --}}
                         <div class="table-responsive margin-bottom-30">
                             <table class="table nomargin" id="contact-table">
                                 <tr >
-                                    <th></th>
+                                    @if($admin)<th></th>@endif
                                     <th style="text-align:center">ตำแหน่ง</th>
                                     <th style="text-align:center">ชื่อ</th>
                                     <th style="text-align:center">นามสกุล</th>
@@ -55,27 +63,35 @@
                                     <th style="text-align:center">line</th>
                                     <th style="text-align:center">Facebook</th>
                                 </tr>
+
+                                {{-- begin content --}}
                                 @foreach($all_contact as $contact)
                                     <tr id="tuple-{{$contact['position']}}-{{$contact['student_id']}}">
-                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}}" name="privilege[{{$contact['position']}}-{{$contact['student_id']}}][]" value="" />
+                                        @if($admin)
+                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" />
                                         <td class="text-center"><a id="{{$contact['position']}}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
                                                 <i class="fa fa-minus"></i>
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
+                                        @endif
                                         <td>{{$contact['position']}}</td>
                                         <td>{{$contact['name']}}</td>
                                         <td>{{$contact['surname']}}</td>
-                                        <td>{{$contact['nickname']}}</td>
-                                        <td>{{$contact['phone_number']}}</td>
-                                        <td>{{$contact['email']}}</td>
-                                        <td>{{$contact['line_id']}}</td>
-                                        <td>{{$contact['facebook_link']}}</td>
+                                        <td style="text-align:center">{{$contact['nickname']}}</td>
+                                        <td style="text-align:center">{{$contact['phone_number']}}</td>
+                                        <td style="text-align:center">{{$contact['email']}}</td>
+                                        <td style="text-align:center">{{$contact['line_id']}}</td>
+                                        <td style="text-align:center"><a href="{{$contact['facebook_link']}}">{{$contact['facebook_link']}}</a></td>
                                     </tr>
                                 @endforeach
+                                {{-- end content --}}
                             </table>
                         </div>
+                        {{-- end table --}}
 
+                        @if($admin)
+                        {{-- begin button --}}
                         <div class="row">
                             <div class="col-md-1">
                                 <button type="submit" class="btn btn-3d btn-reveal btn-green">
@@ -87,32 +103,58 @@
                                 <span class="loading-icon"></span>
                             </div>
                             <div class="col-md-1">
-                                <a id="cancelMemberEditButton" class="btn btn-3d btn-reveal btn-red">
+                                <a id="cancelContactEditButton" class="btn btn-3d btn-reveal btn-red">
                                     <i class="fa fa-times"></i>
                                     <span>ยกเลิก</span>
                                 </a>
                             </div>
                             <div class="col-md-1" style="margin-left: 5px">
-                                <a id="deleteAllMemberButton" class="btn btn-3d btn-reveal btn-black">
+                                <a id="deleteAllContactButton" class="btn btn-3d btn-reveal btn-black" data-toggle="modal" data-target="#confirmDelete">
                                     <i class="fa fa-trash-o"></i>
                                     <span>ลบทั้งหมด</span>
                                 </a>
                             </div>
                         </div>
+                        {{-- end button --}}
+                        @endif
+
                     </form>
                 </div>
             </div>
         </div>
     </section>
+    <div id="confirmDelete" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ยืนยันการลบข้อมูลกรรมการนิสิตทั้งหมด</h4>
+                </div>
+                <div class="modal-footer">
+                    <a id="confirmDeleteAll" class="btn btn-3d btn-reveal btn-black" data-dismiss="modal">
+                        <i class="fa fa-trash-o"></i>
+                        <span>ลบทั้งหมด</span>
+                    </a>
+                    <a id="cancelDeleteAll" class="btn btn-default" data-dismiss="modal">
+                        <span>ยกเลิก</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 @endsection
 
 @section('js')
     <script>
         function main () {
-            $("#cancelMemberEditButton").click(function () {
+            $("#cancelContactEditButton").click(function () {
                 window.location='{{url()}}/contact';
             });
-            $("#deleteAllMemberButton").click(function () {
+            $("#confirmDeleteAll").click(function () {
+                $.post(URL_ROOT+'/contact/drop_contact');
                 window.location='{{url()}}/contact';
             });
             $('#studentInfo').keyup(function(){
@@ -123,11 +165,11 @@
             });
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
-                $('#tuple-'+id).addClass('hidden');
-                $('#delete-'+id).val('deleted');
+                $('#tuple-'+id).remove();
             });
             $(document).on('click','#add-new-permission-btn',function(){
                 var URL_ROOT = '{{Request::root()}}';
+                var position = $('#position').val();
                 $.post(URL_ROOT+'/contact/add_new_contact',
                         {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
                     if(input=='fail'){
@@ -135,28 +177,26 @@
                         return false;
                     }
                     else {
-                        if(document.getElementById(+input["student_id"])){
-                            if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
+                        if(document.getElementById('tuple-'+position+'-'+input["student_id"])){
+                            if(!$('#tuple-'+position+'-'+input["student_id"]).hasClass('hidden')){
                                 _toastr("ข้อมูลซ้ำ","top-right","warning",false);
                             }
-                            $('#tuple-'+input["student_id"]).removeClass('hidden');
-                            $('#delete-'+input["student_id"]).val("");
                         }
                         else {
-                            $('#contact-table').append('<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="privilege['+input["student_id"]+'][]" value="" />'
-                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
-                                    +' <i class="fa fa-minus"></i>'
-                                    +' <i class="fa fa-trash"></i>'
-                                    +' </a></td>'
-                                    +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
-                                    +' <td>'+input["name"]+'</td>'
-                                    +' <td>'+input["surname"]+'</td>'
-                                    +' <td>'+input["nickname"]+'</td>'
-                                    +' <td>'+input["phone_number"]+'</td>'
-                                    +' <td>'+input["email"]+'</td>'
-                                    +' <td>'+input["line_id"]+'</td>'
-                                    +' <td>'+input["facebook_link"]+'</td>'
-                                    +'  </tr>');
+                            $('#contact-table').append('<tr id="tuple-'+position+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" />'
+                                    +'<td class="text-center"><a id="'+position+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
+                                    +'<i class="fa fa-minus"></i>'
+                                    +'<i class="fa fa-trash"></i>'
+                                    +'</a></td>'
+                                    +'<td>'+position+'</td>'
+                                    +'<td>'+input["name"]+'</td>'
+                                    +'<td>'+input["surname"]+'</td>'
+                                    +'<td style="text-align:center">'+input["nickname"]+'</td>'
+                                    +'<td style="text-align:center">'+input["phone_number"]+'</td>'
+                                    +'<td style="text-align:center">'+input["email"]+'</td>'
+                                    +'<td style="text-align:center">'+input["line_id"]+'</td>'
+                                    +'<td style="text-align:center"><a href="'+input["facebook_link"]+'">'+input["facebook_link"]+'</td>'
+                                    +'</tr>');
                         }
                     }
                 }).fail(function () {
@@ -165,6 +205,6 @@
                 });
             });
         }
-        $( document ).ready(main);
+        $(document).ready(main);
     </script>
 @endsection
