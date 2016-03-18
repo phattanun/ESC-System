@@ -188,7 +188,7 @@ class RoomController extends Controller
             ]);
         }
 
-        $tmp2 = $event[1]["date-start"];
+        $tmp2 = strtotime($event[$i]["time-start"]);
         $tmp = AllowSchedule::all();
         return compact('tmp', 'event','tmp2');
 return "success";
