@@ -129,7 +129,6 @@ class RoomController extends Controller
                 )
             );
         }
-//        return $query;
         return json_encode($calendarEvents);
     }
 
