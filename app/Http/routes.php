@@ -94,7 +94,4 @@ Route::post('/profile/{user_id}', 'PagesController@saveProfile');
 
 // Help Page
 Route::get ('/help', 'HelpController@showHelp');
-<<<<<<< HEAD
-=======
 Route::post('/help', 'HelpController@saveHelp');
->>>>>>> origin/master
