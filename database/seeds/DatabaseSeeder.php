@@ -157,6 +157,26 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
+        User::create(['student_id'=>5631076821,
+            'password'=>bcrypt('6'),
+            'name'=>'มงกุฎ',
+            'surname'=>'คลังพรคุณ',
+            'nickname'=>'คุณแอดมิน',
+            'address'=>'29/50 หมู่บ้านอลิชา 1 พุทธบูชา 36 บางมด ทุ่งครุ กรุงเทพฯ 10140',
+            'birthdate'=>'1994-11-29',
+            'phone_number'=>'0924587067',
+            'email'=>'fongac127@gmail.com',
+            'facebook_link'=>'www.facebook.com/fonggag/',
+            'line_id'=>'fong127',
+            'emergency_contact'=>'0924587067',
+            'department'=>100006,
+            'group'=>1006,
+            'generation'=>97,
+            'allergy'=>'ถั่ว',
+            'anomaly'=>'โรคหัวใจ',
+            'religion'=>'พุทธ',
+            'blood_type'=>'A',
+            'clothing_size'=>'L']);
     }
 }
 

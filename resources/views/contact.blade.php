@@ -82,7 +82,7 @@
                                         <td style="text-align:center">{{$contact['phone_number']}}</td>
                                         <td style="text-align:center">{{$contact['email']}}</td>
                                         <td style="text-align:center">{{$contact['line_id']}}</td>
-                                        <td style="text-align:center"><a href="{{$contact['facebook_link']}}">{{$contact['facebook_link']}}</a></td>
+                                        <td style="text-align:center"><a href="http://{{$contact['facebook_link']}}">{{$contact['facebook_link']}}</a></td>
                                     </tr>
                                 @endforeach
                                 {{-- end content --}}
@@ -154,6 +154,7 @@
                 window.location='{{url()}}/contact';
             });
             $("#confirmDeleteAll").click(function () {
+                var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/contact/drop_contact');
                 window.location='{{url()}}/contact';
             });
@@ -195,7 +196,7 @@
                                     +'<td style="text-align:center">'+input["phone_number"]+'</td>'
                                     +'<td style="text-align:center">'+input["email"]+'</td>'
                                     +'<td style="text-align:center">'+input["line_id"]+'</td>'
-                                    +'<td style="text-align:center"><a href="'+input["facebook_link"]+'">'+input["facebook_link"]+'</td>'
+                                    +'<td style="text-align:center"><a href="http://'+input["facebook_link"]+'">'+input["facebook_link"]+'</td>'
                                     +'</tr>');
                         }
                     }
