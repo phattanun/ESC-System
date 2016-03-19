@@ -285,4 +285,29 @@ class RoomController extends Controller
         // _incomplete-data_ "กรอกข้อมูลไม่ครบ"
         return "success";
     }
+
+    public function getUserReservation() {
+        $user = Auth::user();
+        if(is_null($user))
+            return response("login", "500");
+
+        // Currently, Room Staff Only!!!
+        $permission = Permission::find($user['student_id']);
+        if(!$permission->room)
+            return response("permission", "500");
+
+        $requestId = Input::get('id');
+        if(is_null($requestId))
+            return response("requestid", "500");
+
+        $reserve = UserReservation::find($requestId);
+        if(is_null($reserve))
+            return response("notfound", "500");
+
+        $owner = User::find($reserve->student_id);
+        if(is_null($reserve))
+            return response("noowner", "500");
+
+        return compact('reserve','owner');
+    }
 }
