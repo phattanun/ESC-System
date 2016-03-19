@@ -23,6 +23,7 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-4"></div>
                         <div class="col-md-8">
                             <div id="activity-chart"></div>
                         </div>
@@ -62,32 +63,38 @@
         });
         var chart2 = c3.generate({
             bindto: '#tqf-chart',
-            data: {
-                x:'x',
+            data : {
                 columns: [
-                    ['x',"Ethics and Moral","Knowledge","Cognitive Skills","Interpersonal Skills and Responsibility","Numerical Analysis, Communication and Information Technology Skills"],
-                    ["ด้านคุณธรรม จริยธรรม (Ethics and Moral)", {{$tqf['ethics']}},0,0,0,0],
-                    ["ด้านความรู้ (Knowledge)",0, {{$tqf['knowledge']}},0,0,0],
-                    ["ด้านทักษะทางปัญญา (Cognitive Skills)",0,0, {{$tqf['cognitive']}},0,0],
-                    ["ด้านทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ (Interpersonal Skills and Responsibility)",0,0,0,{{$tqf['interpersonal']}},0],
-                    ["ด้านทักษะการวิเคราะห์เชิงตัวเลข การสื่อสาร และการใช้เทคโนโลยีสารสนเทศ (Numerical Analysis, Communication and Information Technology Skills)",0,0,0,0, {{$tqf['communication']}}]
+                    ['จำนวนกิจกรรม', {{$tqf['ethics']}}, {{$tqf['knowledge']}}, {{$tqf['cognitive']}}, {{$tqf['interpersonal']}}, {{$tqf['communication']}}]
                 ],
-                groups: [
-                    ['Ethics and Moral'],
-                    ['Knowledge'],
-                    ['Cognitive Skills'],
-                    ['Interpersonal Skills and Responsibility'],
-                    ['Numerical Analysis, Communication and Information Technology Skills'],
-                ],
-                type : 'bar'
+                type: 'bar'
             },
             axis: {
                 x: {
-                    type: 'category' // this needed to load string x value
+                    height: 50,
+                    label: {
+                        text: 'กรอบมาตรฐาน TQF ใน  5 ด้าน',
+                        position: 'outer-center',
+                    },
+                    type: 'category',
+                    categories: ['Ethics and Moral', 'Knowledge', 'Cognitive Skills', 'Interpersonal Skills and Responsibility', 'Numerical Analysis, Communication and Information Technology Skills'],
+                    tick: {
+                        centered: true
+                    }
+                },
+                y: {
+                    label: {
+                        text: 'จำนวนกิจกรรม (หน่วย)',
+                        position: 'outer-middle'
+                    },
+                    padding: {
+                        top: 0,
+                        bottom: 0
+                    }
                 }
             },
             legend: {
-                position: 'inset'
+                show: false
             }
         });
     </script>
