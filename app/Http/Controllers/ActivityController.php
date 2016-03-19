@@ -321,6 +321,13 @@ class ActivityController extends Controller
         $count['academic'] = 0;
         $count['culture'] = 0;
         $count['ethics'] = 0;
+
+        $tqf = [];
+        $tqf['ethics'] = 0;
+        $tqf['knowledge'] = 0;
+        $tqf['cognitive'] = 0;
+        $tqf['interpersonal'] = 0;
+        $tqf['communication'] = 0;
         foreach ($act_all as $act){
             switch($act['category']){
                 case 'sport' : $count['sport']++; break;
@@ -329,7 +336,12 @@ class ActivityController extends Controller
                 case 'culture' : $count['culture']++; break;
                 case 'ethics' : $count['ethics']++; break;
             }
+            if($act['tqf_ethics']=='1') $tqf['ethics']++;
+            if($act['tqf_knowledge']=='1') $tqf['knowledge']++;
+            if($act['tqf_cognitive']=='1') $tqf['cognitive']++;
+            if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
+            if($act['tqf_communication']=='1') $tqf['communication']++;
         }
-        return view('activity-report',compact('count'));
+        return view('activity-report',compact('count','tqf'));
     }
 }
