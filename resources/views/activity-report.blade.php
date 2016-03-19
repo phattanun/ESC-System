@@ -18,13 +18,16 @@
             <div class = "panel panel-default">
                 <div class = "panel-body">
                     <div class = "row">
+                        <div class="col-md-1"></div>
                         <div class="col-md-10">
+                            <label>กราฟแสดงจำนวนกิจกรรมที่สอดคล้องกับกรอบมาตรฐาน TQF ใน  5 ด้าน</label>
                             <div id="tqf-chart"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-8">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-6">
+                            <label>กราฟแสดงจำนวนกิจกรรมในแต่ละประเภทของกิจกรรม</label>
                             <div id="activity-chart"></div>
                         </div>
                     </div>
@@ -63,6 +66,10 @@
         });
         var chart2 = c3.generate({
             bindto: '#tqf-chart',
+            padding: {
+                top: 25,
+                bottom: 25
+            },
             data : {
                 columns: [
                     ['จำนวนกิจกรรม', {{$tqf['ethics']}}, {{$tqf['knowledge']}}, {{$tqf['cognitive']}}, {{$tqf['interpersonal']}}, {{$tqf['communication']}}]
