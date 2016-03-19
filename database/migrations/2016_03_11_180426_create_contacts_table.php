@@ -5,9 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateContactsTable extends Migration
 {
-    public $timestamps = false;
-    protected $table = 'contacts';
-
     /**
      * Run the migrations.
      *
@@ -20,7 +17,6 @@ class CreateContactsTable extends Migration
             $table->bigInteger('student_id')->unsigned();
             $table->string('position');
 
-            $table->primary('contact_id');
             $table->foreign('student_id')->references('student_id')->on('users');
         });
     }
