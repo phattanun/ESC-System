@@ -160,8 +160,8 @@ class ActivityController extends Controller
             $fileType = $_FILES['file']['type'];
             $fp = fopen($tmpName, 'r');
             $content = fread($fp, filesize($tmpName));
-            $content = addslashes($content);
-            $fileName = addslashes($fileName);
+//            $content = addslashes($content);
+//            $fileName = addslashes($fileName);
             fclose($fp);
             $newd = ActivityFile::create([
                 'act_id'=>$newAct->act_id,
@@ -187,12 +187,14 @@ class ActivityController extends Controller
         }
         return redirect('/');
     }
-    public function getFile($act_id){
-        $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id])->first();
+    public function getFile($act_id,$file,$extension){
+        $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id,'file_name'=>$file.$extension])->first();
         header("Content-length: $file->size");
         header("Content-type: $file->type");
-        header("Content-Disposition: attachment; filename=".stripslashes($file->file_name));
-        echo stripslashes($file->content);
+        header("Content-Disposition: attachment; filename=$file->file_name");
+//        header("Content-Disposition: attachment; filename=".stripslashes($file->file_name));
+        echo $file->content;
+//        echo stripslashes($file->content);
     }
 
     public function activity_list(){
@@ -321,6 +323,13 @@ class ActivityController extends Controller
         $count['academic'] = 0;
         $count['culture'] = 0;
         $count['ethics'] = 0;
+
+        $tqf = [];
+        $tqf['ethics'] = 0;
+        $tqf['knowledge'] = 0;
+        $tqf['cognitive'] = 0;
+        $tqf['interpersonal'] = 0;
+        $tqf['communication'] = 0;
         foreach ($act_all as $act){
             switch($act['category']){
                 case 'sport' : $count['sport']++; break;
@@ -329,7 +338,12 @@ class ActivityController extends Controller
                 case 'culture' : $count['culture']++; break;
                 case 'ethics' : $count['ethics']++; break;
             }
+            if($act['tqf_ethics']=='1') $tqf['ethics']++;
+            if($act['tqf_knowledge']=='1') $tqf['knowledge']++;
+            if($act['tqf_cognitive']=='1') $tqf['cognitive']++;
+            if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
+            if($act['tqf_communication']=='1') $tqf['communication']++;
         }
-        return view('activity-report',compact('count'));
+        return view('activity-report',compact('count','tqf'));
     }
 }

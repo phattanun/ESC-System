@@ -69,9 +69,17 @@ Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
 Route::post('/activity/list/edit_form','ActivityController@edit_activity');
 Route::post('/activity/list/search_activity','ActivityController@search_activity');
 Route::post('/activity/list/delete_activity','ActivityController@delete_activity');
-Route::get ('/activity/auto_suggest','ActivityController@autoSuggest');
+
+Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::get ('/activity/report','ActivityController@report');
-Route::get ('/activity/download/{act_id}','ActivityController@getFile');
+Route::get('/activity/attachments/{act_id}/{file}{extension?}',
+    [   'uses'  => 'ActivityController@getFile',
+        'as'    => 'file.find'])
+    ->where([
+        'file' => '[a-zA-Z0-9-_]+',
+        'extension' => '\..+'
+    ]);
+
 
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
@@ -86,3 +94,7 @@ Route::post('/profile/{user_id}', 'PagesController@saveProfile');
 
 // Help Page
 Route::get ('/help', 'HelpController@showHelp');
+<<<<<<< HEAD
+=======
+Route::post('/help', 'HelpController@saveHelp');
+>>>>>>> origin/master

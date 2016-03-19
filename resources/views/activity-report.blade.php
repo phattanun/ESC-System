@@ -13,7 +13,24 @@
 @endsection
 
 @section('content')
-    <div id="chart"></div>
+    <section style="margin-top: -40px">
+        <div class = "container">
+            <div class = "panel panel-default">
+                <div class = "panel-body">
+                    <div class = "row">
+                        <div class="col-md-10">
+                            <div id="tqf-chart"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div id="activity-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @section('css')
@@ -28,6 +45,7 @@
 @section('js')
     <script>
         var chart = c3.generate({
+            bindto: '#activity-chart',
             data: {
                 columns: [
                     ["กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ", {{$count['sport']}}],
@@ -37,9 +55,40 @@
                     ["กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม", {{$count['ethics']}}],
                 ],
                 type : 'pie',
+            },
+            legend: {
+                position: 'right'
             }
         });
-
-
+        var chart2 = c3.generate({
+            bindto: '#tqf-chart',
+            data: {
+                x:'x',
+                columns: [
+                    ['x',"Ethics and Moral","Knowledge","Cognitive Skills","Interpersonal Skills and Responsibility","Numerical Analysis, Communication and Information Technology Skills"],
+                    ["ด้านคุณธรรม จริยธรรม (Ethics and Moral)", {{$tqf['ethics']}},0,0,0,0],
+                    ["ด้านความรู้ (Knowledge)",0, {{$tqf['knowledge']}},0,0,0],
+                    ["ด้านทักษะทางปัญญา (Cognitive Skills)",0,0, {{$tqf['cognitive']}},0,0],
+                    ["ด้านทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ (Interpersonal Skills and Responsibility)",0,0,0,{{$tqf['interpersonal']}},0],
+                    ["ด้านทักษะการวิเคราะห์เชิงตัวเลข การสื่อสาร และการใช้เทคโนโลยีสารสนเทศ (Numerical Analysis, Communication and Information Technology Skills)",0,0,0,0, {{$tqf['communication']}}]
+                ],
+                groups: [
+                    ['Ethics and Moral'],
+                    ['Knowledge'],
+                    ['Cognitive Skills'],
+                    ['Interpersonal Skills and Responsibility'],
+                    ['Numerical Analysis, Communication and Information Technology Skills'],
+                ],
+                type : 'bar'
+            },
+            axis: {
+                x: {
+                    type: 'category' // this needed to load string x value
+                }
+            },
+            legend: {
+                position: 'inset'
+            }
+        });
     </script>
 @endsection
