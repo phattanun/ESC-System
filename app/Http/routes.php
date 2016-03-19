@@ -41,7 +41,7 @@ Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 // Supply
 Route::get ('/supplies', 'PagesController@suppliesPage');
 
-// Students
+// Students Search
 Route::get ('/students', 'StudentController@studentsPage');
 Route::get ('/students/getExcelFile', 'StudentController@generateXLS');
 Route::post('/students/search', 'StudentController@search');
@@ -68,7 +68,9 @@ Route::post('/activity/list/getdetail','ActivityController@get_act_detail');
 Route::post('/activity/list/edit_form','ActivityController@edit_activity');
 Route::post('/activity/list/search_activity','ActivityController@search_activity');
 Route::post('/activity/list/delete_activity','ActivityController@delete_activity');
+
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
+Route::get ('/activity/report','ActivityController@report');
 Route::get('/activity/attachments/{act_id}/{file}{extension?}',
     [   'uses'  => 'ActivityController@getFile',
         'as'    => 'file.find'])
@@ -77,12 +79,18 @@ Route::get('/activity/attachments/{act_id}/{file}{extension?}',
         'extension' => '\..+'
     ]);
 
+
 // Contact Page
 Route::get ('/contact', 'ContactController@contactPage');
 Route::post('/contact/add_new_contact', 'ContactController@addNewContact');
 Route::post('/contact/update_contact', 'ContactController@updateContact');
 Route::post('/contact/drop_contact', 'ContactController@dropContact');
 
+// Profile Page
 Route::get ('/profile', 'PagesController@profilePage');
 Route::get ('/profile/{user_id}', 'PagesController@editProfilePage');
 Route::post('/profile/{user_id}', 'PagesController@saveProfile');
+
+// Help Page
+Route::get ('/help', 'HelpController@showHelp');
+Route::post('/help', 'HelpController@saveHelp');

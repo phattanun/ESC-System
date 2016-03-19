@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ScheduleSettingSeeder::class);
         $this->call(AllowScheduleSeeder::class);
         $this->call(CanEditActivitySeeder::class);
+        $this->call(ContactTableSeeder::class);
 
         Model::reguard();
     }
@@ -157,6 +158,26 @@ class UserTableSeeder extends Seeder
             'religion'=>'พุทธ',
             'blood_type'=>'A',
             'clothing_size'=>'L']);
+        User::create(['student_id'=>5631076821,
+            'password'=>bcrypt('6'),
+            'name'=>'มงกุฎ',
+            'surname'=>'คลังพรคุณ',
+            'nickname'=>'คุณแอดมิน',
+            'address'=>'29/50 หมู่บ้านอลิชา 1 พุทธบูชา 36 บางมด ทุ่งครุ กรุงเทพฯ 10140',
+            'birthdate'=>'1994-11-29',
+            'phone_number'=>'0924587067',
+            'email'=>'fongac127@gmail.com',
+            'facebook_link'=>'www.facebook.com/fonggag/',
+            'line_id'=>'fong127',
+            'emergency_contact'=>'0924587067',
+            'department'=>100006,
+            'group'=>1006,
+            'generation'=>97,
+            'allergy'=>'ถั่ว',
+            'anomaly'=>'โรคหัวใจ',
+            'religion'=>'พุทธ',
+            'blood_type'=>'A',
+            'clothing_size'=>'L']);
     }
 }
 
@@ -172,6 +193,6 @@ class SettingTableSeeder extends Seeder
 {
     public function run()
     {
-        Setting::create(['admin_id'=>1,'year'=>2558]);
+        Setting::create(['admin_id'=>1,'year'=>2558,'help_content'=>'<span style="font-size: 36px; background-color: yellow;">ลิงก์ที่มีประโยชน์</span><ul><li><span style="text-decoration: underline;"><a href="https://docs.google.com/document/d/1WEkMMoJcZX3IJAgyyB5UTq3sG3TzCIymLRYxbGkfYgs/edit?pref=2&amp;pli=1" style="background-color: rgb(255, 255, 255);">จองห้องประชุม</a><br></span></li><li><a href="https://docs.google.com/forms/d/1F5fSh2TnUlAjKN-DKh8jgCiOKv6UPNZ77F4Z3VFxLgk/viewform?c=0&amp;w=1&amp;fbzx=1778751581180526207" style="text-decoration: underline;">ขอยืมพัสดุ</a></li><li><a href="https://www.dropbox.com/sh/osiesxx0juaoyem/AADf2jc_dxj_PCffnjvK5bmua?dl=0" style="text-decoration: underline;">แบบฟอร์มเอกสารโครงการ</a></li><li><a href="https://drive.google.com/folderview?id=0BzLWUf3TV3xnflVqejFDQ1h0RUhaS3JfNjN5czRQZmlYbVljRzloZlBUUmpCdURzMndiSk0" style="text-decoration: underline;">ขอเลขรันเอกสาร</a></li><li><a href="https://docs.google.com/spreadsheets/d/1B0pgUWthQ-tAXwUvQUHvtzNnYwgIcRiJ9fhbqB_joe8/edit?usp=sharing" style="text-decoration: underline;">ติดต่อ กวศ.</a></li><li><a href="https://docs.google.com/spreadsheets/d/1kEl-vr7pfE4aCeu7qUQu6ffTV9OyZXUCKQxEDtMS70c/edit?pref=2&amp;pli=1#gid=45797709" style="text-decoration: underline;">รายละเอียดโครงการที่เปิดแล้ว</a><br></li></ul>']);
     }
 }

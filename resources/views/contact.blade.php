@@ -66,10 +66,10 @@
 
                                 {{-- begin content --}}
                                 @foreach($all_contact as $contact)
-                                    <tr id="tuple-{{$contact['position']}}-{{$contact['student_id']}}">
+                                    <tr id="tuple-{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}">
                                         @if($admin)
-                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" /><input type="hidden" name="sid[]" value="{{$contact['student_id']}}" />
-                                        <td class="text-center"><a id="{{$contact['position']}}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
+                                        <input type="hidden" id="delete-{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" /><input type="hidden" name="sid[]" value="{{$contact['student_id']}}" />
+                                        <td class="text-center"><a id="{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
                                                 <i class="fa fa-minus"></i>
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -82,7 +82,7 @@
                                         <td style="text-align:center">{{$contact['phone_number']}}</td>
                                         <td style="text-align:center">{{$contact['email']}}</td>
                                         <td style="text-align:center">{{$contact['line_id']}}</td>
-                                        <td style="text-align:center"><a href="{{$contact['facebook_link']}}">{{$contact['facebook_link']}}</a></td>
+                                        <td style="text-align:center"><a href="//{{$contact['facebook_link']}}"><i class="fa fa-facebook-official" data-toggle="tooltip" data-placement="top" title="{{$contact['facebook_link']}}"></i></a></td>
                                     </tr>
                                 @endforeach
                                 {{-- end content --}}
@@ -131,6 +131,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">ยืนยันการลบข้อมูลกรรมการนิสิตทั้งหมด</h4>
+                    <h4 class="modal-title">(เมื่อกด "ลบทั้งหมด" แล้วจะไม่สามารถย้อนกลับได้)</h4>
                 </div>
                 <div class="modal-footer">
                     <a id="confirmDeleteAll" class="btn btn-3d btn-reveal btn-black" data-dismiss="modal">
@@ -154,7 +155,8 @@
                 window.location='{{url()}}/contact';
             });
             $("#confirmDeleteAll").click(function () {
-                $.post(URL_ROOT+'/contact/drop_contact');
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+'/contact/drop_contact', {_token: '{{csrf_token()}}'});
                 window.location='{{url()}}/contact';
             });
             $('#studentInfo').keyup(function(){
@@ -177,14 +179,17 @@
                         return false;
                     }
                     else {
-                        if(document.getElementById('tuple-'+position+'-'+input["student_id"])){
-                            if(!$('#tuple-'+position+'-'+input["student_id"]).hasClass('hidden')){
-                                _toastr("ข้อมูลซ้ำ","top-right","warning",false);
-                            }
+                        position = position.trim();
+                        var position_nospace = position.replace(/ /g,'_');
+                        if(position == "") {
+                            _toastr("ระบุตำแหน่งไม่ถูกต้อง","top-right","warning",false);
+                        }
+                        else if(document.getElementById('tuple-'+position_nospace+'-'+input["student_id"])){
+                            _toastr("ข้อมูลซ้ำ","top-right","warning",false);
                         }
                         else {
-                            $('#contact-table').append('<tr id="tuple-'+position+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" /><input type="hidden" name="sid[]" value="'+input['student_id']+'" />'
-                                    +'<td class="text-center"><a id="'+position+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
+                            $('#contact-table').append('<tr id="tuple-'+position_nospace+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position_nospace+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" /><input type="hidden" name="sid[]" value="'+input['student_id']+'" />'
+                                    +'<td class="text-center"><a id="'+position_nospace+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
                                     +'<i class="fa fa-minus"></i>'
                                     +'<i class="fa fa-trash"></i>'
                                     +'</a></td>'
@@ -195,7 +200,7 @@
                                     +'<td style="text-align:center">'+input["phone_number"]+'</td>'
                                     +'<td style="text-align:center">'+input["email"]+'</td>'
                                     +'<td style="text-align:center">'+input["line_id"]+'</td>'
-                                    +'<td style="text-align:center"><a href="'+input["facebook_link"]+'">'+input["facebook_link"]+'</td>'
+                                    +'<td><a href="//'+input['facebook_link']+'"><i class="fa fa-facebook-official" data-toggle="tooltip" data-placement="top" title="'+input['facebook_link']+'"></i></a></td>'
                                     +'</tr>');
                         }
                     }

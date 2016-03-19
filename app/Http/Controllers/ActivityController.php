@@ -301,4 +301,50 @@ class ActivityController extends Controller
         }
         else return 'fail';
     }
+
+    public function delete_activity(Request $request){
+        $user = $this->getUser();
+        $act_id = $request->input('act_id');
+        if(!isset($user['activities']) &&!Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() && !CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists())
+            return 'fail';
+        $act = Activity::find($act_id);
+        if((Activity::where('act_id',$act_id)->where('creator_id',$user['student_id'])->exists() || CanEditActivity::where('act_id',$act_id)->where('student_id',$user['student_id'])->exists()) && $act['status']!=0)
+            return 'fail';
+        Activity::find($act_id)->delete();
+        return 'success';
+
+    }
+
+    public function report(){
+        $user = $this->getUser();
+        $act_all = Activity::all();
+        $count = [];
+        $count['sport'] = 0;
+        $count['volunteer'] = 0;
+        $count['academic'] = 0;
+        $count['culture'] = 0;
+        $count['ethics'] = 0;
+
+        $tqf = [];
+        $tqf['ethics'] = 0;
+        $tqf['knowledge'] = 0;
+        $tqf['cognitive'] = 0;
+        $tqf['interpersonal'] = 0;
+        $tqf['communication'] = 0;
+        foreach ($act_all as $act){
+            switch($act['category']){
+                case 'sport' : $count['sport']++; break;
+                case 'volunteer' : $count['volunteer']++; break;
+                case 'academic' : $count['academic']++; break;
+                case 'culture' : $count['culture']++; break;
+                case 'ethics' : $count['ethics']++; break;
+            }
+            if($act['tqf_ethics']=='1') $tqf['ethics']++;
+            if($act['tqf_knowledge']=='1') $tqf['knowledge']++;
+            if($act['tqf_cognitive']=='1') $tqf['cognitive']++;
+            if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
+            if($act['tqf_communication']=='1') $tqf['communication']++;
+        }
+        return view('activity-report',compact('count','tqf'));
+    }
 }

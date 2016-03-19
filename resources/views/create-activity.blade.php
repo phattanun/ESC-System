@@ -159,7 +159,7 @@
     </section>
 @endsection
 
-@section('js-top')
+@section('js')
     <script>
         var editor = 0;
         function main() {

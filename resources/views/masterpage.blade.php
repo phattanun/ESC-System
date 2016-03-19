@@ -173,7 +173,7 @@
                                             จัดการกิจกรรม
                                         @endif
                                     </a></li>
-                                    <li><a href="">ออกรายงาน</a></li>
+                                    <li><a href="{{ URL::to('/activity/report') }}">ออกรายงานกิจกรรม</a></li>
                                 </ul>
                             </li>
                             @endif
@@ -185,7 +185,7 @@
                             </li>
                             @endif
                             <li class="@yield('helpNavToggle')"><!-- HELP -->
-                                <a href="#">
+                                <a href="{{URL::to('/help')}}">
                                     ช่วยเหลือ
                                 </a>
                             </li>

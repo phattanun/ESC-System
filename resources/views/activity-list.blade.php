@@ -201,12 +201,14 @@
                                 <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
                             @foreach($act_list as $act)
-                                <tr class="actlist">
+                                <tr class="actlist" id='activity-{{$act['act_id']}}'>
                                     <td class="text-center">
-                                        <a id='activity-{{$act['act_id']}}' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">
+                                        @if(isset($user['activities']) || $act['status']==0)
+                                        <a id="delete-button-{{$act['act_id']}}"class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบกิจกรรม">
                                             <i class="fa fa-minus"></i>
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>
@@ -237,7 +239,7 @@
     </section>
 @endsection
 
-@section('js-top')
+@section('js')
     <script>
         var editor = 0;
         var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
@@ -316,11 +318,11 @@
                 return false;
             });
         }
-        function deleteActivity(id){
+        function deleteActivity(act_id){
             var URL_ROOT = '{{Request::root()}}';
-            $.post(URL_ROOT + '/activity/list/delete',
+            $.post(URL_ROOT + '/activity/list/delete_activity',
                     {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
-
+                $('#activity-'+act_id).remove();
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
                 return false;
@@ -371,7 +373,8 @@
                         else {
                             $('#permission-table').append(
                                     '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
-                                    +'<td class="text-center"><a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                    +'<td class="text-center">'
+                                    +'<a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +' <i class="fa fa-minus"></i>'
                                     +' <i class="fa fa-trash"></i>'
                                     +' </a></td>'
@@ -412,7 +415,7 @@
                             $('#activity-table').append(
                                 '<tr id="table-header">'
                                 +'<td class="text-center">'
-                                +'<a id='+input[i]['act_id']+' class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                +'<a id="delete-button-'+input[i]['act_id']+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                 +'<i class="fa fa-minus"></i>'
                                 +'<i class="fa fa-trash"></i>'
                                 +'</a>'
@@ -428,6 +431,11 @@
                                 +'</td>'
                                 +'</tr>'
                             );
+                            if(user['activities']==null && input['status']!='0')
+                            {
+                                $('#delete-button-{{$act['act_id']}}').empty();
+                                $('#delete-button-{{$act['act_id']}}').remove();
+                            }
                         }
                     }
                 }).fail(function () {
