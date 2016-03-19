@@ -14,8 +14,8 @@ class GuestReservationSeeder extends Seeder
         GuestReservation::create([
             'reason'=>'ประชุมวิชา Indiv - Data mining',
             'number_of_people'=>7,
-            'request_start_time'=>"2016-03-07 8:00:00",
-            'request_end_time'=>"2016-03-07 13:15:00",
+            'request_start_time'=>date("Y-m-d")."8:00:00",
+            'request_end_time'=>date("Y-m-d")."13:15:00",
             'request_projector'=>true,
             'request_plug'=>2,
             'allow_plug'=>0,
@@ -26,8 +26,8 @@ class GuestReservationSeeder extends Seeder
             'guest_faculty'=>'วิศวกรรมขุดข้อมูล',
             'guest_email'=>'project@sa.db',
             'guest_org'=>'ชมรมนักขุด',
-            'request_room_id'=>1,
-            'create_at'=>"2015-03-05 09:35:42"
+            'request_room_id'=>3,
+            'create_at'=>date("Y-m-d")."09:35:42"
         ]);
     }
 }

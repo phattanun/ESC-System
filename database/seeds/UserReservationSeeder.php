@@ -36,7 +36,7 @@ class UserReservationSeeder extends Seeder
             'student_id'=>2,
             'div_id'=>100001,
             'other_div'=>'ปี 3 เท่านั้น',
-            'request_room_id'=>3,
+            'request_room_id'=>4,
             'create_at'=>date("Y-m-d")." 12:35:02"
         ]);
         UserReservation::create([
