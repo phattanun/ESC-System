@@ -188,7 +188,6 @@ class ActivityController extends Controller
         return redirect('/');
     }
     public function getFile($act_id,$file,$extension){
-        return $file.$extension;
         $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id,'file_name'=>$file.$extension])->first();
         header("Content-length: $file->size");
         header("Content-type: $file->type");
