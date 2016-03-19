@@ -179,8 +179,12 @@
                         return false;
                     }
                     else {
+                        position = position.trim();
                         var position_nospace = position.replace(/ /g,'_');
-                        if(document.getElementById('tuple-'+position_nospace+'-'+input["student_id"])){
+                        if(position == "") {
+                            _toastr("ระบุตำแหน่งไม่ถูกต้อง","top-right","warning",false);
+                        }
+                        else if(document.getElementById('tuple-'+position_nospace+'-'+input["student_id"])){
                             _toastr("ข้อมูลซ้ำ","top-right","warning",false);
                         }
                         else {
