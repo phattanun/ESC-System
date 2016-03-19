@@ -314,6 +314,22 @@ class ActivityController extends Controller
 
     public function report(){
         $user = $this->getUser();
-        return view('activity-report');
+        $act_all = Activity::all();
+        $count = [];
+        $count['sport'] = 0;
+        $count['volunteer'] = 0;
+        $count['academic'] = 0;
+        $count['culture'] = 0;
+        $count['ethics'] = 0;
+        foreach ($act_all as $act){
+            switch($act['category']){
+                case 'sport' : $count['sport']++; break;
+                case 'volunteer' : $count['volunteer']++; break;
+                case 'academic' : $count['academic']++; break;
+                case 'culture' : $count['culture']++; break;
+                case 'ethics' : $count['ethics']++; break;
+            }
+        }
+        return view('activity-report',compact('count'));
     }
 }
