@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ScheduleSettingSeeder::class);
         $this->call(AllowScheduleSeeder::class);
         $this->call(CanEditActivitySeeder::class);
+        $this->call(ContactTableSeeder::class);
 
         Model::reguard();
     }
