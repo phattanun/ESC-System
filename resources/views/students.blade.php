@@ -221,7 +221,7 @@
                                 '<td>' +  input[counter]["birthdate"]  + '</td>' +
                                 '<td>' +  input[counter]["phone_number"]  + '</td>' +
                                 '<td>' +  input[counter]["email"]  + '</td>' +
-                                '<td><a href="//' + input[counter]["facebook_link"]  + '"><i class="fa fa-facebook-official data-toggle="tooltip" data-placement="top" title="'+input[counter]["facebook_link"]+'"></i></a></td>' +
+                                '<td><a href="//' + input[counter]["facebook_link"]  + '"><i class="fa fa-facebook-official" data-toggle="tooltip" data-placement="top" title="'+input[counter]["facebook_link"]+'"></i></a></td>' +
                                 '<td>' +  input[counter]["line_id"]  + '</td>' +
                                 '<td>' +  input[counter]["emergency_contact"]  + '</td>' +
                                 '<td>' +  input[counter]["allergy"]  + '</td>' +
