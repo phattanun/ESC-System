@@ -160,8 +160,8 @@ class ActivityController extends Controller
             $fileType = $_FILES['file']['type'];
             $fp = fopen($tmpName, 'r');
             $content = fread($fp, filesize($tmpName));
-            $content = addslashes($content);
-            $fileName = addslashes($fileName);
+//            $content = addslashes($content);
+//            $fileName = addslashes($fileName);
             fclose($fp);
             $newd = ActivityFile::create([
                 'act_id'=>$newAct->act_id,
@@ -187,12 +187,15 @@ class ActivityController extends Controller
         }
         return redirect('/');
     }
-    public function getFile($act_id){
-        $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id])->first();
+    public function getFile($act_id,$file,$extension){
+        return $file.$extension;
+        $file=ActivityFile::select('file_name', 'type', 'size', 'content' )->where(['act_id'=>$act_id,'file_name'=>$file.$extension])->first();
         header("Content-length: $file->size");
         header("Content-type: $file->type");
-        header("Content-Disposition: attachment; filename=".stripslashes($file->file_name));
-        echo stripslashes($file->content);
+        header("Content-Disposition: attachment; filename=$file->file_name");
+//        header("Content-Disposition: attachment; filename=".stripslashes($file->file_name));
+        echo $file->content;
+//        echo stripslashes($file->content);
     }
 
     public function activity_list(){
