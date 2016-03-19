@@ -17,12 +17,14 @@
         <div class = "container">
             <div class = "panel panel-default">
                 <div class = "panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="activity-chart"></div>
-                        </div>
-                        <div class="col-md-6">
+                    <div class = "row">
+                        <div class="col-md-10">
                             <div id="tqf-chart"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div id="activity-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -53,31 +55,40 @@
                     ["กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม", {{$count['ethics']}}],
                 ],
                 type : 'pie',
+            },
+            legend: {
+                position: 'right'
             }
         });
-        var chart = c3.generate({
+        var chart2 = c3.generate({
             bindto: '#tqf-chart',
             data: {
+                x:'x',
                 columns: [
-                    ["ด้านคุณธรรม จริยธรรม (Ethics and Moral)", {{$tqf['ethics']}}],
-                    ["ด้านความรู้ (Knowledge)", {{$tqf['knowledge']}}],
-                    ["ด้านทักษะทางปัญญา (Cognitive Skills)", {{$tqf['cognitive']}}],
-                    ["ด้านทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ (Interpersonal Skills and Responsibility)",{{$tqf['interpersonal']}}],
-                    ["ด้านทักษะการวิเคราะห์เชิงตัวเลข การสื่อสาร และการใช้เทคโนโลยีสารสนเทศ (Numerical Analysis, Communication and Information Technology Skills)", {{$tqf['communication']}}],
+                    ['x',"Ethics and Moral","Knowledge","Cognitive Skills","Interpersonal Skills and Responsibility","Numerical Analysis, Communication and Information Technology Skills"],
+                    ["ด้านคุณธรรม จริยธรรม (Ethics and Moral)", {{$tqf['ethics']}},0,0,0,0],
+                    ["ด้านความรู้ (Knowledge)",0, {{$tqf['knowledge']}},0,0,0],
+                    ["ด้านทักษะทางปัญญา (Cognitive Skills)",0,0, {{$tqf['cognitive']}},0,0],
+                    ["ด้านทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ (Interpersonal Skills and Responsibility)",0,0,0,{{$tqf['interpersonal']}},0],
+                    ["ด้านทักษะการวิเคราะห์เชิงตัวเลข การสื่อสาร และการใช้เทคโนโลยีสารสนเทศ (Numerical Analysis, Communication and Information Technology Skills)",0,0,0,0, {{$tqf['communication']}}]
                 ],
-                type : 'bar',
-                axis: {
-                    x: {
-                        show : true,
-                        categories: ['ด้านคุณธรรม จริยธรรม (Ethics and Moral)',
-                            'ด้านความรู้ (Knowledge)',
-                            'ด้านทักษะทางปัญญา (Cognitive Skills)',
-                            'ด้านทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ (Interpersonal Skills and Responsibility)',
-                            'ด้านทักษะการวิเคราะห์เชิงตัวเลข การสื่อสาร และการใช้เทคโนโลยีสารสนเทศ <br> (Numerical Analysis, Communication and Information Technology Skills)']
-                    }
+                groups: [
+                    ['Ethics and Moral'],
+                    ['Knowledge'],
+                    ['Cognitive Skills'],
+                    ['Interpersonal Skills and Responsibility'],
+                    ['Numerical Analysis, Communication and Information Technology Skills'],
+                ],
+                type : 'bar'
+            },
+            axis: {
+                x: {
+                    type: 'category' // this needed to load string x value
                 }
+            },
+            legend: {
+                position: 'inset'
             }
-
         });
     </script>
 @endsection
