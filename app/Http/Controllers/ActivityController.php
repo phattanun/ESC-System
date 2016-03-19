@@ -311,4 +311,9 @@ class ActivityController extends Controller
         return 'success';
 
     }
+
+    public function report(){
+        $user = $this->getUser();
+        return view('activity-report');
+    }
 }

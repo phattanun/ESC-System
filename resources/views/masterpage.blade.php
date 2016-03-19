@@ -173,7 +173,7 @@
                                             จัดการกิจกรรม
                                         @endif
                                     </a></li>
-                                    <li><a href="">ออกรายงาน</a></li>
+                                    <li><a href="{{ URL::to('/activity/report') }}">ออกรายงานกิจกรรม</a></li>
                                 </ul>
                             </li>
                             @endif

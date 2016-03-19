@@ -239,7 +239,7 @@
     </section>
 @endsection
 
-@section('js-top')
+@section('js')
     <script>
         var editor = 0;
         var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
