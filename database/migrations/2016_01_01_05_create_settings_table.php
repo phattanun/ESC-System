@@ -15,6 +15,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->bigInteger('admin_id')->unsigned()->primary();
             $table->integer('year');
+            $table->text('help_content');
 
             $table->foreign('admin_id')->references('student_id')->on('users');
         });
