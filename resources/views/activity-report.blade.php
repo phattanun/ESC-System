@@ -17,20 +17,22 @@
         <div class = "container">
             <div class = "panel panel-default">
                 <div class = "panel-body">
+                    @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] > 0)
                     <div class = "row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
+                        <div class="col-md-6 col-sm-6">
                             <label>กราฟแสดงจำนวนกิจกรรมที่สอดคล้องกับกรอบมาตรฐาน TQF ใน  5 ด้าน</label>
                             <div id="tqf-chart"></div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <label>กราฟแสดงจำนวนกิจกรรมในแต่ละประเภทของกิจกรรม</label>
                             <div id="activity-chart"></div>
                         </div>
                     </div>
+                    @else
+                        <div class="heading-title heading-dotted text-center">
+                            <h1>ยังไม่พบกิจกรรมในปีการศึกษานี้</h1>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -78,7 +80,7 @@
             },
             axis: {
                 x: {
-                    height: 50,
+                    height: 65,
                     label: {
                         text: 'กรอบมาตรฐาน TQF ใน  5 ด้าน',
                         position: 'outer-center',
