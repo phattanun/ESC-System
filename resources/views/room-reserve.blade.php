@@ -525,6 +525,7 @@
                                                                 }
                                                             }
                                                         },
+                                                        resources: '{{url('/room/get_room')}}',
                                                         events: '{{url('/room/get_room_reservation_schedule')}}',
                                                         eventRender: function (event, element, icon) {
                                                             if (!event.description == '') {
