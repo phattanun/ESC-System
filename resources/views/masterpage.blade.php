@@ -185,7 +185,7 @@
                             </li>
                             @endif
                             <li class="@yield('helpNavToggle')"><!-- HELP -->
-                                <a href="#">
+                                <a href="{{URL::to('/help')}}">
                                     ช่วยเหลือ
                                 </a>
                             </li>
