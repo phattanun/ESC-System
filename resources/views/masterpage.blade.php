@@ -173,7 +173,7 @@
                                             จัดการกิจกรรม
                                         @endif
                                     </a></li>
-                                    <li><a href="{{ URL::to('/activity/report') }}">ออกรายงานกิจกรรม</a></li>
+                                    @if(isset($user['activities']) && $user['activities'])<li><a href="{{ URL::to('/activity/report') }}">ออกรายงานกิจกรรม</a></li> @endif
                                 </ul>
                             </li>
                             @endif

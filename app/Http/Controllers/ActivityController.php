@@ -317,7 +317,8 @@ class ActivityController extends Controller
 
     public function report(){
         $user = $this->getUser();
-        $act_all = Activity::all();
+        if(!isset($user['activities']) || !$user['activities']) return redirect('/');
+        $act_all = Activity::where('status','>',1)->get();
         $count = [];
         $count['sport'] = 0;
         $count['volunteer'] = 0;
