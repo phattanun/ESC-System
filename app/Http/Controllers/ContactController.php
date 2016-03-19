@@ -21,13 +21,16 @@ class ContactController extends Controller
         $year = $year['year'];
 
         $all_contact = Contact::join('users','contacts.student_id','=','users.student_id')
-            ->select('contacts.student_id','contacts.position','users.name','users.surname','users.nickname','users.phone_number',
+            ->select('contacts.contact_id','contacts.student_id','contacts.position','users.name','users.surname','users.nickname','users.phone_number',
                 'users.email','users.facebook_link','users.line_id')
             ->get();
         return view('contact',compact('admin','year','all_contact'));
     }
 
     public function addNewContact(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
         if($request->input('data')){
             $user = explode(' ',$request->input('data'));
             if(sizeof($user)<3) return 'fail';
@@ -60,7 +63,7 @@ class ContactController extends Controller
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
         Contact::truncate();
-        if(!is_null(Input)) {
+        if(!is_null('Input')) {
             $contact = Input::get('contact');
             $sid = array_unique(Input::get('sid'));
             if(isset($sid)) {
@@ -74,7 +77,10 @@ class ContactController extends Controller
         }
     }
 
-    public function dropContact() {
+    public function dropContact(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
         Contact::truncate();
     }
 }
