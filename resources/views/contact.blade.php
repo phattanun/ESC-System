@@ -66,10 +66,11 @@
 
                                 {{-- begin content --}}
                                 @foreach($all_contact as $contact)
-                                    <tr id="tuple-{{$contact['position']}}-{{$contact['student_id']}}">
+                                    $position_nospace = {{$contact['position']}}.replace(' ','_');
+                                    <tr id="tuple-{{$position_nospace}}-{{$contact['student_id']}}">
                                         @if($admin)
-                                        <input type="hidden" id="delete-{{$contact['position']}}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" /><input type="hidden" name="sid[]" value="{{$contact['student_id']}}" />
-                                        <td class="text-center"><a id="{{$contact['position']}}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
+                                        <input type="hidden" id="delete-{{$position_nospace}}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" /><input type="hidden" name="sid[]" value="{{$contact['student_id']}}" />
+                                        <td class="text-center"><a id="{{$position_nospace}}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
                                                 <i class="fa fa-minus"></i>
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -155,7 +156,7 @@
             });
             $("#confirmDeleteAll").click(function () {
                 var URL_ROOT = '{{Request::root()}}';
-                $.post(URL_ROOT+'/contact/drop_contact');
+                $.post(URL_ROOT+'/contact/drop_contact', {_token: '{{csrf_token()}}'});
                 window.location='{{url()}}/contact';
             });
             $('#studentInfo').keyup(function(){
@@ -184,8 +185,9 @@
                             }
                         }
                         else {
-                            $('#contact-table').append('<tr id="tuple-'+position+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" /><input type="hidden" name="sid[]" value="'+input['student_id']+'" />'
-                                    +'<td class="text-center"><a id="'+position+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
+                            var position_nospace = position.replace(' ','_');
+                            $('#contact-table').append('<tr id="tuple-'+position_nospace+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position_nospace+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" /><input type="hidden" name="sid[]" value="'+input['student_id']+'" />'
+                                    +'<td class="text-center"><a id="'+position_nospace+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
                                     +'<i class="fa fa-minus"></i>'
                                     +'<i class="fa fa-trash"></i>'
                                     +'</a></td>'

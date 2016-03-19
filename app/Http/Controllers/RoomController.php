@@ -62,6 +62,8 @@ class RoomController extends Controller
         $roomList = [];
         $rooms = MeetingRoom::all();
         foreach($rooms as $room) {
+            if($room->closed)
+                continue;
             array_push($roomList,
                 array(
                     'id' => $room->room_id,
