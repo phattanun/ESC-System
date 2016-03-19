@@ -16,10 +16,11 @@ class CreateContactsTable extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
+            $table->increments('contact_id');
             $table->bigInteger('student_id')->unsigned();
             $table->string('position');
 
-            $table->primary(array('student_id','position'));
+            $table->primary('contact_id');
             $table->foreign('student_id')->references('student_id')->on('users');
         });
     }
