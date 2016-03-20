@@ -20,7 +20,7 @@
                 {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
                 {{--</div>--}}
                 <div class = "panel-body">
-                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ" data-toastr-position="top-right">
+                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ<script>window.location='{{url('/activity/list')}}'</script>" data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
