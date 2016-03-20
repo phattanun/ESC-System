@@ -152,26 +152,30 @@ class ActivityController extends Controller
             'editor_id' => $user['student_id']
         ]);
         DB::disableQueryLog();
-        ini_set("memory_limit","2048M");
-        if(isset($_FILES['file']['size']) > 0) {
-            $fileName = $_FILES['file']['name'];
-            $tmpName = $_FILES['file']['tmp_name'];
-            $fileSize = $_FILES['file']['size'];
-            $fileType = $_FILES['file']['type'];
-            $fp = fopen($tmpName, 'r');
-            $content = fread($fp, filesize($tmpName));
+        ini_set("memory_limit", "2048M");
+        if (isset($_FILES['file'])) {
+            for ($i = 0; $i < sizeof($_FILES['file']['size']); $i++) {
+                if (isset($_FILES['file']['size'][$i]) > 0) {
+                    $fileName = $_FILES['file']['name'][$i];
+                    $tmpName = $_FILES['file']['tmp_name'][$i];
+                    $fileSize = $_FILES['file']['size'][$i];
+                    $fileType = $_FILES['file']['type'][$i];
+                    $fp = fopen($tmpName, 'r');
+                    $content = fread($fp, filesize($tmpName));
 //            $content = addslashes($content);
 //            $fileName = addslashes($fileName);
-            fclose($fp);
-            $newd = ActivityFile::create([
-                'act_id'=>$newAct->act_id,
-                'file_name'=>$fileName,
-                'size'=>$fileSize,
-                'type'=>$fileType,
-                'content'=>$content,
-                'create_at'=>Carbon::now(),
-                'uploader_id'=>$user['student_id']
-            ]);
+                    fclose($fp);
+                    $newd = ActivityFile::create([
+                        'act_id' => $newAct->act_id,
+                        'file_name' => $fileName,
+                        'size' => $fileSize,
+                        'type' => $fileType,
+                        'content' => $content,
+                        'create_at' => Carbon::now(),
+                        'uploader_id' => $user['student_id']
+                    ]);
+                }
+            }
         }
 
         $act_id = Activity::all()->max('act_id');
