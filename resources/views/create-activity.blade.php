@@ -106,13 +106,6 @@
                                         <span class="button">เลือกไฟล์</span>
                                     </div>
                                 </div>
-                                <div class="col-xs-1 col-md-1 delete-file-btn">
-                                    <td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">
-                                            <i class="fa fa-minus"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </div>
                             </div>
                         </div>
                         <div class = "row">
@@ -184,8 +177,8 @@
     <script>
         var editor = 0;
         function main() {
-            $('.delete-file-btn').click(function (){
-
+            $(document).on('click','.delete-file-btn',function (){
+                $(this).closest('.row').remove();
             });
             $('#add-file').click(function(){
                 $(
@@ -197,6 +190,13 @@
                         '<input type="text" class="form-control file-upload" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />'+
                         '<span class="button">เลือกไฟล์</span>'+
                         '</div>'+
+                        '</div>'+
+                        '<div class="col-xs-1 col-md-1 delete-file-btn">'+
+                        '<td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">'+
+                        '<i class="fa fa-minus"></i>'+
+                        '<i class="fa fa-trash"></i>'+
+                        '</a>'+
+                       '</td>'+
                         '</div>'
                 ).appendTo('#upload-file-section');
             });
