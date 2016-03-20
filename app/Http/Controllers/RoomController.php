@@ -99,15 +99,15 @@ class RoomController extends Controller
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
-                $order='b';
+                $order=1;
             }
             else if($queries['status']){
                 $status=["bg-success"];
-                $order='a';
+                $order=0;
             }
             else {
                 $status=["bg-danger"];
-                $order='c';
+                $order=2;
             }
             array_push($calendarEvents,
                     array(
@@ -132,15 +132,15 @@ class RoomController extends Controller
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
-                $order='b';
+                $order=1;
             }
             else if($queries['status']){
                 $status=["bg-success"];
-                $order='a';
+                $order=0;
             }
             else {
                 $status=["bg-danger"];
-                $order='c';
+                $order=2;
             }
             array_push($calendarEvents,
                 array(
