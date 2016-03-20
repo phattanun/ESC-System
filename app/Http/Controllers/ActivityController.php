@@ -319,11 +319,18 @@ class ActivityController extends Controller
 
     }
 
-    public function report()
-    {
+    public function report(){
         $user = $this->getUser();
-        if (!isset($user['activities']) || !$user['activities']) return redirect('/');
-        $act_all = Activity::where('status', '>', 1)->get();
+        if(!isset($user['activities']) || !$user['activities']) return redirect('/');
+        $setting = Setting::all();
+        $year = $setting[0]['year'];
+        $act_this_year = Activity::where('status','>',1)->where('year',$year)->get();
+        $raw_act_year = Activity::select('year')->get();
+        $act_year = [];
+        foreach($raw_act_year as $ay){
+            if(!in_array($ay['year'],$act_year))
+                array_push($act_year,$ay['year']);
+        }
         $count = [];
         $count['sport'] = 0;
         $count['volunteer'] = 0;
@@ -337,30 +344,57 @@ class ActivityController extends Controller
         $tqf['cognitive'] = 0;
         $tqf['interpersonal'] = 0;
         $tqf['communication'] = 0;
-        foreach ($act_all as $act) {
-            switch ($act['category']) {
-                case 'sport' :
-                    $count['sport']++;
-                    break;
-                case 'volunteer' :
-                    $count['volunteer']++;
-                    break;
-                case 'academic' :
-                    $count['academic']++;
-                    break;
-                case 'culture' :
-                    $count['culture']++;
-                    break;
-                case 'ethics' :
-                    $count['ethics']++;
-                    break;
+        foreach ($act_this_year as $act){
+            switch($act['category']){
+                case 'sport' : $count['sport']++; break;
+                case 'volunteer' : $count['volunteer']++; break;
+                case 'academic' : $count['academic']++; break;
+                case 'culture' : $count['culture']++; break;
+                case 'ethics' : $count['ethics']++; break;
             }
-            if ($act['tqf_ethics'] == '1') $tqf['ethics']++;
-            if ($act['tqf_knowledge'] == '1') $tqf['knowledge']++;
-            if ($act['tqf_cognitive'] == '1') $tqf['cognitive']++;
-            if ($act['tqf_interpersonal'] == '1') $tqf['interpersonal']++;
-            if ($act['tqf_communication'] == '1') $tqf['communication']++;
+            if($act['tqf_ethics']=='1') $tqf['ethics']++;
+            if($act['tqf_knowledge']=='1') $tqf['knowledge']++;
+            if($act['tqf_cognitive']=='1') $tqf['cognitive']++;
+            if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
+            if($act['tqf_communication']=='1') $tqf['communication']++;
         }
-        return view('activity-report', compact('count', 'tqf'));
+        return view('activity-report',compact('count','tqf','act_year'));
+    }
+
+    public function postReport(Request $request){
+        $user = $this->getUser();
+        if(!isset($user['activities']) || !$user['activities']) return "fail";
+        $select_year = $request->input('year');
+        $act_select_year = Activity::where('status','>',1)->where('year',$select_year)->get();
+
+        $count = [];
+        $count['sport'] = 0;
+        $count['volunteer'] = 0;
+        $count['academic'] = 0;
+        $count['culture'] = 0;
+        $count['ethics'] = 0;
+
+        $tqf = [];
+        $tqf['ethics'] = 0;
+        $tqf['knowledge'] = 0;
+        $tqf['cognitive'] = 0;
+        $tqf['interpersonal'] = 0;
+        $tqf['communication'] = 0;
+        foreach ($act_select_year as $act){
+            switch($act['category']){
+                case 'sport' : $count['sport']++; break;
+                case 'volunteer' : $count['volunteer']++; break;
+                case 'academic' : $count['academic']++; break;
+                case 'culture' : $count['culture']++; break;
+                case 'ethics' : $count['ethics']++; break;
+            }
+            if($act['tqf_ethics']=='1') $tqf['ethics']++;
+            if($act['tqf_knowledge']=='1') $tqf['knowledge']++;
+            if($act['tqf_cognitive']=='1') $tqf['cognitive']++;
+            if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
+            if($act['tqf_communication']=='1') $tqf['communication']++;
+        }
+        return json_encode(array('count'=>$count,'tqf'=>$tqf));
+
     }
 }
