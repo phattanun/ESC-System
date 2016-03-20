@@ -141,6 +141,7 @@ class RoomController extends Controller
                     'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
                     'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
                     'id' => 'g-'.$queries['res_id'],
+                    'resourceId' =>$queries['request_room_id'],
                     'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                     'className' => $status,
                     'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
