@@ -51,7 +51,7 @@
                         <br>
                         <div class="row">
                             <div class="table-responsive margin-bottom-30">
-                                <table class="table" id="activity-table">
+                                <table class="table nomargin" id="activity-table">
                                     <tr>
                                         <th class="text-center" style="vertical-align:middle" rowspan="2">ชื่อกิจกรรม</th>
                                         <th class="text-center" style="vertical-align:middle" rowspan="2">ประเภทของกิจกรรม</th>
@@ -83,7 +83,7 @@
                                                 @endif
                                             </td>
                                             <td>@if($act['tqf_ethics']) <i class="fa fa-check"></i> @endif</td>
-                                            <td>@if($act['tqf_knowledge']) <i class="fa fa-check"></i> @endif</td>endif
+                                            <td>@if($act['tqf_knowledge']) <i class="fa fa-check"></i> @endif</td>
                                             <td>@if($act['tqf_cognitive']) <i class="fa fa-check"></i> @endif</td>
                                             <td>@if($act['tqf_interpersonal']) <i class="fa fa-check"></i> @endif</td>
                                             <td>@if($act['tqf_communication']) <i class="fa fa-check"></i> @endif</td>
