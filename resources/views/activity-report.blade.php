@@ -113,7 +113,12 @@
                     padding: {
                         top: 0,
                         bottom: 0
-                    }
+                    },
+                    tick: {
+                        format: function (d) {
+                            return (parseInt(d) == d) ? d : null;
+                        }
+                    },
                 }
             },
             legend: {
@@ -121,8 +126,6 @@
             }
         });
         $('#year').change(function () {
-            var select_year = $('#year').val();
-            _toastr(select_year,"top-right","warning",false);
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/activity/report',
                     {year:  $('#year').val(), _token: '{{csrf_token()}}'}).done(function (input) {
@@ -132,14 +135,20 @@
                 }
                 else {
                     var report = JSON.parse(input);
-                    console.log(report);
+                    max_y_axis = Math.max(report.tqf.ethics, report.tqf.knowledge, report.tqf.cognitive, report.tqf.interpersonal, report.tqf.communication);
                     chart.load({
                         columns: [
-                            ["กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ"].push(report.count.sport),
-                            ["กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม"].push(report.count.volunteer),
-                            ["กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์"].push(report.count.academic),
-                            ["กิจกรรมส่งเสริมศิลปวัฒนธรรม"].push(report.count.culture),
-                            ["กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม"].push(report.count.ethics),
+                            ["กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ",report.count.sport],
+                            ["กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม",report.count.volunteer],
+                            ["กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์",report.count.academic],
+                            ["กิจกรรมส่งเสริมศิลปวัฒนธรรม",report.count.culture],
+                            ["กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม",report.count.ethics],
+                        ]
+
+                    });
+                    chart2.load({
+                        columns: [
+                            ['จำนวนกิจกรรม', report.tqf.ethics, report.tqf.knowledge, report.tqf.cognitive, report.tqf.interpersonal, report.tqf.communication]
                         ]
                     });
                 }
