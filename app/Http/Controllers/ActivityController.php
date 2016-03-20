@@ -358,7 +358,7 @@ class ActivityController extends Controller
             if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
             if($act['tqf_communication']=='1') $tqf['communication']++;
         }
-        return view('activity-report',compact('count','tqf','act_year'));
+        return view('activity-report',compact('count','tqf','act_year','act_this_year'));
     }
 
     public function postReport(Request $request){
