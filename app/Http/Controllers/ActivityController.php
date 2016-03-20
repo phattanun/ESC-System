@@ -358,9 +358,10 @@ class ActivityController extends Controller
         $user = $this->getUser();
         if(!isset($user['activities']) || !$user['activities']) return redirect('/');
         $setting = Setting::all();
-        $year = $setting[0]['year'];
-        $act_this_year = Activity::where('status','>',1)->where('year',$year)->get();
+        $this_year = $setting[0]['year'];
+        $act_this_year = Activity::where('status','>',1)->where('year',$this_year)->get();
         $raw_act_year = Activity::select('year')->get();
+        $division = Division::all();
         $act_year = [];
         foreach($raw_act_year as $ay){
             if(!in_array($ay['year'],$act_year))
@@ -393,7 +394,14 @@ class ActivityController extends Controller
             if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
             if($act['tqf_communication']=='1') $tqf['communication']++;
         }
-        return view('activity-report',compact('count','tqf','act_year','act_this_year'));
+        $division_name = [];
+        foreach ($division as $d) {
+            if ($d['type'] == 'Generation') $division_name[$d['div_id']] = 'รุ่น ' . $d['name'];
+            else if ($d['type'] == 'Group') $division_name[$d['div_id']] = 'กรุ๊ป ' . $d['name'];
+            else if ($d['type'] == 'Department') $division_name[$d['div_id']] = 'ภาควิชา ' . $d['name'];
+            else if ($d['type'] == 'Club') $division_name[$d['div_id']] = 'ชมรม ' . $d['name'];
+        }
+        return view('activity-report',compact('count','tqf','act_year','act_this_year','this_year','division_name'));
     }
 
     public function postReport(Request $request){
@@ -429,7 +437,7 @@ class ActivityController extends Controller
             if($act['tqf_interpersonal']=='1') $tqf['interpersonal']++;
             if($act['tqf_communication']=='1') $tqf['communication']++;
         }
-        return json_encode(array('count'=>$count,'tqf'=>$tqf));
+        return json_encode(array('count'=>$count,'tqf'=>$tqf,'act_select_year'=>$act_select_year));
 
     }
 }
