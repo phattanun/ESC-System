@@ -192,8 +192,11 @@ class ActivityController extends Controller
 
     public function getFile($file_id)
     {
-//        return $file.$extension;
-        $file = ActivityFile::select('file_name', 'type', 'size', 'content')->where('file_id', $file_id)->first();
+        $file = ActivityFile::select('file_name', 'type', 'size', 'content','act_id')->where('file_id', $file_id)->first();
+        $user = $this->getUser();
+        if (!isset($user['activities']) && !Activity::where('act_id', $file->act_id)->where('creator_id', $user['student_id'])->exists() && !CanEditActivity::where('act_id', $file->act_id)->where('student_id', $user['student_id'])->exists())
+            return 'Permission denied';
+
         header("Content-length: $file->size");
         header("Content-type: $file->type");
         header("Content-Disposition: attachment; filename=$file->file_name");
