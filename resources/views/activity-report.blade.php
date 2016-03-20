@@ -43,7 +43,7 @@
                                 <label>ปีการศึกษา</label>
                                 <select class="form-control select2" name="year" id="year">
                                     @foreach($act_year as $year)
-                                        <option value="{{$year}}">ปีการศึกษา {{$year}}</option>
+                                        <option value="{{$year}}" @if($year == $this_year)selected @endif>ปีการศึกษา {{$year}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -87,7 +87,7 @@
                                             <td>@if($act['tqf_cognitive']) <i class="fa fa-check"></i> @endif</td>
                                             <td>@if($act['tqf_interpersonal']) <i class="fa fa-check"></i> @endif</td>
                                             <td>@if($act['tqf_communication']) <i class="fa fa-check"></i> @endif</td>
-                                            <td class="text-center" style="vertical-align:middle" >97</td>
+                                            <td class="text-center" style="vertical-align:middle">{{$division_name[$act['div_id']]}}</td>
                                             @if($act['status']==0)
                                                 <td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>
                                             @elseif($act['status']==1)
@@ -123,6 +123,7 @@
 
 @section('js')
     <script>
+        var division = {!! json_encode($division_name) !!};
         var chart = c3.generate({
             bindto: '#activity-chart',
             data: {
@@ -210,6 +211,33 @@
                             ['จำนวนกิจกรรม', report.tqf.ethics, report.tqf.knowledge, report.tqf.cognitive, report.tqf.interpersonal, report.tqf.communication]
                         ]
                     });
+                    $('.act_tuple').remove();
+                    for(i=0;i<report.act_select_year.length;i++){
+                        $('#activity-table').append(
+                            '<tr class="act_tuple" id="act-tuple-'+report.act_select_year[i].act_id+'">'
+                            +'<td class="text-center" style="vertical-align:middle" >'+report.act_select_year[i].name+'</td>'
+                        );
+                        switch(report.act_select_year[i].category){
+                            case 'sport':$('#act-tuple-'+report.act_select_year[i].act_id).append('<td class="text-center" style="vertical-align:middle">กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ</td>');break;
+                            case 'volunteer':$('#act-tuple-'+report.act_select_year[i].act_id).append('<td class="text-center" style="vertical-align:middle">กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม</td>');break;
+                            case 'academic':$('#act-tuple-'+report.act_select_year[i].act_id).append('<td class="text-center" style="vertical-align:middle">กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</td>');break;
+                            case 'culture':$('#act-tuple-'+report.act_select_year[i].act_id).append('<td class="text-center" style="vertical-align:middle">กิจกรรมส่งเสริมศิลปวัฒนธรรม</td>');break;
+                            case 'ethics':$('#act-tuple-'+report.act_select_year[i].act_id).append('<td class="text-center" style="vertical-align:middle">กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม</td>');break;
+                        }
+                        report.act_select_year[i].tqf_ethics? $('#act-tuple-'+report.act_select_year[i].act_id).append('<td><i class="fa fa-check"></i></td>'):$('#act-tuple-'+report.act_select_year[i].act_id).append('<td></td>');
+                        report.act_select_year[i].tqf_knowledge? $('#act-tuple-'+report.act_select_year[i].act_id).append('<td><i class="fa fa-check"></i></td>'):$('#act-tuple-'+report.act_select_year[i].act_id).append('<td></td>');
+                        report.act_select_year[i].tqf_cognitive? $('#act-tuple-'+report.act_select_year[i].act_id).append('<td><i class="fa fa-check"></i></td>'):$('#act-tuple-'+report.act_select_year[i].act_id).append('<td></td>');
+                        report.act_select_year[i].tqf_interpersonal? $('#act-tuple-'+report.act_select_year[i].act_id).append('<td><i class="fa fa-check"></i></td>'):$('#act-tuple-'+report.act_select_year[i].act_id).append('<td></td>');
+                        report.act_select_year[i].tqf_communication? $('#act-tuple-'+report.act_select_year[i].act_id).append('<td><i class="fa fa-check"></i></td>'):$('#act-tuple-'+report.act_select_year[i].act_id).append('<td></td>');
+                        $('#act-tuple-'+report.act_select_year[i].act_id).append('<td class="text-center" style="vertical-align:middle">'+division[report.act_select_year[i].div_id]+'</td>');
+                        switch(report.act_select_year[i].status){
+                            case 0:$('#act-tuple-'+report.act_select_year[i].act_id).append('<td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>');break;
+                            case 1:$('#act-tuple-'+report.act_select_year[i].act_id).append('<td style="vertical-align: middle;text-align: center"><span class="text-olive">กวศ อนุมัติ</span></td>');break;
+                            case 2:$('#act-tuple-'+report.act_select_year[i].act_id).append('<td style="vertical-align: middle;text-align: center"><span class="text-green">คณบดี อนุมัติ</span></td>');break;
+                            case 3:$('#act-tuple-'+report.act_select_year[i].act_id).append('<td style="vertical-align: middle;text-align: center"><span class="text-red">รอปิดโครงการ</span></td>');break;
+                            case 4:$('#act-tuple-'+report.act_select_year[i].act_id).append('<td style="vertical-align: middle;text-align: center"><span class="text-black">ปิดโครงการ</span></td>');break;
+                        }
+                    }
                 }
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
