@@ -99,12 +99,15 @@ class RoomController extends Controller
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
+                $order='b';
             }
             else if($queries['status']){
                 $status=["bg-success"];
+                $order='a';
             }
             else {
                 $status=["bg-danger"];
+                $order='c';
             }
             array_push($calendarEvents,
                     array(
@@ -115,6 +118,7 @@ class RoomController extends Controller
                         'resourceId' =>$queries['request_room_id'],
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                         'className' => $status,
+                        'order'=>$order,
                         'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
                         'icon' => 'fa-clock-o',
                     )
@@ -128,12 +132,15 @@ class RoomController extends Controller
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
+                $order='b';
             }
             else if($queries['status']){
                 $status=["bg-success"];
+                $order='a';
             }
             else {
                 $status=["bg-danger"];
+                $order='c';
             }
             array_push($calendarEvents,
                 array(
@@ -144,6 +151,7 @@ class RoomController extends Controller
                     'resourceId' =>$queries['request_room_id'],
                     'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                     'className' => $status,
+                    'order' => $order,
                     'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
                     'icon' => 'fa-clock-o',
                 )
