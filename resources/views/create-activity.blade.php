@@ -183,7 +183,7 @@
             $('#add-file').click(function(){
                 $(
                         '<div class="row">'+
-                        '<div class="col-md-8">'+
+                        '<div class="col-xs-9 col-md-8">'+
                         '<div class="fancy-file-upload fancy-file-primary">'+
                         '<i class="fa fa-upload"></i>'+
                         '<input type="file" class="form-control" name="file[]" onchange="jQuery(this).next('+"'input'"+').val(this.value);" />'+

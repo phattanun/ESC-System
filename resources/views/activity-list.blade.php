@@ -114,6 +114,19 @@
                                 </label>
                             </div>
                         </div>
+                        <div id="upload-file-section" class="margin-bottom-20">
+                            <div class="row">
+                                <label class="col-md-4">ไฟล์ *</label>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class="col-md-1">
+                                <a id="add-file" class="btn btn-3d btn-reveal btn-green">
+                                    <i class="fa fa-plus"></i>
+                                    <span>เพิ่มไฟล์</span>
+                                </a>
+                            </div>
+                        </div>
                         <div class = "row">
                             <div class="col-md-6 col-sm-6">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
@@ -242,6 +255,29 @@
 @section('js')
     <script>
         var editor = 0;
+        $(document).on('click','.delete-file-btn',function (){
+            $(this).closest('.row').remove();
+        });
+        $('#add-file').click(function(){
+            $(
+                    '<div class="row">'+
+                    '<div class="col-xs-9 col-md-5">'+
+                    '<div class="fancy-file-upload fancy-file-primary">'+
+                    '<i class="fa fa-upload"></i>'+
+                    '<input type="file" class="form-control" name="file[]" onchange="jQuery(this).next('+"'input'"+').val(this.value);" />'+
+                    '<input type="text" class="form-control file-upload" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />'+
+                    '<span class="button">เลือกไฟล์</span>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="col-xs-1 col-md-1 delete-file-btn">'+
+                    '<td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">'+
+                    '<i class="fa fa-minus"></i>'+
+                    '<i class="fa fa-trash"></i>'+
+                    '</a>'+
+                    '</td>'+
+                    '</div>'
+            ).appendTo('#upload-file-section');
+        });
         var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
         function loaddetail(act_id) {
             var URL_ROOT = '{{Request::root()}}';
