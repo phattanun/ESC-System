@@ -20,7 +20,7 @@
                     {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
                 {{--</div>--}}
                 <div class = "panel-body">
-                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ<script>window.location='{{url()}}';</script>" data-toastr-position="top-right">
+                    <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ" data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
@@ -93,15 +93,36 @@
                                 </label>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-8">
-                                <label>ไฟล์ *</label>
-                                <input class="custom-file-upload" type="file" name="file" id="file" data-btn-text="Select a File" />
-                                <small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>
+                        <div id="upload-file-section" class="margin-bottom-20">
+                            <div class="row">
+                                <label class="col-md-8">ไฟล์ *</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-9 col-md-8">
+                                    <div class="fancy-file-upload fancy-file-primary">
+                                        <i class="fa fa-upload"></i>
+                                        <input type="file"  class="form-control" name="file[]" onchange="jQuery(this).next('input').val(this.value);" />
+                                        <input type="text" required class="form-control" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />
+                                        <span class="button">เลือกไฟล์</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-1 col-md-1 delete-file-btn">
+                                    <td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">
+                                            <i class="fa fa-minus"></i>
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </div>
                             </div>
                         </div>
-
+                        <div class = "row">
+                            <div class="col-md-offset-6 col-md-1">
+                                <a id="add-file" class="btn btn-3d btn-reveal btn-green">
+                                    <i class="fa fa-plus"></i>
+                                    <span>เพิ่มไฟล์</span>
+                                </a>
+                            </div>
+                        </div>
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
@@ -163,6 +184,22 @@
     <script>
         var editor = 0;
         function main() {
+            $('.delete-file-btn').click(function (){
+
+            });
+            $('#add-file').click(function(){
+                $(
+                        '<div class="row">'+
+                            '<div class="col-md-8">'+
+                                '<div class="fancy-file-upload fancy-file-primary">'+
+                                    '<i class="fa fa-upload"></i>'+
+                                    '<input type="file" class="form-control" name="file[]" onchange="jQuery(this).next('+"'input'"+').val(this.value);" />'+
+                                    '<input type="text" class="form-control file-upload" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />'+
+                                    '<span class="button">เลือกไฟล์</span>'+
+                                '</div>'+
+                            '</div>'
+                ).appendTo('#upload-file-section');
+            });
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
                 $('#tuple-'+id).addClass('hidden');
