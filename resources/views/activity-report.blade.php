@@ -35,6 +35,20 @@
                     @endif
                 </div>
             </div>
+            @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] > 0)
+                <div class = "panel panel-default">
+                    <div class = "panel-body">
+                        <div class="col-md-3 col-sm-3">
+                            <label>ปีการศึกษา</label>
+                            <select class="form-control select2" name="year" id="year">
+                                @foreach($act_year as $year)
+                                    <option value="{{$year}}">ปีการศึกษา {{$year}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 @endsection
@@ -106,5 +120,23 @@
                 show: false
             }
         });
+        $('#year').change(function () {
+            var select_year = $('#year').val();
+            _toastr(select_year,"top-right","warning",false);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/activity/report',
+                    {year:  $('#year').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                if(input=='fail'){
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                    return false;
+                }
+                else {
+                   
+                }
+            }).fail(function () {
+                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                return false;
+            });
+        })
     </script>
 @endsection
