@@ -63,111 +63,145 @@
     </div>
 
     <div id="event-template" style="display:none">
-        <div id="event-container">
+        <form id="container" class="validate" method="post"
+              enctype="multipart/form-data" style="margin:0">
+            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+            <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
+
             <div class="modal-header">
                 <button type="button" class="close" onclick="hideSlide()">&times;</button>
-                <h4 class="modal-title"><i class="fa fa-calendar"></i> รายละเอียดการจอง</h4>
+                <h4 id="event-info-title" class="modal-title">
+                    <i class="fa fa-calendar"></i> รายละเอียดการจอง: <span id="status"></span>
+                </h4>
+                <!-- TABs -->
+                <ul id="event-tab" class="nav nav-tabs">
+                  <li><a href="#" data-tab="reserve">ใบจอง</a></li>
+                  <li><a href="#" data-tab="owner"  >ผู้จอง</a></li>
+                </ul>
             </div>
-            <!-- TABs -->
-            <ul id="event-tab" class="nav nav-tabs">
-              <li class="active">
-                  <a href="#" data-tab="reserve">ใบจอง</a></li>
-              <li><a href="#" data-tab="owner"  >ผู้จอง</a></li>
-            </ul>
+
             <div class="modal-body">
-                <form class="validate" action="" method="post"
-                      enctype="multipart/form-data" data-success="ยืนยันสำเร็จ<script>window.location='{{url()}}';</script>"
-                      data-toastr-position="top-right">
+                        <div id="event-info-reserve">
+                            <input type="hidden" name="res_id" id="res_id">
+                            <input type="hidden" name="status" id="status">
+                            <input type="hidden" name="allow_room_id" id="request_room_id">
+                            <input type="hidden" name="allow_start_time" id="request_start_time">
+                            <input type="hidden" name="allow_end_time" id="request_end_time">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>สถานที่ <span id="room_name" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ช่วงเวลา <span id="request_start_time" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ถึง <span id="request_end_time" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>จำนวนคน <span id="number_of_people" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>โปรเจคเตอร์ <span id="request_projector" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ปลั๊กพ่วง <span id="request_plug" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-12" style="margin-bottom:10px;">
+                                    <label>เหตุผล</label><span>&emsp;</span><span id="reason" class="text-blue">ไม่มีข้อมูล</span>
+                                </div>
+                            </div>
+                        </div>
 
-                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-
-                    <div id="event-info-reserve" class="">
-                        <!--div class="row">
-                            <div class="col-sm-12">
-                                <label>เหตุผล</label>
-                                <p class="text-blue">
-                                    &emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in ante magna. Pellentesque at accumsan mi. Suspendisse metus justo, convallis vitae enim porta, congue feugiat turpis. Sed venenatis molestie turpis, et auctor justo vestibulum eget. Vivamus nec porttitor eros. Vivamus ante nulla, eleifend sit amet elementum vel, tristique eu ante. Curabitur ultrices, massa ut ultrices viverra, diam nulla varius lacus, in egestas massa nunc ornare lectus.
-                                </p>
+                        <div id="event-info-owner">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>รหัสนิสิต <span id="student_id" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ชื่อ <span id="name" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>นามสกุล <span id="surname" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ชื่อเล่น <span id="nickname" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>รุ่น <span id="generation" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ภาควิชา <span id="department" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>เบอร์ติดต่อ <span id="phone_number" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Facebook <span id="facebook_link" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                <label>สถานที่ <span class="text-blue">ห้องเขียว</span></label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>ช่วงเวลา <span class="text-blue">12:00 น.</span></label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>ถึง <span class="text-blue">16:00 น.</span></label>
-                            </div>
-                        </div-->
-                    </div>
-
-                    <div id="event-info-owner" class="hide">
-                        <!--div class="row">
-                            <div class="col-sm-4">
-                                <label>รหัสนิสิต <span class="text-blue">563XXXXXXX</span></label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>ชื่อ <span class="text-blue">นายนายนาย</span></label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>นามสกุล <span class="text-blue">ไม่มีไม่มีไม่มีไม่มีไม่มี</span></label>
-                            </div>
-                        </div-->
-                    </div>
-
-                </form>
+                        </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="submit-btn">
+                <button type="button" class="btn btn-success" onclick="approve(1)">
                     <i class="fa fa-check"></i>อนุมัติ
                 </button>
-                <button type="button" class="btn btn-danger" onclick="hideSlide()">
-                    <i class="fa fa-times"></i>ยกเลิก
+                <button type="button" class="btn btn-danger" onclick="approve(0)">
+                    <i class="fa fa-times"></i>ไม่อนุมัติ
+                </button>
+                <button type="button" class="btn btn-default" onclick="hideSlide()">
+                    <i class="fa fa-minus"></i>ยกเลิก
                 </button>
             </div>
-        </div>
+
+        </form>
     </div>
 
 
     <div id="tools-template" style="display:none">
-        <div id="tools-container">
+        <form id="container" class="validate" method="post"
+              enctype="multipart/form-data" style="margin:0">
+            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+
             <div class="modal-header">
                 <button type="button" class="close" onclick="hideSlide()">&times;</button>
-                <h4 class="modal-title"><i class="fa fa-calendar"></i> เครื่องมือจัดการ: <span id="tools-info-title" class="text-blue"></span></h4>
+                <h4 id="tools-info-title" class="modal-title">
+                    <i class="fa fa-calendar"></i> เครื่องมือจัดการ: <span id="room-name" class="text-blue"></span>
+                </h4>
+                <!-- TABs -->
+                <ul id="tools-tab" class="nav nav-tabs">
+                  <li><a href="#" data-tab="event">รายการจอง</a></li>
+                  <li><a href="#" data-tab="tools">เครื่องมือ</a></li>
+                </ul>
             </div>
-            <!-- TABs -->
-            <ul id="tools-tab" class="nav nav-tabs">
-              <li class="active">
-                  <a href="#" data-tab="event">รายการจอง</a></li>
-              <li><a href="#" data-tab="tools">เครื่องมือ</a></li>
-            </ul>
+
             <div class="modal-body">
-                <form class="validate" action="" method="post"
-                      enctype="multipart/form-data" data-success="ยืนยันสำเร็จ<script>window.location='{{url()}}';</script>"
-                      data-toastr-position="top-right">
 
-                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-
-                    <div id="tools-info-event" class="">
+                    <div id="tools-info-event">
+                        <div class="row">
+                            <div id="events-list" class="col-xs-12">
+                                <div style="text-align:center">ไม่มีรายการกิจกรรมในห้องนี้</div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="tools-info-tools" class="hide">
+                    <div id="tools-info-tools">
+                        <div style="text-align:center">ไม่มีเครื่องมือในการจัดห้อง</div>
                     </div>
 
-                </form>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="submit-btn">
+                <button type="button" class="btn btn-info" onclick="">
                     <i class="fa fa-random"></i>จัดรายการ
                 </button>
-                <button type="button" class="btn btn-success" id="submit-btn">
+                <button type="button" class="btn btn-success" onclick"">
                     <i class="fa fa-check"></i>อนุมัติทั้งหมด
                 </button>
                 <button type="button" class="btn btn-danger" onclick="hideSlide()">
                     <i class="fa fa-times"></i>ยกเลิก
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
 
@@ -180,7 +214,6 @@
             padding-top: 0px;
         }
         #slide-bar {
-            display: block;
             position: fixed;
             bottom: 12.5%;
             width: 40%;
@@ -188,6 +221,12 @@
             box-shadow: 0 5px 15px rgba(0,0,0,.5);
             z-index: 9999;
             overflow: hidden;
+        }
+        .full-height-slide {
+            bottom: 0 !important;
+            min-height: 100% !important;
+            min-width: 300px !important;
+            width: 40%;
         }
         .left-slide {
             left: 0px;
@@ -199,16 +238,31 @@
             border-left: #780000 4px solid;
             border-radius: 3px 0px 0px 3px;
         }
-        .modal-footer {
-            padding-right: 55px;
-        }
         .modal-header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding-bottom: 0;
             border-bottom: none;
+        }
+        .nav-tabs {
+            padding-top: 10px;
+        }
+        .modal-body {
+            position: absolute;
+            width: 100%;
+            overflow: auto;
+        }
+        .modal-footer {
+            position: absolute;
+            bottom: 0;
+            width:100%;
+            padding-right: 55px;
         }
         @media (max-height: 667px) {
             #slide-bar { /* FULL HEIGHT */
                 bottom: 0;
-                height: 100%;
+                min-height: 100% !important;
                 min-width: 300px;
                 width: 40%;
             }
@@ -248,6 +302,46 @@
 @section('js')
     <script type="text/javascript">
         var calendar,caldebug;
+        function replace(contentType, data, postCallback) {
+            var slideBar = $("#slide-bar");
+            //console.log(data);
+            slideBar.html($("#"+contentType+"-template").html());
+
+            var infoTabs = Object.getOwnPropertyNames(data);
+            for(i in infoTabs) {
+                var names = Object.getOwnPropertyNames(data[infoTabs[i]]);
+                for(j in names) {
+                    $("#slide-bar #"+contentType+"-info-"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
+                    $("#slide-bar #"+contentType+"-info-"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
+                    if(postCallback != null)
+                        postCallback(names[j],$("#slide-bar #"+contentType+"-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
+                }
+            }
+
+            slideBar.find("#"+contentType+"-tab a[data-tab]").click(function(e) {
+                    e.preventDefault();
+                    $("#slide-bar #"+contentType+"-tab > li").removeClass('active');
+                    $(this.parentElement).addClass('active');
+                    $("#slide-bar div[id*='"+contentType+"-info-']").addClass('hide').scrollTop(0);
+                    $("#slide-bar #"+contentType+"-info-"+$(this).data('tab')).removeClass('hide');
+                });
+            var headerHeight = $("#slide-bar > #container > .modal-header").outerHeight(),
+                footerHeight = $("#slide-bar > #container > .modal-footer").outerHeight(),
+                bodyHeight = 0;
+            $("#slide-bar > #container > .modal-body > div").each(function(index) {
+                bodyHeight = Math.max(bodyHeight,$(this).outerHeight());
+                if(index != 0)$(this).addClass('hide');
+            });
+            var fullHeight = headerHeight + bodyHeight + parseInt($(".modal-body").css('padding'))*2 + footerHeight;
+            $("#slide-bar > #container > .modal-header > .nav-tabs > li:first-child").addClass("active");
+            $("#slide-bar > #container > .modal-body").css({"top":headerHeight+"px","bottom":footerHeight+"px"});
+            if(fullHeight > $(window).height()) {
+                fullHeight = $(window).height();
+                slideBar.addClass("full-height-slide");
+            }
+            slideBar.animate({"min-height":fullHeight},100).css('height','');
+        }
+
         function slide(columnId, columnSize, contentId, contentType) {
             $("#slide-bar")
                 .addClass((columnId < columnSize ? "right-slide" : "left-slide"))
@@ -266,18 +360,32 @@
                           id: contentId.split("-")[1]
                         },
                         success: function(response) {
-                            caldebug = response;
-                            $("#slide-bar").html($("#event-template").html());
-                            $("#slide-bar").find("#event-info-reserve").append(JSON.stringify(caldebug.reserve, null, 4));
-                            $("#slide-bar").find("#event-info-owner").append(JSON.stringify(caldebug.owner, null, 4));
-                            $("#slide-bar").find("#event-tab a[data-tab]").click(function(e) {
-                                    e.preventDefault();
-                                    $("#slide-bar #event-tab > li").removeClass('active');
-                                    $(this.parentElement).addClass('active');
-                                    $("#slide-bar div[id*='event-info-']").addClass('hide');
-                                    $("#slide-bar #event-info-"+$(this).data('tab')).removeClass('hide');
-                                });
-                            $("#slide-bar").animate({"min-height":$("#event-container").height()},100);
+                            response.title = new Object();
+                            response.title.status = response.reserve.status;
+                            response.reserve.room_name = calendar.fullCalendar('getResourceById',response.reserve.request_room_id).title;
+                            replace(contentType,response,function(name, element, data) {
+                                switch(name) {
+                                case "status":
+                                    if(data==0)
+                                        element.addClass("text-red").html("ไม่อนุมัติ");
+                                    else if(data==1)
+                                        element.addClass("text-green").html("อนุมัติ");
+                                    else
+                                        element.addClass("text-orange").html("รอการอนุมัติ");
+                                    break;
+                                case "facebook_link":
+                                    if(data!="")
+                                        element.html("<a href='https://"+data+"'><u>Link</u></a>");
+                                    else
+                                        element.html("ไม่มี");
+                                    break;
+                                case "request_projector":
+                                    if(data)
+                                        element.html("ต้องการ");
+                                    else
+                                        element.html("ไม่ต้องการ");
+                                }
+                            });
                         },
                         error : function(e) {
                             var response = e.responseText;
@@ -285,7 +393,7 @@
                                 _toastr("กรุณาเข้าสู่ระบบ", "top-right", "error", false);
                             else if (response == 'permission')
                                 _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
-                            else if (response == 'requestid' || response == 'noowner')
+                            else if (response == 'noinfo' || response == 'noowner')
                                 _toastr("ข้อมูลการจองไม่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
                             else if (response == 'notfound')
                                 _toastr("ไม่พบข้อมูลการจอง", "top-right", "error", false);
@@ -296,26 +404,60 @@
                     });
                 }
                 else if(contentType == 'tools') {
-                    $("#slide-bar").html($("#tools-template").html());
-                    $("#slide-bar").find("#tools-info-title").append(contentId);
-                    $("#slide-bar").find("#tools-tab a[data-tab]").click(function(e) {
-                            e.preventDefault();
-                            $("#slide-bar #tools-tab > li").removeClass('active');
-                            $(this.parentElement).addClass('active');
-                            $("#slide-bar div[id*='tools-info-']").addClass('hide');
-                            $("#slide-bar #tools-info-"+$(this).data('tab')).removeClass('hide');
-                        });
-                    $("#slide-bar").animate({"min-height":$("#tools-container").height()},100);
+                    var data = {
+                        "title": {
+                            "room-name":contentId
+                        }
+                    };
+                    replace(contentType,data,function(name, element, data) {
+                    });
                 }
             });
         }
+
+        function approve(status) {
+            $("#slide-bar input[name=status]").val(status);
+            var formData = new FormData($("#slide-bar > #container")[0]);
+            $.ajax({
+                url:  '{{url("/room/approve")}}',
+                type: 'POST',
+                headers: { "X-CSRF-Token" : $("input[name='_token']").val() },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response=="approve")
+                        _toastr("ยืนยันการอนุมัติสำเร็จ", "top-right", "success", false);
+                    else if (response="disapprove")
+                        _toastr("ยืนยันการไม่อนุมัติสำเร็จ", "top-right", "success", false);
+                    calendar.fullCalendar('refetchEvents');
+                    hideSlide();
+                    return false;
+                },
+                error: function(e) {
+                    var response = e.responseText;
+                    if (response == 'login')
+                        _toastr("กรุณาเข้าสู่ระบบ", "top-right", "error", false);
+                    else if (response == 'permission')
+                        _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
+                    else if (response == 'requestid' || response == 'noowner')
+                        _toastr("ข้อมูลการจองไม่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
+                    else if (response == 'notfound')
+                        _toastr("ไม่พบข้อมูลการจอง", "top-right", "error", false);
+                    else _toastr("ระบบมีปัญหา กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
+                    hideSlide();
+                    return false;
+                }
+            });
+        }
+
         function hideSlide() {
             $("#slide-backdrop").toggle();
-            $("#slide-bar").empty();
-            $("#slide-bar").animate({'width': 'toggle'}, 100, function() {
-                $(this).removeClass($(this).data('side'));
-                $(this).css({'min-height':'','height':''});
-            });
+            $("#slide-bar").empty().removeClass("full-height-slide")
+                .animate({'width': 'toggle'}, 100, function() {
+                    $(this).removeClass($(this).data('side'));
+                    $(this).css({'min-height':'','height':''});
+                });
         }
 
         loadScript(plugin_path + "jquery/jquery.cookie.js", function(){
@@ -359,8 +501,7 @@
                     if (!event.description == '') {
                         element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
                     }
-                    caldebug = event;
-                    element.find('.fc-title').append("<br><span class='color-red'>" + event._start + "-" + event._end + "</span")
+                    element.find('.fc-title').append("<br><span class='color-red'>" + event._start + "-" + event._end + "</span");
                     element.attr('title',event.title);
                     element.attr('data-toggle','tooltip');
                 },
@@ -382,7 +523,8 @@
             $("#agenda_lb").attr('class',$("#"+calendar.fullCalendar('getView').name).data('label'));
 
         });});});});});});});});});
-            $("a[data-widget=calendar-view]").bind("click", function (e) {
+
+        $("a[data-widget=calendar-view]").bind("click", function (e) {
             e.preventDefault();
             var _view = $(this).attr('id'),
                     _name = $('span', this).html(),

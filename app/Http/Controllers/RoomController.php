@@ -141,6 +141,7 @@ class RoomController extends Controller
                     'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
                     'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
                     'id' => 'g-'.$queries['res_id'],
+                    'resourceId' =>$queries['request_room_id'],
                     'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
                     'className' => $status,
                     'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
@@ -293,7 +294,7 @@ class RoomController extends Controller
 
         // Currently, Room Staff Only!!!
         $permission = Permission::find($user['student_id']);
-        if(!$permission->room)
+        if(is_null($permission) || !$permission->room)
             return response("permission", "500");
 
         $requestId = Input::get('id');
@@ -309,5 +310,57 @@ class RoomController extends Controller
             return response("noowner", "500");
 
         return compact('reserve','owner');
+    }
+
+    public function approveReservation() {
+        $user = Auth::user();
+        if(is_null($user))
+            return response("login", "500");
+
+        // Currently, Room Staff Only!!!
+        $permission = Permission::find($user['student_id']);
+        if(is_null($permission) || !$permission->room)
+            return response("permission", "500");
+
+        $res_id = Input::get('res_id');
+        if(is_null($res_id))
+            return response("noinfo", "500");
+
+        $reserve = UserReservation::find($res_id);
+        if(is_null($reserve))
+            return response("notfound", "500");
+
+        $owner = User::find($reserve->student_id);
+        if(is_null($reserve))
+            return response("noowner", "500");
+
+        $status = Input::get('status');
+        if(is_null($status))
+            return response("noinfo", "500");
+
+        $approver_id = Input::get('approver_id');
+        if(is_null($approver_id))
+            return response("noinfo", "500");
+
+        $allow_room_id = Input::get('allow_room_id');
+        if(is_null($allow_room_id))
+            return response("noinfo", "500");
+
+        $allow_start_time = Input::get('allow_start_time');
+        if(is_null($allow_start_time))
+            return response("noinfo", "500");
+
+        $allow_end_time = Input::get('allow_end_time');
+        if(is_null($allow_end_time))
+            return response("noinfo", "500");
+
+        $reserve->status = $status;
+        $reserve->approver_id = $approver_id;
+        $reserve->allow_room_id = $allow_room_id;
+        $reserve->allow_start_time = $allow_start_time;
+        $reserve->allow_end_time = $allow_end_time;
+        $reserve->save();
+
+        return $status == 1 ? "approve":"disapprove";
     }
 }
