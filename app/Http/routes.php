@@ -72,6 +72,7 @@ Route::post('/activity/list/delete_activity','ActivityController@delete_activity
 
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::get ('/activity/report','ActivityController@report');
+Route::post ('/activity/report','ActivityController@postReport');
 Route::get('/activity/attachments/{act_id}/{file}{extension?}',
     [   'uses'  => 'ActivityController@getFile',
         'as'    => 'file.find'])
