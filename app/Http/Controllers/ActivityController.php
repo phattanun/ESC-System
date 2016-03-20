@@ -154,6 +154,7 @@ class ActivityController extends Controller
         if (isset($_FILES['file'])) {
             for ($i = 0; $i < sizeof($_FILES['file']['size']); $i++) {
                 if (isset($_FILES['file']['size'][$i]) > 0) {
+//                    $fileName = str_replace(' ','',$_FILES['file']['name'][$i]);
                     $fileName = $_FILES['file']['name'][$i];
                     $tmpName = $_FILES['file']['tmp_name'][$i];
                     $fileSize = $_FILES['file']['size'][$i];
@@ -163,7 +164,7 @@ class ActivityController extends Controller
 //            $content = addslashes($content);
 //            $fileName = addslashes($fileName);
                     fclose($fp);
-                    $newd = ActivityFile::create([
+                    ActivityFile::create([
                         'act_id' => $newAct->act_id,
                         'file_name' => $fileName,
                         'size' => $fileSize,
@@ -189,10 +190,10 @@ class ActivityController extends Controller
         return redirect('/');
     }
 
-    public function getFile($act_id, $file, $extension)
+    public function getFile($file_id)
     {
 //        return $file.$extension;
-        $file = ActivityFile::select('file_name', 'type', 'size', 'content')->where(['act_id' => $act_id, 'file_name' => $file . $extension])->first();
+        $file = ActivityFile::select('file_name', 'type', 'size', 'content')->where('file_id', $file_id)->first();
         header("Content-length: $file->size");
         header("Content-type: $file->type");
         header("Content-Disposition: attachment; filename=$file->file_name");
@@ -243,7 +244,8 @@ class ActivityController extends Controller
         if (Activity::where('act_id', $act_id)->exists()) {
             $act = Activity::where('act_id', $act_id)->first();
             $can_edit = CanEditActivity::where('act_id', $act_id)->join('users', 'can_edit_activities.student_id', '=', 'users.student_id')->select('users.student_id', 'users.name', 'users.surname')->get();
-            return json_encode(array('act' => $act, 'can_edit' => $can_edit));
+            $file = ActivityFile::where('act_id', $act_id)->select('file_id','file_name')->orderby('file_id')->get();
+            return json_encode(array('act' => $act, 'can_edit' => $can_edit,'file'=>$file));
         } else return 'fail';
     }
 
@@ -293,6 +295,36 @@ class ActivityController extends Controller
             }
         } else {
             CanEditActivity::where('act_id', $act_data['act_id'])->delete();
+        }
+        $delete = $request->input('delete');
+        if(isset($delete)&&!empty($delete)){
+            foreach($delete as $deletes){
+                ActivityFile::where('file_id',$deletes)->delete();
+            }
+        }
+        DB::disableQueryLog();
+        ini_set("memory_limit", "2048M");
+        if (isset($_FILES['file'])) {
+            for ($i = 0; $i < sizeof($_FILES['file']['size']); $i++) {
+                if (isset($_FILES['file']['size'][$i]) > 0) {
+                    $fileName = $_FILES['file']['name'][$i];
+                    $tmpName = $_FILES['file']['tmp_name'][$i];
+                    $fileSize = $_FILES['file']['size'][$i];
+                    $fileType = $_FILES['file']['type'][$i];
+                    $fp = fopen($tmpName, 'r');
+                    $content = fread($fp, filesize($tmpName));
+                    fclose($fp);
+                    ActivityFile::create([
+                        'act_id' => $act_data['act_id'],
+                        'file_name' => $fileName,
+                        'size' => $fileSize,
+                        'type' => $fileType,
+                        'content' => $content,
+                        'create_at' => Carbon::now(),
+                        'uploader_id' => $user['student_id']
+                    ]);
+                }
+            }
         }
     }
 

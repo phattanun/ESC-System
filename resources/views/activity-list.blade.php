@@ -118,6 +118,11 @@
                             <div class="row">
                                 <label class="col-md-4">ไฟล์ *</label>
                             </div>
+                            <div class="row">
+                                <ul class="list-group col-md-6 col-sm-6" id="exist-file-section">
+                                </ul>
+                            </div>
+
                         </div>
                         <div class = "row">
                             <div class="col-md-1">
@@ -251,16 +256,36 @@
         </div>
     </section>
 @endsection
-
+@section('css')
+   <style>
+       .list-group {
+           padding-left: 15px;
+       }
+       #exist-file-section .delete-file-tuple {
+           margin-top: -2px ;
+       }
+       #exist-file-section {
+           word-break: break-all;
+       }
+   </style>
+@endsection
 @section('js')
     <script>
         var editor = 0;
+        $(document).on('click','.delete-file-tuple',function (){
+            $('#delete-'+this.id).val(this.id);
+            $(this).closest('li').addClass('hidden');
+        });
         $(document).on('click','.delete-file-btn',function (){
             $(this).closest('.row').remove();
         });
+        $('.modal').on('hidden.bs.modal', function () {
+            $('#exist-file-section').html('');
+            $('.file-upload-class').remove();
+        });
         $('#add-file').click(function(){
             $(
-                    '<div class="row">'+
+                    '<div class="row file-upload-class">'+
                     '<div class="col-xs-9 col-md-5">'+
                     '<div class="fancy-file-upload fancy-file-primary">'+
                     '<i class="fa fa-upload"></i>'+
@@ -344,6 +369,14 @@
                             +' <td>'+act_data.can_edit[i].name+'</td>'
                             +' <td>'+act_data.can_edit[i].surname+'</td>'
                             +' </tr>'
+                        );
+                    }
+                    for(i=0;i<act_data.file.length;i++){
+                        $('#exist-file-section').append(
+                                '<li class="list-group-item"><input id="delete-'+act_data.file[i].file_id +'" type="hidden" name="delete[]" value="" /><a id="'+ act_data.file[i].file_id +'" class="pull-right delete-file-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                +' <i class="fa fa-minus"></i>'
+                                +' <i class="fa fa-trash"></i>'
+                                +' </a><a href="{{url('/activity/attachments')}}/'+ act_data.file[i].file_id+'">'+ act_data.file[i].file_name +'</a></li>'
                         );
                     }
                     $('#last_year_seen').val(act_data.act.avail_year);
