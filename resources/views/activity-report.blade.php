@@ -131,7 +131,17 @@
                     return false;
                 }
                 else {
-                   
+                    var report = JSON.parse(input);
+                    console.log(report);
+                    chart.load({
+                        columns: [
+                            ["กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ"].push(report.count.sport),
+                            ["กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม"].push(report.count.volunteer),
+                            ["กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์"].push(report.count.academic),
+                            ["กิจกรรมส่งเสริมศิลปวัฒนธรรม"].push(report.count.culture),
+                            ["กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม"].push(report.count.ethics),
+                        ]
+                    });
                 }
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
