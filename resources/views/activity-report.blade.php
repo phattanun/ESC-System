@@ -34,6 +34,7 @@
             </div>
                 <div class = "panel panel-default">
                     <div class = "panel-body">
+                        <form method="post" action="{{url().'/activity/report/getxlsx'}}">
                         <div class="row">
                             <div class="col-md-3 col-sm-3">
                                 <label>ปีการศึกษา</label>
@@ -45,13 +46,11 @@
                             </div>
                             <div class="col-md-6 col-sm-6"></div>
                             <div class="col-md-3 col-sm-3 @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="getExcel" style="vertical-align: middle">
-                                <form method="post" action="{{url().'/activity/report/getxlsx'}}">
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                                    <input type="hidden" name="year" value="{{$this_year}}" id="send_year">
-                                    <button type="submit" id="registerBtn" class="btn  btn-lg btn-success">บันทึกเป็นไฟล์ .xlsx </button>
-                                </form>
+                                    <button type="submit" id="registerBtn" class="btn btn-success">บันทึกเป็นไฟล์ .xlsx </button>
                             </div>
                         </div>
+                        </form>
                         <br>
                         <div class="row">
                             <div class="table-responsive margin-bottom-30">
