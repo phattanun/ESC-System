@@ -326,13 +326,12 @@
                     $('#act_id').val(act_data.act.act_id);
                     $('#myLargeModalLabel').empty();
                     $('#myLargeModalLabel').append(act_data.act.name);
-
                     $('#act_name').val(act_data.act.name);
                     act_data.act.status =='0' || user['activities'] ? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
 
-                    $('#act_status').select2('val',act_data.act.status);
-
+                  @if(isset($user['activities']))  $('#act_status').select2('val',act_data.act.status); @endif
                     $('#kind_of_activity').select2('val',act_data.act.category);
+
                     act_data.act.status =='0' || user['activities'] ? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
 
                     act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
