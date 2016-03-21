@@ -49,11 +49,11 @@
                             <div class="table-responsive margin-bottom-30">
                                 <table class="table nomargin" id="activity-table">
                                     <tr>
-                                        <th class="text-center" style="vertical-align:middle" rowspan="2">ชื่อกิจกรรม</th>
-                                        <th class="text-center" style="vertical-align:middle" rowspan="2">ประเภทของกิจกรรม</th>
-                                        <th class="text-center" style="vertical-align:middle" colspan="5">TQF<br></th>
-                                        <th class="text-center" style="vertical-align:middle" rowspan="2">หน่วยงาน</th>
-                                        <th class="text-center" style="vertical-align:middle" rowspan="2">สถานะ</th>
+                                        <th class="text-center" style="vertical-align:middle;width: 25%" rowspan="2">ชื่อกิจกรรม</th>
+                                        <th class="text-center" style="vertical-align:middle;width: 25%" rowspan="2">ประเภทของกิจกรรม</th>
+                                        <th class="text-center" style="vertical-align:middle;width: 10%" colspan="5">TQF<br></th>
+                                        <th class="text-center" style="vertical-align:middle;width: 20%" rowspan="2">หน่วยงาน</th>
+                                        <th class="text-center" style="vertical-align:middle;width: 20%" rowspan="2">สถานะ</th>
                                     </tr>
                                     <tr class="text-center">
                                         <td>E</td>
