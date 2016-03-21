@@ -194,6 +194,8 @@ class ActivityController extends Controller
     public function getFile($file_id)
     {
         $file = ActivityFile::select('file_name', 'type', 'size', 'content','act_id')->where('file_id', $file_id)->first();
+       if(!isset($file)||is_null($file))
+           return view('errors.404');
         $user = $this->getUser();
         if (!isset($user['activities']) && !Activity::where('act_id', $file->act_id)->where('creator_id', $user['student_id'])->exists() && !CanEditActivity::where('act_id', $file->act_id)->where('student_id', $user['student_id'])->exists())
             return 'Permission denied';
@@ -212,6 +214,7 @@ class ActivityController extends Controller
         if (is_null($user)) return redirect('/');
         $tmp_d = Division::all();
         $division = [];
+        $actFiles=[];
         foreach ($tmp_d as $d) {
             $new_division = [];
             $new_division['div_id'] = $d['div_id'];
@@ -223,7 +226,10 @@ class ActivityController extends Controller
         }
         if (isset($user['activities'])) {
             $act_list = Activity::all()->sortByDesc('act_id');
-            return view('activity-list', compact('act_list', 'division'));
+            foreach($act_list as $anAct){
+                $actFiles[$anAct->act_id] = ActivityFile::select('file_name','file_id')->where('act_id',$anAct->act_id)->get();
+            };
+            return view('activity-list', compact('act_list', 'division','actFiles'));
         } else {
             $act_list = Activity::where('creator_id', $user['student_id'])->get();
             $can_edit_act = CanEditActivity::where('student_id', $user['student_id'])->select('act_id')->get();
@@ -235,7 +241,10 @@ class ActivityController extends Controller
                 $act_list->push($add_act);
             }
             $act_list = $act_list->sortByDesc('act_id');
-            return view('activity-list', compact('act_list', 'division'));
+            foreach($act_list as $anAct){
+                $actFiles[$anAct->act_id] = ActivityFile::select('file_name','file_id')->where('act_id',$anAct->act_id)->get();
+            };
+            return view('activity-list', compact('act_list', 'division','actFiles'));
         }
     }
 
