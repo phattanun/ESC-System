@@ -44,12 +44,12 @@
                                 </select>
                             </div>
                             <div class="col-md-6 col-sm-6"></div>
-                            <div class="col-md-3 col-sm-3 @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="getExcel">
-                                <span class="pull-right" id="save-excel-btn">
-                                    <br>
-                                        <a class="btn btn-success" id="getExcel-btn">บันทึกเป็นไฟล์ .xlsx</a>
-                                    </br>
-                                </span>
+                            <div class="col-md-3 col-sm-3 @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="getExcel" style="vertical-align: middle">
+                                <form method="post" action="{{url().'/activity/report/getxlsx'}}">
+                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                                    <input type="hidden" name="year" value="{{$this_year}}" id="send_year">
+                                    <button type="submit" id="registerBtn" class="btn  btn-lg btn-success">บันทึกเป็นไฟล์ .xlsx </button>
+                                </form>
                             </div>
                         </div>
                         <br>
@@ -198,6 +198,7 @@
                 }
                 else {
                     var report = JSON.parse(input);
+                    $('#send_year').val($('#year').val());
                     if(report.count.sport+report.count.volunteer+report.count.academic+report.count.culture+report.count.ethics>0) {
                         $('#graphzone').removeClass('hidden');
                         $('#getExcel').removeClass('hidden');
@@ -258,15 +259,15 @@
             });
         })
 
-        $('#getExcel-btn').click(function () {
-            var URL_ROOT = '{{Request::root()}}';
-            $.post(URL_ROOT+'/activity/report/getxlsx',
-                    {year:  $('#year').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+        {{--$('#getExcel-btn').click(function () {--}}
+            {{--var URL_ROOT = '{{Request::root()}}';--}}
+            {{--$.post(URL_ROOT+'/activity/report/getxlsx',--}}
+                    {{--{year:  $('#year').val(), _token: '{{csrf_token()}}'}).done(function (input) {--}}
 
-            }).fail(function () {
-                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
-                return false;
-            });
-        })
+            {{--}).fail(function () {--}}
+                {{--_toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);--}}
+                {{--return false;--}}
+            {{--});--}}
+        {{--})--}}
     </script>
 @endsection

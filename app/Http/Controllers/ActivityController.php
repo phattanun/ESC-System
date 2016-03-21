@@ -455,14 +455,38 @@ class ActivityController extends Controller
         $user = $this->getUser();
         if(!isset($user['activities']) || !$user['activities']) return "fail";
         $select_year = $request->input('year');
-        $act_select_year = Activity::where('status','>',1)->where('year',$select_year)->get();
+        $act_select_year = Activity::where('status','>',1)->where('year',$select_year)->select('name','category','tqf_ethics','tqf_knowledge','tqf_cognitive','tqf_interpersonal','tqf_communication','status','div_id')->get();
+        foreach($act_select_year as $act){
+            switch($act['status']){
+                case 0:$act['status']='รอเปิดโครงการ';break;
+                case 1:$act['status']='กวศ อนุมัติ';break;
+                case 2:$act['status']='คณบดี อนุมัติ';break;
+                case 3:$act['status']='รอปิดโครงการ';break;
+                case 4:$act['status']='ปิดโครงการ';break;
+            }
+            switch($act['category']){
+                case "sport":$act['category']='กิจกรรมกีฬาหรือการส่งเสริมสุขภาพ';break;
+                case "volunteer":$act['category']='กิจกรรมบำเพ็ญประโยชน์และรักษาสิ่งแวดล้อม';break;
+                case "academic":$act['category']='กิจกรรมวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์';break;
+                case "culture":$act['category']='กิจกรรมส่งเสริมศิลปวัฒนธรรม';break;
+                case "ethics":$act['category']='กิจกรรมเสริมสร้างคุณธรรมและจริยธรรม';break;
+            }
+            $act_div = Division::where('div_id', '=', $act['div_id'])->first();
+            if($act_div['type']=='Group')  $act['div_id'] = 'กรุ๊ป '.$act_div['name'];
+            if($act_div['type']=='Club')  $act['div_id'] = 'ชมรม '.$act_div['name'];
+            if($act_div['type']=='Department')  $act['div_id'] = 'ภาควิชา '.$act_div['name'];
+            if($act_div['type']=='Generation')  $act['div_id'] = 'รุ่น '.$act_div['name'];
+        }
         Excel::create('รายงานกิจกรรมประจำปี ' . $select_year, function ($excel) use ($act_select_year,$select_year) {
             $excel->setTitle('รายงานกิจกรรมประจำปี' . $select_year);
             $excel->setCreator('กรรมการนิสิตคณะวิศวกรรมศาสตร์')
                 ->setCompany('กรรมการนิสิตคณะวิศวกรรมศาสตร์');
             $excel->setDescription('รายงานกิจกรรมประจำปี' . $select_year);
             $excel->sheet('รายงานกิจกรรมประจำปี ' . $select_year, function ($sheet) use ($act_select_year) {
-                $sheet->fromArray($act_select_year, null, 'A1', true, false);
+                $sheet->row(1, array(
+                    'ชื่อกิจกรรม', 'ประเภทของกิจกรรม', 'TQF_Ethics', 'TQF_Knowledge', 'TQF_Cognitive', 'TQF_Interpersonal', 'TQF_Communication','สถานะของกิจกรรม','หน่วยงานที่เกี่ยวข้อง'
+                ));
+                $sheet->fromArray($act_select_year, null, 'A2', true,false);
             });
 
         })->download('xlsx');
