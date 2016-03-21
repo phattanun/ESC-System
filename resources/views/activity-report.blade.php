@@ -36,18 +36,14 @@
                     <div class = "panel-body">
                         <form method="post" action="{{url().'/activity/report/getxlsx'}}">
                         <div class="row">
-                            <div class="col-md-3 col-sm-3">
+                            <div class="col-md-6 col-sm-6">
                                 <label>ปีการศึกษา</label>
-                                <select class="form-control select2" name="year" id="year">
+                                <select class="form-control select2" name="year" id="year" style="width: 50%">
                                     @foreach($act_year as $year)
                                         <option value="{{$year}}" @if($year == $this_year)selected @endif>ปีการศึกษา {{$year}}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="col-md-6 col-sm-6"></div>
-                            <div class="col-md-3 col-sm-3 @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="getExcel" style="vertical-align: middle">
-                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                                    <button type="submit" id="registerBtn" class="btn btn-success">บันทึกเป็นไฟล์ .xlsx </button>
+                                <button type="submit" id="getExcel" class="btn btn-success @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif">บันทึกเป็นไฟล์ .xlsx </button>
                             </div>
                         </div>
                         </form>
