@@ -47,7 +47,7 @@
                             <div class="col-md-3 col-sm-3 @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="getExcel">
                                 <span class="pull-right" id="save-excel-btn">
                                     <br>
-                                        <a class="btn btn-success">บันทึกเป็นไฟล์ .xlsx</a>
+                                        <a class="btn btn-success" id="getExcel-btn">บันทึกเป็นไฟล์ .xlsx</a>
                                     </br>
                                 </span>
                             </div>
@@ -258,7 +258,7 @@
             });
         })
 
-        $('#year').change(function () {
+        $('#getExcel-btn').click(function () {
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/activity/report/getxlsx',
                     {year:  $('#year').val(), _token: '{{csrf_token()}}'}).done(function (input) {
