@@ -43,16 +43,13 @@
                             @if(isset($user['activities']))
                                 <div class="col-md-4 col-sm-4">
                                     <label>สถานะของกิจกรรม *</label>
-                                    <div class="fancy-form fancy-form-select">
-                                        <select class="form-control" name="act_status" id="act_status">
-                                            <option value="0">รอเปิดโครงการ</option>
-                                            <option value="1">กวศ อนุมัติ</option>
-                                            <option value="2">คณบดี อนุมัติ</option>
-                                            <option value="3">รอปิดโครงการ</option>
-                                            <option value="4">ปิดโครงการ</option>
-                                        </select>
-                                        <i class="fancy-arrow"></i>
-                                    </div>
+                                    <select class="form-control select2" name="act_status" id="act_status" style="width: 100%">
+                                        <option value="0">รอเปิดโครงการ</option>
+                                        <option value="1">กวศ อนุมัติ</option>
+                                        <option value="2">คณบดี อนุมัติ</option>
+                                        <option value="3">รอปิดโครงการ</option>
+                                        <option value="4">ปิดโครงการ</option>
+                                    </select>
                                 </div>
                             @endif
                         </div>
