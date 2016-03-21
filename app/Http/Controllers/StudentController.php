@@ -42,7 +42,7 @@ class StudentController extends Controller
                 if ($request->input('studentFName')) $query->where('name', 'LIKE', '%' . $request->input('studentFName') . '%');
                 if ($request->input('studentLName')) $query->where('surname', 'LIKE', '%' . $request->input('studentLName') . '%');
                 if ($request->input('studentNName')) $query->where('nickname', 'LIKE', '%' . $request->input('studentNName') . '%');
-            })
+            })  ->with('group','department','generation')
                 ->whereHas('group', function ($query) use ($request) {
                     if ($request->input('studentGroup')) $query->where('name', 'LIKE', '%' . $request->input('studentGroup') . '%')->where('type', '=', 'Group');
                 })
@@ -54,18 +54,13 @@ class StudentController extends Controller
                 })
                 ->orderby('student_id')
                 ->get();
-            for ($i = 0; $i < sizeof($users); $i++) {
-                $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get()[0]->name;
-                $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get()[0]->name;
-                $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
-            }
         } else {
             $users = User::select(['student_id', 'name', 'surname', 'nickname', 'sex', 'group', 'department', 'generation'])->where(function ($query) use ($request) {
                 if ($request->input('studentID')) $query->where('student_id', 'LIKE', '%' . $request->input('studentID') . '%');
                 if ($request->input('studentFName')) $query->where('name', 'LIKE', '%' . $request->input('studentFName') . '%');
                 if ($request->input('studentLName')) $query->where('surname', 'LIKE', '%' . $request->input('studentLName') . '%');
                 if ($request->input('studentNName')) $query->where('nickname', 'LIKE', '%' . $request->input('studentNName') . '%');
-            })
+            }) ->with('group','department','generation')
                 ->whereHas('group', function ($query) use ($request) {
                     if ($request->input('studentGroup')) $query->where('name', 'LIKE', '%' . $request->input('studentGroup') . '%')->where('type', '=', 'Group');
                 })
@@ -77,11 +72,6 @@ class StudentController extends Controller
                 })
                 ->orderby('student_id')
                 ->get();
-            for ($i = 0; $i < sizeof($users); $i++) {
-                $users[$i]->department = Division::select(['name'])->where('div_id', '=', $users[$i]->department)->get()[0]->name;
-                $users[$i]->group = Division::select(['name'])->where('div_id', '=', $users[$i]->group)->get()[0]->name;
-                $users[$i]->generation = Division::select(['name'])->where('div_id', '=', $users[$i]->generation)->get()[0]->name;
-            }
         }
         if(sizeof($users)==0) return 'fail';
         return $users;
