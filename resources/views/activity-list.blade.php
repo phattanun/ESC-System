@@ -212,7 +212,6 @@
                                 <th style="vertical-align: middle;text-align: center"></th>
                                 <th style="vertical-align:middle;text-align: center">ชื่อกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center">ปีการศึกษา</th>
-                                <th style="vertical-align:middle;text-align: center">ไฟล์</th>
                                 <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
@@ -228,9 +227,6 @@
                                     </td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
                                     <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>
-                                @if(isset($actFiles[$act['act_id']])&&!empty($actFiles[$act['act_id']])&&sizeof($actFiles[$act['act_id']])>0)    <td style="vertical-align: middle;text-align: center">@foreach($actFiles[$act['act_id']] as $actFile) <a class="file" href="{{url('/activity/attachments')}}/{{$actFile['file_id']}}">{{$actFile['file_name']}}</a></br> @endforeach</td>
-                                @else   <td style="vertical-align: middle;text-align: center">ไม่มีไฟล์</td>
-                                @endif
                                         @if($act['status']==0)
                                             <td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>
                                         @elseif($act['status']==1)
@@ -267,13 +263,6 @@
        }
        #exist-file-section {
            word-break: break-all;
-       }
-       a.file {
-          color:#780000;
-       }
-       a.file:hover {
-           color: #212121;
-           text-decoration: underline;
        }
    </style>
 @endsection
