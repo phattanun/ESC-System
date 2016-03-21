@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         <div class = "row">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
                                 <select class="form-control select2" name="division" id="division" style="width: 100%">
                                     @foreach($division as $d)
@@ -319,9 +319,9 @@
                     $('#act_name').val(act_data.act.name);
                     act_data.act.status =='0' || user['activities'] ? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
 
-                    $('#act_status').val(act_data.act.status);
+                    $('#act_status').select2('val',act_data.act.status);
 
-                    $('#kind_of_activity').val(act_data.act.category);
+                    $('#kind_of_activity').select2('val',act_data.act.category);
                     act_data.act.status =='0' || user['activities'] ? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
 
                     act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
@@ -339,7 +339,8 @@
                     act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
                     act_data.act.status =='0' || user['activities'] ? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
 
-                    $('#division').val(act_data.act.div_id);
+                    $('#division').select2('val',act_data.act.div_id);
+
                     act_data.act.status =='0' || user['activities'] ? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
 
                     if(act_data.can_edit.length == 0)
