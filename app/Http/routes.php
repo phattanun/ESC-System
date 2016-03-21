@@ -31,6 +31,7 @@ Route::post('/save_news', 'NewsController@save_news');
 Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
 Route::get ('/room/approve', 'RoomController@viewApprovePage');
+Route::post ('/room/approve', 'RoomController@approveReservation');
 Route::get ('/room/get_room_reservation_schedule', 'RoomController@getRoomReservationSchedule');
 Route::get ('/room/get_room', 'RoomController@getMeetingRoom');
 Route::post('/room/get_user_reservation', 'RoomController@getUserReservation');
@@ -72,13 +73,8 @@ Route::post('/activity/list/delete_activity','ActivityController@delete_activity
 
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::get ('/activity/report','ActivityController@report');
-Route::get('/activity/attachments/{act_id}/{file}{extension?}',
-    [   'uses'  => 'ActivityController@getFile',
-        'as'    => 'file.find'])
-    ->where([
-        'file' => '[a-zA-Z0-9-_]+',
-        'extension' => '\..+'
-    ]);
+Route::post ('/activity/report','ActivityController@postReport');
+Route::get('/activity/attachments/{file_id}','ActivityController@getFile');
 
 
 // Contact Page

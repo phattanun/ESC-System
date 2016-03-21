@@ -4535,7 +4535,8 @@ Grid.mixin({
 
 	// A cmp function for determining which segments should take visual priority
 	compareEventSegs: function(seg1, seg2) {
-		return seg1.eventStartMS - seg2.eventStartMS || // earlier events go first
+		return seg1.event.order - seg2.event.order ||
+			seg1.eventStartMS - seg2.eventStartMS || // earlier events go first
 			seg2.eventDurationMS - seg1.eventDurationMS || // tie? longer events go first
 			seg2.event.allDay - seg1.event.allDay || // tie? put all-day events first (booleans cast to 0/1)
 			compareByFieldSpecs(seg1.event, seg2.event, this.view.eventOrderSpecs);

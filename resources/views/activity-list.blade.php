@@ -43,16 +43,13 @@
                             @if(isset($user['activities']))
                                 <div class="col-md-4 col-sm-4">
                                     <label>สถานะของกิจกรรม *</label>
-                                    <div class="fancy-form fancy-form-select">
-                                        <select class="form-control" name="act_status" id="act_status">
-                                            <option value="0">รอเปิดโครงการ</option>
-                                            <option value="1">กวศ อนุมัติ</option>
-                                            <option value="2">คณบดี อนุมัติ</option>
-                                            <option value="3">รอปิดโครงการ</option>
-                                            <option value="4">ปิดโครงการ</option>
-                                        </select>
-                                        <i class="fancy-arrow"></i>
-                                    </div>
+                                    <select class="form-control select2" name="act_status" id="act_status" style="width: 100%">
+                                        <option value="0">รอเปิดโครงการ</option>
+                                        <option value="1">กวศ อนุมัติ</option>
+                                        <option value="2">คณบดี อนุมัติ</option>
+                                        <option value="3">รอปิดโครงการ</option>
+                                        <option value="4">ปิดโครงการ</option>
+                                    </select>
                                 </div>
                             @endif
                         </div>
@@ -114,8 +111,26 @@
                                 </label>
                             </div>
                         </div>
+                        <div id="upload-file-section" class="margin-bottom-20">
+                            <div class="row">
+                                <label class="col-md-4">ไฟล์ *</label>
+                            </div>
+                            <div class="row">
+                                <ul class="list-group col-md-6 col-sm-6" id="exist-file-section">
+                                </ul>
+                            </div>
+
+                        </div>
                         <div class = "row">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-1">
+                                <a id="add-file" class="btn btn-3d btn-reveal btn-green">
+                                    <i class="fa fa-plus"></i>
+                                    <span>เพิ่มไฟล์</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>
                                 <select class="form-control select2" name="division" id="division" style="width: 100%">
                                     @foreach($division as $d)
@@ -238,10 +253,53 @@
         </div>
     </section>
 @endsection
-
+@section('css')
+   <style>
+       .list-group {
+           padding-left: 15px;
+       }
+       #exist-file-section .delete-file-tuple {
+           margin-top: -2px ;
+       }
+       #exist-file-section {
+           word-break: break-all;
+       }
+   </style>
+@endsection
 @section('js')
     <script>
         var editor = 0;
+        $(document).on('click','.delete-file-tuple',function (){
+            $('#delete-'+this.id).val(this.id);
+            $(this).closest('li').addClass('hidden');
+        });
+        $(document).on('click','.delete-file-btn',function (){
+            $(this).closest('.row').remove();
+        });
+        $('.modal').on('hidden.bs.modal', function () {
+            $('#exist-file-section').html('');
+            $('.file-upload-class').remove();
+        });
+        $('#add-file').click(function(){
+            $(
+                    '<div class="row file-upload-class">'+
+                    '<div class="col-xs-9 col-md-5">'+
+                    '<div class="fancy-file-upload fancy-file-primary">'+
+                    '<i class="fa fa-upload"></i>'+
+                    '<input type="file" class="form-control" name="file[]" onchange="jQuery(this).next('+"'input'"+').val(this.value);" />'+
+                    '<input type="text" class="form-control file-upload" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />'+
+                    '<span class="button">เลือกไฟล์</span>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="col-xs-1 col-md-1 delete-file-btn">'+
+                    '<td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">'+
+                    '<i class="fa fa-minus"></i>'+
+                    '<i class="fa fa-trash"></i>'+
+                    '</a>'+
+                    '</td>'+
+                    '</div>'
+            ).appendTo('#upload-file-section');
+        });
         var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
         function loaddetail(act_id) {
             var URL_ROOT = '{{Request::root()}}';
@@ -261,9 +319,9 @@
                     $('#act_name').val(act_data.act.name);
                     act_data.act.status =='0' || user['activities'] ? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
 
-                    $('#act_status').val(act_data.act.status);
+                    $('#act_status').select2('val',act_data.act.status);
 
-                    $('#kind_of_activity').val(act_data.act.category);
+                    $('#kind_of_activity').select2('val',act_data.act.category);
                     act_data.act.status =='0' || user['activities'] ? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
 
                     act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
@@ -281,7 +339,8 @@
                     act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
                     act_data.act.status =='0' || user['activities'] ? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
 
-                    $('#division').val(act_data.act.div_id);
+                    $('#division').select2('val',act_data.act.div_id);
+
                     act_data.act.status =='0' || user['activities'] ? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
 
                     if(act_data.can_edit.length == 0)
@@ -308,6 +367,14 @@
                             +' <td>'+act_data.can_edit[i].name+'</td>'
                             +' <td>'+act_data.can_edit[i].surname+'</td>'
                             +' </tr>'
+                        );
+                    }
+                    for(i=0;i<act_data.file.length;i++){
+                        $('#exist-file-section').append(
+                                '<li class="list-group-item"><input id="delete-'+act_data.file[i].file_id +'" type="hidden" name="delete[]" value="" /><a id="'+ act_data.file[i].file_id +'" class="pull-right delete-file-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                +' <i class="fa fa-minus"></i>'
+                                +' <i class="fa fa-trash"></i>'
+                                +' </a><a href="{{url('/activity/attachments')}}/'+ act_data.file[i].file_id+'">'+ act_data.file[i].file_name +'</a></li>'
                         );
                     }
                     $('#last_year_seen').val(act_data.act.avail_year);

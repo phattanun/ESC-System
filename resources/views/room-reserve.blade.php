@@ -347,7 +347,6 @@
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/css/layout-calendar-reserve.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets\css\fontAwesome_icon_font.min.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
@@ -491,13 +490,11 @@
                                                         draggable: false,
                                                         selectable: true,
                                                         selectHelper: true,
+                                                        eventOrder:'order',
                                                         displayEventEnd: true,
                                                         unselectAuto: true,
                                                         disableResizing: true,
                                                         editable: false,
-                                                        header: {
-                                                            left: 'title',
-                                                        },
                                                         select: function (start, end, allDay) {
                                                             if (jQuery("#calendar").attr('data-modal-create') == 'true') {
                                                                 var check = moment(start).format('YYYYMMDD');
