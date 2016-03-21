@@ -74,6 +74,7 @@ Route::post('/activity/list/delete_activity','ActivityController@delete_activity
 Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::get ('/activity/report','ActivityController@report');
 Route::post ('/activity/report','ActivityController@postReport');
+Route::post('/activity/report/getxlsx','ActivityController@getExcel');
 Route::get('/activity/attachments/{file_id}','ActivityController@getFile');
 
 

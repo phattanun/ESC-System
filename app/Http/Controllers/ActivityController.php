@@ -14,6 +14,7 @@ use App\User;
 use App\Activity;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ActivityController extends Controller
 {
@@ -448,5 +449,23 @@ class ActivityController extends Controller
         }
         return json_encode(array('count'=>$count,'tqf'=>$tqf,'act_select_year'=>$act_select_year));
 
+    }
+
+    public function getExcel(Request $request){
+        $user = $this->getUser();
+        if(!isset($user['activities']) || !$user['activities']) return "fail";
+        $select_year = $request->input('year');
+        $act_select_year = Activity::where('status','>',1)->where('year',$select_year)->get();
+        Excel::create('รายงานกิจกรรมประจำปี ' . $select_year, function ($excel) use ($act_select_year,$select_year) {
+            $excel->setTitle('รายงานกิจกรรมประจำปี' . $select_year);
+            $excel->setCreator('กรรมการนิสิตคณะวิศวกรรมศาสตร์')
+                ->setCompany('กรรมการนิสิตคณะวิศวกรรมศาสตร์');
+            $excel->setDescription('รายงานกิจกรรมประจำปี' . $select_year);
+            $excel->sheet('รายงานกิจกรรมประจำปี ' . $select_year, function ($sheet) use ($act_select_year) {
+                $sheet->fromArray($act_select_year, null, 'A1', true, false);
+            });
+
+        })->download('xlsx');
+        return 'success';
     }
 }
