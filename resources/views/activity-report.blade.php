@@ -108,12 +108,12 @@
 @endsection
 
 @section('css')
-    <link href="/assets/css/c3.min.css" rel="stylesheet" type="text/css">
+    <link href="{{Request::root()}}/assets/css/c3.min.css" rel="stylesheet" type="text/css">
 @endsection
 
 @section('js-top')
-    <script src="/js/d3.min.js" charset="utf-8"></script>
-    <script src="/js/c3.min.js"></script>
+    <script src="{{Request::root()}}/js/d3.min.js" charset="utf-8"></script>
+    <script src="{{Request::root()}}/js/c3.min.js"></script>
 @endsection
 
 @section('js')
