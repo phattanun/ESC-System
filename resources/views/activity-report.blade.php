@@ -17,7 +17,7 @@
         <div class = "container">
             <div class = "panel panel-default">
                 <div class = "panel-body">
-                    <div class = "row @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hide @endif" id="graphzone">
+                    <div class = "row @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="graphzone">
                         <div class="col-md-6 col-sm-6">
                             <label>กราฟแสดงจำนวนกิจกรรมที่สอดคล้องกับกรอบมาตรฐาน TQF ใน  5 ด้าน</label>
                             <div id="tqf-chart"></div>
@@ -27,7 +27,7 @@
                             <div id="activity-chart"></div>
                         </div>
                     </div>
-                    <div class="heading-title heading-dotted text-center @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] > 0) hide @endif" id="noact">
+                    <div class="heading-title heading-dotted text-center @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] > 0) hidden @endif" id="noact">
                         <h1>ยังไม่พบกิจกรรมในปีการศึกษานี้</h1>
                     </div>
                 </div>
@@ -42,6 +42,14 @@
                                         <option value="{{$year}}" @if($year == $this_year)selected @endif>ปีการศึกษา {{$year}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-md-6 col-sm-6"></div>
+                            <div class="col-md-3 col-sm-3 @if($count['sport']+$count['volunteer']+$count['academic']+$count['culture']+$count['ethics'] <= 0) hidden @endif" id="getExcel">
+                                <span class="pull-right" id="save-excel-btn">
+                                    <br>
+                                        <a class="btn btn-success">บันทึกเป็นไฟล์ .xlsx</a>
+                                    </br>
+                                </span>
                             </div>
                         </div>
                         <br>
@@ -191,12 +199,14 @@
                 else {
                     var report = JSON.parse(input);
                     if(report.count.sport+report.count.volunteer+report.count.academic+report.count.culture+report.count.ethics>0) {
-                        $('#graphzone').removeClass('hide');
-                        if(!$('#noact').hasClass('hide')) $('#noact').addClass('hide');
+                        $('#graphzone').removeClass('hidden');
+                        $('#getExcel').removeClass('hidden');
+                        if(!$('#noact').hasClass('hidden')) $('#noact').addClass('hidden');
                     }
                     else {
-                        $('#noact').removeClass('hide');
-                        if(!$('#graphzone').hasClass('hide')) $('#graphzone').addClass('hide');
+                        $('#noact').removeClass('hidden');
+                        if(!$('#graphzone').hasClass('hidden')) $('#graphzone').addClass('hidden');
+                        if(!$('#getExcel').hasClass('hidden')) $('#getExcel').addClass('hidden');
                     }
                     max_y_axis = Math.max(report.tqf.ethics, report.tqf.knowledge, report.tqf.cognitive, report.tqf.interpersonal, report.tqf.communication);
                     chart.load({
@@ -242,6 +252,17 @@
                         }
                     }
                 }
+            }).fail(function () {
+                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                return false;
+            });
+        })
+
+        $('#year').change(function () {
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/activity/report/getxlsx',
+                    {year:  $('#year').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+
             }).fail(function () {
                 _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
                 return false;
