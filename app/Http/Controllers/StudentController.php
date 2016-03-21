@@ -22,7 +22,7 @@ class StudentController extends Controller
     {
         $user = $this->getUser();
         $permission = Permission::find($user['student_id']);
-        $department = Division::select('div_id', 'name')->where('type','=','Department')->get();
+        $department = Division::select('div_id', 'name','short_name')->where('type','=','Department')->get();
         $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
         $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
         if (is_null($user))

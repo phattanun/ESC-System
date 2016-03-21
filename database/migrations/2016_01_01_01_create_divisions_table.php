@@ -16,6 +16,7 @@ class CreateDivisionsTable extends Migration
             $table->increments('div_id');
             $table->string('name');
             $table->string('type');
+            $table->string('short_name');
         });
     }
 
