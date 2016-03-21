@@ -137,10 +137,12 @@
                                     <label class="margin-bottom-20 ">ห้องประชุม</label>
                                     <div class="table-responsive margin-bottom-30">
                                         <table class="table nomargin room-table" id="permission-table">
-                                            <tr >
+                                            <tr>
                                                 <th style="vertical-align:middle">ชื่อห้องประชุม</th>
                                                 <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
+                                                <th style="vertical-align:middle">ลำดับความสำคัญ</th>
                                                 <th style="vertical-align:middle"></th>
+                                                <th class="text-center" style="vertical-align:middle">เปิด/ปิดการใช้งาน</th>
                                             </tr>
                                             <tr id="room-1"><input type="hidden" id="room-status-1" name="room[1][status]" value="" />
                                                 <td>
@@ -152,6 +154,15 @@
                                                 <td>
                                                     <div id="room-size-1">30 คน</div>
                                                     <div id="room-input-size-1" class="hide">
+                                                        <div class="col-xs-10 no-padding">
+                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 80%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
+                                                        </div>
+                                                        คน
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="room-priority-1">1</div>
+                                                    <div id="room-input-priority-1" class="hide">
                                                         <div class="col-xs-12 no-padding">
                                                             <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 80%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
                                                             คน
@@ -169,10 +180,16 @@
                                                         <i class="fa fa-times"></i>
                                                         <span>ยกเลิก</span>
                                                     </a>
-                                                    <a id="room-remove-button-1" onclick="roomRemove(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">
-                                                        <i class="fa fa-minus"></i>
-                                                        <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
-                                                    </a>
+                                                    {{--<a id="room-remove-button-1" onclick="roomRemove(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">--}}
+                                                        {{--<i class="fa fa-minus"></i>--}}
+                                                        {{--<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>--}}
+                                                    {{--</a>--}}
+                                                </td>
+                                                <td class="text-center">
+                                                    <label class="switch switch-success switch-lg label-lg">
+                                                        <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox" type="checkbox">
+                                                        <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
+                                                    </label>
                                                 </td>
                                             </tr>
 
@@ -203,10 +220,16 @@
                                                         <i class="fa fa-times"></i>
                                                         <span>ยกเลิก</span>
                                                     </a>
-                                                    <a id="room-remove-button-2" onclick="roomRemove(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">
-                                                        <i class="fa fa-minus"></i>
-                                                        <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
-                                                    </a>
+                                                    {{--<a id="room-remove-button-2" onclick="roomRemove(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">--}}
+                                                        {{--<i class="fa fa-minus"></i>--}}
+                                                        {{--<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>--}}
+                                                    {{--</a>--}}
+                                                </td>
+                                                <td class="text-center">
+                                                    <label class="switch switch-success switch-lg label-lg">
+                                                        <input id="room-input-onoff-2" name="room[2][onoff]" value="on" type="checkbox" type="checkbox">
+                                                        <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
+                                                    </label>
                                                 </td>
                                             </tr>
 
@@ -401,6 +424,10 @@
         .btn{
             width: 90px;
         }
+
+        .switch{
+            vertical-align: middle;
+        }
     </style>
 @endsection
 
@@ -487,10 +514,16 @@
                     +'      <i class="fa fa-times"></i>'
                     +'      <span>ยกเลิก</span>'
                     +'  </a>'
-                    +'  <a id="room-remove-button-'+i+'" onclick="roomRemove('+i+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">'
-                    +'      <i class="fa fa-minus"></i>'
-                    +'      <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
-                    +'  </a>'
+//                    +'  <a id="room-remove-button-'+i+'" onclick="roomRemove('+i+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">'
+//                    +'      <i class="fa fa-minus"></i>'
+//                    +'      <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
+//                    +'  </a>'
+                    +'</td>'
+                    +'<td class="text-center">'
+                    +'  <label class="switch switch-success switch-lg label-lg">'
+                    +'  <input id="room-input-onoff-'+i+'" name="room['+i+'][onoff]" value="on" type="checkbox" type="checkbox">'
+                    +'      <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>'
+                    +'  </label>'
                     +'</td>'
                     +'</tr>';
             $(".room-table").append(txt);

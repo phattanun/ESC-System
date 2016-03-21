@@ -227,6 +227,7 @@ class RoomController extends Controller
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
         $event = Input::get('event');
+//        if(in_array('on', $room[1])) return "a"; else return "b";
 //        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
 
 //        for($i=1;$i<=count($room);$i++)
