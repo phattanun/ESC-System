@@ -209,12 +209,12 @@
                     <div class="table-responsive margin-bottom-30">
                         <table class="table nomargin" id="activity-table" width="100%">
                             <tr>
-                                <th style="vertical-align: middle;text-align: center"></th>
-                                <th style="vertical-align:middle;text-align: center">ชื่อกิจกรรม</th>
-                                <th style="vertical-align:middle;text-align: center">ปีการศึกษา</th>
-                                <th style="vertical-align:middle;text-align: center">ไฟล์</th>
-                                <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
-                                <th style="vertical-align:middle;text-align: center"></th>
+                                <th style="vertical-align:middle;text-align: center;width:5%"></th>
+                                <th style="vertical-align:middle;text-align: center;width:35%">ชื่อกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center;width:10%">ปีการศึกษา</th>
+                                <th style="vertical-align:middle;text-align: center;width:30%">ไฟล์</th>
+                                <th style="vertical-align:middle;text-align: center;width:10%">สถานะกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center;width:10%"></th>
                             </tr>
                                 @foreach($act_list as $act)
                                     <tr class="actlist" id='activity-{{$act['act_id']}}'>
@@ -477,12 +477,15 @@
                             return false;
                         }
                         else {
+                            var data = JSON.parse(input);
+                            //var data = $.map(s, function(el) { return el });
+                            console.log(data);
+                            //console.log(s.actFiles[1][0].file_name);
                             $('.actlist').remove();
-                            for(i=0;i<input.length;i++){
+                            for(i=0;i<data.act_info.length;i++){
                                 var status;
                                 var color;
-                                console.log(typeof input[i]['status']);
-                                switch(input[i]['status']){
+                                switch(data.act_info[i].status){
                                     case 0: status = 'รอเปิดโครงการ';color = 'text-orange';break;
                                     case 1: status = 'กวศ อนุมัติ';color = 'text-olive';break;
                                     case 2: status = 'คณบดี อนุมัติ';color = 'text-green';break;
@@ -490,24 +493,34 @@
                                     case 4: status = 'ปิดโครงการ';color = 'text-black';break;
                                 }
                                 $('#activity-table').append(
-                                    '<tr id="table-header">'
+                                    '<tr id="table-header" class="actlist">'
                                     +'<td class="text-center">'
-                                    +'<a id="delete-button-'+input[i]['act_id']+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                    +'<a id="delete-button-'+data.act_info[i].act_id+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +'<i class="fa fa-minus"></i>'
                                     +'<i class="fa fa-trash"></i>'
                                     +'</a>'
                                     +'</td>'
-                                    +'<td style="vertical-align:middle;text-align: center">'+input[i]['name']+'</td>'
-                                    +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
+                                    +'<td style="vertical-align:middle;text-align: center">'+data.act_info[i].name+'</td>'
+                                    +'<td style="vertical-align:middle;text-align: center">'+data.act_info[i].year+'</td>'
+                                    +'<td id="files-column-'+data.act_info[i].act_id+'" style="vertical-align: middle;text-align:center"></td>'
                                     +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
                                     +'<td style="vertical-align:middle;text-align: center">'
-                                    +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+input[i]['act_id']+')">'
+                                    +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+data.act_info[i].act_id+')">'
                                     +'<i class="fa fa-edit"></i>'
                                     +'<span>แก้ไข</span>'
                                     +'</button>'
                                     +'</td>'
                                     +'</tr>'
                                 );
+                                console.log(data.actFiles[data.act_info[i].act_id].length);
+                                if(data.actFiles[data.act_info[i].act_id].length == 0 ) $('#files-column-' + data.act_info[i].act_id).append('ไม่มีไฟล์');
+                                else {
+                                    for (j = 0; j < data.actFiles[data.act_info[i].act_id].length; j++) {
+                                        $('#files-column-' + data.act_info[i].act_id).append(
+                                                '<a class="file" href="{{url("/activity/attachments")}}/' + data.actFiles[data.act_info[i].act_id][j].file_id + '">' + data.actFiles[data.act_info[i].act_id][j].file_name + '</a></br>'
+                                        );
+                                    }
+                                }
                                 if(user['activities']==null && input['status']!='0')
                                 {
                                     $('#delete-button-'+input[i]['act_id']).empty();
