@@ -68,7 +68,7 @@
                                 @foreach($all_contact as $contact)
                                     <tr id="tuple-{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}">
                                         @if($admin)
-                                        <input type="hidden" id="delete-{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}" name="contact[{{$contact['student_id']}}][]" value="{{$contact['position']}}" /><input type="hidden" name="sid[]" value="{{$contact['student_id']}}" />
+                                        <input type="hidden" id="delete-{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}" name="contact[]" value="{{$contact['student_id']}}#{{$contact['position']}}" />
                                         <td class="text-center"><a id="{{ str_replace(" ","_",$contact['position']) }}-{{$contact['student_id']}}" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">
                                                 <i class="fa fa-minus"></i>
                                                 <i class="fa fa-trash"></i>
@@ -188,7 +188,7 @@
                             _toastr("ข้อมูลซ้ำ","top-right","warning",false);
                         }
                         else {
-                            $('#contact-table').append('<tr id="tuple-'+position_nospace+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position_nospace+'-'+input["student_id"]+'" name="contact['+input['student_id']+'][]" value="'+position+'" /><input type="hidden" name="sid[]" value="'+input['student_id']+'" />'
+                            $('#contact-table').append('<tr id="tuple-'+position_nospace+'-'+input["student_id"]+'"><input type="hidden" id="delete-'+position_nospace+'-'+input["student_id"]+'" name="contact[]" value="'+input['student_id']+'#'+position+'" />'
                                     +'<td class="text-center"><a id="'+position_nospace+'-'+input["student_id"]+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบ">'
                                     +'<i class="fa fa-minus"></i>'
                                     +'<i class="fa fa-trash"></i>'
@@ -200,7 +200,7 @@
                                     +'<td style="text-align:center">'+input["phone_number"]+'</td>'
                                     +'<td style="text-align:center">'+input["email"]+'</td>'
                                     +'<td style="text-align:center">'+input["line_id"]+'</td>'
-                                    +'<td><a href="//'+input['facebook_link']+'"><i class="fa fa-facebook-official" data-toggle="tooltip" data-placement="top" title="'+input['facebook_link']+'"></i></a></td>'
+                                    +'<td style="text-align:center"><a href="//'+input['facebook_link']+'"><i class="fa fa-facebook-official" data-toggle="tooltip" data-placement="top" title="'+input['facebook_link']+'"></i></a></td>'
                                     +'</tr>');
                         }
                     }
