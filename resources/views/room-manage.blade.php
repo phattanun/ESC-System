@@ -138,13 +138,19 @@
                                     <div class="table-responsive margin-bottom-30">
                                         <table class="table nomargin room-table" id="permission-table">
                                             <tr>
+                                                <th style="vertical-align:middle" class="openCloseRoomCol text-center">เปิด / ปิด ห้องประชุม</th>
                                                 <th style="vertical-align:middle">ชื่อห้องประชุม</th>
                                                 <th style="vertical-align:middle">จำนวนคนที่จุดได้</th>
                                                 <th style="vertical-align:middle">ลำดับความสำคัญ</th>
                                                 <th style="vertical-align:middle"></th>
-                                                <th class="text-center" style="vertical-align:middle">เปิด/ปิดการใช้งาน</th>
                                             </tr>
                                             <tr id="room-1"><input type="hidden" id="room-status-1" name="room[1][status]" value="" />
+                                                <td class="text-center openCloseRoomCol">
+                                                    <label class="switch switch-success switch-lg label-lg">
+                                                        <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox" type="checkbox">
+                                                        <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
+                                                    </label>
+                                                </td>
                                                 <td>
                                                     <div id="room-name-1">ห้องประชุมใหญ่ 1</div>
                                                     <div id="room-input-name-1" class="hide">
@@ -155,17 +161,16 @@
                                                     <div id="room-size-1">30 คน</div>
                                                     <div id="room-input-size-1" class="hide">
                                                         <div class="col-xs-10 no-padding">
-                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 80%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
+                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 100%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
                                                         </div>
-                                                        คน
+                                                        &nbspคน
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div id="room-priority-1">1</div>
                                                     <div id="room-input-priority-1" class="hide">
                                                         <div class="col-xs-12 no-padding">
-                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 80%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
-                                                            คน
+                                                            <input id="room-input-priority-box-1" type="text" class="form-control" style="display: inline; width: 100%;" name="room[1][priority]" placeholder="ลำดับความสำคัญ" value="1">
                                                         </div>
                                                     </div>
                                                 </td>
@@ -180,58 +185,52 @@
                                                         <i class="fa fa-times"></i>
                                                         <span>ยกเลิก</span>
                                                     </a>
-                                                    {{--<a id="room-remove-button-1" onclick="roomRemove(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">--}}
-                                                        {{--<i class="fa fa-minus"></i>--}}
-                                                        {{--<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>--}}
-                                                    {{--</a>--}}
-                                                </td>
-                                                <td class="text-center">
-                                                    <label class="switch switch-success switch-lg label-lg">
-                                                        <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox" type="checkbox">
-                                                        <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
-                                                    </label>
+                                                    <a id="room-remove-button-1" onclick="roomRemove(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">
+                                                        <i class="fa fa-minus"></i>
+                                                        <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
 
-                                            <tr id="room-2"><input type="hidden" id="room-status-2" name="room[2][status]" value="" />
-                                                <td>
-                                                    <div id="room-name-2">ห้องประชุมใหญ่ 2</div>
-                                                    <div id="room-input-name-2" class="hide">
-                                                        <input id="room-input-name-box-2" type="text" class="form-control" name="room[2][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่2">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div id="room-size-2">20 คน</div>
-                                                    <div id="room-input-size-2" class="hide">
-                                                        <div class="col-xs-12 no-padding">
-                                                            <input id="room-input-size-box-2" type="text" class="form-control" style="display: inline; width: 80%;" name="room[2][size]" placeholder="จำนวนคนที่จุได้" value="20">
-                                                            คน
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                            {{--<tr id="room-2"><input type="hidden" id="room-status-2" name="room[2][status]" value="" />--}}
+                                                {{--<td>--}}
+                                                    {{--<div id="room-name-2">ห้องประชุมใหญ่ 2</div>--}}
+                                                    {{--<div id="room-input-name-2" class="hide">--}}
+                                                        {{--<input id="room-input-name-box-2" type="text" class="form-control" name="room[2][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่2">--}}
+                                                    {{--</div>--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<div id="room-size-2">20 คน</div>--}}
+                                                    {{--<div id="room-input-size-2" class="hide">--}}
+                                                        {{--<div class="col-xs-12 no-padding">--}}
+                                                            {{--<input id="room-input-size-box-2" type="text" class="form-control" style="display: inline; width: 80%;" name="room[2][size]" placeholder="จำนวนคนที่จุได้" value="20">--}}
+                                                            {{--คน--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</td>--}}
 
 
-                                                <td class="text-center">
-                                                    <a id="room-edit-button-2" onclick="roomEdit(2)" class="btn btn-3d btn-reveal btn-yellow">
-                                                        <i class="fa fa-edit"></i>
-                                                        <span>แก้ไข</span>
-                                                    </a>
-                                                    <a id="room-cancel-button-2" onclick="roomCancel(2)" class="btn btn-3d btn-reveal btn-red hide">
-                                                        <i class="fa fa-times"></i>
-                                                        <span>ยกเลิก</span>
-                                                    </a>
+                                                {{--<td class="text-center">--}}
+                                                    {{--<a id="room-edit-button-2" onclick="roomEdit(2)" class="btn btn-3d btn-reveal btn-yellow">--}}
+                                                        {{--<i class="fa fa-edit"></i>--}}
+                                                        {{--<span>แก้ไข</span>--}}
+                                                    {{--</a>--}}
+                                                    {{--<a id="room-cancel-button-2" onclick="roomCancel(2)" class="btn btn-3d btn-reveal btn-red hide">--}}
+                                                        {{--<i class="fa fa-times"></i>--}}
+                                                        {{--<span>ยกเลิก</span>--}}
+                                                    {{--</a>--}}
                                                     {{--<a id="room-remove-button-2" onclick="roomRemove(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">--}}
                                                         {{--<i class="fa fa-minus"></i>--}}
                                                         {{--<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>--}}
                                                     {{--</a>--}}
-                                                </td>
-                                                <td class="text-center">
-                                                    <label class="switch switch-success switch-lg label-lg">
-                                                        <input id="room-input-onoff-2" name="room[2][onoff]" value="on" type="checkbox" type="checkbox">
-                                                        <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
-                                                    </label>
-                                                </td>
-                                            </tr>
+                                                {{--</td>--}}
+                                                {{--<td class="text-center">--}}
+                                                    {{--<label class="switch switch-success switch-lg label-lg">--}}
+                                                        {{--<input id="room-input-onoff-2" name="room[2][onoff]" value="on" type="checkbox" type="checkbox">--}}
+                                                        {{--<span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>--}}
+                                                    {{--</label>--}}
+                                                {{--</td>--}}
+                                            {{--</tr>--}}
 
 
                                         </table>
@@ -413,7 +412,9 @@
         }
         .room-table td{
             line-height: 2.5 !important;
-            width: 35%;
+            width: 20%;
+            min-width: 160px;
+            /*max-width: 236px;*/
         }
         .form-control{
             font-size: 16px;
@@ -427,6 +428,10 @@
 
         .switch{
             vertical-align: middle;
+        }
+        .openCloseRoomCol{
+            min-width: 100px !important;
+            width: 100px;
         }
     </style>
 @endsection
