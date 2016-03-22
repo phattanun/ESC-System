@@ -21,12 +21,11 @@
                 {{--</div>--}}
                 <div class = "panel-body">
                     <form novalidate="novalidate" action="{{url().'/activity/create/send_form'}}" class="validate" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เพิ่มกิจกรรมสำเร็จ<script>window.location='{{url('/activity/list')}}'</script>" data-toastr-position="top-right">
-                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>ชื่อกิจกรรม *</label>
-                                <input name="activity_name" value="" class="form-control required"
-                                       type="text">
+                                <input name="activity_name" value="" class="form-control required" type="text">
                             </div>
                             {{--<div class="col-md-4 col-sm-4">--}}
                             {{--<label>สถานะ *</label>--}}
