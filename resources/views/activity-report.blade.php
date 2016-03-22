@@ -35,6 +35,7 @@
                 <div class = "panel panel-default">
                     <div class = "panel-body">
                         <form method="post" action="{{url().'/activity/report/getxlsx'}}">
+                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <label>ปีการศึกษา</label>
