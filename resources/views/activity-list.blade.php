@@ -399,7 +399,10 @@
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT + '/activity/list/delete_activity',
                         {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
-                    $('#activity-'+act_id).remove();
+                    if(input=='fail')
+                        _toastr("ไม่สามารถลบกิจกรรมนี้ได้", "top-right", "error", false);
+                    else
+                        $('#activity-'+act_id).remove();
                 }).fail(function () {
                     _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
                     return false;
