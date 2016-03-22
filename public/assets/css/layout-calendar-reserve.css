@@ -394,3 +394,6 @@ label.error {
 	border-radius: 3px;
 	color: white;
 }
+form {
+	margin-bottom: 0px;
+}

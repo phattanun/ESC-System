@@ -33,8 +33,33 @@
 
                         <!-- panel content -->
                         <div class="panel-body">
-                            <div id="announcement" class="text-center"><p>กวศ.
-                                    จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
+                            <div id="announcement" class="text-center"><p id="announcementText">{{$announcement['announcement']}}</p></div>
+                            @if($permission&&$permission->room)
+                                <form novalidate="novalidate" class="validate" action="{{url().'/room/edit_announcement'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/room/reserve';</script>" data-toastr-position="top-right">
+                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                                <input id = "announcementEditBox"  name="announcement" class="form-control required hidden" type="text">
+                            <div id="editAnnouncementButton"  class="text-center">
+                                <a class="btn btn-3d btn-reveal btn-yellow">
+                                    <i class="fa fa-edit"></i>
+                                    <span>แก้ไข</span>
+                                </a>
+                            </div>
+                                <div class="row text-center hidden" id="edit-panel">
+                                    <div class="col-md-offset-5 col-md-1 ">
+                                        <button id="save-btn" type="submit" class="btn btn-3d btn-reveal btn-green ">
+                                            <i class="fa fa-check"></i>
+                                            <span>บันทึก</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a id="cancel-btn" class="btn btn-3d btn-reveal btn-red ">
+                                            <i class="fa fa-times"></i>
+                                            <span>ยกเลิก</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                </form>
+                            @endif
                         </div>
                         <!-- /panel content -->
 
@@ -351,6 +376,21 @@
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
     <script type="text/javascript">
+        @if($permission&&$permission->room)
+        $("#editAnnouncementButton").click(function () {
+            $("#announcement").hide();
+            $("#announcementEditBox").val($("#announcementText").text());
+            $("#announcementEditBox").removeClass('hidden');
+            $("#edit-panel").removeClass('hidden');
+            $(this).hide();
+        });
+        $("#cancel-btn").click(function(){
+            $("#announcement").show();
+            $("#announcementEditBox").addClass('hidden');
+            $("#edit-panel").addClass('hidden');
+            $("#editAnnouncementButton").show();
+        });
+        @endif
         $('#no-needed-activity').click(function () {
             $('#no-needed-activity-div').hide();
             $('#no-needed-activity-div').prev().hide();

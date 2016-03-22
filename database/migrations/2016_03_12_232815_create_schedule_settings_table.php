@@ -15,6 +15,7 @@ class CreateScheduleSettingsTable extends Migration
         Schema::create('schedule_settings', function (Blueprint $table) {
             $table->time('start');
             $table->time('end');
+            $table->string('announcement');
             $table->primary(array('start','end'));
         });
     }
