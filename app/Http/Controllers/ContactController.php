@@ -65,14 +65,11 @@ class ContactController extends Controller
         Contact::truncate();
         if(!is_null('Input')) {
             $contact = Input::get('contact');
-            $sid = array_unique(Input::get('sid'));
-            if(isset($sid)) {
-                foreach($sid as $id) {
-                    if(isset($contact[$id])){
-                        foreach($contact[$id] as $position)
-                            Contact::create(['student_id'=>$id,'position'=>$position]);
-                    }
-                }
+            foreach($contact as $staff) {
+                $sharp = strpos($staff, '#');
+                $id = substr($staff, 0, $sharp);
+                $pos = substr($staff, $sharp+1);
+                Contact::create(['student_id'=>$id,'position'=>$pos]);
             }
         }
     }
