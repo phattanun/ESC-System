@@ -216,7 +216,6 @@
                                 <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
-                            @if(is_null($act_list))
                                 @foreach($act_list as $act)
                                     <tr class="actlist" id='activity-{{$act['act_id']}}'>
                                         <td class="text-center">
@@ -251,7 +250,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
                         </table>
                     </div>
                 </div>
@@ -281,7 +279,6 @@
 @endsection
 @section('js')
     <script>
-        @if(is_null($act_list))
             var editor = 0;
             $(document).on('click','.delete-file-tuple',function (){
                 $('#delete-'+this.id).val(this.id);
@@ -525,6 +522,5 @@
                 });
             }
             $( document ).ready(main);
-        @endif
     </script>
 @endsection
