@@ -147,8 +147,8 @@
                                             <tr id="room-1"><input type="hidden" id="room-status-1" name="room[1][status]" value="" />
                                                 <td class="text-center openCloseRoomCol">
                                                     <label class="switch switch-success">
-                                                        <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox" type="checkbox">
-                                                        <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
+                                                        <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox">
+                                                        <span class="switch-label" data-on="เปิด" data-off="ปิด"></span>
                                                     </label>
                                                 </td>
                                                 <td>
@@ -304,7 +304,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-6 col-sm-6 no-padding">
+                                        <div class="container-fluid margin-bottom-20">
+                                            <div class="col-md-3 col-sm-3" style="line-height: 2">
+                                                <label>เปิดทำการ</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                {{--<input id="event-date-end-new" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">--}}
+                                                <label class="switch switch-success">
+                                                    <input id="event-onoff-new" value="on" type="checkbox" onchange="eventOnOffNew()" checked="">
+                                                    <span class="switch-label" data-on="ใช่" data-off="ไม่ใช่"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 event-time-start-new-container">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>เวลาเปิด</label>
@@ -314,7 +330,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-6 col-sm-6 event-time-end-new-container">
                                     <div class="container-fluid margin-bottom-20">
                                         <div class="col-md-3 col-sm-3" style="line-height: 2">
                                             <label>เวลาปิด</label>
@@ -323,6 +339,8 @@
                                             <input id="event-time-end-new" type="text" class="form-control timepicker">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
                                     <a class="btn btn-3d btn-reveal btn-success pull-right" onclick="eventCreate()">
                                         <i class="fa fa-plus"></i>
                                         <span>เพิ่ม</span>
@@ -340,6 +358,7 @@
                                     <div class="table-responsive margin-bottom-30">
                                         <table class="table event-table" id="permission-table">
                                             <tr>
+                                                <th style="vertical-align:middle" class="openCloseRoomCol text-center">เปิด / ปิด ห้องประชุม</th>
                                                 <th style="vertical-align:middle">ตั้งแต่วันที่</th>
                                                 <th style="vertical-align:middle">ถึงวันที่</th>
                                                 <th style="vertical-align:middle">เวลาเปิด</th>
@@ -347,10 +366,16 @@
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
                                             <tr id="event-1"><input type="hidden" id="event-status-1" name="event[1][status]" value="" />
+                                                <td class="text-center openCloseRoomCol">
+                                                    <label class="switch switch-success">
+                                                        <input id="event-input-onoff-1" name="event[1][onoff]" value="on" type="checkbox" onchange="eventOnOff(1)" checked="">
+                                                        <span class="switch-label" data-on="เปิด" data-off="ปิด"></span>
+                                                    </label>
+                                                </td>
                                                 <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-input-date-start-1" class="form-control datepicker text-center hide" value="21-03-2016" name="event[1][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
                                                 <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-input-date-end-1" class="form-control datepicker text-center hide" value="23-03-2016" name="event[1][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-time-start-1">08 : 00</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center hide" value="08 : 00" name="event[1][time-start]" data-timepicki-tim="08" data-timepicki-mini="00"></td>
-                                                <td><div id="event-time-end-1">16 : 00</div><input type="text" id="event-input-time-end-1" class="form-control timepicker valid text-center hide" value="16 : 00" name="event[1][time-end]" data-timepicki-tim="16" data-timepicki-mini="00"></td>
+                                                <td><div id="event-time-start-off-1" class="hide">-- : --</div><div id="event-time-start-1">08 : 00</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center hide" value="08 : 00" name="event[1][time-start]" data-timepicki-tim="08" data-timepicki-mini="00"></td>
+                                                <td><div id="event-time-end-off-1" class="hide">-- : --</div><div id="event-time-end-1">16 : 00</div><input type="text" id="event-input-time-end-1" class="form-control timepicker valid text-center hide" value="16 : 00" name="event[1][time-end]" data-timepicki-tim="16" data-timepicki-mini="00"></td>
                                                 <td class="text-center" style="padding-right: 0px; padding-left: 0px;">
                                                     <a id="event-edit-button-1" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit(1)">
                                                         <i class="fa fa-edit"></i>
@@ -407,13 +432,15 @@
         }
         .event-table td{
             line-height: 2.5 !important;
-            width: 10%;
+            /*width: 10%;*/
+            width: 20%;
+            min-width: 160px;
         }
-        @media screen and (max-width: 700px) {
-            .event-table input {
-                min-width: 90px;
-            }
-        }
+        /*@media screen and (max-width: 700px) {*/
+            /*.event-table input {*/
+                /*min-width: 90px;*/
+            /*}*/
+        /*}*/
         .no-padding{
             padding: 0px;
         }
@@ -436,10 +463,14 @@
         .switch{
             vertical-align: middle;
         }
+        .switch-label{
+            font-size: 16px !important;
+        }
         .openCloseRoomCol{
             min-width: 100px !important;
             max-width: 100px !important;
-            width: 100px !important;
+            white-space: normal !important;
+            /*width: 100px !important;*/
         }
         .room-priority,.room-name,.room-size{
             padding-left: 14px;
@@ -516,8 +547,8 @@
             var txt ='<tr id="room-'+i+'"><input type="hidden" id="room-status-'+i+'" name="room['+i+'][status]" value="new" />'
                     +'  <td class="text-center openCloseRoomCol">'
                     +'      <label class="switch switch-success">'
-                    +'      <input id="room-input-onoff-'+i+'" name="room['+i+'][onoff]" value="on" type="checkbox" type="checkbox">'
-                    +'          <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>'
+                    +'      <input id="room-input-onoff-'+i+'" name="room['+i+'][onoff]" value="on" type="checkbox">'
+                    +'          <span class="switch-label label-lg switch-lg" data-on="เปิด" data-off="ปิด"></span>'
                     +       '</label>'
                     +'  </td>'
                     +'  <td>'
@@ -570,46 +601,115 @@
             $(".room-table").append(txt);
         }
 
+        function eventOnOffNew(){
+            var onoff = document.getElementById('event-onoff-new').checked;
+            if(onoff == false){
+                $(".event-time-start-new-container").addClass("hide");
+                $(".event-time-end-new-container").addClass("hide");
+                $("#event-time-start-new").val("");
+                $("#event-time-end-new").val("");
+            }
+            else{
+                $(".event-time-start-new-container").removeClass("hide");
+                $(".event-time-end-new-container").removeClass("hide");
+            }
+        }
+
         function eventCreate(){
             var dateStart = document.getElementById("event-date-start-new").value;
             var dateEnd = document.getElementById("event-date-end-new").value;
+            var onoff = document.getElementById('event-onoff-new').checked;
             var timeStart = document.getElementById("event-time-start-new").value;
             var timeEnd = document.getElementById("event-time-end-new").value;
+            if(dateStart == "" || dateEnd == ""){
+                _toastr("กรอกข้อมูลไม่ครบ","top-right","error",false);
+                return;
+            }
+//            var dStart = new Date(dateStart);
+//            var d = dStart.getDate();
+//            alert(d);
+            if(onoff == true){
+                if(timeStart == "" || timeEnd == ""){
+                    _toastr("กรอกข้อมูลไม่ครบ","top-right","error",false);
+                    return;
+                }
+            }
             document.getElementById("event-date-start-new").value = "";
             document.getElementById("event-date-end-new").value = "";
+            document.getElementById('event-onoff-new').checked = true;
             document.getElementById("event-time-start-new").value = "";
             document.getElementById("event-time-end-new").value = "";
+            $(".event-time-start-new-container").removeClass("hide");
+            $(".event-time-end-new-container").removeClass("hide");
             //เช็คเวลาชนด้วย
             event_count = event_count + 1;
-            var tmp = timeStart.split(" ");
-            var timeStartHour = tmp[0];
-            var timeStartMin = tmp[2];
-            tmp = timeEnd.split(" ");
-            var timeEndHour = tmp[0];
-            var timeEndMin = tmp[2];
+            if(onoff == true){
+                var tmp = timeStart.split(" ");
+                var timeStartHour = tmp[0];
+                var timeStartMin = tmp[2];
+                tmp = timeEnd.split(" ");
+                var timeEndHour = tmp[0];
+                var timeEndMin = tmp[2];
+            }
+            else{
+                timeStart = "-- : --";
+                timeEnd = "-- : --";
+                timeStartHour = "--";
+                timeStartMin = "--";
+                timeEndHour = "--";
+                timeEndMin = "--";
+            }
+
             alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd + " " + event_count + " " + timeStartHour + " " + timeStartMin + " " + timeEndHour + " " + timeEndMin);
 
             var txt =
-                    '<tr id="event-'+event_count+'"><input type="hidden" id="event-status-'+event_count+'" name="event['+event_count+'][status]" value="new" />'+
-                    '   <td><div id="event-date-start-'+event_count+'">'+dateStart+'</div><input type="text" id="event-input-date-start-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateStart+'" name="event['+event_count+'][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'+
-                    '   <td><div id="event-date-end-'+event_count+'">'+dateEnd+'</div><input type="text" id="event-input-date-end-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateEnd+'" name="event['+event_count+'][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'+
-                    '   <td><div id="event-time-start-'+event_count+'">'+timeStart+'</div><input type="text" id="event-input-time-start-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeStart+'" name="event['+event_count+'][time-start]" data-timepicki-tim="'+timeStartHour+'" data-timepicki-mini="'+timeStartMin+'"></td>'+
-                    '   <td><div id="event-time-end-'+event_count+'">'+timeEnd+'</div><input type="text" id="event-input-time-end-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeEnd+'" name="event['+event_count+'][time-end]" data-timepicki-tim="'+timeEndHour+'" data-timepicki-mini="'+timeEndMin+'"></td>'+
-                    '   <td class="text-center" style="padding-right: 0px; padding-left: 0px;">'+
-                    '       <a id="event-edit-button-'+event_count+'" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit('+event_count+')">'+
-                    '           <i class="fa fa-edit"></i>'+
-                    '           <span>แก้ไข</span>'+
-                    '       </a>'+
-                    '       <a id="event-cancel-button-'+event_count+'" onclick="eventCancel('+event_count+')" class="btn btn-3d btn-reveal btn-red hide">'+
-                    '           <i class="fa fa-times"></i>'+
-                    '           <span>ยกเลิก</span>'+
-                    '       </a>'+
-                    '       <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove('+event_count+')" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">'+
-                    '           <i class="fa fa-minus"></i>'+
-                    '           <i class="fa fa-trash"  data-toggle="modal" data-target=".event-modal"></i>'+
-                    '       </a>'+
-                    '   </td>'+
-                    '</tr>';
+                    '<tr id="event-'+event_count+'"><input type="hidden" id="event-status-'+event_count+'" name="event['+event_count+'][status]" value="new" />'
+                    +'    <td class="text-center openCloseRoomCol">'
+                    +'        <label class="switch switch-success">'
+                    +'            <input id="event-input-onoff-'+event_count+'" name="event['+event_count+'][onoff]" value="on" type="checkbox" onchange="eventOnOff('+event_count+')" checked="">'
+                    +'                <span class="switch-label" data-on="เปิด" data-off="ปิด"></span>'
+                    +'        </label>'
+                    +'    </td>'
+                    +'    <td><div id="event-date-start-'+event_count+'">'+dateStart+'</div><input type="text" id="event-input-date-start-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateStart+'" name="event['+event_count+'][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'
+                    +'    <td><div id="event-date-end-'+event_count+'">'+dateEnd+'</div><input type="text" id="event-input-date-end-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateEnd+'" name="event['+event_count+'][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'
+                    +'    <td><div id="event-time-start-off-'+event_count+'" class="hide">-- : --</div><div id="event-time-start-'+event_count+'">'+timeStart+'</div><input type="text" id="event-input-time-start-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeStart+'" name="event['+event_count+'][time-start]" data-timepicki-tim="'+timeStartHour+'" data-timepicki-mini="'+timeStartMin+'"></td>'
+                    +'    <td><div id="event-time-end-off-'+event_count+'" class="hide">-- : --</div><div id="event-time-end-'+event_count+'">'+timeEnd+'</div><input type="text" id="event-input-time-end-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeEnd+'" name="event['+event_count+'][time-end]" data-timepicki-tim="'+timeEndHour+'" data-timepicki-mini="'+timeEndMin+'"></td>'
+                    +'    <td class="text-center" style="padding-right: 0px; padding-left: 0px;">'
+                    +'        <a id="event-edit-button-'+event_count+'" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit('+event_count+')">'
+                    +'            <i class="fa fa-edit"></i>'
+                    +'            <span>แก้ไข</span>'
+                    +'        </a>'
+                    +'        <a id="event-cancel-button-'+event_count+'" onclick="eventCancel('+event_count+')" class="btn btn-3d btn-reveal btn-red hide">'
+                    +'            <i class="fa fa-times"></i>'
+                    +'            <span>ยกเลิก</span>'
+                    +'        </a>'
+                    +'        <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove('+event_count+')" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">'
+                    +'            <i class="fa fa-minus"></i>'
+                    +'           <i class="fa fa-trash"  data-toggle="modal" data-target=".event-modal"></i>'
+                    +'       </a>'
+                    +'    </td>'
+                    +'</tr>';
+
+//                    '<tr id="event-'+event_count+'"><input type="hidden" id="event-status-'+event_count+'" name="event['+event_count+'][status]" value="new" />'+
+//                    '   <td><div id="event-date-start-'+event_count+'">'+dateStart+'</div><input type="text" id="event-input-date-start-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateStart+'" name="event['+event_count+'][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'+
+//                    '   <td><div id="event-date-end-'+event_count+'">'+dateEnd+'</div><input type="text" id="event-input-date-end-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateEnd+'" name="event['+event_count+'][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'+
+//                    '   <td><div id="event-time-start-'+event_count+'">'+timeStart+'</div><input type="text" id="event-input-time-start-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeStart+'" name="event['+event_count+'][time-start]" data-timepicki-tim="'+timeStartHour+'" data-timepicki-mini="'+timeStartMin+'"></td>'+
+//                    '   <td><div id="event-time-end-'+event_count+'">'+timeEnd+'</div><input type="text" id="event-input-time-end-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeEnd+'" name="event['+event_count+'][time-end]" data-timepicki-tim="'+timeEndHour+'" data-timepicki-mini="'+timeEndMin+'"></td>'+
+//                    '   <td class="text-center" style="padding-right: 0px; padding-left: 0px;">'+
+//                    '       <a id="event-edit-button-'+event_count+'" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit('+event_count+')">'+
+//                    '           <i class="fa fa-edit"></i>'+
+//                    '           <span>แก้ไข</span>'+
+//                    '       </a>'+
+//                    '       <a id="event-cancel-button-'+event_count+'" onclick="eventCancel('+event_count+')" class="btn btn-3d btn-reveal btn-red hide">'+
+//                    '           <i class="fa fa-times"></i>'+
+//                    '           <span>ยกเลิก</span>'+
+//                    '       </a>'+
+//                    '       <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove('+event_count+')" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">'+
+//                    '           <i class="fa fa-minus"></i>'+
+//                    '           <i class="fa fa-trash"  data-toggle="modal" data-target=".event-modal"></i>'+
+//                    '       </a>'+
+//                    '   </td>'+
+//                    '</tr>';
             $('.event-table').append(txt);
             _pickers();
         }
@@ -619,6 +719,8 @@
             $("#event-date-end-"+id).addClass("hide");
             $("#event-time-start-"+id).addClass("hide");
             $("#event-time-end-"+id).addClass("hide");
+            $("#event-time-start-off-"+id).addClass("hide");
+            $("#event-time-end-off-"+id).addClass("hide");
             $("#event-input-date-start-"+id).removeClass("hide");
             $("#event-input-date-end-"+id).removeClass("hide");
             $("#event-input-time-start-"+id).removeClass("hide");
@@ -634,8 +736,14 @@
         function eventCancel(id){
             $("#event-date-start-"+id).removeClass("hide");
             $("#event-date-end-"+id).removeClass("hide");
-            $("#event-time-start-"+id).removeClass("hide");
-            $("#event-time-end-"+id).removeClass("hide");
+            if($("#event-input-time-start-"+id).val() == "-- : --"){
+                $("#event-time-start-off-"+id).removeClass("hide");
+                $("#event-time-end-off-"+id).removeClass("hide");
+            }
+            else {
+                $("#event-time-start-" + id).removeClass("hide");
+                $("#event-time-end-" + id).removeClass("hide");
+            }
             $("#event-input-date-start-"+id).addClass("hide");
             $("#event-input-date-end-"+id).addClass("hide");
             $("#event-input-time-start-"+id).addClass("hide");
@@ -655,6 +763,33 @@
         function eventConfirmRemove(id){
             $("#event-"+id).addClass("hide");
             $("#room-status-"+id).attr("value","deleted");
+        }
+
+        function eventOnOff(id){
+            var onoff = document.getElementById('event-input-onoff-'+id).checked;
+//            alert(onoff);
+            if(onoff == false){
+//                alert("fa");
+                $("#event-input-time-start-"+id).val("-- : --");
+                $("#event-input-time-end-"+id).val("-- : --");
+                $("#event-time-start-off-"+id).removeClass("hide");
+                $("#event-time-end-off-"+id).removeClass("hide");
+                $("#event-input-time-start-"+id).addClass("hide");
+                $("#event-input-time-end-"+id).addClass("hide");
+                $("#event-time-start-"+id).addClass("hide");
+                $("#event-time-end-"+id).addClass("hide");
+            }
+            else{
+//                alert("tr");
+                $("#event-input-time-start-"+id).val($("#event-time-start-"+id).text());
+                $("#event-input-time-end-"+id).val($("#event-time-end-"+id).text());
+                $("#event-time-start-off-"+id).addClass("hide");
+                $("#event-time-end-off-"+id).addClass("hide");
+                $("#event-input-time-start-"+id).addClass("hide");
+                $("#event-input-time-end-"+id).addClass("hide");
+                $("#event-time-start-"+id).removeClass("hide");
+                $("#event-time-end-"+id).removeClass("hide");
+            }
         }
 
         $(document).ready(function(){
