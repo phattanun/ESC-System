@@ -280,20 +280,6 @@ class ActivityController extends Controller
 
         if (!isset($user['activities']) && !Activity::where('act_id', $act_data['act_id'])->where('creator_id', $user['student_id'])->exists() && !CanEditActivity::where('act_id', $act_data['act_id'])->where('student_id', $user['student_id'])->exists())
             return 'fail';
-        if ($act_data['status'] != 0 && !isset($user['activities']))
-            return 'fail';
-
-        if (!is_null($request->input('activity_name'))) $act_data['name'] = $request->input('activity_name');
-        if (!is_null($request->input('kind_of_activity'))) $act_data['category'] = $request->input('kind_of_activity');
-        if (!is_null($request->input('act_status'))) $act_data['status'] = $request->input('act_status');
-        $act_data['tqf_ethics'] = $ethics;
-        $act_data['tqf_knowledge'] = $knowledge;
-        $act_data['tqf_cognitive'] = $cognitive;
-        $act_data['tqf_interpersonal'] = $interpersonal;
-        $act_data['tqf_communication'] = $communication;
-        $act_data['avail_year'] = $request->input('last_year_seen');
-        if (!is_null($request->input('division'))) $act_data['div_id'] = $request->input('division');
-        $act_data->save();
 
         if (!is_null($student_id)) {
             foreach ($student_id as $sid) {
@@ -309,6 +295,7 @@ class ActivityController extends Controller
         } else {
             CanEditActivity::where('act_id', $act_data['act_id'])->delete();
         }
+
         $delete = $request->input('delete');
         if(isset($delete)&&!empty($delete)){
             foreach($delete as $deletes){
@@ -337,6 +324,36 @@ class ActivityController extends Controller
                         'uploader_id' => $user['student_id']
                     ]);
                 }
+            }
+        }
+
+
+        if ($act_data['status'] == 0 || isset($user['activities'])) {
+            if (!is_null($request->input('activity_name'))) $act_data['name'] = $request->input('activity_name');
+            if (!is_null($request->input('kind_of_activity'))) $act_data['category'] = $request->input('kind_of_activity');
+            if (!is_null($request->input('act_status'))) $act_data['status'] = $request->input('act_status');
+            $act_data['tqf_ethics'] = $ethics;
+            $act_data['tqf_knowledge'] = $knowledge;
+            $act_data['tqf_cognitive'] = $cognitive;
+            $act_data['tqf_interpersonal'] = $interpersonal;
+            $act_data['tqf_communication'] = $communication;
+            $act_data['avail_year'] = $request->input('last_year_seen');
+            if (!is_null($request->input('division'))) $act_data['div_id'] = $request->input('division');
+            $act_data->save();
+
+            if (!is_null($student_id)) {
+                foreach ($student_id as $sid) {
+                    if ($deleted[$sid] != "true" && !CanEditActivity::where('act_id', $act_data['act_id'])->where('student_id', $sid)->exists()) {
+                        CanEditActivity::create([
+                            'act_id' => $act_data['act_id'],
+                            'student_id' => $sid
+                        ]);
+                    } else if ($deleted[$sid] == "true" && CanEditActivity::where('act_id', $act_data['act_id'])->where('student_id', $sid)->exists()) {
+                        CanEditActivity::where('act_id', $act_data['act_id'])->where('student_id', $sid)->delete();
+                    }
+                }
+            } else {
+                CanEditActivity::where('act_id', $act_data['act_id'])->delete();
             }
         }
     }

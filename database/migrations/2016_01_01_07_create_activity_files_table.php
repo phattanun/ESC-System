@@ -21,7 +21,7 @@ class CreateActivityFilesTable extends Migration
             $table->timestamp('create_at');
             $table->bigInteger('uploader_id')->unsigned();
 
-            $table->foreign('act_id')->references('act_id')->on('activities');
+            $table->foreign('act_id')->references('act_id')->on('activities')->onDelete('cascade');
             $table->foreign('uploader_id')->references('student_id')->on('users');
         });
         DB::statement("ALTER TABLE activity_files ADD content LONGBLOB");
