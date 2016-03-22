@@ -501,7 +501,7 @@
                                     +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
                                     +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
                                     +'<td style="vertical-align:middle;text-align: center">'
-                                    +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+{{$act['act_id']}}+ ')">'
+                                    +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+input[i]['act_id']+')">'
                                     +'<i class="fa fa-edit"></i>'
                                     +'<span>แก้ไข</span>'
                                     +'</button>'
@@ -510,8 +510,8 @@
                                 );
                                 if(user['activities']==null && input['status']!='0')
                                 {
-                                    $('#delete-button-{{$act['act_id']}}').empty();
-                                    $('#delete-button-{{$act['act_id']}}').remove();
+                                    $('#delete-button-'+input[i]['act_id']).empty();
+                                    $('#delete-button-'+input[i]['act_id']).remove();
                                 }
                             }
                         }
