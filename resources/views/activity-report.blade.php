@@ -137,6 +137,13 @@
             },
             legend: {
                 position: 'right'
+            },
+            pie: {
+                label: {
+                    format: function (value, ratio, id) {
+                        return d3.format('')(value)+"("+d3.format('')((ratio*100).toFixed(2))+"%)";
+                    }
+                }
             }
         });
         var chart2 = c3.generate({
