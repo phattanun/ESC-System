@@ -327,7 +327,6 @@ class ActivityController extends Controller
             }
         }
 
-
         if ($act_data['status'] == 0 || isset($user['activities'])) {
             if (!is_null($request->input('activity_name'))) $act_data['name'] = $request->input('activity_name');
             if (!is_null($request->input('kind_of_activity'))) $act_data['category'] = $request->input('kind_of_activity');

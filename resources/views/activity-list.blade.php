@@ -216,40 +216,42 @@
                                 <th style="vertical-align:middle;text-align: center">สถานะกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center"></th>
                             </tr>
-                            @foreach($act_list as $act)
-                                <tr class="actlist" id='activity-{{$act['act_id']}}'>
-                                    <td class="text-center">
-                                        @if(isset($user['activities']) || $act['status']==0)
-                                        <a id="delete-button-{{$act['act_id']}}"class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบกิจกรรม">
-                                            <i class="fa fa-minus"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                        @endif
-                                    </td>
-                                    <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
-                                    <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>
-                                @if(isset($actFiles[$act['act_id']])&&!empty($actFiles[$act['act_id']])&&sizeof($actFiles[$act['act_id']])>0)    <td style="vertical-align: middle;text-align: center">@foreach($actFiles[$act['act_id']] as $actFile) <a class="file" href="{{url('/activity/attachments')}}/{{$actFile['file_id']}}">{{$actFile['file_name']}}</a></br> @endforeach</td>
-                                @else   <td style="vertical-align: middle;text-align: center">ไม่มีไฟล์</td>
-                                @endif
-                                        @if($act['status']==0)
-                                            <td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>
-                                        @elseif($act['status']==1)
-                                            <td style="vertical-align: middle;text-align: center"><span class="text-olive">กวศ อนุมัติ</span></td>
-                                        @elseif($act['status']==2)
-                                        <td style="vertical-align: middle;text-align: center"><span class="text-green">คณบดี อนุมัติ</span></td>
-                                        @elseif($act['status']==3)
-                                        <td style="vertical-align: middle;text-align: center"><span class="text-red">รอปิดโครงการ</span></td>
-                                        @elseif($act['status']==4)
-                                        <td style="vertical-align: middle;text-align: center"><span class="text-black">ปิดโครงการ</span></td>
-                                        @endif
-                                    <td style="vertical-align: middle;text-align: center">
-                                        <button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail({{$act['act_id']}})">
-                                            <i class="fa fa-edit"></i>
-                                            <span>แก้ไข</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if(is_null($act_list))
+                                @foreach($act_list as $act)
+                                    <tr class="actlist" id='activity-{{$act['act_id']}}'>
+                                        <td class="text-center">
+                                            @if(isset($user['activities']) || $act['status']==0)
+                                            <a id="delete-button-{{$act['act_id']}}"class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบกิจกรรม">
+                                                <i class="fa fa-minus"></i>
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                            @endif
+                                        </td>
+                                        <td style="vertical-align: middle;text-align: center">{{$act['name']}}</td>
+                                        <td style="vertical-align: middle;text-align: center">{{$act['year']}}</td>
+                                    @if(isset($actFiles[$act['act_id']])&&!empty($actFiles[$act['act_id']])&&sizeof($actFiles[$act['act_id']])>0)    <td style="vertical-align: middle;text-align: center">@foreach($actFiles[$act['act_id']] as $actFile) <a class="file" href="{{url('/activity/attachments')}}/{{$actFile['file_id']}}">{{$actFile['file_name']}}</a></br> @endforeach</td>
+                                    @else   <td style="vertical-align: middle;text-align: center">ไม่มีไฟล์</td>
+                                    @endif
+                                            @if($act['status']==0)
+                                                <td style="vertical-align: middle;text-align: center"><span class="text-orange">รอเปิดโครงการ</span></td>
+                                            @elseif($act['status']==1)
+                                                <td style="vertical-align: middle;text-align: center"><span class="text-olive">กวศ อนุมัติ</span></td>
+                                            @elseif($act['status']==2)
+                                            <td style="vertical-align: middle;text-align: center"><span class="text-green">คณบดี อนุมัติ</span></td>
+                                            @elseif($act['status']==3)
+                                            <td style="vertical-align: middle;text-align: center"><span class="text-red">รอปิดโครงการ</span></td>
+                                            @elseif($act['status']==4)
+                                            <td style="vertical-align: middle;text-align: center"><span class="text-black">ปิดโครงการ</span></td>
+                                            @endif
+                                        <td style="vertical-align: middle;text-align: center">
+                                            <button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail({{$act['act_id']}})">
+                                                <i class="fa fa-edit"></i>
+                                                <span>แก้ไข</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </table>
                     </div>
                 </div>
@@ -279,248 +281,250 @@
 @endsection
 @section('js')
     <script>
-        var editor = 0;
-        $(document).on('click','.delete-file-tuple',function (){
-            $('#delete-'+this.id).val(this.id);
-            $(this).closest('li').addClass('hidden');
-        });
-        $(document).on('click','.delete-file-btn',function (){
-            $(this).closest('.row').remove();
-        });
-        $('.modal').on('hidden.bs.modal', function () {
-            $('#exist-file-section').html('');
-            $('.file-upload-class').remove();
-        });
-        $('#add-file').click(function(){
-            $(
-                    '<div class="row file-upload-class">'+
-                    '<div class="col-xs-9 col-md-5">'+
-                    '<div class="fancy-file-upload fancy-file-primary">'+
-                    '<i class="fa fa-upload"></i>'+
-                    '<input type="file" class="form-control" name="file[]" onchange="jQuery(this).next('+"'input'"+').val(this.value);" />'+
-                    '<input type="text" class="form-control file-upload" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />'+
-                    '<span class="button">เลือกไฟล์</span>'+
-                    '</div>'+
-                    '</div>'+
-                    '<div class="col-xs-1 col-md-1 delete-file-btn">'+
-                    '<td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">'+
-                    '<i class="fa fa-minus"></i>'+
-                    '<i class="fa fa-trash"></i>'+
-                    '</a>'+
-                    '</td>'+
-                    '</div>'
-            ).appendTo('#upload-file-section');
-        });
-        var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
-        function loaddetail(act_id) {
-            var URL_ROOT = '{{Request::root()}}';
-            $.post(URL_ROOT + '/activity/list/getdetail',
-                    {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
-                if (input == 'fail') {
-                    _toastr("ไม่พบกิจกรรมในระบบ", "top-right", "error", false);
-                    return false;
-                }
-                else {
-                    var act_data = JSON.parse(input);
-                    editor = act_data.can_edit.length;
-                    $('#act_id').val(act_data.act.act_id);
-                    $('#myLargeModalLabel').empty();
-                    $('#myLargeModalLabel').append(act_data.act.name);
-                    $('#act_name').val(act_data.act.name);
-                    act_data.act.status =='0' || user['activities'] ? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
-
-                  @if(isset($user['activities']))  $('#act_status').select2('val',act_data.act.status); @endif
-                    $('#kind_of_activity').select2('val',act_data.act.category);
-
-                    act_data.act.status =='0' || user['activities'] ? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
-
-                    act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
-                    act_data.act.status =='0' || user['activities'] ? $('#ethics').prop('disabled',false):$('#ethics').prop('disabled',true);
-
-                    act_data.act.tqf_knowledge=='1'? $('#knowledge').prop('checked',true):$('#knowledge').prop('checked',false);
-                    act_data.act.status =='0' || user['activities'] ? $('#knowledge').prop('disabled',false):$('#knowledge').prop('disabled',true);
-
-                    act_data.act.tqf_cognitive=='1'? $('#cognitive').prop('checked',true): $('#cognitive').prop('checked',false);
-                    act_data.act.status =='0' || user['activities'] ? $('#cognitive').prop('disabled',false):$('#cognitive').prop('disabled',true);
-
-                    act_data.act.tqf_interpersonal=='1'? $('#interpersonal').prop('checked',true):$('#interpersonal').prop('checked',false);
-                    act_data.act.status =='0' || user['activities'] ? $('#interpersonal').prop('disabled',false):$('#interpersonal').prop('disabled',true);
-
-                    act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
-                    act_data.act.status =='0' || user['activities'] ? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
-
-                    $('#division').select2('val',act_data.act.div_id);
-
-                    act_data.act.status =='0' || user['activities'] ? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
-
-                    if(act_data.can_edit.length == 0)
-                        $('#table-div').addClass('hidden');
-                    else if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
-
-                    $('#permission-table').empty();
-                    $('#permission-table').append(
-                            '<tr id="table-header">'
-                            + '<th style="vertical-align:middle"></th>'
-                            + '<th style="vertical-align:middle;" >รหัสนิสิต</th>'
-                            + '<th style="vertical-align:middle;" >ชื่อ</th>'
-                            + '<th style="vertical-align:middle;" >นามสกุล</th>'
-                            + '</tr>'
-                    );
-                    for(i=0;i<act_data.can_edit.length;i++){
-                        $('#permission-table').append(
-                            '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
-                            +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
-                            +' <i class="fa fa-minus"></i>'
-                            +' <i class="fa fa-trash"></i>'
-                            +' </a></td>'
-                            +' <td><input type="hidden" name="student_id[]" value="'+act_data.can_edit[i].student_id+'"/>'+act_data.can_edit[i].student_id+'</td>'
-                            +' <td>'+act_data.can_edit[i].name+'</td>'
-                            +' <td>'+act_data.can_edit[i].surname+'</td>'
-                            +' </tr>'
-                        );
-                    }
-                    for(i=0;i<act_data.file.length;i++){
-                        $('#exist-file-section').append(
-                                '<li class="list-group-item"><input id="delete-'+act_data.file[i].file_id +'" type="hidden" name="delete[]" value="" /><a id="'+ act_data.file[i].file_id +'" class="pull-right delete-file-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
-                                +' <i class="fa fa-minus"></i>'
-                                +' <i class="fa fa-trash"></i>'
-                                +' </a><a href="{{url('/activity/attachments')}}/'+ act_data.file[i].file_id+'">'+ act_data.file[i].file_name +'</a></li>'
-                        );
-                    }
-                    $('#last_year_seen').val(act_data.act.avail_year);
-                    act_data.act.status =='0' || user['activities'] ? $('#last_year_seen').prop('disabled',false):$('#last_year_seen').prop('disabled',true);
-                }
-            }).fail(function () {
-                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
-                return false;
+        @if(is_null($act_list))
+            var editor = 0;
+            $(document).on('click','.delete-file-tuple',function (){
+                $('#delete-'+this.id).val(this.id);
+                $(this).closest('li').addClass('hidden');
             });
-        }
-        function deleteActivity(act_id){
-            var URL_ROOT = '{{Request::root()}}';
-            $.post(URL_ROOT + '/activity/list/delete_activity',
-                    {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
-                $('#activity-'+act_id).remove();
-            }).fail(function () {
-                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
-                return false;
+            $(document).on('click','.delete-file-btn',function (){
+                $(this).closest('.row').remove();
             });
-        }
-        function main(){
-            $(document).on('click','.delete-user-tuple',function(){
-                var id =  this.id;
-                $('#tuple-'+id).addClass('hidden');
-                $('#delete-'+id).val(true);
-                editor--;
-                if(editor == 0) {
-                    $('#table-div').addClass('hidden');
-                }
+            $('.modal').on('hidden.bs.modal', function () {
+                $('#exist-file-section').html('');
+                $('.file-upload-class').remove();
             });
-            $('#studentInfo').keyup(function(){
-                $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('/setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
-                _autosuggest();
-                $(this).trigger( "focus" );
+            $('#add-file').click(function(){
+                $(
+                        '<div class="row file-upload-class">'+
+                        '<div class="col-xs-9 col-md-5">'+
+                        '<div class="fancy-file-upload fancy-file-primary">'+
+                        '<i class="fa fa-upload"></i>'+
+                        '<input type="file" class="form-control" name="file[]" onchange="jQuery(this).next('+"'input'"+').val(this.value);" />'+
+                        '<input type="text" class="form-control file-upload" placeholder="ยังไม่ได้เลือกไฟล์" readonly="" />'+
+                        '<span class="button">เลือกไฟล์</span>'+
+                        '</div>'+
+                        '</div>'+
+                        '<div class="col-xs-1 col-md-1 delete-file-btn">'+
+                        '<td class="text-center"><a class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบไฟล์นี้">'+
+                        '<i class="fa fa-minus"></i>'+
+                        '<i class="fa fa-trash"></i>'+
+                        '</a>'+
+                        '</td>'+
+                        '</div>'
+                ).appendTo('#upload-file-section');
             });
-            $('#activityInfo').keyup(function(){
-                $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('/activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
-                _autosuggest();
-                $(this).trigger( "focus" );
-            });
-            $(document).on('click','#add-new-editor-btn',function(){
+            var user = JSON.parse("{{$user}}".replace(/&quot;/g,'"'));
+            function loaddetail(act_id) {
                 var URL_ROOT = '{{Request::root()}}';
-                $.post(URL_ROOT+'/activity/create/addEditor',
-                        {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
-                    if(input=='fail'){
-                        _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
-                        return false;
-                    }
-                    else {
-                        if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
-                        if(document.getElementById(input["student_id"])){
-                            if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
-                                _toastr("ข้อมูลซ้ำ","top-right","warning",false);
-                                editor--;
-                            }
-
-                            $('#tuple-'+input["student_id"]).removeClass('hidden');
-                            $('#delete-'+input["student_id"]).val("");
-                            editor++;
-                        }
-                        else {
-                            $('#permission-table').append(
-                                    '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
-                                    +'<td class="text-center">'
-                                    +'<a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
-                                    +' <i class="fa fa-minus"></i>'
-                                    +' <i class="fa fa-trash"></i>'
-                                    +' </a></td>'
-                                    +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
-                                    +' <td>'+input["name"]+'</td>'
-                                    +' <td>'+input["surname"]+'</td>'
-                                    +'  </tr>'
-                            );
-                            editor++;
-                        }
-                    }
-                }).fail(function () {
-                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
-                    return false;
-                });
-            });
-            $(document).on('click','#search-activity-btn', function () {
-                var URL_ROOT = '{{Request::root()}}';
-                $.post(URL_ROOT + '/activity/list/search_activity',
-                        {act_name: $('#activityInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                $.post(URL_ROOT + '/activity/list/getdetail',
+                        {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
                     if (input == 'fail') {
                         _toastr("ไม่พบกิจกรรมในระบบ", "top-right", "error", false);
                         return false;
                     }
                     else {
-                        $('.actlist').remove();
-                        for(i=0;i<input.length;i++){
-                            var status;
-                            var color;
-                            console.log(typeof input[i]['status']);
-                            switch(input[i]['status']){
-                                case 0: status = 'รอเปิดโครงการ';color = 'text-orange';break;
-                                case 1: status = 'กวศ อนุมัติ';color = 'text-olive';break;
-                                case 2: status = 'คณบดี อนุมัติ';color = 'text-green';break;
-                                case 3: status = 'รอปิดโครงการ';color = 'text-red';break;
-                                case 4: status = 'ปิดโครงการ';color = 'text-black';break;
-                            }
-                            $('#activity-table').append(
+                        var act_data = JSON.parse(input);
+                        editor = act_data.can_edit.length;
+                        $('#act_id').val(act_data.act.act_id);
+                        $('#myLargeModalLabel').empty();
+                        $('#myLargeModalLabel').append(act_data.act.name);
+                        $('#act_name').val(act_data.act.name);
+                        act_data.act.status =='0' || user['activities'] ? $('#act_name').prop('disabled',false):$('#act_name').prop('disabled',true);
+
+                      @if(isset($user['activities']))  $('#act_status').select2('val',act_data.act.status); @endif
+                        $('#kind_of_activity').select2('val',act_data.act.category);
+
+                        act_data.act.status =='0' || user['activities'] ? $('#kind_of_activity').prop('disabled',false):$('#kind_of_activity').prop('disabled',true);
+
+                        act_data.act.tqf_ethics=='1'? $('#ethics').prop('checked',true):$('#ethics').prop('checked',false);
+                        act_data.act.status =='0' || user['activities'] ? $('#ethics').prop('disabled',false):$('#ethics').prop('disabled',true);
+
+                        act_data.act.tqf_knowledge=='1'? $('#knowledge').prop('checked',true):$('#knowledge').prop('checked',false);
+                        act_data.act.status =='0' || user['activities'] ? $('#knowledge').prop('disabled',false):$('#knowledge').prop('disabled',true);
+
+                        act_data.act.tqf_cognitive=='1'? $('#cognitive').prop('checked',true): $('#cognitive').prop('checked',false);
+                        act_data.act.status =='0' || user['activities'] ? $('#cognitive').prop('disabled',false):$('#cognitive').prop('disabled',true);
+
+                        act_data.act.tqf_interpersonal=='1'? $('#interpersonal').prop('checked',true):$('#interpersonal').prop('checked',false);
+                        act_data.act.status =='0' || user['activities'] ? $('#interpersonal').prop('disabled',false):$('#interpersonal').prop('disabled',true);
+
+                        act_data.act.tqf_communication=='1'? $('#communication').prop('checked',true):$('#communication').prop('checked',false);
+                        act_data.act.status =='0' || user['activities'] ? $('#communication').prop('disabled',false):$('#communication').prop('disabled',true);
+
+                        $('#division').select2('val',act_data.act.div_id);
+
+                        act_data.act.status =='0' || user['activities'] ? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
+
+                        if(act_data.can_edit.length == 0)
+                            $('#table-div').addClass('hidden');
+                        else if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
+
+                        $('#permission-table').empty();
+                        $('#permission-table').append(
                                 '<tr id="table-header">'
-                                +'<td class="text-center">'
-                                +'<a id="delete-button-'+input[i]['act_id']+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
-                                +'<i class="fa fa-minus"></i>'
-                                +'<i class="fa fa-trash"></i>'
-                                +'</a>'
-                                +'</td>'
-                                +'<td style="vertical-align:middle;text-align: center">'+input[i]['name']+'</td>'
-                                +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
-                                +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
-                                +'<td style="vertical-align:middle;text-align: center">'
-                                +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+{{$act['act_id']}}+ ')">'
-                                +'<i class="fa fa-edit"></i>'
-                                +'<span>แก้ไข</span>'
-                                +'</button>'
-                                +'</td>'
-                                +'</tr>'
+                                + '<th style="vertical-align:middle"></th>'
+                                + '<th style="vertical-align:middle;" >รหัสนิสิต</th>'
+                                + '<th style="vertical-align:middle;" >ชื่อ</th>'
+                                + '<th style="vertical-align:middle;" >นามสกุล</th>'
+                                + '</tr>'
+                        );
+                        for(i=0;i<act_data.can_edit.length;i++){
+                            $('#permission-table').append(
+                                '<tr id="tuple-'+act_data.can_edit[i].student_id+'"><input type="hidden" id="delete-'+act_data.can_edit[i].student_id+'" name="deleted['+act_data.can_edit[i].student_id+']" value="" />'
+                                +'<td class="text-center"><a id="'+act_data.can_edit[i].student_id+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                +' <i class="fa fa-minus"></i>'
+                                +' <i class="fa fa-trash"></i>'
+                                +' </a></td>'
+                                +' <td><input type="hidden" name="student_id[]" value="'+act_data.can_edit[i].student_id+'"/>'+act_data.can_edit[i].student_id+'</td>'
+                                +' <td>'+act_data.can_edit[i].name+'</td>'
+                                +' <td>'+act_data.can_edit[i].surname+'</td>'
+                                +' </tr>'
                             );
-                            if(user['activities']==null && input['status']!='0')
-                            {
-                                $('#delete-button-{{$act['act_id']}}').empty();
-                                $('#delete-button-{{$act['act_id']}}').remove();
-                            }
                         }
+                        for(i=0;i<act_data.file.length;i++){
+                            $('#exist-file-section').append(
+                                    '<li class="list-group-item"><input id="delete-'+act_data.file[i].file_id +'" type="hidden" name="delete[]" value="" /><a id="'+ act_data.file[i].file_id +'" class="pull-right delete-file-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'
+                                    +' <i class="fa fa-minus"></i>'
+                                    +' <i class="fa fa-trash"></i>'
+                                    +' </a><a href="{{url('/activity/attachments')}}/'+ act_data.file[i].file_id+'">'+ act_data.file[i].file_name +'</a></li>'
+                            );
+                        }
+                        $('#last_year_seen').val(act_data.act.avail_year);
+                        act_data.act.status =='0' || user['activities'] ? $('#last_year_seen').prop('disabled',false):$('#last_year_seen').prop('disabled',true);
                     }
                 }).fail(function () {
                     _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
                     return false;
                 });
-            });
-        }
-        $( document ).ready(main);
+            }
+            function deleteActivity(act_id){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT + '/activity/list/delete_activity',
+                        {act_id: act_id, _token: '{{csrf_token()}}'}).done(function (input) {
+                    $('#activity-'+act_id).remove();
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                    return false;
+                });
+            }
+            function main(){
+                $(document).on('click','.delete-user-tuple',function(){
+                    var id =  this.id;
+                    $('#tuple-'+id).addClass('hidden');
+                    $('#delete-'+id).val(true);
+                    editor--;
+                    if(editor == 0) {
+                        $('#table-div').addClass('hidden');
+                    }
+                });
+                $('#studentInfo').keyup(function(){
+                    $('.typeahead').typeahead('destroy');
+                    $('.autosuggest').attr('data-queryURL','{!! url('/setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                    _autosuggest();
+                    $(this).trigger( "focus" );
+                });
+                $('#activityInfo').keyup(function(){
+                    $('.typeahead').typeahead('destroy');
+                    $('.autosuggest').attr('data-queryURL','{!! url('/activity/auto_suggest?limit=10&search=') !!}'+$(this).val());
+                    _autosuggest();
+                    $(this).trigger( "focus" );
+                });
+                $(document).on('click','#add-new-editor-btn',function(){
+                    var URL_ROOT = '{{Request::root()}}';
+                    $.post(URL_ROOT+'/activity/create/addEditor',
+                            {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                        if(input=='fail'){
+                            _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
+                            return false;
+                        }
+                        else {
+                            if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
+                            if(document.getElementById(input["student_id"])){
+                                if(!$('#tuple-'+input["student_id"]).hasClass('hidden')){
+                                    _toastr("ข้อมูลซ้ำ","top-right","warning",false);
+                                    editor--;
+                                }
+
+                                $('#tuple-'+input["student_id"]).removeClass('hidden');
+                                $('#delete-'+input["student_id"]).val("");
+                                editor++;
+                            }
+                            else {
+                                $('#permission-table').append(
+                                        '<tr id="tuple-'+input["student_id"]+'"><input type="hidden" id="delete-'+input["student_id"]+'" name="deleted['+input["student_id"]+']" value="" />'
+                                        +'<td class="text-center">'
+                                        +'<a id="'+input["student_id"]+'" class="delete-user-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                        +' <i class="fa fa-minus"></i>'
+                                        +' <i class="fa fa-trash"></i>'
+                                        +' </a></td>'
+                                        +' <td><input type="hidden" name="student_id[]" value="'+input["student_id"]+'"/>'+input["student_id"]+'</td>'
+                                        +' <td>'+input["name"]+'</td>'
+                                        +' <td>'+input["surname"]+'</td>'
+                                        +'  </tr>'
+                                );
+                                editor++;
+                            }
+                        }
+                    }).fail(function () {
+                        _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                        return false;
+                    });
+                });
+                $(document).on('click','#search-activity-btn', function () {
+                    var URL_ROOT = '{{Request::root()}}';
+                    $.post(URL_ROOT + '/activity/list/search_activity',
+                            {act_name: $('#activityInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                        if (input == 'fail') {
+                            _toastr("ไม่พบกิจกรรมในระบบ", "top-right", "error", false);
+                            return false;
+                        }
+                        else {
+                            $('.actlist').remove();
+                            for(i=0;i<input.length;i++){
+                                var status;
+                                var color;
+                                console.log(typeof input[i]['status']);
+                                switch(input[i]['status']){
+                                    case 0: status = 'รอเปิดโครงการ';color = 'text-orange';break;
+                                    case 1: status = 'กวศ อนุมัติ';color = 'text-olive';break;
+                                    case 2: status = 'คณบดี อนุมัติ';color = 'text-green';break;
+                                    case 3: status = 'รอปิดโครงการ';color = 'text-red';break;
+                                    case 4: status = 'ปิดโครงการ';color = 'text-black';break;
+                                }
+                                $('#activity-table').append(
+                                    '<tr id="table-header">'
+                                    +'<td class="text-center">'
+                                    +'<a id="delete-button-'+input[i]['act_id']+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
+                                    +'<i class="fa fa-minus"></i>'
+                                    +'<i class="fa fa-trash"></i>'
+                                    +'</a>'
+                                    +'</td>'
+                                    +'<td style="vertical-align:middle;text-align: center">'+input[i]['name']+'</td>'
+                                    +'<td style="vertical-align:middle;text-align: center">'+input[i]['year']+'</td>'
+                                    +'<td style="vertical-align:middle;text-align: center"><span class="'+color+'">'+status+'</span></td>'
+                                    +'<td style="vertical-align:middle;text-align: center">'
+                                    +'<button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target=".act_detail" onclick="loaddetail('+{{$act['act_id']}}+ ')">'
+                                    +'<i class="fa fa-edit"></i>'
+                                    +'<span>แก้ไข</span>'
+                                    +'</button>'
+                                    +'</td>'
+                                    +'</tr>'
+                                );
+                                if(user['activities']==null && input['status']!='0')
+                                {
+                                    $('#delete-button-{{$act['act_id']}}').empty();
+                                    $('#delete-button-{{$act['act_id']}}').remove();
+                                }
+                            }
+                        }
+                    }).fail(function () {
+                        _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                        return false;
+                    });
+                });
+            }
+            $( document ).ready(main);
+        @endif
     </script>
 @endsection
