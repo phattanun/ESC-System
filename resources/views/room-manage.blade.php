@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="fancy-form margin-bottom-20">
                                     <i class="fa fa-users"></i>
-                                    <input id="room-input-size-new" type="text" class="form-control" placeholder="จำนวนคนที่จุได้">
+                                    <input id="room-input-size-new" type="text" class="form-control number" placeholder="จำนวนคนที่จุได้">
                                 </div>
                                 <a class="btn btn-3d btn-reveal btn-success pull-right" onclick="roomCreate()">
                                     <i class="fa fa-plus"></i>
@@ -146,31 +146,38 @@
                                             </tr>
                                             <tr id="room-1"><input type="hidden" id="room-status-1" name="room[1][status]" value="" />
                                                 <td class="text-center openCloseRoomCol">
-                                                    <label class="switch switch-success switch-lg label-lg">
+                                                    <label class="switch switch-success">
                                                         <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox" type="checkbox">
                                                         <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>
                                                     </label>
                                                 </td>
                                                 <td>
-                                                    <div id="room-name-1">ห้องประชุมใหญ่ 1</div>
+                                                    <div id="room-name-1" class="room-name">ห้องประชุมใหญ่ 1</div>
                                                     <div id="room-input-name-1" class="hide">
-                                                        <input id="room-input-name-box-1" type="text" class="form-control" name="room[1][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่1">
+                                                        <input id="room-input-name-box-1" type="text" class="form-control" name="room[1][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่ 1">
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="room-size-1">30 คน</div>
+                                                    <div id="room-size-1" class="room-size">30 คน</div>
                                                     <div id="room-input-size-1" class="hide">
                                                         <div class="col-xs-10 no-padding">
-                                                            <input id="room-input-size-box-1" type="text" class="form-control" style="display: inline; width: 100%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
+                                                            <input id="room-input-size-box-1" type="text" class="form-control number" style="display: inline; width: 100%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
                                                         </div>
                                                         &nbspคน
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="room-priority-1">1</div>
+                                                    <div id="room-priority-1" class="room-priority">1 / 5</div>
                                                     <div id="room-input-priority-1" class="hide">
                                                         <div class="col-xs-12 no-padding">
-                                                            <input id="room-input-priority-box-1" type="text" class="form-control" style="display: inline; width: 100%;" name="room[1][priority]" placeholder="ลำดับความสำคัญ" value="1">
+                                                            {{--<input id="room-input-priority-box-1" type="text" class="form-control number" style="display: inline; width: 100%;" name="room[1][priority]" placeholder="ลำดับความสำคัญ" value="1">--}}
+                                                            <select id="room-input-priority-box-1" class="form-control select" name="room[1][priority]">
+                                                                <option value="1">1 / 5</option>
+                                                                <option value="2">2 / 5</option>
+                                                                <option value="3">3 / 5</option>
+                                                                <option value="4">4 / 5</option>
+                                                                <option value="5">5 / 5</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -431,20 +438,26 @@
         }
         .openCloseRoomCol{
             min-width: 100px !important;
-            width: 100px;
+            max-width: 100px !important;
+            width: 100px !important;
+        }
+        .room-priority,.room-name,.room-size{
+            padding-left: 14px;
         }
     </style>
 @endsection
 
 @section('js-top')
     <script>
-        var room_count = 2;
+        var room_count = 1;
         var event_count = 1;
         function roomEdit(id){
             $("#room-name-"+id).addClass("hide");
             $("#room-size-"+id).addClass("hide");
+            $("#room-priority-"+id).addClass("hide");
             $("#room-input-name-"+id).removeClass("hide");
             $("#room-input-size-"+id).removeClass("hide");
+            $("#room-input-priority-"+id).removeClass("hide");
             $("#room-edit-button-"+id).addClass("hide");
             $("#room-cancel-button-"+id).removeClass("hide");
             //เช็คชื่อซ้ำด้วย
@@ -461,10 +474,18 @@
             size = size.split(" ");
             size = size[0];
             document.getElementById("room-input-size-box-"+id).value = size;
+            var priority = document.getElementById("room-priority-"+id).innerText;
+            priority = priority.split(" ");
+            priority = priority[0];
+            document.getElementById("room-input-priority-box-"+id).value = priority;
+
+//            alert(priority);
             $("#room-name-"+id).removeClass("hide");
             $("#room-size-"+id).removeClass("hide");
+            $("#room-priority-"+id).removeClass("hide");
             $("#room-input-name-"+id).addClass("hide");
             $("#room-input-size-"+id).addClass("hide");
+            $("#room-input-priority-"+id).addClass("hide");
             $("#room-edit-button-"+id).removeClass("hide");
             $("#room-cancel-button-"+id).addClass("hide");
 
@@ -483,7 +504,7 @@
         function roomCreate(){
             var name = document.getElementById("room-input-name-new").value;
             var size = document.getElementById("room-input-size-new").value;
-            if(name == "" && size == ""){
+            if(name == "" || size == ""){
                 _toastr("กรอกข้อมูลไม่ครบ","top-right","error",false);
                 return;
             }
@@ -493,21 +514,42 @@
             room_count = room_count + 1;
             var i = room_count;
             var txt ='<tr id="room-'+i+'"><input type="hidden" id="room-status-'+i+'" name="room['+i+'][status]" value="new" />'
-                    +'<td>'
-                    +'  <div id="room-name-'+i+'">'+name+'</div>'
-                    +'  <div id="room-input-name-'+i+'" class="hide">'
-                    +'      <input id="room-input-name-box-'+i+'" type="text" class="form-control" name="room['+i+'][name]" placeholder="ชื่อห้องประชุม" value="'+name+'">'
-                    +'  </div>'
-                    +' </td>'
-                    +'<td>'
-                    +'  <div id="room-size-'+i+'">'+size+' คน</div>'
-                    +'  <div id="room-input-size-'+i+'" class="hide">'
-                    +'      <div class="col-xs-12 no-padding">'
-                    +'          <input id="room-input-size-box-'+i+'" type="text" class="form-control" style="display: inline; width: 80%;" name="room['+i+'][size]" placeholder="จำนวนคนที่จุได้" value="'+size+'">'
-                    +'          คน'
+                    +'  <td class="text-center openCloseRoomCol">'
+                    +'      <label class="switch switch-success">'
+                    +'      <input id="room-input-onoff-'+i+'" name="room['+i+'][onoff]" value="on" type="checkbox" type="checkbox">'
+                    +'          <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>'
+                    +       '</label>'
+                    +'  </td>'
+                    +'  <td>'
+                    +'      <div id="room-name-'+i+'" class="room-name">'+name+'</div>'
+                    +'      <div id="room-input-name-'+i+'" class="hide">'
+                    +'          <input id="room-input-name-box-'+i+'" type="text" class="form-control" name="room['+i+'][name]" placeholder="ชื่อห้องประชุม" value="'+name+'">'
                     +'      </div>'
-                    +'  </div>'
-                    +'</td>'
+                    +'  </td>'
+                    +'  <td>'
+                    +'      <div id="room-size-'+i+'" class="room-size">'+size+' คน</div>'
+                    +'      <div id="room-input-size-'+i+'" class="hide">'
+                    +'          <div class="col-xs-10 no-padding">'
+                    +'              <input id="room-input-size-box-'+i+'" type="text" class="form-control number" style="display: inline; width: 100%;" name="room['+i+'][size]" placeholder="จำนวนคนที่จุได้" value="'+size+'">'
+                    +'          </div>'
+                    +'          &nbspคน'
+                    +'      </div>'
+                    +'  </td>'
+                    +'  <td>'
+                    +'      <div id="room-priority-'+i+'" class="room-priority">1 / 5</div>'
+                    +'      <div id="room-input-priority-'+i+'" class="hide">'
+                    +'          <div class="col-xs-12 no-padding">'
+//                    +'              <input id="room-input-priority-box-'+i+'" type="text" class="form-control number" style="display: inline; width: 100%;" name="room['+i+'][priority]" placeholder="ลำดับความสำคัญ" value="1">'
+                    +'              <select id="room-input-priority-box-'+i+'" class="form-control select" name="room['+i+'][priority]">'
+                    +'                  <option value="1">1 / 5</option>'
+                    +'                  <option value="2">2 / 5</option>'
+                    +'                  <option value="3">3 / 5</option>'
+                    +'                  <option value="4">4 / 5</option>'
+                    +'                  <option value="5">5 / 5</option>'
+                    +'              </select>'
+                    +'          </div>'
+                    +'      </div>'
+                    +'  </td>'
 
 
                     +'<td class="text-center">'
@@ -519,16 +561,10 @@
                     +'      <i class="fa fa-times"></i>'
                     +'      <span>ยกเลิก</span>'
                     +'  </a>'
-//                    +'  <a id="room-remove-button-'+i+'" onclick="roomRemove('+i+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">'
-//                    +'      <i class="fa fa-minus"></i>'
-//                    +'      <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
-//                    +'  </a>'
-                    +'</td>'
-                    +'<td class="text-center">'
-                    +'  <label class="switch switch-success switch-lg label-lg">'
-                    +'  <input id="room-input-onoff-'+i+'" name="room['+i+'][onoff]" value="on" type="checkbox" type="checkbox">'
-                    +'      <span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>'
-                    +'  </label>'
+                    +'  <a id="room-remove-button-'+i+'" onclick="roomRemove('+i+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">'
+                    +'      <i class="fa fa-minus"></i>'
+                    +'      <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
+                    +'  </a>'
                     +'</td>'
                     +'</tr>';
             $(".room-table").append(txt);
@@ -620,6 +656,28 @@
             $("#event-"+id).addClass("hide");
             $("#room-status-"+id).attr("value","deleted");
         }
+
+        $(document).ready(function(){
+            $(".number").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                            // Allow: Ctrl+A
+                        (e.keyCode == 65 && e.ctrlKey === true) ||
+                            // Allow: Ctrl+C
+                        (e.keyCode == 67 && e.ctrlKey === true) ||
+                            // Allow: Ctrl+X
+                        (e.keyCode == 88 && e.ctrlKey === true) ||
+                            // Allow: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+        });
 
 
         /** Pickers
