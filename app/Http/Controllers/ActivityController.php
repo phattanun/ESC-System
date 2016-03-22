@@ -362,7 +362,11 @@ class ActivityController extends Controller
         if ($request->input('act_name')) {
             $search_act_info = explode('| ปีการศึกษา', $request->input('act_name'));
             $act_info = Activity::where('name', trim($search_act_info[0]))->where('year', $search_act_info[1])->get();
-            return $act_info;
+            $actFiles = [];
+            foreach($act_info as $anAct){
+                $actFiles[$anAct->act_id] = ActivityFile::select('file_name','file_id')->where('act_id',$anAct->act_id)->get();
+            };
+            return json_encode(array('act_info'=>$act_info,'actFiles'=>$actFiles));
         } else return 'fail';
     }
 
