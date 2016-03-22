@@ -210,15 +210,15 @@
                         <table class="table nomargin" id="activity-table" width="100%">
                             <tr>
                                 <th style="vertical-align:middle;text-align: center;width:5%"></th>
-                                <th style="vertical-align:middle;text-align: center;width:35%">ชื่อกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center;width:30%">ชื่อกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center;width:10%">ปีการศึกษา</th>
                                 <th style="vertical-align:middle;text-align: center;width:30%">ไฟล์</th>
-                                <th style="vertical-align:middle;text-align: center;width:10%">สถานะกิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center;width:15%">สถานะกิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center;width:10%"></th>
                             </tr>
                                 @foreach($act_list as $act)
                                     <tr class="actlist" id='activity-{{$act['act_id']}}'>
-                                        <td class="text-center">
+                                        <td class="text-center" style="vertical-align: middle;text-align: center">
                                             @if(isset($user['activities']) || $act['status']==0)
                                             <a id="delete-button-{{$act['act_id']}}"class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบกิจกรรม">
                                                 <i class="fa fa-minus"></i>
@@ -494,7 +494,7 @@
                                 }
                                 $('#activity-table').append(
                                     '<tr id="table-header" class="actlist">'
-                                    +'<td class="text-center">'
+                                    +'<td class="text-center" style="vertical-align: middle;text-align: center">'
                                     +'<a id="delete-button-'+data.act_info[i].act_id+'" class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบออกจากผู้มีสิทธิ์แก้ไขกิจกรรม">'
                                     +'<i class="fa fa-minus"></i>'
                                     +'<i class="fa fa-trash"></i>'
