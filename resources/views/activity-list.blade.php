@@ -219,7 +219,7 @@
                                 @foreach($act_list as $act)
                                     <tr class="actlist" id='activity-{{$act['act_id']}}'>
                                         <td class="text-center" style="vertical-align: middle;text-align: center">
-                                            @if(isset($user['activities']) || $act['status']==0)
+                                            @if($act['status']<=1)
                                             <a id="delete-button-{{$act['act_id']}}"class="delete-activity-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" onclick="deleteActivity({{$act['act_id']}})" data-placement="top" title="ลบกิจกรรม">
                                                 <i class="fa fa-minus"></i>
                                                 <i class="fa fa-trash"></i>
@@ -524,7 +524,7 @@
                                         );
                                     }
                                 }
-                                if(user['activities']==null && input['status']!='0')
+                                if(input['status']>1)
                                 {
                                     $('#delete-button-'+input[i]['act_id']).empty();
                                     $('#delete-button-'+input[i]['act_id']).remove();
