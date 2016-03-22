@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -33,6 +34,7 @@ class RoomController extends Controller
     public function viewReservePage()
     {
         $user = Auth::user();
+        $announcement = ScheduleSetting::first();
         $permission = Permission::find($user['student_id']);
         $activity = Activity::select('act_id', 'name')->get();
         $department = Division::select('div_id', 'name')->where('type','=','Department')->get();
@@ -40,8 +42,8 @@ class RoomController extends Controller
         $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
         $room = MeetingRoom::select('room_id', 'name')->get();
         if (is_null($user))
-            return view('room-reserve', ['permission' => $permission, 'user' => $user,'room'=>$room]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department,'generation' => $generation,'group'=>$group,'room'=>$room]);
+            return view('room-reserve', ['permission' => $permission, 'user' => $user,'room'=>$room,'announcement'=>$announcement]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department,'generation' => $generation,'group'=>$group,'room'=>$room,'announcement'=>$announcement]);
     }
 
     public function viewApprovePage()
@@ -49,6 +51,20 @@ class RoomController extends Controller
         $user = Auth::user();
         $permission = Permission::find($user['student_id']);
         return view('room-approve');
+    }
+
+    public function editAnnouncement()
+    {
+        $user = Auth::user();
+        if(is_null($user))
+            return response("login", "500");
+        $permission = Permission::find($user['student_id']);
+        if(is_null($permission) || !$permission->room)
+            return response("permission", "500");
+
+        DB::table('schedule_settings')
+            ->update(['announcement' => $_POST['announcement']]);
+        return redirect('/room/reserve');
     }
 
     public function roomManagePage()

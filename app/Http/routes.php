@@ -32,6 +32,7 @@ Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
 Route::get ('/room/approve', 'RoomController@viewApprovePage');
 Route::post ('/room/approve', 'RoomController@approveReservation');
+Route::post ('/room/edit_announcement', 'RoomController@editAnnouncement');
 Route::get ('/room/get_room_reservation_schedule', 'RoomController@getRoomReservationSchedule');
 Route::get ('/room/get_room', 'RoomController@getMeetingRoom');
 Route::post('/room/get_user_reservation', 'RoomController@getUserReservation');
