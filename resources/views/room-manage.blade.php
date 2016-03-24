@@ -338,8 +338,8 @@
                                                 </td>
                                                 <td><div id="event-date-start-{{$event['id']}}">{{$event['start_date']}}</div><input type="text" id="event-input-date-start-{{$event['id']}}" class="form-control datepicker text-center hide" value="{{$event['start_date']}}" name="event[{{$event['id']}}][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
                                                 <td><div id="event-date-end-{{$event['id']}}">{{$event['end_date']}}</div><input type="text" id="event-input-date-end-{{$event['id']}}" class="form-control datepicker text-center hide" value="{{$event['end_date']}}" name="event[{{$event['id']}}][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-time-start-off-{{$event['id']}}" class="hide">-- : --</div><div id="event-time-start-{{$event['id']}}">{{$event['start_time']}}</div><input type="text" id="event-input-time-start-{{$event['id']}}" class="form-control timepicker valid text-center hide" value="{{$event['start_time']}}" name="event[{{$event['id']}}][time-start]" data-timepicki-tim="{{explode(" ",$event['start_time'])[0]}}" data-timepicki-mini="{{explode(" ",$event['start_time'])[2]}}"></td>
-                                                <td><div id="event-time-end-off-{{$event['id']}}" class="hide">-- : --</div><div id="event-time-end-{{$event['id']}}">{{$event['end_time']}}</div><input type="text" id="event-input-time-end-{{$event['id']}}" class="form-control timepicker valid text-center hide" value="{{$event['end_time']}}" name="event[{{$event['id']}}][time-end]" data-timepicki-tim="{{explode(" ",$event['end_time'])[0]}}" data-timepicki-mini="{{explode(" ",$event['end_time'])[2]}}"></td>
+                                                <td><div id="event-time-start-off-{{$event['id']}}" class="@if($event['room_closed']==0)hide @endif">-- : --</div><div id="event-time-start-{{$event['id']}}" class="@if($event['room_closed']==1)hide @endif">{{$event['start_time']}}</div><input type="text" id="event-input-time-start-{{$event['id']}}" class="form-control timepicker valid text-center hide" value="{{$event['start_time']}}" name="event[{{$event['id']}}][time-start]" data-timepicki-tim="{{explode(" ",$event['start_time'])[0]}}" data-timepicki-mini="{{explode(" ",$event['start_time'])[2]}}"></td>
+                                                <td><div id="event-time-end-off-{{$event['id']}}" class="@if($event['room_closed']==0)hide @endif">-- : --</div><div id="event-time-end-{{$event['id']}}" class="@if($event['room_closed']==1)hide @endif">{{$event['end_time']}}</div><input type="text" id="event-input-time-end-{{$event['id']}}" class="form-control timepicker valid text-center hide" value="{{$event['end_time']}}" name="event[{{$event['id']}}][time-end]" data-timepicki-tim="{{explode(" ",$event['end_time'])[0]}}" data-timepicki-mini="{{explode(" ",$event['end_time'])[2]}}"></td>
                                                 <td class="text-center" style="padding-right: 0px; padding-left: 0px;">
                                                     <a id="event-edit-button-{{$event['id']}}" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit({{$event['id']}})">
                                                         <i class="fa fa-edit"></i>
@@ -445,8 +445,8 @@
 
 @section('js-top')
     <script>
-        var room_count = 1;
-        var event_count = 1;
+        var room_count = {{$count_rooms}};
+        var event_count = {{$count_events}};
         function roomEdit(id){
             $("#room-name-"+id).addClass("hide");
             $("#room-size-"+id).addClass("hide");

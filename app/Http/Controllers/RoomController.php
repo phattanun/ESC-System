@@ -246,6 +246,9 @@ class RoomController extends Controller
         $events = AllowSchedule::all();
         $rooms = MeetingRoom::all();
 
+        $count_events = count($events);
+        $count_rooms = count($rooms);
+
         $timeDefault['start'] = date('H : i',strtotime(str_replace(" ",'',$timeDefault['start'])));
         $timeDefault['end'] = date('H : i',strtotime(str_replace(" ",'',$timeDefault['end'])));
 
@@ -257,7 +260,7 @@ class RoomController extends Controller
         }
 //        return compact('timeDefault', 'events', 'rooms');
 //        return compact('rooms', 'timeStartDefault', 'timeEndDefault', 'events');
-        return view('room-manage', compact('timeDefault','events','rooms'));
+        return view('room-manage', compact('timeDefault','events','rooms','count_events','count_rooms'));
     }
 
     public function editRoom()
