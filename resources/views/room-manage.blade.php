@@ -146,7 +146,9 @@
                                             </tr>
 
                                             @foreach($rooms as $room)
-                                            <tr id="room-{{$room['room_id']}}"><input type="hidden" id="room-status-{{$room['room_id']}}" name="room[{{$room['room_id']}}][status]" value="" />
+                                            <tr id="room-{{$room['room_id']}}">
+                                                <input type="hidden" id="room-status-{{$room['room_id']}}" name="room[{{$room['room_id']}}][status]" value="" />
+                                                <input type="hidden" id="room-id-{{$room['room_id']}}" name="room[{{$room['room_id']}}][id]" value="{{$room['room_id']}}" />
                                                 <td class="text-center openCloseRoomCol">
                                                     <label class="switch switch-success">
                                                         <input id="room-input-onoff-{{$room['room_id']}}" name="room[{{$room['room_id']}}][onoff]" value="on" type="checkbox" @if($room['closed']==0)checked @endif>
@@ -509,7 +511,9 @@
             document.getElementById("room-input-size-new").value = "";
             room_count = room_count + 1;
             var i = room_count;
-            var txt ='<tr id="room-'+i+'"><input type="hidden" id="room-status-'+i+'" name="room['+i+'][status]" value="new" />'
+            var txt ='<tr id="room-'+i+'">'
+                    +'<input type="hidden" id="room-status-'+i+'" name="room['+i+'][status]" value="new" />'
+                    +'<input type="hidden" id="room-id-'+i+'" name="room['+i+'][id]" value="'+i+'" />'
                     +'  <td class="text-center openCloseRoomCol">'
                     +'      <label class="switch switch-success">'
                     +'      <input id="room-input-onoff-'+i+'" name="room['+i+'][onoff]" value="on" type="checkbox">'

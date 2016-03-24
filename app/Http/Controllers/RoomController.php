@@ -283,18 +283,8 @@ class RoomController extends Controller
         if($timeStartDefault > $timeEndDefault){
             return "echo:เวลาที่เปิดอนุญาตให้จองห้องได้อยู่หลังเวลาปิด";
         }
-
+//        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
 //เช็คชื่อห้องประชุมห้ามซ้ำกัน
-//        for($i=1;$i<=count($room);$i++){
-//            $nameA = $room[$i]['name'];
-//            for($j=$i+1;$j<=count($room);$j++){
-//                $nameB = $room[$j]['name'];
-//                if($nameA == $nameB)
-//                {
-//                    return 'echo:ห้องประชุม"'.$nameA.'" ชื่อซ้ำกันสองห้อง กรุณาแก้ไข';
-//                }
-//            }
-//        }
         foreach($room as $roomI){
             $nameA = $roomI['name'];
             foreach($room as $roomJ){
@@ -334,9 +324,46 @@ class RoomController extends Controller
             }
         }
 
-        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+//        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
 
+        $count_rooms = count(MeetingRoom::all());
+        foreach($room as $ro)
+        {
+            if($ro['status']=="update"){
+                $r = MeetingRoom::where('room_id',$ro['id'])->first();
 
+                $r->name = $ro["name"];
+                $r->size = $ro["size"];
+                $r->priority = $ro['priority'];
+                if(in_array('onoff', $ro))
+                    $r->closed = '0';
+                else
+                    $r->closed = '1';
+                $r->save();
+            }
+            if($ro['id']>$count_rooms){
+                if(in_array('onoff', $ro))
+                    $c = '0';
+                else
+                    $c = '1';
+
+                if($ro['status']=="new")
+                    $d = '0';
+                else if($ro['status']=="deleted")
+                    $d = '1';
+                else $d = '0';
+
+                MeetingRoom::insert([
+                    'room_id' => $ro['id'],
+                    'name' => $ro["name"],
+                    'size' => $ro["size"],
+                    'priority' => $ro['priority'],
+                    'closed' => $c,
+                    'deleted' => $d
+                ]);
+            }
+
+        }
 //        for($i=1;$i<=count($room);$i++)
 //        {
 //            if($room[$i]['status']=="update"){
@@ -383,17 +410,17 @@ class RoomController extends Controller
         }
 
 
-        $tmp = AllowSchedule::all();
-        $tmp2 = ScheduleSetting::all();
-        $tmp3 = MeetingRoom::all();
-        return compact('tmp', 'event','tmp2', 'timeStartDefault', 'timeEndDefault','tmp3','room');
+//        $tmp = AllowSchedule::all();
+//        $tmp2 = ScheduleSetting::all();
+//        $tmp3 = MeetingRoom::all();
+//        return compact('tmp', 'event','tmp2', 'timeStartDefault', 'timeEndDefault','tmp3','room');
         return "success";
-        ScheduleSetting::truncate();
+//        ScheduleSetting::truncate();
 
 
         // _dupplicate-data_ "ข้อมูลซ้ำ"
         // _incomplete-data_ "กรอกข้อมูลไม่ครบ"
-        return "success";
+//        return "success";
     }
 
     public function getUserReservation() {
