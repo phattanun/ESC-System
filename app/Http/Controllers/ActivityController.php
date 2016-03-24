@@ -326,7 +326,7 @@ class ActivityController extends Controller
                 }
             }
         }
-
+        $act_data['editor_id'] = $user['student_id'];
         if ($act_data['status'] == 0 || isset($user['activities'])) {
             if (!is_null($request->input('activity_name'))) $act_data['name'] = $request->input('activity_name');
             if (!is_null($request->input('kind_of_activity'))) $act_data['category'] = $request->input('kind_of_activity');
@@ -338,7 +338,6 @@ class ActivityController extends Controller
             $act_data['tqf_communication'] = $communication;
             $act_data['avail_year'] = $request->input('last_year_seen');
             if (!is_null($request->input('division'))) $act_data['div_id'] = $request->input('division');
-            $act_data->save();
 
             if (!is_null($student_id)) {
                 foreach ($student_id as $sid) {
@@ -355,6 +354,7 @@ class ActivityController extends Controller
                 CanEditActivity::where('act_id', $act_data['act_id'])->delete();
             }
         }
+        $act_data->save();
     }
 
     public function search_activity(Request $request)

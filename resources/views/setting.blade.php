@@ -259,7 +259,7 @@
                                     +'  </td>'
                                     +' <td class="text-center">'
                                     +'  <label class="switch switch-success">'
-                                    +'     <input   name="privilege['+input["student_id"]+'][]" value="supplies" type="checkbox" type="checkbox">'
+                                    +'     <input name="privilege['+input["student_id"]+'][]" value="supplies" type="checkbox" type="checkbox">'
                                     +'         <span class="switch-label" data-on="YES" data-off="NO"></span>'
                                     +' </label>'
                                     +' </td>'
