@@ -259,7 +259,7 @@
                                             <label>เวลาเปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="08 : 00" name="time-start-default" data-timepicki-tim="08" data-timepicki-mini="00">
+                                            <input id="time-start-default" type="text" class="form-control timepicker valid" value="08 : 00" name="time-start-default" data-timepicki-tim="08" data-timepicki-mini="00">
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +269,7 @@
                                             <label>เวลาปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input type="text" class="form-control timepicker valid" value="07 : 00" name="time-end-default" data-timepicki-tim="07" data-timepicki-mini="00">
+                                            <input id="time-end-default" type="text" class="form-control timepicker valid" value="07 : 00" name="time-end-default" data-timepicki-tim="07" data-timepicki-mini="00">
                                         </div>
                                     </div>
                                 </div>
@@ -606,8 +606,8 @@
             if(onoff == false){
                 $(".event-time-start-new-container").addClass("hide");
                 $(".event-time-end-new-container").addClass("hide");
-                $("#event-time-start-new").val("");
-                $("#event-time-end-new").val("");
+                $("#event-time-start-new").val("00 : 00");
+                $("#event-time-end-new").val("00 : 00");
             }
             else{
                 $(".event-time-start-new-container").removeClass("hide");
@@ -628,11 +628,24 @@
 //            var dStart = new Date(dateStart);
 //            var d = dStart.getDate();
 //            alert(d);
+            var check = "";
+            var tabOff = "";
+            var tabNormal = "";
             if(onoff == true){
                 if(timeStart == "" || timeEnd == ""){
                     _toastr("กรอกข้อมูลไม่ครบ","top-right","error",false);
                     return;
                 }
+                check = "checked";
+                tabOff = "hide";
+                tabNormal = "";
+            }
+            else{
+                timeStart = document.getElementById("time-start-default").value;
+                timeEnd = document.getElementById("time-end-default").value;
+                check = "";
+                tabOff = "";
+                tabNormal = "hide";
             }
             document.getElementById("event-date-start-new").value = "";
             document.getElementById("event-date-end-new").value = "";
@@ -643,22 +656,14 @@
             $(".event-time-end-new-container").removeClass("hide");
             //เช็คเวลาชนด้วย
             event_count = event_count + 1;
-            if(onoff == true){
-                var tmp = timeStart.split(" ");
-                var timeStartHour = tmp[0];
-                var timeStartMin = tmp[2];
-                tmp = timeEnd.split(" ");
-                var timeEndHour = tmp[0];
-                var timeEndMin = tmp[2];
-            }
-            else{
-                timeStart = "-- : --";
-                timeEnd = "-- : --";
-                timeStartHour = "--";
-                timeStartMin = "--";
-                timeEndHour = "--";
-                timeEndMin = "--";
-            }
+
+            var tmp = timeStart.split(" ");
+            var timeStartHour = tmp[0];
+            var timeStartMin = tmp[2];
+            tmp = timeEnd.split(" ");
+            var timeEndHour = tmp[0];
+            var timeEndMin = tmp[2];
+
 
             alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd + " " + event_count + " " + timeStartHour + " " + timeStartMin + " " + timeEndHour + " " + timeEndMin);
 
@@ -666,14 +671,14 @@
                     '<tr id="event-'+event_count+'"><input type="hidden" id="event-status-'+event_count+'" name="event['+event_count+'][status]" value="new" />'
                     +'    <td class="text-center openCloseRoomCol">'
                     +'        <label class="switch switch-success">'
-                    +'            <input id="event-input-onoff-'+event_count+'" name="event['+event_count+'][onoff]" value="on" type="checkbox" onchange="eventOnOff('+event_count+')" checked="">'
+                    +'            <input id="event-input-onoff-'+event_count+'" name="event['+event_count+'][onoff]" value="on" type="checkbox" onchange="eventOnOff('+event_count+')" '+check+'>'
                     +'                <span class="switch-label" data-on="เปิด" data-off="ปิด"></span>'
                     +'        </label>'
                     +'    </td>'
                     +'    <td><div id="event-date-start-'+event_count+'">'+dateStart+'</div><input type="text" id="event-input-date-start-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateStart+'" name="event['+event_count+'][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'
                     +'    <td><div id="event-date-end-'+event_count+'">'+dateEnd+'</div><input type="text" id="event-input-date-end-'+event_count+'" class="form-control datepicker text-center hide" value="'+dateEnd+'" name="event['+event_count+'][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>'
-                    +'    <td><div id="event-time-start-off-'+event_count+'" class="hide">-- : --</div><div id="event-time-start-'+event_count+'">'+timeStart+'</div><input type="text" id="event-input-time-start-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeStart+'" name="event['+event_count+'][time-start]" data-timepicki-tim="'+timeStartHour+'" data-timepicki-mini="'+timeStartMin+'"></td>'
-                    +'    <td><div id="event-time-end-off-'+event_count+'" class="hide">-- : --</div><div id="event-time-end-'+event_count+'">'+timeEnd+'</div><input type="text" id="event-input-time-end-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeEnd+'" name="event['+event_count+'][time-end]" data-timepicki-tim="'+timeEndHour+'" data-timepicki-mini="'+timeEndMin+'"></td>'
+                    +'    <td><div id="event-time-start-off-'+event_count+'" class="'+tabOff+'">-- : --</div><div id="event-time-start-'+event_count+'" class="'+tabNormal+'">'+timeStart+'</div><input type="text" id="event-input-time-start-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeStart+'" name="event['+event_count+'][time-start]" data-timepicki-tim="'+timeStartHour+'" data-timepicki-mini="'+timeStartMin+'"></td>'
+                    +'    <td><div id="event-time-end-off-'+event_count+'" class="'+tabOff+'">-- : --</div><div id="event-time-end-'+event_count+'" class="'+tabNormal+'">'+timeEnd+'</div><input type="text" id="event-input-time-end-'+event_count+'" class="form-control timepicker valid text-center hide" value="'+timeEnd+'" name="event['+event_count+'][time-end]" data-timepicki-tim="'+timeEndHour+'" data-timepicki-mini="'+timeEndMin+'"></td>'
                     +'    <td class="text-center" style="padding-right: 0px; padding-left: 0px;">'
                     +'        <a id="event-edit-button-'+event_count+'" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit('+event_count+')">'
                     +'            <i class="fa fa-edit"></i>'
@@ -715,6 +720,12 @@
         }
 
         function eventEdit(id){
+            var onoff = document.getElementById('event-input-onoff-'+id).checked;
+//            alert(onoff);
+            if(onoff == false){
+                _toastr("กรุณาเปิดห้องเพื่อทำการแก้ไข","top-right","warning",false);
+                return;
+            }
             $("#event-date-start-"+id).addClass("hide");
             $("#event-date-end-"+id).addClass("hide");
             $("#event-time-start-"+id).addClass("hide");
@@ -734,20 +745,27 @@
             }
         }
         function eventCancel(id){
-            $("#event-date-start-"+id).removeClass("hide");
-            $("#event-date-end-"+id).removeClass("hide");
-            if($("#event-input-time-start-"+id).val() == "-- : --"){
+            var onoff = document.getElementById('event-input-onoff-'+id).checked;
+            if(onoff == false){
+                $("#event-time-start-" + id).addClass("hide");
+                $("#event-time-end-" + id).addClass("hide");
                 $("#event-time-start-off-"+id).removeClass("hide");
                 $("#event-time-end-off-"+id).removeClass("hide");
             }
-            else {
+            else{
                 $("#event-time-start-" + id).removeClass("hide");
                 $("#event-time-end-" + id).removeClass("hide");
+                $("#event-time-start-off-"+id).addClass("hide");
+                $("#event-time-end-off-"+id).addClass("hide");
             }
+            $("#event-date-start-"+id).removeClass("hide");
+            $("#event-date-end-"+id).removeClass("hide");
+
             $("#event-input-date-start-"+id).addClass("hide");
             $("#event-input-date-end-"+id).addClass("hide");
             $("#event-input-time-start-"+id).addClass("hide");
             $("#event-input-time-end-"+id).addClass("hide");
+
             $("#event-edit-button-"+id).removeClass("hide");
             $("#event-cancel-button-"+id).addClass("hide");
 
@@ -767,20 +785,18 @@
 
         function eventOnOff(id){
             var onoff = document.getElementById('event-input-onoff-'+id).checked;
-//            alert(onoff);
             if(onoff == false){
-//                alert("fa");
                 $("#event-input-time-start-"+id).val("-- : --");
                 $("#event-input-time-end-"+id).val("-- : --");
-                $("#event-time-start-off-"+id).removeClass("hide");
-                $("#event-time-end-off-"+id).removeClass("hide");
-                $("#event-input-time-start-"+id).addClass("hide");
-                $("#event-input-time-end-"+id).addClass("hide");
-                $("#event-time-start-"+id).addClass("hide");
-                $("#event-time-end-"+id).addClass("hide");
+//                $("#event-time-start-off-"+id).removeClass("hide");
+//                $("#event-time-end-off-"+id).removeClass("hide");
+//                $("#event-input-time-start-"+id).addClass("hide");
+//                $("#event-input-time-end-"+id).addClass("hide");
+//                $("#event-time-start-"+id).addClass("hide");
+//                $("#event-time-end-"+id).addClass("hide");
+                eventCancel(id);
             }
             else{
-//                alert("tr");
                 $("#event-input-time-start-"+id).val($("#event-time-start-"+id).text());
                 $("#event-input-time-end-"+id).val($("#event-time-end-"+id).text());
                 $("#event-time-start-off-"+id).addClass("hide");
