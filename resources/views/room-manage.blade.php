@@ -144,39 +144,42 @@
                                                 <th style="vertical-align:middle">ลำดับความสำคัญ</th>
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
-                                            <tr id="room-1"><input type="hidden" id="room-status-1" name="room[1][status]" value="" />
+
+                                            @foreach($rooms as $room)
+                                            <tr id="room-{{$room['room_id']}}"><input type="hidden" id="room-status-{{$room['room_id']}}" name="room[{{$room['room_id']}}][status]" value="" />
                                                 <td class="text-center openCloseRoomCol">
                                                     <label class="switch switch-success">
-                                                        <input id="room-input-onoff-1" name="room[1][onoff]" value="on" type="checkbox">
+                                                        <input id="room-input-onoff-{{$room['room_id']}}" name="room[{{$room['room_id']}}][onoff]" value="on" type="checkbox" @if($room['closed']==0)checked @endif>
                                                         <span class="switch-label" data-on="เปิด" data-off="ปิด"></span>
                                                     </label>
                                                 </td>
                                                 <td>
-                                                    <div id="room-name-1" class="room-name">ห้องประชุมใหญ่ 1</div>
-                                                    <div id="room-input-name-1" class="hide">
-                                                        <input id="room-input-name-box-1" type="text" class="form-control" name="room[1][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่ 1">
+                                                    <div id="room-name-{{$room['room_id']}}" class="room-name">{{$room['name']}}</div>
+                                                    <div id="room-input-name-{{$room['room_id']}}" class="hide">
+                                                        <input id="room-input-name-box-{{$room['room_id']}}" type="text" class="form-control" name="room[{{$room['room_id']}}][name]" placeholder="ชื่อห้องประชุม" value="{{$room['name']}}">
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="room-size-1" class="room-size">30 คน</div>
-                                                    <div id="room-input-size-1" class="hide">
+                                                    <div id="room-size-{{$room['room_id']}}" class="room-size">{{$room['size']}} คน</div>
+                                                    <div id="room-input-size-{{$room['room_id']}}" class="hide">
                                                         <div class="col-xs-10 no-padding">
-                                                            <input id="room-input-size-box-1" type="text" class="form-control number" style="display: inline; width: 100%;" name="room[1][size]" placeholder="จำนวนคนที่จุได้" value="30">
+                                                            <input id="room-input-size-box-{{$room['room_id']}}" type="text" class="form-control number" style="display: inline; width: 100%;" name="room[{{$room['room_id']}}][size]" placeholder="จำนวนคนที่จุได้" value="{{$room['size']}}">
                                                         </div>
                                                         &nbspคน
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="room-priority-1" class="room-priority">1 / 5</div>
-                                                    <div id="room-input-priority-1" class="hide">
+                                                    <div id="room-priority-{{$room['room_id']}}" class="room-priority">{{$room['priority']}} / 5</div>
+                                                    <div id="room-input-priority-{{$room['room_id']}}" class="hide">
                                                         <div class="col-xs-12 no-padding">
                                                             {{--<input id="room-input-priority-box-1" type="text" class="form-control number" style="display: inline; width: 100%;" name="room[1][priority]" placeholder="ลำดับความสำคัญ" value="1">--}}
-                                                            <select id="room-input-priority-box-1" class="form-control select" name="room[1][priority]">
-                                                                <option value="1">1 / 5</option>
-                                                                <option value="2">2 / 5</option>
-                                                                <option value="3">3 / 5</option>
-                                                                <option value="4">4 / 5</option>
-                                                                <option value="5">5 / 5</option>
+                                                            <select id="room-input-priority-box-{{$room['room_id']}}" class="form-control select" name="room[{{$room['room_id']}}][priority]">
+                                                                <option value="0" @if($room['priority']==0)selected @endif>0 / 5</option>
+                                                                <option value="1" @if($room['priority']==1)selected @endif>1 / 5</option>
+                                                                <option value="2" @if($room['priority']==2)selected @endif>2 / 5</option>
+                                                                <option value="3" @if($room['priority']==3)selected @endif>3 / 5</option>
+                                                                <option value="4" @if($room['priority']==4)selected @endif>4 / 5</option>
+                                                                <option value="5" @if($room['priority']==5)selected @endif>5 / 5</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -184,61 +187,21 @@
 
 
                                                 <td class="text-center">
-                                                    <a id="room-edit-button-1" onclick="roomEdit(1)" class="btn btn-3d btn-reveal btn-yellow">
+                                                    <a id="room-edit-button-{{$room['room_id']}}" onclick="roomEdit({{$room['room_id']}})" class="btn btn-3d btn-reveal btn-yellow">
                                                         <i class="fa fa-edit"></i>
                                                         <span>แก้ไข</span>
                                                     </a>
-                                                    <a id="room-cancel-button-1" onclick="roomCancel(1)" class="btn btn-3d btn-reveal btn-red hide">
+                                                    <a id="room-cancel-button-{{$room['room_id']}}" onclick="roomCancel({{$room['room_id']}})" class="btn btn-3d btn-reveal btn-red hide">
                                                         <i class="fa fa-times"></i>
                                                         <span>ยกเลิก</span>
                                                     </a>
-                                                    <a id="room-remove-button-1" onclick="roomRemove(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">
+                                                    <a id="room-remove-button-{{$room['room_id']}}" onclick="roomRemove({{$room['room_id']}})" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">
                                                         <i class="fa fa-minus"></i>
                                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-
-                                            {{--<tr id="room-2"><input type="hidden" id="room-status-2" name="room[2][status]" value="" />--}}
-                                                {{--<td>--}}
-                                                    {{--<div id="room-name-2">ห้องประชุมใหญ่ 2</div>--}}
-                                                    {{--<div id="room-input-name-2" class="hide">--}}
-                                                        {{--<input id="room-input-name-box-2" type="text" class="form-control" name="room[2][name]" placeholder="ชื่อห้องประชุม" value="ห้องประชุมใหญ่2">--}}
-                                                    {{--</div>--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<div id="room-size-2">20 คน</div>--}}
-                                                    {{--<div id="room-input-size-2" class="hide">--}}
-                                                        {{--<div class="col-xs-12 no-padding">--}}
-                                                            {{--<input id="room-input-size-box-2" type="text" class="form-control" style="display: inline; width: 80%;" name="room[2][size]" placeholder="จำนวนคนที่จุได้" value="20">--}}
-                                                            {{--คน--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</td>--}}
-
-
-                                                {{--<td class="text-center">--}}
-                                                    {{--<a id="room-edit-button-2" onclick="roomEdit(2)" class="btn btn-3d btn-reveal btn-yellow">--}}
-                                                        {{--<i class="fa fa-edit"></i>--}}
-                                                        {{--<span>แก้ไข</span>--}}
-                                                    {{--</a>--}}
-                                                    {{--<a id="room-cancel-button-2" onclick="roomCancel(2)" class="btn btn-3d btn-reveal btn-red hide">--}}
-                                                        {{--<i class="fa fa-times"></i>--}}
-                                                        {{--<span>ยกเลิก</span>--}}
-                                                    {{--</a>--}}
-                                                    {{--<a id="room-remove-button-2" onclick="roomRemove(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบห้องประชุมนี้" style="vertical-align:middle">--}}
-                                                        {{--<i class="fa fa-minus"></i>--}}
-                                                        {{--<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>--}}
-                                                    {{--</a>--}}
-                                                {{--</td>--}}
-                                                {{--<td class="text-center">--}}
-                                                    {{--<label class="switch switch-success switch-lg label-lg">--}}
-                                                        {{--<input id="room-input-onoff-2" name="room[2][onoff]" value="on" type="checkbox" type="checkbox">--}}
-                                                        {{--<span class="switch-label label-lg switch-lg" data-on="YES" data-off="NO"></span>--}}
-                                                    {{--</label>--}}
-                                                {{--</td>--}}
-                                            {{--</tr>--}}
-
+                                            @endforeach
 
                                         </table>
                                     </div>
@@ -259,7 +222,7 @@
                                             <label>เวลาเปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input id="time-start-default" type="text" class="form-control timepicker valid" value="08 : 00" name="time-start-default" data-timepicki-tim="08" data-timepicki-mini="00">
+                                            <input id="time-start-default" type="text" class="form-control timepicker valid" value="{{$timeDefault['start']}}" name="time-start-default" data-timepicki-tim="{{explode(" ",$timeDefault['start'])[0]}}" data-timepicki-mini="{{explode(" ",$timeDefault['start'])[2]}}">
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +232,7 @@
                                             <label>เวลาปิด</label>
                                         </div>
                                         <div class="col-md-9 col-sm-9">
-                                            <input id="time-end-default" type="text" class="form-control timepicker valid" value="07 : 00" name="time-end-default" data-timepicki-tim="07" data-timepicki-mini="00">
+                                            <input id="time-end-default" type="text" class="form-control timepicker valid" value="{{$timeDefault['end']}}" name="time-end-default" data-timepicki-tim="{{explode(" ",$timeDefault['end'])[0]}}" data-timepicki-mini="{{explode(" ",$timeDefault['end'])[2]}}">
                                         </div>
                                     </div>
                                 </div>
@@ -365,32 +328,34 @@
                                                 <th style="vertical-align:middle">เวลาปิด</th>
                                                 <th style="vertical-align:middle"></th>
                                             </tr>
-                                            <tr id="event-1"><input type="hidden" id="event-status-1" name="event[1][status]" value="" />
+                                            @foreach($events as $event)
+                                            <tr id="event-{{$event['id']}}"><input type="hidden" id="event-status-{{$event['id']}}" name="event[{{$event['id']}}][status]" value="" />
                                                 <td class="text-center openCloseRoomCol">
                                                     <label class="switch switch-success">
-                                                        <input id="event-input-onoff-1" name="event[1][onoff]" value="on" type="checkbox" onchange="eventOnOff(1)" checked="">
+                                                        <input id="event-input-onoff-{{$event['id']}}" name="event[{{$event['id']}}][onoff]" value="on" type="checkbox" onchange="eventOnOff({{$event['id']}})" @if($event['room_closed']==0)checked @endif>
                                                         <span class="switch-label" data-on="เปิด" data-off="ปิด"></span>
                                                     </label>
                                                 </td>
-                                                <td><div id="event-date-start-1">21-03-2016</div><input type="text" id="event-input-date-start-1" class="form-control datepicker text-center hide" value="21-03-2016" name="event[1][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-date-end-1">23-03-2016</div><input type="text" id="event-input-date-end-1" class="form-control datepicker text-center hide" value="23-03-2016" name="event[1][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
-                                                <td><div id="event-time-start-off-1" class="hide">-- : --</div><div id="event-time-start-1">08 : 00</div><input type="text" id="event-input-time-start-1" class="form-control timepicker valid text-center hide" value="08 : 00" name="event[1][time-start]" data-timepicki-tim="08" data-timepicki-mini="00"></td>
-                                                <td><div id="event-time-end-off-1" class="hide">-- : --</div><div id="event-time-end-1">16 : 00</div><input type="text" id="event-input-time-end-1" class="form-control timepicker valid text-center hide" value="16 : 00" name="event[1][time-end]" data-timepicki-tim="16" data-timepicki-mini="00"></td>
+                                                <td><div id="event-date-start-{{$event['id']}}">{{$event['start_date']}}</div><input type="text" id="event-input-date-start-{{$event['id']}}" class="form-control datepicker text-center hide" value="{{$event['start_date']}}" name="event[{{$event['id']}}][date-start]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-date-end-{{$event['id']}}">{{$event['end_date']}}</div><input type="text" id="event-input-date-end-{{$event['id']}}" class="form-control datepicker text-center hide" value="{{$event['end_date']}}" name="event[{{$event['id']}}][date-end]" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false"></td>
+                                                <td><div id="event-time-start-off-{{$event['id']}}" class="hide">-- : --</div><div id="event-time-start-{{$event['id']}}">{{$event['start_time']}}</div><input type="text" id="event-input-time-start-{{$event['id']}}" class="form-control timepicker valid text-center hide" value="{{$event['start_time']}}" name="event[{{$event['id']}}][time-start]" data-timepicki-tim="{{explode(" ",$event['start_time'])[0]}}" data-timepicki-mini="{{explode(" ",$event['start_time'])[2]}}"></td>
+                                                <td><div id="event-time-end-off-{{$event['id']}}" class="hide">-- : --</div><div id="event-time-end-{{$event['id']}}">{{$event['end_time']}}</div><input type="text" id="event-input-time-end-{{$event['id']}}" class="form-control timepicker valid text-center hide" value="{{$event['end_time']}}" name="event[{{$event['id']}}][time-end]" data-timepicki-tim="{{explode(" ",$event['end_time'])[0]}}" data-timepicki-mini="{{explode(" ",$event['end_time'])[2]}}"></td>
                                                 <td class="text-center" style="padding-right: 0px; padding-left: 0px;">
-                                                    <a id="event-edit-button-1" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit(1)">
+                                                    <a id="event-edit-button-{{$event['id']}}" class="btn btn-3d btn-reveal btn-yellow" onclick="eventEdit({{$event['id']}})">
                                                         <i class="fa fa-edit"></i>
                                                         <span>แก้ไข</span>
                                                     </a>
-                                                    <a id="event-cancel-button-1" onclick="eventCancel(1)" class="btn btn-3d btn-reveal btn-red hide">
+                                                    <a id="event-cancel-button-{{$event['id']}}" onclick="eventCancel({{$event['id']}})" class="btn btn-3d btn-reveal btn-red hide">
                                                         <i class="fa fa-times"></i>
                                                         <span>ยกเลิก</span>
                                                     </a>
-                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove(1)" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">
+                                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" onclick="eventRemove({{$event['id']}})" data-toggle="tooltip" data-placement="top" title="ลบช่วงเวลาพิเศษนี้" style="vertical-align:middle">
                                                         <i class="fa fa-minus"></i>
                                                         <i class="fa fa-trash"  data-toggle="modal" data-target=".event-modal"></i>
                                                     </a>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                         </table>
                                     </div>
                                 </div>
@@ -567,11 +532,12 @@
                     +'      </div>'
                     +'  </td>'
                     +'  <td>'
-                    +'      <div id="room-priority-'+i+'" class="room-priority">1 / 5</div>'
+                    +'      <div id="room-priority-'+i+'" class="room-priority">0 / 5</div>'
                     +'      <div id="room-input-priority-'+i+'" class="hide">'
                     +'          <div class="col-xs-12 no-padding">'
 //                    +'              <input id="room-input-priority-box-'+i+'" type="text" class="form-control number" style="display: inline; width: 100%;" name="room['+i+'][priority]" placeholder="ลำดับความสำคัญ" value="1">'
                     +'              <select id="room-input-priority-box-'+i+'" class="form-control select" name="room['+i+'][priority]">'
+                    +'                  <option value="0">0 / 5</option>'
                     +'                  <option value="1">1 / 5</option>'
                     +'                  <option value="2">2 / 5</option>'
                     +'                  <option value="3">3 / 5</option>'

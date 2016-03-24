@@ -67,12 +67,6 @@ class RoomController extends Controller
         return redirect('/room/reserve');
     }
 
-    public function roomManagePage()
-    {
-
-        return view('room-manage');
-    }
-
     public function getMeetingRoom()
     {
         $roomList = [];
@@ -246,6 +240,26 @@ class RoomController extends Controller
         $newGuestRequest->save();
     }
 
+    public function roomManagePage()
+    {
+        $timeDefault = ScheduleSetting::first();
+        $events = AllowSchedule::all();
+        $rooms = MeetingRoom::all();
+
+        $timeDefault['start'] = date('H : i',strtotime(str_replace(" ",'',$timeDefault['start'])));
+        $timeDefault['end'] = date('H : i',strtotime(str_replace(" ",'',$timeDefault['end'])));
+
+        foreach($events as $event){
+            $event["start_date"] = date('d-m-Y',strtotime($event['start_date']));
+            $event['end_date'] = date('d-m-Y',strtotime($event['end_date']));
+            $event['start_time'] = date('H : i',strtotime(str_replace(" ",'',$event['start_time'])));
+            $event['end_time'] = date('H : i',strtotime(str_replace(" ",'',$event['end_time'])));
+        }
+//        return compact('timeDefault', 'events', 'rooms');
+//        return compact('rooms', 'timeStartDefault', 'timeEndDefault', 'events');
+        return view('room-manage', compact('timeDefault','events','rooms'));
+    }
+
     public function editRoom()
     {
         $timeStartDefault = Input::get('time-start-default');
@@ -340,7 +354,7 @@ class RoomController extends Controller
             $end_date = date('Y-m-d',strtotime($event[$i]["date-end"]));
             $start_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-start'])));
             $end_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-end'])));
-            if(in_array('on', $event[$i])) $status = "on" ; else $status = "off";
+            if(in_array('on', $event[$i])) $status = false; else $status = true;
 //            var_dump($start_time);
             AllowSchedule::insert([
                 'id'=> $i,
@@ -348,7 +362,7 @@ class RoomController extends Controller
                 'end_date'=> $end_date,
                 'start_time'=> $start_time,
                 'end_time'=> $end_time,
-                'status'=> $status
+                'room_closed'=> $status
             ]);
         }
 
