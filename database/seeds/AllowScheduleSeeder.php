@@ -17,7 +17,8 @@ class AllowScheduleSeeder extends Seeder
             'start_date'=> '2016-03-08',
             'end_date'=> '2016-03-13',
             'start_time'=> '08:00',
-            'end_time'=> '16:00'
+            'end_time'=> '16:00',
+            'status'=> 'on'
         ]);
 
         AllowSchedule::create([
@@ -25,7 +26,8 @@ class AllowScheduleSeeder extends Seeder
             'start_date'=> '2016-03-015',
             'end_date'=> '2016-03-27',
             'start_time'=> '10:00',
-            'end_time'=> '12:00'
+            'end_time'=> '12:00',
+            'status'=> 'off'
         ]);
 
 
