@@ -18,6 +18,7 @@ class CreateMeetingRoomTable extends Migration
             $table->string('size');
             $table->integer('priority')->unsigned();
             $table->boolean('closed')->default(false);
+            $table->boolean('deleted')->default(false);
         });
     }
 
