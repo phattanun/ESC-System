@@ -244,10 +244,12 @@ class RoomController extends Controller
     {
         $timeDefault = ScheduleSetting::first();
         $events = AllowSchedule::all();
-        $rooms = MeetingRoom::all();
+        $rooms = MeetingRoom::where('deleted','0')->get();
+
+        $tmp = MeetingRoom::all();
 
         $count_events = count($events);
-        $count_rooms = count($rooms);
+        $count_rooms = count($tmp);
 
         $timeDefault['start'] = date('H : i',strtotime(str_replace(" ",'',$timeDefault['start'])));
         $timeDefault['end'] = date('H : i',strtotime(str_replace(" ",'',$timeDefault['end'])));
@@ -273,6 +275,7 @@ class RoomController extends Controller
 //        if(in_array('on', $room[1])) return "a"; else return "b";
 
 
+
 //เช็คเวลาdefault เวลาเริ่มห้ามอยู่หลังเวลสจบ
         $timeStartDefault = date('H:i:s',strtotime(str_replace(" ",'',$timeStartDefault)));
         $timeEndDefault = date('H:i:s',strtotime(str_replace(" ",'',$timeEndDefault)));
@@ -282,11 +285,21 @@ class RoomController extends Controller
         }
 
 //เช็คชื่อห้องประชุมห้ามซ้ำกัน
-        for($i=1;$i<=count($room);$i++){
-            $nameA = $room[$i]['name'];
-            for($j=$i+1;$j<=count($room);$j++){
-                $nameB = $room[$j]['name'];
-                if($nameA == $nameB)
+//        for($i=1;$i<=count($room);$i++){
+//            $nameA = $room[$i]['name'];
+//            for($j=$i+1;$j<=count($room);$j++){
+//                $nameB = $room[$j]['name'];
+//                if($nameA == $nameB)
+//                {
+//                    return 'echo:ห้องประชุม"'.$nameA.'" ชื่อซ้ำกันสองห้อง กรุณาแก้ไข';
+//                }
+//            }
+//        }
+        foreach($room as $roomI){
+            $nameA = $roomI['name'];
+            foreach($room as $roomJ){
+                $nameB = $roomJ['name'];
+                if($roomI != $roomJ && $nameA == $nameB)
                 {
                     return 'echo:ห้องประชุม"'.$nameA.'" ชื่อซ้ำกันสองห้อง กรุณาแก้ไข';
                 }
@@ -321,7 +334,7 @@ class RoomController extends Controller
             }
         }
 
-//        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
 
 
 //        for($i=1;$i<=count($room);$i++)
