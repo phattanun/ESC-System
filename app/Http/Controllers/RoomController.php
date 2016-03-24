@@ -248,12 +248,64 @@ class RoomController extends Controller
 
     public function editRoom()
     {
-        $room = Input::get('room');
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
+        $room = Input::get('room');
         $event = Input::get('event');
+//        return "echo:555";
 //        if(in_array('on', $room[1])) return "a"; else return "b";
-        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+
+
+//เช็คเวลาdefault เวลาเริ่มห้ามอยู่หลังเวลสจบ
+        $timeStartDefault = date('H:i:s',strtotime(str_replace(" ",'',$timeStartDefault)));
+        $timeEndDefault = date('H:i:s',strtotime(str_replace(" ",'',$timeEndDefault)));
+
+        if($timeStartDefault > $timeEndDefault){
+            return "echo:เวลาที่เปิดอนุญาตให้จองห้องได้อยู่หลังเวลาปิด";
+        }
+
+//เช็คชื่อห้องประชุมห้ามซ้ำกัน
+        for($i=1;$i<=count($room);$i++){
+            $nameA = $room[$i]['name'];
+            for($j=$i+1;$j<=count($room);$j++){
+                $nameB = $room[$j]['name'];
+                if($nameA == $nameB)
+                {
+                    return 'echo:ห้องประชุม"'.$nameA.'" ชื่อซ้ำกันสองห้อง กรุณาแก้ไข';
+                }
+            }
+        }
+
+//เช็คกรณีพิเศษหนึ่งๆ ห้ามมีวันเริ่มอยู่หลังวันจบ ห้ามมีเวลาเริ่มอยู่หลังเวลาจบ
+        for($i=1;$i<=count($event);$i++){
+            $start_date = date('Y-m-d',strtotime($event[$i]["date-start"]));
+            $end_date = date('Y-m-d',strtotime($event[$i]["date-end"]));
+            $start_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-start'])));
+            $end_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-end'])));
+
+            if($start_time > $end_time) {
+                return "echo:กรณีพิเศษ วันที่ ".$event[$i]["date-start"]." ถึง ".$event[$i]["date-end"]." มีเวลาเปิดห้องอยู่หลังเวลาปิดห้อง กรุณาแก้ไข";
+            }
+            if($start_date > $end_date){
+                return "echo:กรณีพิเศษ วันที่ ".$event[$i]["date-start"]." ถึง ".$event[$i]["date-end"]." วันเริ่มต้นอยู่หลังวันสิ้นสุด กรุณาแก้ไข";
+            }
+        }
+
+//เช็คกรณีพิเศษ วันห้ามเหลื่อมกัน
+        for($i=1;$i<=count($event);$i++){
+            $start_date_A = date('Y-m-d',strtotime($event[$i]["date-start"]));
+            $end_date_A = date('Y-m-d',strtotime($event[$i]["date-end"]));
+            for($j=$i+1;$j<=count($event);$j++){
+                $start_date_B = date('Y-m-d',strtotime($event[$j]["date-start"]));
+                $end_date_B = date('Y-m-d',strtotime($event[$j]["date-end"]));
+                if( ($start_date_A>=$start_date_B && $start_date_A <= $end_date_B ) || ( $end_date_A>=$start_date_B && $end_date_A<=$end_date_B) ){
+                    return "echo:กรณีพิเศษ วันที่ ".$event[$i]["date-start"]." ถึง ".$event[$i]["date-end"]." มีวันซ้ำซ้อนกับ ".'กรณีพิเศษ วันที่ '.$event[$j]["date-start"]." ถึง ".$event[$j]["date-end"];
+                }
+            }
+        }
+
+//        return compact('room', 'timeStartDefault', 'timeEndDefault', 'event');
+
 
 //        for($i=1;$i<=count($room);$i++)
 //        {
@@ -288,13 +340,15 @@ class RoomController extends Controller
             $end_date = date('Y-m-d',strtotime($event[$i]["date-end"]));
             $start_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-start'])));
             $end_time = date('H:i:s',strtotime(str_replace(" ",'',$event[$i]['time-end'])));
+            if(in_array('on', $event[$i])) $status = "on" ; else $status = "off";
 //            var_dump($start_time);
             AllowSchedule::insert([
                 'id'=> $i,
                 'start_date'=> $start_date,
                 'end_date'=> $end_date,
                 'start_time'=> $start_time,
-                'end_time'=> $end_time
+                'end_time'=> $end_time,
+                'status'=> $status
             ]);
         }
 
@@ -302,7 +356,7 @@ class RoomController extends Controller
         $tmp = AllowSchedule::all();
         $tmp2 = ScheduleSetting::all();
         $tmp3 = MeetingRoom::all();
-        return compact('tmp', 'event','tmp2','tmp3','room');
+        return compact('tmp', 'event','tmp2', 'timeStartDefault', 'timeEndDefault','tmp3','room');
         return "success";
         ScheduleSetting::truncate();
 

@@ -2406,9 +2406,12 @@
 
 										success: 	function(data) {
 											var data = data.trim();
-
+											var tmp = data.split(":");
+											if(tmp[0]=='echo'){
+												_toastr(tmp[1],_Tposition,"error",false);
+											}
 											// SMTP ERROR
-											if(data == '_failed_') {
+											else if(data == '_failed_') {
 												_toastr("SMTP ERROR! Please, check your config file!",_Tposition,"error",false);
 											}
 
