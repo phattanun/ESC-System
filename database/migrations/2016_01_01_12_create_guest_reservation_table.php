@@ -25,6 +25,14 @@ class CreateGuestReservationTable extends Migration
             $table->boolean('allow_projector')->nullable();
             $table->integer('request_plug')->unsigned();
             $table->integer('allow_plug')->unsigned();
+            $table->integer('request_room_id')->unsigned();
+            $table->integer('allow_room_id')->unsigned()->nullable();
+            $table->bigInteger('approver_id')->unsigned()->nullable();
+            $table->string('reason_if_not_approve')->nullable();
+            $table->timestamp('create_at');
+            $table->timestamp('approve_at')->nullable();
+
+            // GUEST INFO
             $table->string('guest_name');
             $table->string('guest_surname');
             $table->string('guest_phone_number',20);
@@ -32,12 +40,6 @@ class CreateGuestReservationTable extends Migration
             $table->string('guest_faculty')->nullable();
             $table->string('guest_email');
             $table->string('guest_org');
-            $table->integer('request_room_id')->unsigned();
-            $table->integer('allow_room_id')->unsigned()->nullable();
-            $table->bigInteger('approver_id')->unsigned()->nullable();
-            $table->string('reason_if_not_approve')->nullable();
-            $table->timestamp('create_at');
-            $table->timestamp('approve_at')->nullable();
 
             $table->foreign('request_room_id')->references('room_id')->on('meeting_rooms');
             $table->foreign('allow_room_id')->references('room_id')->on('meeting_rooms');

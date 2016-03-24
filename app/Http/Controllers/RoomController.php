@@ -334,7 +334,103 @@ class RoomController extends Controller
         if(is_null($reserve))
             return response("noowner", "500");
 
-        return compact('reserve','owner');
+        $title = array (
+            "type" => "นิสิตคณะวิศวฯ",
+            "status" => $reserve->status
+        );
+
+        $department = Division::find($owner->department)->name;
+        $room = MeetingRoom::find($reserve->request_room_id);
+        if(is_null($room))
+            return response("noinfo","500");
+
+        $owner = array (
+            "student_id" => $owner->student_id,
+            "name" => $owner->name,
+            "surname" => $owner->surname,
+
+            "nickname" => $owner->nickname,
+            "generation" => $owner->generation,
+
+            "department" => $department,
+            "facebook_link" => $owner->facebook_link,
+            "phone_number" => $owner->phone_number,
+            "email" => $owner->email
+        );
+
+        $reserve = array (
+            "activity" => (!is_null($reserve->act_id)) ? Activity::find($reserve->act_id)->name : $reserve->other_act,
+            "organization" => (!is_null($reserve->div_id)) ? Division::find($reserve->div_id)->name : $reserve->other_div,
+            "room_name" => $room->name,
+            "request_start_time" => $reserve->request_start_time,
+            "request_end_time" => $reserve->request_end_time,
+            "number_of_people" => $reserve->number_of_people,
+            "request_projector" => $reserve->request_projector,
+            "request_plug" => $reserve->request_plug,
+            "reason" => $reserve->reason
+        );
+
+        $title = array_filter($title);
+        $owner = array_filter($owner);
+        $reserve = array_filter($reserve);
+
+        return compact('title','reserve','owner');
+    }
+
+    public function getGuestReservation() {
+        $user = Auth::user();
+        if(is_null($user))
+            return response("login", "500");
+
+        // Currently, Room Staff Only!!!
+        $permission = Permission::find($user['student_id']);
+        if(is_null($permission) || !$permission->room)
+            return response("permission", "500");
+
+        $requestId = Input::get('id');
+        if(is_null($requestId))
+            return response("requestid", "500");
+
+        $reserve = GuestReservation::find($requestId);
+        if(is_null($reserve))
+            return response("notfound", "500");
+
+        $room = MeetingRoom::find($reserve->request_room_id);
+        if(is_null($room))
+            return response("noinfo","500");
+
+        $title = array (
+            "type" => "บุคคลภายนอก",
+            "status" => $reserve->status
+        );
+
+        $owner = array (
+            "student_id" => $reserve->guest_student_id,
+            "name" => $reserve->guest_name,
+            "surname" => $reserve->guest_surname,
+
+            "department" => $reserve->guest_faculty,
+
+            "phone_number" => $reserve->guest_phone_number,
+            "email" => $reserve->guest_email
+        );
+
+        $reserve = array (
+            "organization" => $reserve->guest_org,
+            "room_name" => $room->name,
+            "request_start_time" => $reserve->request_start_time,
+            "request_end_time" => $reserve->request_end_time,
+            "number_of_people" => $reserve->number_of_people,
+            "request_projector" => $reserve->request_projector,
+            "request_plug" => $reserve->request_plug,
+            "reason" => $reserve->reason
+        );
+
+        $title = array_filter($title);
+        $owner = array_filter($owner);
+        $reserve = array_filter($reserve);
+
+        return compact('title','reserve','owner');
     }
 
     public function approveReservation() {

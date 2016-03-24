@@ -72,6 +72,7 @@
                 <button type="button" class="close" onclick="hideSlide()">&times;</button>
                 <h4 id="event-info-title" class="modal-title">
                     <i class="fa fa-calendar"></i> รายละเอียดการจอง: <span id="status"></span>
+                    <span style="float:right"><div id="type"></div></span>
                 </h4>
                 <!-- TABs -->
                 <ul id="event-tab" class="nav nav-tabs">
@@ -88,6 +89,12 @@
                             <input type="hidden" name="allow_start_time" id="request_start_time">
                             <input type="hidden" name="allow_end_time" id="request_end_time">
                             <div class="row">
+                                <div class="col-sm-4">
+                                    <label>กิจกรรม <span id="activity" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>หน่วยงาน <span id="organization" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
                                 <div class="col-sm-4">
                                     <label>สถานที่ <span id="room_name" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
@@ -134,6 +141,9 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label>เบอร์ติดต่อ <span id="phone_number" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>E-mail <span id="email" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                                 <div class="col-sm-4">
                                     <label>Facebook <span id="facebook_link" class="text-blue">ไม่มีข้อมูล</span></label>
@@ -244,6 +254,9 @@
             width: 100%;
             padding-bottom: 0;
             border-bottom: none;
+        }
+        .modal-header > .close {
+            margin-left: 10px;
         }
         .nav-tabs {
             padding-top: 10px;
@@ -360,9 +373,6 @@
                           id: contentId.split("-")[1]
                         },
                         success: function(response) {
-                            response.title = new Object();
-                            response.title.status = response.reserve.status;
-                            response.reserve.room_name = calendar.fullCalendar('getResourceById',response.reserve.request_room_id).title;
                             replace(contentType,response,function(name, element, data) {
                                 switch(name) {
                                 case "status":
