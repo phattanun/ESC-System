@@ -43,10 +43,8 @@ Route::get ('/room/room-manage', 'RoomController@roomManagePage');
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
 
 Route::get ('/room/search', 'RoomController@roomSearchQuery');
-Route::post('/room/search', 'RoomController@roomSearchResult');
-
 Route::get ('/room/report', 'RoomController@roomReportQuery');
-Route::post('/room/report', 'RoomController@roomReportResult');
+Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
 Route::get ('/supplies', 'PagesController@suppliesPage');

@@ -603,10 +603,32 @@ class RoomController extends Controller
         if (is_null($user)||!$permission||!$permission->student)
             return redirect('/');
 
-        return view('room-search', ['type' => 'search']);
+        $activity = Activity::select('act_id', 'name')->get();
+        $department = Division::select('div_id', 'name','short_name')->where('type','=','Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
+        $club = Division::select('div_id', 'name')->where('type','=','Club')->get();
+
+        return view('room-search', ['type' => 'search', 'department' => $department, 'generation' => $generation, 'group' => $group, 'club' => $club, 'activity' => $activity]);
     }
 
-    public function roomSearchResult(Request $request)
+    public function roomReportQuery()
+    {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->student)
+            return redirect('/');
+
+        $activity = Activity::select('act_id', 'name')->get();
+        $department = Division::select('div_id', 'name','short_name')->where('type','=','Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
+        $club = Division::select('div_id', 'name')->where('type','=','Club')->get();
+
+        return view('room-search', ['type' => 'report', 'department' => $department, 'generation' => $generation, 'group' => $group, 'club' => $club, 'activity' => $activity]);
+    }
+
+    public function roomResult(Request $request)
     {
         $user = $this->getUser();
         if (is_null($user))
@@ -651,25 +673,5 @@ class RoomController extends Controller
         }
         if(sizeof($users)==0) return 'fail';
         return $users;
-    }
-
-    public function roomReportQuery()
-    {
-        $user = $this->getUser();
-        $permission = Permission::find($user['student_id']);
-        if (is_null($user)||!$permission||!$permission->student)
-            return redirect('/');
-
-        return view('room-search', ['type' => 'report']);
-    }
-
-    public function roomReportResult()
-    {
-        $user = $this->getUser();
-        $permission = Permission::find($user['student_id']);
-        if (is_null($user)||!$permission||!$permission->student)
-            return redirect('/');
-
-        return view('room-search');
     }
 }

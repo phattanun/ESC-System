@@ -26,7 +26,7 @@
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><i class="fa fa-calendar"></i> ค้นหาข้อมูลห้องประชุม</h2>
+                    <h2 class="panel-title"><i class="fa fa-calendar"></i> ค้นหาข้อมูลการจองห้องประชุม</h2>
                 </div>
                 <div class="panel-body">
                     </br>
@@ -37,27 +37,49 @@
                         <div class="form-group">
                             <div class="row text-center">
                                 <div class="col-md-2">
-                                    <input required id="startDate" name="startDate" required type="text" class="form-control"
+                                    <input required id="startDate" name="startDate" required type="text" class="form-control datepicker text-center "
                                            placeholder="วันเริ่มต้น">
                                 </div>
                                 <div class="col-md-2">
-                                    <input required id="endDate" name="endDate" required type="text" class="form-control"
+                                    <input required id="endDate" name="endDate" required type="text" class="form-control datepicker text-center "
                                            placeholder="วันสิ้นสุด">
                                 </div>
-                                <div class="col-md-3">
+                                <div class={{$type=='report'?"col-md-3":"col-md-4"}}>
                                     <select name="activity" class="form-control select2 required" id="activity">
                                         <option selected="selected" value="0">กิจกรรม</option>
-
-                                        <option selected="selected" value="NULL">กิจกรรมอื่น ๆ</option>
+                                        @foreach($activity as $act)
+                                            <option value="{{$act['act_id']}}">{{$act['name']}}</option>
+                                        @endforeach
+                                        <option value=NULL>กิจกรรมอื่น ๆ</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
-                                    <select name="division" class="form-control select2 required" id="studentGroup">
+                                <div class={{$type=='report'?"col-md-2":"col-md-3"}}>
+                                    <select name="division" class="form-control select2 required" id="division">
                                         <option selected="selected" value="0">หน่วยงาน</option>
-
-                                        <option selected="selected" value="NULL">หน่วยงานอื่น ๆ</option>
+                                        @foreach($generation as $generations)
+                                            <option value="{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
+                                        @endforeach
+                                        @foreach($group as $groups)
+                                            <option value="{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
+                                        @endforeach
+                                        @foreach($department as $departments)
+                                            <option value="{{$departments['div_id']}}">{{$departments['short_name']}}</option>
+                                        @endforeach
+                                        @foreach($club as $clubs)
+                                            <option value="{{$clubs['div_id']}}">{{$clubs['name']}}</option>
+                                        @endforeach
+                                        <option value=NULL>หน่วยงานอื่น ๆ</option>
                                     </select>
                                 </div>
+                                @if($type=='report')
+                                <div class="col-md-2">
+                                    <select name="userType" class="form-control select2 required" id="userType">
+                                        <option selected="selected" value="0">ประเภทผู้ใช้</option>
+                                        <option value='user'>นิสิตภายในคณะ</option>
+                                        <option value='guest'>ผู้ใช้ภายนอก</option>
+                                    </select>
+                                </div>
+                                @endif
                                 <span class="col-md-1" id="search-student-btn">
                                     <a class="btn btn-success">ค้นหา</a>
                                 </span>
@@ -114,6 +136,114 @@
 @endsection
 @section('js')
     <script>
+        /*
+        $('#save-excel-btn').click(function(){
+            window.location="{{url('/students/getExcelFile?studentID=')}}"+history['studentID']+"&studentFName="+history['studentFName']+"&studentLName="+history['studentLName']+"&studentNName="+history['studentNName']+"&studentGroup="+history['studentGroup']+"&studentDept="+history['studentDept']+"";
+        });
+        */
 
+        /*
+        $(document).on('click','.clickrow',function(){
+            window.location="{{url('/profile')}}"+"/"+ this.id;
+        });
+        */
+
+        var history;
+        $('#search-student-btn').click(function () {
+            history['startDate']= $('#startDate').val();
+            history['endDate']=$('#endDate').val();
+            history['activity']=$('#activity').val();
+            history['division']=$('#division').val();
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT + '/room/result',
+                    {
+                        startDate: history['startDate'],
+                        endDate: history['endDate'],
+                        activity: history['activity'],
+                        division: history['division'],
+                        _token: '{{csrf_token()}}',
+                        type: '{{$type}}'
+                    }).done(function (input) {
+                if (input == 'fail') {
+                    //_toastr("ไม่พบข้อมูลการจองห้องที่ต้องการ", "top-right", "error", false);
+                    $('#search-result-table').html('');
+                    $('#search-result-table').append('<div class = \'text-center\'>ไม่พบข้อมูลการจองห้องที่ต้องการ</div>');
+                    $('#save-excel-btn').addClass('hidden');
+                    return false;
+                }
+                else {
+
+                    $('#search-result-table').html('');
+                    //--table header part--
+
+                    var tableHeader = '</br>' +
+                            '<tr>' +
+                            '<th style="vertical-align:middle" rowspan="1">ลำดับ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">กิจกรรม</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">หน่วยงาน</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">เหตุผลการจอง</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">จำนวนคน</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">เวลาเริ่ม</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">เวลาสิ้นสุด</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">สถานะ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">จำนวนเครื่องฉายที่ได้</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">จำนวนปลั๊กไฟที่ได้</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>';
+
+                    @if($type == 'report')
+                            tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้จอง</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">รหัสนิสิต</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">คณะ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>';
+                    @endif
+                    $('#search-result-table').append(tableHeader);
+
+                    //--row data--
+                    for (var counter = 0; counter < input.length; counter++) {
+                        var tabledata = '<tr class = "clickrowcss';
+                        /*
+                        @if($type == 'report')
+                                tabledata += ' clickrow" data-toggle="tooltip" data-placement="top" title="คลิกเพื่อแก้ไขข้อมูล" id = "'+input[counter]["student_id"];
+                        @endif
+                        */
+
+                        tabledata += '" >'+
+                        '<td>' + (counter + 1) + '</td>'+
+                        '<td>' + input[counter][""] + '</td>'+
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>' +
+                        '<td>' + input[counter][""] + '</td>';
+
+                        @if($type == 'report')
+                                tabledata +=
+                                '<td>' +  input[counter][""]  + '</td>' +
+                                '<td>' +  input[counter][""]  + '</td>' +
+                                '<td>' +  input[counter][""]  + '</td>' +
+                                '<td>' +  input[counter][""]  + '</td>' +
+                                '<td>' +  input[counter][""]  + '</td>';
+                        @endif
+                                tabledata += '</tr>';
+                        $('#search-result-table').append(tabledata);
+                    }
+
+                    //--excel button part--
+                    @if($type=='report')
+                        $('#save-excel-btn').removeClass('hidden');
+                    @endif
+                }
+            }).fail(function () {
+                _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                return false;
+            });
+        });
     </script>
 @endsection
