@@ -122,8 +122,8 @@
 
             $(".modal-news-box-head").text(input[0]['title']);
             $(".modal-news-box-content").html(input[0]['content']);
-            $(".modal-created").text("Created at : "+input[0]['created_at']['date']);
-            $(".modal-updated").text("Updated at : "+input[0]['updated_at']['date']);
+            $(".modal-created").text("Created at : " + (new Date(input[0]['created_at']['date'])).toLocaleString());
+            $(".modal-updated").text("Updated at : " + (new Date(input[0]['updated_at']['date'])).toLocaleString());
             $(".modal-news-image").remove();
             if(input[0]['image']) {
                var txt = '<div class="modal-news-image news-image" style="background-image:url('+input[0]['image']+');">'+'</div>';
