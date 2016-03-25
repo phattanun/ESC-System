@@ -335,14 +335,14 @@ class RoomController extends Controller
                 $r->name = $ro["name"];
                 $r->size = $ro["size"];
                 $r->priority = $ro['priority'];
-                if(in_array('onoff', $ro))
+                if(in_array('on', $ro))
                     $r->closed = '0';
                 else
                     $r->closed = '1';
                 $r->save();
             }
             if($ro['id']>$count_rooms){
-                if(in_array('onoff', $ro))
+                if(in_array('on', $ro))
                     $c = '0';
                 else
                     $c = '1';
@@ -362,8 +362,18 @@ class RoomController extends Controller
                     'deleted' => $d
                 ]);
             }
-
         }
+        foreach($room as $ro)
+        {
+            $r = MeetingRoom::where('room_id',$ro['id'])->first();
+
+            if(in_array('on', $ro))
+                $r->closed = '0';
+            else
+                $r->closed = '1';
+            $r->save();
+        }
+
 //        for($i=1;$i<=count($room);$i++)
 //        {
 //            if($room[$i]['status']=="update"){
