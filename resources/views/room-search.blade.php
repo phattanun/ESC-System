@@ -165,9 +165,9 @@
                         type: '{{$type}}'
                     }).done(function (input) {
                 if (input == 'fail') {
-                    //_toastr("ไม่พบข้อมูลการจองห้องที่ต้องการ", "top-right", "error", false);
+                    //_toastr("ไม่พบข้อมูลการจองห้องประชุมที่ต้องการ", "top-right", "error", false);
                     $('#search-result-table').html('');
-                    $('#search-result-table').append('<div class = \'text-center\'>ไม่พบข้อมูลการจองห้องที่ต้องการ</div>');
+                    $('#search-result-table').append('<div class = \'text-center\'>ไม่พบข้อมูลการจองห้องประชุมที่ต้องการ</div>');
                     $('#save-excel-btn').addClass('hidden');
                     return false;
                 }

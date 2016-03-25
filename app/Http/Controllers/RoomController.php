@@ -634,44 +634,16 @@ class RoomController extends Controller
         if (is_null($user))
             return redirect('/');
         $permission = Permission::find($user['student_id']);
-        if ($permission&&$permission->student) {
-            $users = User::select(['student_id', 'name', 'surname', 'nickname', 'sex', 'group', 'department', 'generation', 'address', 'birthdate', 'phone_number', 'email', 'facebook_link', 'line_id', 'emergency_contact', 'anomaly', 'allergy', 'religion', 'blood_type', 'clothing_size'])->where(function ($query) use ($request) {
-                if ($request->input('studentID')) $query->where('student_id', 'LIKE', '%' . $request->input('studentID') . '%');
-                if ($request->input('studentFName')) $query->where('name', 'LIKE', '%' . $request->input('studentFName') . '%');
-                if ($request->input('studentLName')) $query->where('surname', 'LIKE', '%' . $request->input('studentLName') . '%');
-                if ($request->input('studentNName')) $query->where('nickname', 'LIKE', '%' . $request->input('studentNName') . '%');
-            })  ->with('group','department','generation')
-                ->whereHas('group', function ($query) use ($request) {
-                    if ($request->input('studentGroup')) $query->where('name', 'LIKE', '%' . $request->input('studentGroup') . '%')->where('type', '=', 'Group');
-                })
-                ->whereHas('department', function ($query) use ($request) {
-                    if ($request->input('studentDept')) $query->where('name', 'LIKE', '%' . $request->input('studentDept') . '%')->where('type', '=', 'Department');
-                })
-                ->whereHas('generation', function ($query) use ($request) {
-                    if ($request->input('studentGen')) $query->where('name', '=', $request->input('studentGen'))->where('type', '=', 'Generation');
-                })
-                ->orderby('student_id')
-                ->get();
-        } else {
-            $users = User::select(['student_id', 'name', 'surname', 'nickname', 'sex', 'group', 'department', 'generation'])->where(function ($query) use ($request) {
-                if ($request->input('studentID')) $query->where('student_id', 'LIKE', '%' . $request->input('studentID') . '%');
-                if ($request->input('studentFName')) $query->where('name', 'LIKE', '%' . $request->input('studentFName') . '%');
-                if ($request->input('studentLName')) $query->where('surname', 'LIKE', '%' . $request->input('studentLName') . '%');
-                if ($request->input('studentNName')) $query->where('nickname', 'LIKE', '%' . $request->input('studentNName') . '%');
-            }) ->with('group','department','generation')
-                ->whereHas('group', function ($query) use ($request) {
-                    if ($request->input('studentGroup')) $query->where('name', 'LIKE', '%' . $request->input('studentGroup') . '%')->where('type', '=', 'Group');
-                })
-                ->whereHas('department', function ($query) use ($request) {
-                    if ($request->input('studentDept')) $query->where('name', 'LIKE', '%' . $request->input('studentDept') . '%')->where('type', '=', 'Department');
-                })
-                ->whereHas('generation', function ($query) use ($request) {
-                    if ($request->input('studentGen')) $query->where('name', '=', $request->input('studentGen'))->where('type', '=', 'Generation');
-                })
-                ->orderby('student_id')
-                ->get();
+
+        $reservation = [];
+        if ($request->input('type') == 'search'){
+
         }
-        if(sizeof($users)==0) return 'fail';
-        return $users;
+        if ($request->input('type') == 'report' && $permission && $permission->room){
+
+        }
+
+        if(sizeof($reservation)==0) return 'fail';
+        return $reservation;
     }
 }
