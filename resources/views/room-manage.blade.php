@@ -107,7 +107,7 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!" {{--data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ"--}} data-toastr-position="top-right">
+                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>setTimeout(function(){location.reload();},5000);</script>" {{--data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ"--}} data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
 
 {{--เพิ่มลดแก้ไขห้องประชุม--------------------------------------------------------------------------------------------}}
