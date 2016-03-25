@@ -595,4 +595,55 @@ class RoomController extends Controller
 
         return $status == 1 ? "approve":"disapprove";
     }
+
+    public function roomSearchQuery()
+    {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->student)
+            return redirect('/');
+
+        $activity = Activity::select('act_id', 'name')->get();
+        $department = Division::select('div_id', 'name','short_name')->where('type','=','Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
+        $club = Division::select('div_id', 'name')->where('type','=','Club')->get();
+
+        return view('room-search', ['type' => 'search', 'department' => $department, 'generation' => $generation, 'group' => $group, 'club' => $club, 'activity' => $activity]);
+    }
+
+    public function roomReportQuery()
+    {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->student)
+            return redirect('/');
+
+        $activity = Activity::select('act_id', 'name')->get();
+        $department = Division::select('div_id', 'name','short_name')->where('type','=','Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type','=','Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type','=','Group')->get();
+        $club = Division::select('div_id', 'name')->where('type','=','Club')->get();
+
+        return view('room-search', ['type' => 'report', 'department' => $department, 'generation' => $generation, 'group' => $group, 'club' => $club, 'activity' => $activity]);
+    }
+
+    public function roomResult(Request $request)
+    {
+        $user = $this->getUser();
+        if (is_null($user))
+            return redirect('/');
+        $permission = Permission::find($user['student_id']);
+
+        $reservation = [];
+        if ($request->input('type') == 'search'){
+
+        }
+        if ($request->input('type') == 'report' && $permission && $permission->room){
+
+        }
+
+        if(sizeof($reservation)==0) return 'fail';
+        return $reservation;
+    }
 }

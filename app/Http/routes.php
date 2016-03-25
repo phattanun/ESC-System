@@ -31,8 +31,8 @@ Route::post('/save_news', 'NewsController@save_news');
 Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
 Route::get ('/room/approve', 'RoomController@viewApprovePage');
-Route::post ('/room/approve', 'RoomController@approveReservation');
-Route::post ('/room/edit_announcement', 'RoomController@editAnnouncement');
+Route::post('/room/approve', 'RoomController@approveReservation');
+Route::post('/room/edit_announcement', 'RoomController@editAnnouncement');
 Route::get ('/room/get_room_reservation_schedule', 'RoomController@getRoomReservationSchedule');
 Route::get ('/room/get_room', 'RoomController@getMeetingRoom');
 Route::post('/room/get_user_reservation', 'RoomController@getUserReservation');
@@ -41,6 +41,10 @@ Route::post('/room/user/submit_request', 'RoomController@UserSubmitRequest');
 Route::post('/room/guest/submit_request', 'RoomController@GuestSubmitRequest');
 Route::get ('/room/room-manage', 'RoomController@roomManagePage');
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
+
+Route::get ('/room/search', 'RoomController@roomSearchQuery');
+Route::get ('/room/report', 'RoomController@roomReportQuery');
+Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
 Route::get ('/supplies', 'PagesController@suppliesPage');
@@ -73,11 +77,11 @@ Route::post('/activity/list/edit_form','ActivityController@edit_activity');
 Route::post('/activity/list/search_activity','ActivityController@search_activity');
 Route::post('/activity/list/delete_activity','ActivityController@delete_activity');
 
-Route::get('/activity/auto_suggest','ActivityController@autoSuggest');
+Route::get ('/activity/auto_suggest','ActivityController@autoSuggest');
 Route::get ('/activity/report','ActivityController@report');
-Route::post ('/activity/report','ActivityController@postReport');
+Route::post('/activity/report','ActivityController@postReport');
 Route::post('/activity/report/getxlsx','ActivityController@getExcel');
-Route::get('/activity/attachments/{file_id}','ActivityController@getFile');
+Route::get ('/activity/attachments/{file_id}','ActivityController@getFile');
 
 
 // Contact Page
