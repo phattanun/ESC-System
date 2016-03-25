@@ -635,7 +635,7 @@
             var timeEndMin = tmp[2];
 
 
-            alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd + " " + event_count + " " + timeStartHour + " " + timeStartMin + " " + timeEndHour + " " + timeEndMin);
+//            alert(dateStart + " " + dateEnd + " " + timeStart + " " + timeEnd + " " + event_count + " " + timeStartHour + " " + timeStartMin + " " + timeEndHour + " " + timeEndMin);
 
             var txt =
                     '<tr id="event-'+event_count+'"><input type="hidden" id="event-status-'+event_count+'" name="event['+event_count+'][status]" value="new" />'
@@ -779,6 +779,9 @@
         }
 
         $(document).ready(function(){
+            $("#cancelPermissionEditButton").on('click',function(){
+                location.reload();
+            });
             $(".number").keydown(function (e) {
                 // Allow: backspace, delete, tab, escape, enter and .
                 if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
