@@ -24,7 +24,7 @@ class PagesController extends Controller
             if(is_null(Auth::user()->last_time_attemp))
                 return $this->register();
             $this->updateUserTime();
-            return redirect('/');
+            return Redirect::back();
         }
         else
             return Redirect::back()->with('hasError', true);
