@@ -360,7 +360,7 @@
 @section('css')
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/css/layout-calendar-reserve.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{url('assets/css/layout-calendar-reserve.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>

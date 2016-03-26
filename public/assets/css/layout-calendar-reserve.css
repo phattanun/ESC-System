@@ -6,6 +6,12 @@
 .fc-event {
 	border:0 !important;
 }
+.fc-event > .fc-bg {
+	border: black 1px solid;
+}
+.fc-event > .fc-bg:hover {
+	opacity: 0;
+}
 .fc-event-inner {
 	padding-left:4px;
 	padding-right:4px;
@@ -16,6 +22,10 @@
 .fc-day-grid-event .fc-content {
 	padding:3px;
 }
+.fc-content {
+	margin: 3px;
+}
+
 .fc-state-highlight {
 	background-color: rgba(255,255,255,1);
 }

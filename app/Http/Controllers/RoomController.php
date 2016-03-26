@@ -492,7 +492,11 @@ class RoomController extends Controller
             "number_of_people" => $reserve->number_of_people,
             "request_projector" => $reserve->request_projector,
             "request_plug" => $reserve->request_plug,
-            "reason" => $reserve->reason
+            "reason" => $reserve->reason,
+            
+            // Input
+            "res_id" => $reserve->res_id,
+            "request_room_id" => $reserve->request_room_id
         );
 
         $title = array_filter($title);
@@ -541,6 +545,7 @@ class RoomController extends Controller
         );
 
         $reserve = array (
+            "res_id" => $reserve->res_id,
             "organization" => $reserve->guest_org,
             "room_name" => $room->name,
             "request_start_time" => $reserve->request_start_time,
@@ -548,7 +553,11 @@ class RoomController extends Controller
             "number_of_people" => $reserve->number_of_people,
             "request_projector" => $reserve->request_projector,
             "request_plug" => $reserve->request_plug,
-            "reason" => $reserve->reason
+            "reason" => $reserve->reason,
+
+            // Input
+            "res_id" => $reserve->res_id,
+            "request_room_id" => $reserve->request_room_id
         );
 
         $title = array_filter($title);
