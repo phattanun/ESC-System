@@ -156,7 +156,7 @@ form label {
 	opacity: 1.0;
 }
 
-.fc-past:hover, .fc-today:hover, .more-than-30:hover {
+.fc-past:hover, .more-than-30:hover {
 	cursor: not-allowed;
 	background-color: rgba(255, 164, 142, 0.29);
 }

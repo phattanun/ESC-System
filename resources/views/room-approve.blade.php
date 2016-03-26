@@ -481,15 +481,15 @@
             calendar = $('#calendar').fullCalendar({
                 lang: 'th',
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                defaultView: 'month', // 'month',
+                defaultView: 'month',
                 minTime: '8:00',
                 maxTime: '18:00',
                 slotDuration: '00:15',
-                // height: 'auto',
+                eventOrder: 'start',
+                displayEventEnd: true,
                 editable: true,
                 allDaySlot: false,
-    			selectable: false,
-    			eventLimit: true, // allow "more" link when too many events
+    			eventLimit: true,
                 resources: '{{url('/room/get_room')}}',
                 events: '{{url('/room/get_room_reservation_schedule')}}',
     			dayClick: function(date, jsEvent, view, resource) {
