@@ -40,7 +40,6 @@
                         </div>
                         <!-- panel content -->
                         <div class="panel-body">
-                            <div id="announcement" class="text-center"><p>ประกาศ: กวศ. จะย้ายห้องประชุมไปอยู่ฝรั่งเศส</p></div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
                         </div>
                         <!-- /panel content -->
@@ -403,7 +402,7 @@
                                 _toastr("กรุณาเข้าสู่ระบบ", "top-right", "error", false);
                             else if (response == 'permission')
                                 _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
-                            else if (response == 'noinfo' || response == 'noowner')
+                            else if (response == 'noinfo')
                                 _toastr("ข้อมูลการจองไม่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
                             else if (response == 'notfound')
                                 _toastr("ไม่พบข้อมูลการจอง", "top-right", "error", false);
@@ -450,7 +449,7 @@
                         _toastr("กรุณาเข้าสู่ระบบ", "top-right", "error", false);
                     else if (response == 'permission')
                         _toastr("คุณไม่มีสิทธิทำรายการนี้", "top-right", "error", false);
-                    else if (response == 'requestid' || response == 'noowner')
+                    else if (response == 'noinfo')
                         _toastr("ข้อมูลการจองไม่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
                     else if (response == 'notfound')
                         _toastr("ไม่พบข้อมูลการจอง", "top-right", "error", false);
@@ -482,13 +481,13 @@
             calendar = $('#calendar').fullCalendar({
                 lang: 'th',
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                defaultView: 'agendaDay', // 'month',
+                defaultView: 'month', // 'month',
                 minTime: '8:00',
                 maxTime: '18:00',
                 slotDuration: '00:15',
-                allDaySlot: false,
-                height: 'auto',
+                // height: 'auto',
                 editable: true,
+                allDaySlot: false,
     			selectable: false,
     			eventLimit: true, // allow "more" link when too many events
                 resources: '{{url('/room/get_room')}}',
@@ -508,15 +507,24 @@
                     }
                 },
                 eventRender: function (event, element, icon) {
-                    if (!event.description == '') {
-                        element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
+                    console.log("Render");
+                    if (calendar.fullCalendar('getResourceById',event.resourceId) != undefined) {
+                        element.find('.fc-title').append("<br>" + calendar.fullCalendar('getResourceById',event.resourceId).title);
                     }
-                    element.find('.fc-title').append("<br><span class='color-red'>" + event._start + "-" + event._end + "</span");
                     element.attr('title',event.title);
                     element.attr('data-toggle','tooltip');
                 },
                 eventAfterAllRender: function(){
                     $('[data-toggle="tooltip"]').tooltip();
+                },
+                eventDragStart: function( event, jsEvent, ui, view ) {
+                    console.log("start");
+                },
+                eventDragStop: function( event, jsEvent, ui, view ) {
+                    console.log("stop");
+                },
+                eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) {
+                    console.log("change");
                 }
             }).on("click", ".fc-resource-cell",function(e) {
                 slide(

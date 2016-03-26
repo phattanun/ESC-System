@@ -535,6 +535,7 @@
                                                         unselectAuto: true,
                                                         disableResizing: true,
                                                         editable: false,
+                                            			eventLimit: true, // allow "more" link when too many events
                                                         select: function (start, end, allDay) {
                                                             if (jQuery("#calendar").attr('data-modal-create') == 'true') {
                                                                 var check = moment(start).format('YYYYMMDD');

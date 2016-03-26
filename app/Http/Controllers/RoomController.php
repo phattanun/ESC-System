@@ -93,6 +93,8 @@ class RoomController extends Controller
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
             ->get();
         foreach ($query as $queries) {
+            if(MeetingRoom::find($queries['request_room_id']) == null || MeetingRoom::find($queries['request_room_id'])->closed)
+                continue;
             if($queries['act_id']){
                 $title=Activity::where('act_id','=',$queries['act_id'])->select('name')->get()[0]->name;
             }
@@ -139,6 +141,8 @@ class RoomController extends Controller
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
             ->get();
         foreach ($guest as $queries) {
+            if(MeetingRoom::find($queries['request_room_id']) == null || MeetingRoom::find($queries['request_room_id'])->closed)
+                continue;
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
@@ -453,7 +457,7 @@ class RoomController extends Controller
 
         $owner = User::find($reserve->student_id);
         if(is_null($reserve))
-            return response("noowner", "500");
+            return response("noinfo", "500");
 
         $title = array (
             "type" => "นิสิตคณะวิศวฯ",
@@ -574,7 +578,7 @@ class RoomController extends Controller
 
         $owner = User::find($reserve->student_id);
         if(is_null($reserve))
-            return response("noowner", "500");
+            return response("noinfo", "500");
 
         $status = Input::get('status');
         if(is_null($status))
