@@ -83,26 +83,15 @@
                             <div class="panel-options pull-right"><!-- panel options -->
                                 <ul class="options list-unstyled">
                                     <li>
-                                        <a href="#" class="opt dropdown-toggle" data-toggle="dropdown"><span
-                                                    class="label label-disabled"><span
-                                                        id="agenda_btn">เดือน</span> <span class="caret"></span></span></a>
+                                        <a href="#" class="opt dropdown-toggle" data-toggle="dropdown"><span id="agenda_lb"><span id="agenda_btn"></span> <span class="caret"></span></span></a>
                                         <ul class="dropdown-menu pull-right" role="menu">
-                                            <li><a data-widget="calendar-view" href="#month"><i
-                                                            class="fa fa-calendar-o color-green"></i> <span>เดือน</span></a>
-                                            </li>
-                                            <li><a data-widget="calendar-view" href="#agendaWeek"><i
-                                                            class="fa fa-calendar-o color-red"></i>
-                                                    <span>แผนงาน</span></a></li>
-                                            <li><a data-widget="calendar-view" href="#agendaDay"><i
-                                                            class="fa fa-calendar-o color-yellow"></i>
-                                                    <span>วันนี้</span></a></li>
-                                            <li><a data-widget="calendar-view" href="#basicWeek"><i
-                                                            class="fa fa-calendar-o color-gray"></i>
-                                                    <span>สัปดาห์</span></a></li>
+                                            <li><a id="month" data-widget="calendar-view" data-label="label label-success"><i class="fa fa-calendar-o color-green"></i> <span>เดือน</span></a></li>
+                                            <li><a id="agendaWeek" data-widget="calendar-view" data-label="label label-danger"><i class="fa fa-calendar-o color-red"></i> <span>วาระ</span></a></li>
+                                            <li><a id="agendaDay" data-widget="calendar-view" data-label="label label-warning"><i class="fa fa-calendar-o color-yellow"></i> <span>วันนี้</span></a></li>
+                                            <li><a id="basicWeek" data-widget="calendar-view" data-label="label label-default"><i class="fa fa-calendar-o color-gray"></i> <span>สัปดาห์</span></a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse"
-                                           data-placement="bottom"></a></li>
+                                    <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
                                 </ul>
                             </div><!-- /panel options -->
                         </div>
@@ -371,7 +360,7 @@
 @section('css')
     <link href="{{url('assets/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/css/layout-calendar-reserve.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{url('assets/css/layout-calendar-reserve.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
@@ -527,31 +516,39 @@
                                                     var _calendarInstance = jQuery('#calendar').fullCalendar({
                                                         lang: 'th',
                                                         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                                                        draggable: false,
-                                                        selectable: true,
-                                                        selectHelper: true,
-                                                        eventOrder:'order',
+                                                        defaultView: 'month',
+                                                        minTime: '8:00',
+                                                        maxTime: '18:00',
+                                                        slotDuration: '00:15',
+                                                        eventOrder: 'start',
                                                         displayEventEnd: true,
-                                                        unselectAuto: true,
-                                                        disableResizing: true,
+                                                        allDaySlot: false,
                                                         editable: false,
-                                                        select: function (start, end, allDay) {
+                                            			eventLimit: true,
+                                                        resources: '{{url('/room/get_room')}}',
+                                                        events: '{{url('/room/get_room_reservation_schedule')}}',
+                                                        dayClick: function(date, jsEvent, view, resource) {
                                                             if (jQuery("#calendar").attr('data-modal-create') == 'true') {
-                                                                var check = moment(start).format('YYYYMMDD');
+                                                                var check = moment(date).format('YYYYMMDD');
                                                                 var today = moment(new Date()).format('YYYYMMDD');
                                                                 var next30 = parseInt(today) + 100;
-                                                                @if($permission&&$permission->room)
                                                                 if (check <= today) {
+                                                                    $('#calendar').fullCalendar('gotoDate', date );
+                                                                    $('#calendar').fullCalendar('changeView', 'agendaDay');
+                                                                    $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
+                                                                    $("#agenda_lb").attr('class',$("#agendaDay").data('label'));
+                                                                    return;
                                                                 }
-                                                                @else
-                                                                if (check <= today || parseInt(check) > next30) {
+                                                                else if (parseInt(check) > next30) {
+                                                                    _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
+                                                                    return ;
                                                                 }
-                                                                        @endif
                                                                 else {
+                                                                    console.log("reserve");
                                                                     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
-                                                                    day = moment(start).format('ddd, DD MMMM YYYY');
-                                                                    dateStart = moment(start).format('YYYY-MM-DD');
-                                                                    dateEnd = moment(end).format('YYYY-MM-DD');
+                                                                    day = moment(date).format('ddd, DD MMMM YYYY');
+                                                                    dateStart = moment(date).format('YYYY-MM-DD');
+                                                                    // dateEnd = moment(end).format('YYYY-MM-DD');
                                                                     @if($permission&&$permission->room)
                                                                     $("#dateStart").val(dateStart);
                                                                     $("#dateEnd").val(dateStart);
@@ -562,8 +559,9 @@
                                                                 }
                                                             }
                                                         },
-                                                        resources: '{{url('/room/get_room')}}',
-                                                        events: '{{url('/room/get_room_reservation_schedule')}}',
+                                                        resourceRender: function(resource, label, body) {
+                                                            label.append("<br>("+resource.size+")");
+                                                        },
                                                         eventRender: function (event, element, icon) {
                                                             if (!event.description == '') {
                                                                 element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
@@ -579,27 +577,28 @@
                                                 }
                                             }
 
-                                            jQuery("a[data-widget=calendar-view]").bind("click", function (e) {
+                                            $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
+                                            $("#agenda_lb").attr('class',$("#" + $("#calendar").fullCalendar('getView').name).data('label'));
+
+                                            $("a[data-widget=calendar-view]").bind("click", function (e) {
                                                 e.preventDefault();
-                                                var _href = jQuery(this).attr('href'),
-                                                        _href = _href.replace('#', ''),
-                                                        _name = jQuery('span', this).html();
-                                                if (_href) {
-                                                    jQuery('#calendar').fullCalendar('changeView', _href.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
-                                                    jQuery("#agenda_btn").empty().append(_name);
-                                                    // add current view to cookie
-                                                    jQuery.cookie('calendar_view', _href, {expires: 30}); 		// expire 30 days
-                                                    jQuery.cookie('calendar_view_name', _name, {expires: 30}); 	// expire 30 days
+                                                var _view = $(this).attr('id'),
+                                                        _name = $('span', this).html(),
+                                                        _label = $(this).data('label');
+                                                if (_view) {
+                                                    $("#calendar").fullCalendar('changeView', _view.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
+                                                    $("#agenda_btn").empty().append(_name);
+                                                    $("#agenda_lb").attr('class',_label);
                                                 }
                                             });
-                                            jQuery(document).ready(function () {
-                                                var calendar_view = jQuery.cookie('calendar_view');
-                                                var calendar_view_name = jQuery.cookie('calendar_view_name');
-                                                if (calendar_view && calendar_view_name) {
-                                                    jQuery('#calendar').fullCalendar('changeView', calendar_view.trim());
-                                                    jQuery("#agenda_btn").empty().append(calendar_view_name);
-                                                }
-                                            });
+                                            // jQuery(document).ready(function () {
+                                            //     var calendar_view = jQuery.cookie('calendar_view');
+                                            //     var calendar_view_name = jQuery.cookie('calendar_view_name');
+                                            //     if (calendar_view && calendar_view_name) {
+                                            //         jQuery('#calendar').fullCalendar('changeView', calendar_view.trim());
+                                            //         jQuery("#agenda_btn").empty().append(calendar_view_name);
+                                            //     }
+                                            // });
                                         });
                                     });
                                 });

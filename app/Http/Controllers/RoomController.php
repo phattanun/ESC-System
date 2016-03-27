@@ -93,6 +93,8 @@ class RoomController extends Controller
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
             ->get();
         foreach ($query as $queries) {
+            if(MeetingRoom::find($queries['request_room_id']) == null || MeetingRoom::find($queries['request_room_id'])->closed)
+                continue;
             if($queries['act_id']){
                 $title=Activity::where('act_id','=',$queries['act_id'])->select('name')->get()[0]->name;
             }
@@ -139,6 +141,8 @@ class RoomController extends Controller
             ->where('request_end_time', '>=', $_REQUEST['start'] . ' 00:00:00')
             ->get();
         foreach ($guest as $queries) {
+            if(MeetingRoom::find($queries['request_room_id']) == null || MeetingRoom::find($queries['request_room_id'])->closed)
+                continue;
             $statusIsNull = is_null($queries['status']);
             if($statusIsNull){
                 $status=["bg-warning"];
@@ -242,6 +246,11 @@ class RoomController extends Controller
 
     public function roomManagePage()
     {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->room)
+            return redirect('/');
+
         $timeDefault = ScheduleSetting::first();
         $events = AllowSchedule::all();
         $rooms = MeetingRoom::where('deleted','0')->get();
@@ -267,6 +276,11 @@ class RoomController extends Controller
 
     public function editRoom()
     {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->room)
+            return redirect('/');
+
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
         $room = Input::get('room');
@@ -335,14 +349,14 @@ class RoomController extends Controller
                 $r->name = $ro["name"];
                 $r->size = $ro["size"];
                 $r->priority = $ro['priority'];
-                if(in_array('onoff', $ro))
+                if(in_array('on', $ro))
                     $r->closed = '0';
                 else
                     $r->closed = '1';
                 $r->save();
             }
             if($ro['id']>$count_rooms){
-                if(in_array('onoff', $ro))
+                if(in_array('on', $ro))
                     $c = '0';
                 else
                     $c = '1';
@@ -362,8 +376,18 @@ class RoomController extends Controller
                     'deleted' => $d
                 ]);
             }
-
         }
+        foreach($room as $ro)
+        {
+            $r = MeetingRoom::where('room_id',$ro['id'])->first();
+
+            if(in_array('on', $ro))
+                $r->closed = '0';
+            else
+                $r->closed = '1';
+            $r->save();
+        }
+
 //        for($i=1;$i<=count($room);$i++)
 //        {
 //            if($room[$i]['status']=="update"){
@@ -423,6 +447,27 @@ class RoomController extends Controller
 //        return "success";
     }
 
+    public function editImage(Request $request)
+    {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->room)
+            return redirect('/');
+
+        if($request->hasFile('image')) {
+            if($request->file('image')->getClientSize() > 100000)
+                die;
+            $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
+        }
+        else $imageData = false;
+
+        if($imageData)
+            DB::table('schedule_settings')
+                ->update(['image' => $imageData]);
+
+        return "success";
+    }
+
     public function getUserReservation() {
         $user = Auth::user();
         if(is_null($user))
@@ -443,7 +488,7 @@ class RoomController extends Controller
 
         $owner = User::find($reserve->student_id);
         if(is_null($reserve))
-            return response("noowner", "500");
+            return response("noinfo", "500");
 
         $title = array (
             "type" => "นิสิตคณะวิศวฯ",
@@ -478,7 +523,11 @@ class RoomController extends Controller
             "number_of_people" => $reserve->number_of_people,
             "request_projector" => $reserve->request_projector,
             "request_plug" => $reserve->request_plug,
-            "reason" => $reserve->reason
+            "reason" => $reserve->reason,
+            
+            // Input
+            "res_id" => $reserve->res_id,
+            "request_room_id" => $reserve->request_room_id
         );
 
         $title = array_filter($title);
@@ -527,6 +576,7 @@ class RoomController extends Controller
         );
 
         $reserve = array (
+            "res_id" => $reserve->res_id,
             "organization" => $reserve->guest_org,
             "room_name" => $room->name,
             "request_start_time" => $reserve->request_start_time,
@@ -534,7 +584,11 @@ class RoomController extends Controller
             "number_of_people" => $reserve->number_of_people,
             "request_projector" => $reserve->request_projector,
             "request_plug" => $reserve->request_plug,
-            "reason" => $reserve->reason
+            "reason" => $reserve->reason,
+
+            // Input
+            "res_id" => $reserve->res_id,
+            "request_room_id" => $reserve->request_room_id
         );
 
         $title = array_filter($title);
@@ -564,7 +618,7 @@ class RoomController extends Controller
 
         $owner = User::find($reserve->student_id);
         if(is_null($reserve))
-            return response("noowner", "500");
+            return response("noinfo", "500");
 
         $status = Input::get('status');
         if(is_null($status))
