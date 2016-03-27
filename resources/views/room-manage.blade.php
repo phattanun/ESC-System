@@ -99,20 +99,20 @@
                                         {{--</div>--}}
                                         <div class="row">
                                             <div class="col-xs-5 col-md-1 col-sm-2">
-                                                <button type="submit" class="btn btn-3d btn-reveal btn-green">
-                                                    <i class="fa fa-check"></i>
+                                                <button type="submit" class="btn btn-3d btn-reveal btn-yellow">
+                                                    <i class="fa fa-save"></i>
                                                     <span>บันทึก</span>
                                                 </button>
                                             </div>
                                             <div class="col-xs-1 text-center">
                                                 <span class="loading-icon"></span>
                                             </div>
-                                            <div class="col-xs-5 col-md-1 col-sm-2">
-                                                <a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">
-                                                    <i class="fa fa-times"></i>
-                                                    <span>ยกเลิก</span>
-                                                </a>
-                                            </div>
+                                            {{--<div class="col-xs-5 col-md-1 col-sm-2">--}}
+                                                {{--<a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">--}}
+                                                    {{--<i class="fa fa-times"></i>--}}
+                                                    {{--<span>ยกเลิก</span>--}}
+                                                {{--</a>--}}
+                                            {{--</div>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -479,7 +479,6 @@
     <script type="text/javascript">
         var oldImage = $('#news-image').css('background-image');
         $("#upload_form").change(function() {
-            alert("bbb");
             var formData = new FormData($("#upload_form")[0]);
             $.ajax({
                 url:  '{{url("/news/upload/image")}}',

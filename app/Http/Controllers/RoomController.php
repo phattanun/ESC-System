@@ -440,17 +440,15 @@ class RoomController extends Controller
     public function editImage(Request $request)
     {
         if($request->hasFile('image')) {
-            if($request->file('image')->getClientSize() > 200000)
+            if($request->file('image')->getClientSize() > 100000)
                 die;
             $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
         }
         else $imageData = false;
 
-        $map = ScheduleSetting::first();
         if($imageData)
-            $map->image = $imageData;
-        return $map;
-        $map->save();
+            DB::table('schedule_settings')
+                ->update(['image' => $imageData]);
 
         return "success";
     }
