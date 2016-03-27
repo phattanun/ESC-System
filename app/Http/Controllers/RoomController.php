@@ -437,6 +437,24 @@ class RoomController extends Controller
 //        return "success";
     }
 
+    public function editImage(Request $request)
+    {
+        if($request->hasFile('image')) {
+            if($request->file('image')->getClientSize() > 200000)
+                die;
+            $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
+        }
+        else $imageData = false;
+
+        $map = ScheduleSetting::first();
+        if($imageData)
+            $map->image = $imageData;
+        return $map;
+        $map->save();
+
+        return "success";
+    }
+
     public function getUserReservation() {
         $user = Auth::user();
         if(is_null($user))

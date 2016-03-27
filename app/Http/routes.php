@@ -41,6 +41,7 @@ Route::post('/room/user/submit_request', 'RoomController@UserSubmitRequest');
 Route::post('/room/guest/submit_request', 'RoomController@GuestSubmitRequest');
 Route::get ('/room/room-manage', 'RoomController@roomManagePage');
 Route::post('/room/room-manage/edit_room', 'RoomController@editRoom');
+Route::post('/room/room-manage/edit_image', 'RoomController@editImage');
 
 Route::get ('/room/search', 'RoomController@roomSearchQuery');
 Route::get ('/room/report', 'RoomController@roomReportQuery');

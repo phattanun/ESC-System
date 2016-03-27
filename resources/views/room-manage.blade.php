@@ -74,26 +74,45 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form novalidate="novalidate" class="validate" action="" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/setting';</script>" data-toastr-position="top-right">
+                    <form id="upload_form" class="validate" action="{{url().'/room/room-manage/edit_image'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกภาพสำเร็จ!{{--<script>window.location='{{url()}}/setting';</script>--}}" data-toastr-position="top-right">
                         <fieldset>
                             <!-- required [php action request] -->
-                            {{--<input type="hidden" name="_token" value="{{{ csrf_token() }}}">--}}
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                             <div class="row" >
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
                                         <label class="margin-bottom-20">Upload รูปแผนที่ห้องประชุม </label>
-                                        <input class="custom-file-upload" type="file" id="file" name="contact[attachment]" id="contact:attachment" data-btn-text="Select a File" />
+                                        <input class="custom-file-upload" type="file" id="file" name="image" id="contact:attachment" data-btn-text="Select a File" />
                                         <small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>
                                     </div>
                                     <div class="col-md-12 col-sm-12">
                                         <br>
-                                        <img src="{{url('assets/images/patterns/pattern6.png')}}" style="width: 100%">
+                                        <div class="text-center">
+                                            <div id="news-image"style="background-image:url({{$timeDefault->image}}); "></div>
+                                        </div>
                                         <br><br>
-                                        <div>
-                                            <a class="btn btn-3d btn-reveal btn-yellow">
-                                                <i class="fa fa-save"></i>
-                                                <span>บันทึก</span>
-                                            </a>
+                                        {{--<div>--}}
+                                            {{--<a class="btn btn-3d btn-reveal btn-yellow">--}}
+                                                {{--<i class="fa fa-save"></i>--}}
+                                                {{--<span>บันทึก</span>--}}
+                                            {{--</a>--}}
+                                        {{--</div>--}}
+                                        <div class="row">
+                                            <div class="col-xs-5 col-md-1 col-sm-2">
+                                                <button type="submit" class="btn btn-3d btn-reveal btn-green">
+                                                    <i class="fa fa-check"></i>
+                                                    <span>บันทึก</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-1 text-center">
+                                                <span class="loading-icon"></span>
+                                            </div>
+                                            <div class="col-xs-5 col-md-1 col-sm-2">
+                                                <a id="cancelPermissionEditButton" class="btn btn-3d btn-reveal btn-red">
+                                                    <i class="fa fa-times"></i>
+                                                    <span>ยกเลิก</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -394,6 +413,17 @@
 
 @section('css')
     <style>
+        #news-image{
+            /*background-size: cover;*/
+            background-position: center center;
+            background-position-x: 50%;
+            background-position-y: 50%;
+            background-repeat: no-repeat;
+            background-origin: content-box;
+            width: 100%;
+            height: 300px;
+        }
+
         .event-table th,.event-table td{
             text-align: center;
         }
@@ -443,6 +473,34 @@
             padding-left: 14px;
         }
     </style>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        var oldImage = $('#news-image').css('background-image');
+        $("#upload_form").change(function() {
+            alert("bbb");
+            var formData = new FormData($("#upload_form")[0]);
+            $.ajax({
+                url:  '{{url("/news/upload/image")}}',
+                type: 'POST',
+                headers: { "X-CSRF-Token" : "{{ csrf_token() }}" },
+                data: formData,
+                processData: false,
+                contentType: false
+            }).done(function(data) {
+                if(data.hasOwnProperty('image')) {
+                    $('#news-image').css( 'background-image', 'url("' + data.image + '")' );
+                }
+                else {
+                    alert("รูปไม่ผ่านนะจ๊ะ..!!");
+                    $('#news-image').css( 'background-image', oldImage );
+                }
+            });
+        });
+
+
+    </script>
 @endsection
 
 @section('js-top')
@@ -802,7 +860,6 @@
                 }
             });
         });
-
 
         /** Pickers
          **************************************************************** **/
