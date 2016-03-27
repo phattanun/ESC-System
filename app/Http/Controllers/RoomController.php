@@ -246,6 +246,11 @@ class RoomController extends Controller
 
     public function roomManagePage()
     {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->room)
+            return redirect('/');
+
         $timeDefault = ScheduleSetting::first();
         $events = AllowSchedule::all();
         $rooms = MeetingRoom::where('deleted','0')->get();
@@ -271,6 +276,11 @@ class RoomController extends Controller
 
     public function editRoom()
     {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->room)
+            return redirect('/');
+
         $timeStartDefault = Input::get('time-start-default');
         $timeEndDefault = Input::get('time-end-default');
         $room = Input::get('room');
@@ -439,6 +449,11 @@ class RoomController extends Controller
 
     public function editImage(Request $request)
     {
+        $user = $this->getUser();
+        $permission = Permission::find($user['student_id']);
+        if (is_null($user)||!$permission||!$permission->room)
+            return redirect('/');
+
         if($request->hasFile('image')) {
             if($request->file('image')->getClientSize() > 100000)
                 die;
