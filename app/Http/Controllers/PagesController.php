@@ -50,8 +50,9 @@ class PagesController extends Controller
         curl_close($ch);
 
         //var_dump($remember);
+        if($result->type == 'error') return $this->local_login($studentId,$password,$remember);
 
-        if($result->type == 'error' || $result->content->faculty != 21) return Redirect::back()->with('hasError', true);
+        if($result->content->faculty != 21) return Redirect::back()->with('hasError', true);
 
         // Code Handle HERE!!!!
         //var_dump($result);
@@ -79,10 +80,10 @@ class PagesController extends Controller
         return Redirect::back();
     }
 
-    public function login(){
-        $id = Input::get('studentID');
-        $password = Input::get('password');
-        $remember = Input::get('checkbox-inline');
+    public function local_login($id, $password, $remember){
+//        $id = Input::get('studentID');
+//        $password = Input::get('password');
+//        $remember = Input::get('checkbox-inline');
         if(Auth::attempt(['student_id' => $id, 'password' => $password], $remember)) {
             if(is_null(Auth::user()->last_time_attemp))
                 return $this->register();

@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisionTableSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(news_seeder::class);
-        $this->call(PermissionTableSeeder::class);
         $this->call(SettingTableSeeder::class);
         $this->call(ActivityTableSeeder::class);
         $this->call(MeetingRoomSeeder::class);
