@@ -191,6 +191,96 @@
         </div>
     </div>
 
+    <div id="modalItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i> แก้ไขข้อมูลพัสดุ</h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-4">
+                            <label><b>รหัสพัสดุ</b></label>
+                        </div>
+                        <div class="col-sm-9 col-xs-8">
+                            ESC-0001
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ชื่อพัสดุ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="" value="" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ประเภท</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="project" class="form-control select2 required" id="project-selection">
+                                <option selected="selected" value="0">ประเภทพัสดุ</option>
+                                <option value="1">งานช่าง</option>
+                                <option value="2">เย็บปักถักร้อย</option>
+                                <option value="3">ของกิน</option>
+                                <option value="4">อุปกรณ์ปฐมพยาบาล</option>
+                                <option value="5">เครื่องเขียน</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>จำนวนทั้งหมด</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>จำนวนที่เสีย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>หน่วย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ราคาที่ซื้อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">กลับไปเลือกเพิ่ม</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">ส่งเรื่องยืม</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <section>
         <div class="container">
 
@@ -237,7 +327,7 @@
 
                                 <div class="thumbnail" >
                                     <!-- product image(s) -->
-                                    <a class="shop-item-image" data-toggle="modal" data-target="#modalCartSuccess" {{--href="shop-single-left.html"--}}>
+                                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" {{--href="shop-single-left.html"--}}>
                                         <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
                                         <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
                                     </a>
