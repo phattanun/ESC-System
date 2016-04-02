@@ -13,6 +13,8 @@
 @endsection
 @section('content')
 
+    <button class="hide" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
+
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -106,7 +108,7 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">กลับไปเลือกเพิ่ม</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">ส่งเรื่องยืม</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCartButton()">ส่งเรื่องยืม</button>
                 </div>
 
             </div>
@@ -184,7 +186,7 @@
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">เสร็จสิ้น</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="finishCart()">เสร็จสิ้น</button>
                 </div>
 
             </div>
@@ -283,6 +285,14 @@
 
     <section>
         <div class="container">
+
+            <div class="cart-button"  data-toggle="modal" data-target="#modalCart" style="position: fixed; top: 85px; right: 8%; z-index: 1000;">
+                <span class="badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">2</span>
+                <a class="social-icon social-icon-round social-icon-light cart" data-toggle="tooltip" data-placement="top" title="รายการยืม">
+                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fa fa-shopping-cart"></i>
+                </a>
+            </div>
 
             <div class="row">
 
@@ -1301,9 +1311,29 @@
         .select2{
             width: 100% !important;
         }
+        .cart:hover{
+            background-color: #780000 !important;
+        }
     </style>
 @endsection
 
 @section('js')
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
+    <script>
+        function submitCartButton(){
+//            alert();
+            $('#modalCart').addClass('hide');
+//            $('#modalCartSuccess').modal('show');
+            document.getElementById("submitCartButton").click();
+        }
+        function finishCart(){
+            $('#modalCart').removeClass('hide');
+            $('#modalCart').modal('hide');
+//            alert("aa");
+        }
+        $("#modalCartSuccess").focusout(function(){
+//            alert();
+            finishCart();
+        });
+    </script>
 @endsection
