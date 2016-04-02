@@ -20,6 +20,7 @@ class PagesController extends Controller
         $CUCAS = \Config::get('app.CUCAS');
         $studentId = Input::get('studentid');
         $password = Input::get('password');
+        //$remember_me = Input::get('checkbox-inline');
 
         $url = $CUCAS['apibase'].$CUCAS['apiname'];
         $fields = array(
@@ -49,6 +50,9 @@ class PagesController extends Controller
 
         // Code Handle HERE!!!!
         var_dump($result);
+        Auth::loginUsingId($result->content->studentid);
+        //var_dump(Auth::user());
+        return redirect('/');
     }
 
     public function login(){
