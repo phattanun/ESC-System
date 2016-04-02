@@ -20,7 +20,7 @@ class PagesController extends Controller
         $CUCAS = \Config::get('app.CUCAS');
         $studentId = Input::get('studentID');
         $password = Input::get('password');
-        $remember = Input::get('checkbox-inline');
+        $remember = is_null(Input::get('checkbox-inline'))? false:true;
         //$remember_me = Input::get('checkbox-inline');
 
         $url = $CUCAS['apibase'].$CUCAS['apiname'];
@@ -49,6 +49,10 @@ class PagesController extends Controller
             $result = curl_error($ch);
         curl_close($ch);
 
+        //var_dump($remember);
+
+        if($result->type == 'error' || $result->content->faculty != 21) return Redirect::back()->with('hasError', true);
+
         // Code Handle HERE!!!!
         //var_dump($result);
         if(!User::where('student_id',$result->content->studentid)->exists()) {
@@ -68,7 +72,7 @@ class PagesController extends Controller
                 'email'=>$email]);
         }
 
-        Auth::loginUsingId($result->content->studentid);
+        Auth::loginUsingId($result->content->studentid,$remember);
         if(is_null(Auth::user()->last_time_attemp))
             return $this->register();
         $this->updateUserTime();
