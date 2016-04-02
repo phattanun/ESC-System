@@ -11,6 +11,10 @@
 |
 */
 
+// Test
+Route::get('/test', function(){ return view('test'); });
+Route::post('/test/login', 'PagesController@cas_login');
+
 // Default
 Route::get('/', 'NewsController@view_home');
 

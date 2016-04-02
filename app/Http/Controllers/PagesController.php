@@ -16,6 +16,41 @@ use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
+    public function cas_login() {
+        $CUCAS = \Config::get('app.CUCAS');
+        $studentId = Input::get('studentid');
+        $password = Input::get('password');
+
+        $url = $CUCAS['apibase'].$CUCAS['apiname'];
+        $fields = array(
+            'appid' => $CUCAS['appid'],
+			'appsecret' => $CUCAS['appsecret'],
+            'username' => $studentId,
+            'password' => $password
+        );
+        $postvars='';
+        $sep='';
+        foreach($fields as $key => $value) {
+            $postvars.= $sep.urlencode($key).'='.urlencode($value);
+            $sep='&';
+        }
+
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch,CURLOPT_POST,count($fields));
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$postvars);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+
+        $result = json_decode(curl_exec($ch));
+        if(!$result)
+            $result = curl_error($ch);
+        curl_close($ch);
+
+        // Code Handle HERE!!!!
+        var_dump($result);
+    }
+
     public function login(){
         $id = Input::get('studentID');
         $password = Input::get('password');
