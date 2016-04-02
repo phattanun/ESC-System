@@ -60,7 +60,7 @@ Route::get ('/students/getExcelFile', 'StudentController@generateXLS');
 Route::post('/students/search', 'StudentController@search');
 
 // Login/Logout Register
-Route::post('/login', 'PagesController@login');
+Route::post('/login', 'PagesController@cas_login');
 Route::get ('/logout', 'PagesController@logout');
 Route::post('/register', 'PagesController@registerConfirm');
 

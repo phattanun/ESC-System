@@ -18,8 +18,9 @@ class PagesController extends Controller
 {
     public function cas_login() {
         $CUCAS = \Config::get('app.CUCAS');
-        $studentId = Input::get('studentid');
+        $studentId = Input::get('studentID');
         $password = Input::get('password');
+        $remember = Input::get('checkbox-inline');
         //$remember_me = Input::get('checkbox-inline');
 
         $url = $CUCAS['apibase'].$CUCAS['apiname'];
@@ -49,10 +50,29 @@ class PagesController extends Controller
         curl_close($ch);
 
         // Code Handle HERE!!!!
-        var_dump($result);
+        //var_dump($result);
+        if(!User::where('student_id',$result->content->studentid)->exists()) {
+            $name_surname = explode(" ",$result->content->name_th);
+            $name = $name_surname[0];
+            $surname = $name_surname[1];
+            $sid = $result->content->studentid;
+            $email = $result->content->email;
+            $gen = substr($sid,0,2);
+            $gen = $gen + 41;
+            User::create(['student_id'=>$sid,
+                'name'=>$name,
+                'surname'=>$surname,
+                'department'=>100000,
+                'group'=>1001,
+                'generation'=>$gen,
+                'email'=>$email]);
+        }
+
         Auth::loginUsingId($result->content->studentid);
-        //var_dump(Auth::user());
-        return redirect('/');
+        if(is_null(Auth::user()->last_time_attemp))
+            return $this->register();
+        $this->updateUserTime();
+        return Redirect::back();
     }
 
     public function login(){
