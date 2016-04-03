@@ -82,12 +82,12 @@
                         </div>
                         <div class="col-sm-2 col-xs-3" style="margin-top: 5px;">
                             <label class="checkbox">
-                                <input type="checkbox" value="1">
+                                <input id="otherActivity" type="checkbox" value="" onchange="otherActivity()">
                                 <i></i> อื่นๆ
                             </label>
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
+                    <div class="row otherActivityInput hide" style="margin-top: 15px;">
                         <div class="col-md-1 col-xs-3"  style="margin-top: 5px;">
                             <label>อื่น ๆ</label>
                         </div>
@@ -1308,6 +1308,9 @@
 @section('css')
     <link href="{{url('assets/css/layout-shop.css')}}" rel="stylesheet" type="text/css" />
     <style>
+        .hide{
+            display: none;
+        }
         .select2{
             width: 100% !important;
         }
@@ -1320,6 +1323,15 @@
 @section('js')
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
     <script>
+        function otherActivity(){
+            var v = document.getElementById('otherActivity').checked;
+            if(v){
+                $('.otherActivityInput').removeClass('hide');
+            }
+            else{
+                $('.otherActivityInput').addClass('hide');
+            }
+        }
         function submitCartButton(){
 //            alert();
             $('#modalCart').addClass('hide');
