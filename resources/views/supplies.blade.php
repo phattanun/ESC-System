@@ -1329,11 +1329,15 @@
         function finishCart(){
             $('#modalCart').removeClass('hide');
             $('#modalCart').modal('hide');
+            $('#modalCartSuccess').modal('hide');
 //            alert("aa");
         }
         $("#modalCartSuccess").focusout(function(){
 //            alert();
             finishCart();
         });
+//        $("#modalCart").focusout(function(){
+//            $('#modalCart').modal('hide');
+//        });
     </script>
 @endsection
