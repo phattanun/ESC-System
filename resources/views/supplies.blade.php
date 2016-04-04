@@ -28,9 +28,10 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped table-cart">
                             <thead>
                             <tr>
+                                <th class="width-10" style="width: 10px !important;"></th>
                                 <th class="width-10 text-center">ลำดับ</th>
                                 <th class="width-200">รายการ</th>
                                 <th class="width-50">จำนวน</th>
@@ -38,19 +39,37 @@
                             </thead>
                             <tbody>
                             <tr>
+                                <td class="text-center">
+                                    <a id="room-remove-button-" onclick="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
+                                    </a>
+                                </td>
                                 <td class="text-center">1</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
-                                <td>10 อัน</td>
+                                <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr>
+                                <td class="text-center">
+                                    <a id="room-remove-button-" onclick="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
+                                    </a>
+                                </td>
                                 <td class="text-center">2</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
-                                <td>10 อัน</td>
+                                <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr>
+                                <td class="text-center">
+                                    <a id="room-remove-button-" onclick="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
+                                    </a>
+                                </td>
                                 <td class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
-                                <td>10 อัน</td>
+                                <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             </tbody>
                         </table>
@@ -58,7 +77,18 @@
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
-                    <label>โครงการ</label>
+                    <div class="row no-mergin">
+                        <div class="col-md-6">
+                            <label>วันที่ยืม</label>
+                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                        </div>
+                        <div class="col-md-6">
+                            <label>วันที่คืน</label>
+                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                        </div>
+                    </div>
+
+                    <label class="margin-top-20">โครงการ</label>
                     <div id="inListActivity">
                         <select name="project" class="form-control select2 required" id="project-selection">
                             <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
@@ -81,7 +111,30 @@
                             <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
+
+                    <label class="margin-top-20">หน่วยงาน</label>
+                    <div id="inListDivision">
+                        <select name="division" class="form-control select2 required" id="division-selection">
+                            <option selected="selected" value="0">หน่วยงาน</option>
+                            <option value="">รุ่น</option>
+                            <option value="">กรุ๊ป</option>
+                            <option value="">ภาควิชา</option>
+                        </select>
+                        <div class="text-right">
+                            <a class="underline-hover" onclick="otherDivision()">ไม่มีหน่วยงานที่คุณต้องการอยู่ในระบบ?</a>
+                        </div>
+                    </div>
+                    <div id="otherDivision" class="hidden">
+                        <div>
+                            <input required id="otherDiv" name="otherDiv" type="text" class="form-control"
+                                   placeholder="ระบุหน่วยงานของคุณ">
+                        </div>
+                        <div class="text-right">
+                            <a class="underline-hover" onclick="backToDivisionList()">กลับไปยังลิสต์รายการเดิม</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-3 col-xs-6"  style="margin-top: 5px;">
                             <label>รายละเอียด</label>
                         </div>
@@ -1386,8 +1439,13 @@
         .select2{
             width: 100% !important;
         }
+
         .cart:hover{
             background-color: #780000 !important;
+        }
+
+        .table-cart td{
+            vertical-align: middle !important;
         }
 
         .underline-hover {
@@ -1411,6 +1469,14 @@
             $('#inListActivity').removeClass('hidden');
             $('#otherActivity').addClass('hidden');
         }
+        function otherDivision(){
+            $('#inListDivision').addClass('hidden');
+            $('#otherDivision').removeClass('hidden');
+        }
+        function backToDivisionList(){
+            $('#inListDivision').removeClass('hidden');
+            $('#otherDivision').addClass('hidden');
+        }
         function submitCartButton(){
 //            alert();
             $('#modalCart').addClass('hidden');
@@ -1419,8 +1485,8 @@
         }
         function finishCart(){
             $('#modalCart').removeClass('hidden');
-            $('#modalCart').modal('hidden');
-            $('#modalCartSuccess').modal('hidden');
+            $('#modalCart').modal('hide');
+            $('#modalCartSuccess').modal('hide');
 //            alert("aa");
         }
         $("#modalCartSuccess").focusout(function(){
