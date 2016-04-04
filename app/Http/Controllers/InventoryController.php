@@ -26,4 +26,11 @@ class InventoryController extends Controller
         return view('supplies', compact('inventory'));
     }
 
+    public function approved(){
+        $user = $this->getUser();
+        $inventory = Inventory::all();
+        if(!isset($user['supplies'])) return redirect('/');
+//
+        return view('supplies-approved', compact('inventory'));
+    }
 }

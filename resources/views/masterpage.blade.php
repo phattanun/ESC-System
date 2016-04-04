@@ -153,7 +153,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ URL::to('/supplies') }}">ค้นหา/ยืมพัสดุ</a></li>
-                                    <li><a href="">อนุมัติการยืม</a></li>
+                                    @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/approved') }}">จัดการการยืมพัสดุ</a></li>@endif
                                     <li><a href="">ประวัติการจอง</a></li>
                                     <li><a href="">แก้ไขข้อมูลพัสดุ</a></li>
                                     <li><a href="">ออกรายงาน</a></li>
