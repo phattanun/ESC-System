@@ -167,11 +167,35 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-1 col-sm-2 col-xs-3">
+                        <div class="col-md-2 col-sm-2 col-xs-3">
                             <label><b>โครงการ</b></label>
                         </div>
-                        <div class="col-md-11 col-sm-9 col-xs-9">
+                        <div class="col-md-10 col-sm-9 col-xs-9">
                             งานชั้นปี
+                        </div>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-md-2 col-sm-2 col-xs-3">
+                            <label><b>หน่วยงาน</b></label>
+                        </div>
+                        <div class="col-md-10 col-sm-9 col-xs-9">
+                            รุ่น 97
+                        </div>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-md-2 col-sm-2 col-xs-3">
+                            <label><b>วันที่ยืม</b></label>
+                        </div>
+                        <div class="col-md-10 col-sm-9 col-xs-9">
+                            05-04-2016
+                        </div>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-md-2 col-sm-2 col-xs-3">
+                            <label><b>วันที่คืน</b></label>
+                        </div>
+                        <div class="col-md-10 col-sm-9 col-xs-9">
+                            07-04-2016
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
@@ -192,8 +216,6 @@
                                 <th class="width-10 text-center">ลำดับ</th>
                                 <th class="width-200">รายการ</th>
                                 <th class="width-50">จำนวน</th>
-                                <th class="width-100">วันที่ยืม</th>
-                                <th class="width-100">วันที่คืน</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -201,22 +223,16 @@
                                 <td class="text-center">1</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td>10 อัน</td>
-                                <td>12-03-2559</td>
-                                <td>16-03-2559</td>
                             </tr>
                             <tr>
                                 <td class="text-center">2</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td>10 อัน</td>
-                                <td>12-03-2559</td>
-                                <td>16-03-2559</td>
                             </tr>
                             <tr>
                                 <td class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
                                 <td>10 อัน</td>
-                                <td>12-03-2559</td>
-                                <td>16-03-2559</td>
                             </tr>
                             </tbody>
                         </table>
