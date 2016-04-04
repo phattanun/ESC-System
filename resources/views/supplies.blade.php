@@ -13,7 +13,7 @@
 @endsection
 @section('content')
 
-    <button class="hide" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
+    <button class="hidden" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
 
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -34,8 +34,6 @@
                                 <th class="width-10 text-center">ลำดับ</th>
                                 <th class="width-200">รายการ</th>
                                 <th class="width-50">จำนวน</th>
-                                <th class="width-100">วันที่ยืม</th>
-                                <th class="width-100">วันที่คืน</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -43,22 +41,16 @@
                                 <td class="text-center">1</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td>10 อัน</td>
-                                <td>12-03-2559</td>
-                                <td>16-03-2559</td>
                             </tr>
                             <tr>
                                 <td class="text-center">2</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td>10 อัน</td>
-                                <td>12-03-2559</td>
-                                <td>16-03-2559</td>
                             </tr>
                             <tr>
                                 <td class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
                                 <td>10 อัน</td>
-                                <td>12-03-2559</td>
-                                <td>16-03-2559</td>
                             </tr>
                             </tbody>
                         </table>
@@ -66,28 +58,31 @@
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
-                    <div class="row">
-                        <div class="col-md-1 col-xs-3"  style="margin-top: 5px;">
-                            <label>โครงการ</label>
-                        </div>
-                        <div class="col-md-9 col-sm-10 col-xs-12">
-                            <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
-                                <option value="1">งานชั้นปี</option>
-                                <option value="2">ค่ายลานเกียร์</option>
-                                <option value="3">ConneK 7</option>
-                                <option value="4">FE Camp</option>
-                                <option value="5">ฟันเฟือง</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-2 col-xs-3" style="margin-top: 5px;">
-                            <label class="checkbox">
-                                <input id="otherActivity" type="checkbox" value="" onchange="otherActivity()">
-                                <i></i> อื่นๆ
-                            </label>
+                    <label>โครงการ</label>
+                    <div id="inListActivity">
+                        <select name="project" class="form-control select2 required" id="project-selection">
+                            <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
+                            <option value="1">งานชั้นปี</option>
+                            <option value="2">ค่ายลานเกียร์</option>
+                            <option value="3">ConneK 7</option>
+                            <option value="4">FE Camp</option>
+                            <option value="5">ฟันเฟือง</option>
+                        </select>
+                        <div class="pull-right">
+                            <a class="underline-hover" onclick="otherActivity()">ไม่มีโครงการ/กิจกรรมที่คุณต้องการอยู่ในระบบ?</a>
                         </div>
                     </div>
-                    <div class="row otherActivityInput hide" style="margin-top: 15px;">
+                    <div id="otherActivity" class="hidden">
+                        <div>
+                            <input required id="otherAct" name="otherAct" type="text" class="form-control"
+                                   placeholder="ระบุโครงการ / กิจกรรมของคุณ">
+                        </div>
+                        <div class="pull-right" onclick="backToActicityList()">
+                            <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
+                        </div>
+                    </div>
+
+                    <div class="row otherActivityInput hidden" style="margin-top: 15px;">
                         <div class="col-md-1 col-xs-3"  style="margin-top: 5px;">
                             <label>อื่น ๆ</label>
                         </div>
@@ -1394,14 +1389,22 @@
 @section('css')
     <link href="{{url('assets/css/layout-shop.css')}}" rel="stylesheet" type="text/css" />
     <style>
-        .hide{
-            display: none;
+        .no-margin{
+            margin: 0;
         }
         .select2{
             width: 100% !important;
         }
         .cart:hover{
             background-color: #780000 !important;
+        }
+
+        .underline-hover {
+            font-size: 14px;
+        }
+
+        .underline-hover:hover {
+            text-decoration: underline;
         }
     </style>
 @endsection
@@ -1410,24 +1413,23 @@
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
     <script>
         function otherActivity(){
-            var v = document.getElementById('otherActivity').checked;
-            if(v){
-                $('.otherActivityInput').removeClass('hide');
-            }
-            else{
-                $('.otherActivityInput').addClass('hide');
-            }
+            $('#inListActivity').addClass('hidden');
+            $('#otherActivity').removeClass('hidden');
+        }
+        function backToActicityList(){
+            $('#inListActivity').removeClass('hidden');
+            $('#otherActivity').addClass('hidden');
         }
         function submitCartButton(){
 //            alert();
-            $('#modalCart').addClass('hide');
+            $('#modalCart').addClass('hidden');
 //            $('#modalCartSuccess').modal('show');
             document.getElementById("submitCartButton").click();
         }
         function finishCart(){
-            $('#modalCart').removeClass('hide');
-            $('#modalCart').modal('hide');
-            $('#modalCartSuccess').modal('hide');
+            $('#modalCart').removeClass('hidden');
+            $('#modalCart').modal('hidden');
+            $('#modalCartSuccess').modal('hidden');
 //            alert("aa");
         }
         $("#modalCartSuccess").focusout(function(){
