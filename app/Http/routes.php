@@ -53,7 +53,7 @@ Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
 Route::get ('/supplies', 'InventoryController@inventoryPage');
-Route::get ('/supplies/approved', 'InventoryController@approved');
+Route::get ('/supplies/approve', 'InventoryController@approve');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
