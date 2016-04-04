@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Division;
+use App\Inventory;
 use App\Permission;
 use Illuminate\Http\Request;
 use App\User;
@@ -19,7 +20,10 @@ class InventoryController extends Controller
 
     public function inventoryPage(){
         $user = $this->getUser();
-        return view('supplies');
+        $inventory = Inventory::all();
+
+//        return $inventory;
+        return view('supplies', compact('inventory'));
     }
 
 }
