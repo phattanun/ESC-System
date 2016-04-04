@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use \App\Inventory;
 class InventorySeeder extends Seeder
 {
     /**
