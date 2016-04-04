@@ -430,9 +430,9 @@
                                         <!-- /product image(s) -->
 
                                         <!-- hover buttons -->
-                                        <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                            <!--a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                            <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a-->
+                                        <div class="shop-option-over" style="opacity: 1 !important;"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+                                            <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-edit nopadding"></i></a>
+                                            <a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>
                                         </div>
                                         <!-- /hover buttons -->
 
@@ -448,17 +448,24 @@
                                         <h2>{{$inventory['name']}}</h2>
 
                                         <!-- rating -->
-                                        <div class="shop-item-rating-line">
-                                            <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+                                        <!--div class="shop-item-rating-line">
+                                            <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --><!--/div>
                                         </div>
                                         <!-- /rating -->
 
                                         <!-- price -->
-                                        <div class="shop-item-price">
+                                        <!--div class="shop-item-price">
                                             <span class="line-through">$98.00</span>
-                                            ${{$inventory['prive_per_unit']}}
+                                            $900
                                         </div>
                                         <!-- /price -->
+                                    </div>
+
+                                    <div class="amount text-center">
+                                        <div style="width: 50%; display: inline-block">
+                                            <input type="text" value="" min="0" class="form-control stepper required">
+                                        </div>
+                                        เครื่อง
                                     </div>
 
                                     <!-- buttons -->
