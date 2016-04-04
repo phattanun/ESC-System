@@ -31,15 +31,15 @@
                         <table class="table table-bordered table-striped table-cart">
                             <thead>
                             <tr>
-                                <th class="width-10" style="width: 10px !important;"></th>
-                                <th class="width-10 text-center">ลำดับ</th>
-                                <th class="width-200">รายการ</th>
-                                <th class="width-50">จำนวน</th>
+                                <th class="width-10 remove-button-col" style="width: 10px !important;"></th>
+                                <th class="width-10 text-center table-cart-top">ลำดับ</th>
+                                <th class="width-200 table-cart-top">รายการ</th>
+                                <th class="width-50 table-cart-top">จำนวน</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="text-center">
+                                <td class="text-center remove-button-col">
                                     <a id="room-remove-button-" onclick="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
@@ -50,7 +50,7 @@
                                 <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr>
-                                <td class="text-center">
+                                <td class="text-center remove-button-col">
                                     <a id="room-remove-button-" onclick="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
@@ -61,7 +61,7 @@
                                 <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr>
-                                <td class="text-center">
+                                <td class="text-center remove-button-col">
                                     <a id="room-remove-button-" onclick="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
@@ -1586,6 +1586,14 @@
             background-color: #780000 !important;
         }
 
+        .table-cart{
+            border: none !important;
+        }
+
+        .table-cart-top{
+            border-top: 1px solid #ddd !important;
+        }
+
         .table-cart td{
             vertical-align: middle !important;
         }
@@ -1596,6 +1604,11 @@
 
         .underline-hover:hover {
             text-decoration: underline;
+        }
+
+        .remove-button-col{
+            border: none !important;
+            background-color: white !important;
         }
     </style>
 @endsection
