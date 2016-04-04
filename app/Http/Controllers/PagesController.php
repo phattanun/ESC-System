@@ -179,11 +179,6 @@ class PagesController extends Controller
         return view('news');
     }
 
-    public function suppliesPage(){
-        $user = $this->getUser();
-        return view('supplies');
-    }
-
     public function profilePage() {
         $user = $this->getUser();
         $department = Division::where('type','=','Department')->get();

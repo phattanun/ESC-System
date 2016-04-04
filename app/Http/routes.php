@@ -52,7 +52,7 @@ Route::get ('/room/report', 'RoomController@roomReportQuery');
 Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
-Route::get ('/supplies', 'PagesController@suppliesPage');
+Route::get ('/supplies', 'InventoryController@inventoryPage');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');

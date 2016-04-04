@@ -414,6 +414,61 @@
                         </li>
                         <!-- /ITEM -->
 
+                        <!-- ITEM -->
+                        <li class="col-lg-3 col-sm-3">
+
+                            <div class="shop-item">
+
+                                <div class="thumbnail" >
+                                    <!-- product image(s) -->
+                                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" {{--href="shop-single-left.html"--}}>
+                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
+                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
+                                    </a>
+                                    <!-- /product image(s) -->
+
+                                    <!-- hover buttons -->
+                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
+                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+                                    </div>
+                                    <!-- /hover buttons -->
+
+                                    <!-- product more info -->
+                                    <div class="shop-item-info">
+                                        <span class="label label-success">NEW</span>
+                                        <span class="label label-danger">SALE</span>
+                                    </div>
+                                    <!-- /product more info -->
+                                </div>
+
+                                <div class="shop-item-summary text-center">
+                                    <h2>Cotton 100% - Pink Shirt</h2>
+
+                                    <!-- rating -->
+                                    <div class="shop-item-rating-line">
+                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+                                    </div>
+                                    <!-- /rating -->
+
+                                    <!-- price -->
+                                    <div class="shop-item-price">
+                                        <span class="line-through">$98.00</span>
+                                        $78.00
+                                    </div>
+                                    <!-- /price -->
+                                </div>
+
+                                <!-- buttons -->
+                                <div class="shop-item-buttons text-center">
+                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                                </div>
+                                <!-- /buttons -->
+                            </div>
+
+                        </li>
+                        <!-- /ITEM -->
+
                     </ul>
 
                     <!--default ul-->
