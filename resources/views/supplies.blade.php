@@ -255,6 +255,125 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i> ข้อมูลพัสดุ</h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-4">
+                            <label><b>รหัสพัสดุ</b></label>
+                        </div>
+                        <div class="col-sm-9 col-xs-8">
+                            ESC-0001
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ชื่อพัสดุ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="" value="" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ประเภท</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="project" class="form-control select2 required" id="project-selection">
+                                <option selected="selected" value="0">ประเภทพัสดุ</option>
+                                <option value="1">งานช่าง</option>
+                                <option value="2">เย็บปักถักร้อย</option>
+                                <option value="3">ของกิน</option>
+                                <option value="4">อุปกรณ์ปฐมพยาบาล</option>
+                                <option value="5">เครื่องเขียน</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>จำนวนทั้งหมด</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>จำนวนที่เสีย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>หน่วย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ราคาที่ซื้อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>สถานที่ซื้อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="project" class="form-control select2 required" id="project-selection">
+                                <option selected="selected" value="0">สถานที่ซื้อ</option>
+                                <option value="1">จีฉ่อย</option>
+                                <option value="2">ช.การช่าง</option>
+                                <option value="3">ค.เครื่องเขียน</option>
+                                <option value="4">สมใจ</option>
+                                <option value="5">จามจุรีสแควร์</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row text-center" style="margin-top: 15px;">
+                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" onclick="">
+                            <i class="fa fa-plus"></i>
+                            <span>เพิ่มร้านค้า</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal" style="width: 90px;">
+                        <i class="fa fa-times"></i>
+                        <span>ยกเลิก</span>
+                    </a>
+                    <a id="room-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;">
+                        <i class="fa fa-check"></i>
+                        <span>ยืนยัน</span>
+                    </a>
+                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>--}}
+                    {{--<button type="button" class="btn btn-primary" data-dismiss="modal">ยืนยัน</button>--}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modalItemEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i> แก้ไขข้อมูลพัสดุ</h4>
                 </div>
 
@@ -431,7 +550,7 @@
 
                                         <!-- hover buttons -->
                                         <div class="shop-option-over" style="opacity: 1 !important;"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                            <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-edit nopadding"></i></a>
+                                            <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit({{$inventory['inv_id']}})"><i class="fa fa-edit nopadding"></i></a>
                                             <a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>
                                         </div>
                                         <!-- /hover buttons -->
@@ -1519,6 +1638,11 @@
 
         function openModalItem(id){
             alert(id);
+        }
+
+        function openModalItemEdit(id){
+            alert("a"+id);
+            $('#modalItemEdit').modal('show');
         }
 
         function addToCart(id){
