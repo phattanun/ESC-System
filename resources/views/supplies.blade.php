@@ -81,15 +81,6 @@
                             <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                         </div>
                     </div>
-
-                    <div class="row otherActivityInput hidden" style="margin-top: 15px;">
-                        <div class="col-md-1 col-xs-3"  style="margin-top: 5px;">
-                            <label>อื่น ๆ</label>
-                        </div>
-                        <div class="col-md-9 col-sm-10 col-xs-12">
-                            <input type="text" name="" value="" class="form-control required">
-                        </div>
-                    </div>
                     <div class="row" style="margin-top: 15px;">
                         <div class="col-md-3 col-xs-6"  style="margin-top: 5px;">
                             <label>รายละเอียด</label>
