@@ -271,12 +271,41 @@
                             <input type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">
                         </div>
                     </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>สถานที่ซื้อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="project" class="form-control select2 required" id="project-selection">
+                                <option selected="selected" value="0">สถานที่ซื้อ</option>
+                                <option value="1">จีฉ่อย</option>
+                                <option value="2">ช.การช่าง</option>
+                                <option value="3">ค.เครื่องเขียน</option>
+                                <option value="4">สมใจ</option>
+                                <option value="5">จามจุรีสแควร์</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row text-center" style="margin-top: 15px;">
+                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" onclick="">
+                            <i class="fa fa-plus"></i>
+                            <span>เพิ่มร้านค้า</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">กลับไปเลือกเพิ่ม</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">ส่งเรื่องยืม</button>
+                    <a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal" style="width: 90px;">
+                        <i class="fa fa-times"></i>
+                        <span>ยกเลิก</span>
+                    </a>
+                    <a id="room-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;">
+                        <i class="fa fa-check"></i>
+                        <span>ยืนยัน</span>
+                    </a>
+                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>--}}
+                    {{--<button type="button" class="btn btn-primary" data-dismiss="modal">ยืนยัน</button>--}}
                 </div>
 
             </div>
