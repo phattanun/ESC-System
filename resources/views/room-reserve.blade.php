@@ -86,7 +86,7 @@
                                         <a href="#" class="opt dropdown-toggle" data-toggle="dropdown"><span id="agenda_lb"><span id="agenda_btn"></span> <span class="caret"></span></span></a>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li><a id="month" data-widget="calendar-view" data-label="label label-success"><i class="fa fa-calendar-o color-green"></i> <span>เดือน</span></a></li>
-                                            <li><a id="agendaWeek" data-widget="calendar-view" data-label="label label-danger"><i class="fa fa-calendar-o color-red"></i> <span>วาระ</span></a></li>
+                                            <li><a id="agendaWeek" data-widget="calendar-view" data-label="label label-danger"><i class="fa fa-calendar-o color-red"></i> <span>แผนงาน</span></a></li>
                                             <li><a id="agendaDay" data-widget="calendar-view" data-label="label label-warning"><i class="fa fa-calendar-o color-yellow"></i> <span>วันนี้</span></a></li>
                                             <li><a id="basicWeek" data-widget="calendar-view" data-label="label label-default"><i class="fa fa-calendar-o color-gray"></i> <span>สัปดาห์</span></a></li>
                                         </ul>
@@ -524,7 +524,7 @@
                                                         displayEventEnd: true,
                                                         allDaySlot: false,
                                                         editable: false,
-                                            			eventLimit: true,
+                                            			eventLimit: 6,
                                                         resources: '{{url('/room/get_room')}}',
                                                         events: '{{url('/room/get_room_reservation_schedule')}}',
                                                         dayClick: function(date, jsEvent, view, resource) {

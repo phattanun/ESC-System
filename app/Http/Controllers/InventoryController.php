@@ -70,4 +70,8 @@ class InventoryController extends Controller
 //
         return view('supplies-approve', compact('inventory'));
     }
+
+    public function getApproveModal(Request $request){
+        
+    }
 }
