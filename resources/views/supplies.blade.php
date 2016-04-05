@@ -43,36 +43,36 @@
                             <tr id="cart-item-id-2" class="cart-item-order-1">
                                 <input type="hidden" id="cart-item-input-id-2" name="cart[2][id]" value="2" />
                                 <td class="text-center remove-button-col">
-                                    <a id="room-remove-button-" onclick="removeCartItem(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
+                                    <a id="cart-remove-button-1" onclick="removeCartItem(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">1</td>
+                                <td id="cart-item-order-number-1" class="text-center">1</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-2"  name="cart[2][amount]" type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr id="cart-item-id-1" class="cart-item-order-2">
                                 <input type="hidden" id="cart-item-input-id-1" name="cart[1][id]" value="1" />
                                 <td class="text-center remove-button-col">
-                                    <a id="room-remove-button-" onclick="removeCartItem(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
+                                    <a id="cart-remove-button-2" onclick="removeCartItem(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">2</td>
+                                <td id="cart-item-order-number-2" class="text-center">2</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-1"  name="cart[1][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr id="cart-item-id-3" class="cart-item-order-3">
                                 <input type="hidden" id="cart-item-input-id-3" name="cart[3][id]" value="3" />
                                 <td class="text-center remove-button-col">
-                                    <a id="room-remove-button-" onclick="removeCartItem(3)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
+                                    <a id="cart-remove-button-3" onclick="removeCartItem(3)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">3</td>
+                                <td id="cart-item-order-number-3" class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-3"  name="cart[3][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
@@ -1408,6 +1408,25 @@
             var r = confirm("ยืนยันการลบพัสดุนี้ออกจากรายการยืม ?");
             if (r == true) {
                 $(".cart-item-order-"+order).remove();
+                for(var i = r+1 ; i<=amountCartItem ; i++){
+                    $('.cart-item-order-'+i).addClass('cart-item-order-'+(i-1));
+                    $('.cart-item-order-'+(i-1)).removeClass('cart-item-order-'+i);
+
+                    $('#cart-remove-button-'+i).addClass('tmp');
+                    $('.tmp').removeAttrs('id');
+                    $('.tmp').attr('id','cart-remove-button-'+(i-1));
+                    $('#cart-remove-button-'+(i-1)).removeClass('tmp');
+
+                    $('#cart-remove-button-'+(i-1)).removeAttrs('onclick');
+                    $('#cart-remove-button-'+(i-1)).attr('onclick','removeCartItem('+(i-1)+')');
+
+                    $('#cart-item-order-number-'+i).addClass('tmp');
+                    $('.tmp').removeAttrs('id');
+                    $('.tmp').attr('id','cart-item-order-number-'+(i-1));
+                    $('#cart-item-order-number-'+(i-1)).removeClass('tmp');
+
+                    $('#cart-item-order-number-'+(i-1)).text((i-1));
+                }
             }
         }
     </script>
