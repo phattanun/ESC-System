@@ -537,24 +537,24 @@
 
                     <ul class="shop-item-list row list-inline nomargin">
 
-                        @foreach($inventory as $inventory)
+                        @foreach($inventory as $inven)
                             <li class="col-lg-3 col-sm-3">
 
                                 <div class="shop-item">
 
                                     <div class="thumbnail" >
                                         <!-- product image(s) -->
-                                        <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inventory['inv_id']}})">
+                                        <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inven['inv_id']}})">
                                             <!--img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
                                             <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image"-->
                                             {{--<div style="width:100%; height:100%; background-image: url({{$inventory['image']}})"></div>--}}
-                                            <img class="img-responsive" src="{{$inventory['image']}}" alt="shop hover image" style="width: 100%;">
+                                            <img class="img-responsive" src="{{$inven['image']}}" alt="shop hover image" style="width: 100%;">
                                         </a>
                                         <!-- /product image(s) -->
 
                                         <!-- hover buttons -->
                                         <div class="shop-option-over" style="opacity: 1 !important;"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                            <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit({{$inventory['inv_id']}})"><i class="fa fa-edit nopadding"></i></a>
+                                            <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit({{$inven['inv_id']}})"><i class="fa fa-edit nopadding"></i></a>
                                             <a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>
                                         </div>
                                         <!-- /hover buttons -->
@@ -568,7 +568,7 @@
                                     </div>
 
                                     <div class="shop-item-summary text-center">
-                                        <h2>{{$inventory['name']}}</h2>
+                                        <h2>{{$inven['name']}}</h2>
 
                                         <!-- rating -->
                                         <!--div class="shop-item-rating-line">
@@ -593,7 +593,7 @@
 
                                     <!-- buttons -->
                                     <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-default" onclick="addToCart({{$inventory['inv_id']}})"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                                        <a class="btn btn-default" onclick="addToCart({{$inven['inv_id']}})"><i class="fa fa-cart-plus"></i> Add to Cart</a>
                                     </div>
                                     <!-- /buttons -->
                                 </div>
@@ -1400,8 +1400,11 @@
         }
 
         function addToCart(id){
-            {{--var something = JSON.parse({{$inventory}});--}}
+            {{--var something = JSON.parse({{$inventory['1']['name']}});--}}
             alert(id);
+            alert("{{$inventory['1']['name']}}");
+//            var x = json_decode($inventory);
+//            alert(x);
 //            alert(something);
         }
 
