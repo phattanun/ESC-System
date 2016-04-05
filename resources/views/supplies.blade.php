@@ -268,97 +268,99 @@
                             ESC-0001
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="" value="" class="form-control required">
+                            ดินสอแสนน่ารัก
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
                             <label><b>ประเภท</b></label>
                         </div>
                         <div class="col-md-9">
-                            <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">ประเภทพัสดุ</option>
-                                <option value="1">งานช่าง</option>
-                                <option value="2">เย็บปักถักร้อย</option>
-                                <option value="3">ของกิน</option>
-                                <option value="4">อุปกรณ์ปฐมพยาบาล</option>
-                                <option value="5">เครื่องเขียน</option>
-                            </select>
+                            ใช้แล้วหมดไป
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
                             <label><b>จำนวนทั้งหมด</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" value="" min="0" class="form-control stepper required">
+                            300
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
                             <label><b>จำนวนที่เสีย</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" value="" min="0" class="form-control stepper required">
+                            26
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
                             <label><b>หน่วย</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                            แท่ง
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-3">
                             <label><b>ราคาที่ซื้อ</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">
+                            20.00 บาท
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
                             <label><b>สถานที่ซื้อ</b></label>
                         </div>
                         <div class="col-md-9">
-                            <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">สถานที่ซื้อ</option>
-                                <option value="1">จีฉ่อย</option>
-                                <option value="2">ช.การช่าง</option>
-                                <option value="3">ค.เครื่องเขียน</option>
-                                <option value="4">สมใจ</option>
-                                <option value="5">จามจุรีสแควร์</option>
-                            </select>
+                            จีฉ่อย
                         </div>
                     </div>
-                    <div class="row text-center" style="margin-top: 15px;">
-                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" onclick="">
-                            <i class="fa fa-plus"></i>
-                            <span>เพิ่มร้านค้า</span>
-                        </a>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
+                            <label><b>ข้อมูลติดต่อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111 32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
+                            <label><b>เบอร์โทรศัพท์</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            085-111-1111
+                        </div>
                     </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal" style="width: 90px;">
-                        <i class="fa fa-times"></i>
-                        <span>ยกเลิก</span>
-                    </a>
-                    <a id="room-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;">
-                        <i class="fa fa-check"></i>
-                        <span>ยืนยัน</span>
-                    </a>
+                    <div class="row no-margin" style="width: 100%; display: inline-block;">
+                        <input type="text" value="" min="0" class="form-control stepper required" style="display: inline-block !important; width: 100%;">
+                        <label style="display: inline-block !important; width: 10%;">เครื่อง</label>
+                    </div>
+                    <div class="row no-margin">
+                        <a class="btn btn-3d btn-reveal btn-default" data-dismiss="modal" style="width: 90px;">
+                            <i class="fa fa-times"></i>
+                            <span>ยกเลิก</span>
+                        </a>
+                        <a id="" class="btn btn-3d btn-primary" data-dismiss="modal" onclick="addToCart()" style="width: 110px;">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>Add to Cart</span>
+                        </a>
+                    </div>
                     {{--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>--}}
                     {{--<button type="button" class="btn btn-primary" data-dismiss="modal">ยืนยัน</button>--}}
                 </div>
@@ -500,10 +502,10 @@
             <div class="row">
 
                 <!-- RIGHT -->
-                <div class="col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
+                <div class="col-lg-12 col-md-12 col-sm-12">
 
                     <!-- LIST OPTIONS -->
-                    <div class="clearfix shop-list-options margin-bottom-20">
+                    <div class="clearfix margin-bottom-20">
 
                         <ul class="pagination nomargin pull-right">
                             <li><a href="#">«</a></li>
@@ -514,18 +516,14 @@
                             <li><a href="#">»</a></li>
                         </ul>
 
-                        <div class="options-left">
-                            <select>
-                                <option value="pos_asc">Position ASC</option>
-                                <option value="pos_desc">Position DESC</option>
-                                <option value="name_asc">Name ASC</option>
-                                <option value="name_desc">Name DESC</option>
-                                <option value="price_asc">Price ASC</option>
-                                <option value="price_desc">Price DESC</option>
-                            </select>
-
-                            <a class="btn active fa fa-th" href="shop-4col-left.html"><!-- grid --></a>
-                            <a class="btn fa fa-list" href="shop-1col-left.html"><!-- list --></a>
+                        <div class="options-left col-lg-5 col-md-5 col-sm-5">
+                            <div class="input-group autosuggest" data-minLength="1">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
+                                    <span class="input-group-btn" id="add-new-permission-btn">
+                                        <a class="btn btn-success">ค้นหา</a>
+                                    </span>
+                            </div>
                         </div>
 
                     </div>
@@ -543,8 +541,8 @@
                                         <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inventory['inv_id']}})">
                                             <!--img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
                                             <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image"-->
-                                            <div style="width:100%; height: 287.797px; background-image: url({{$inventory['image']}})"></div>
-                                            <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
+                                            {{--<div style="width:100%; height:100%; background-image: url({{$inventory['image']}})"></div>--}}
+                                            <img class="img-responsive" src="{{$inventory['image']}}" alt="shop hover image" style="width: 100%;">
                                         </a>
                                         <!-- /product image(s) -->
 
@@ -1293,278 +1291,6 @@
 
                 </div>
 
-
-                <!-- LEFT -->
-                <div class="col-lg-3 col-md-3 col-sm-3 col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
-
-                    <!-- CATEGORIES -->
-                    <div class="side-nav margin-bottom-60">
-
-                        <div class="side-nav-head">
-                            <button class="fa fa-bars"></button>
-                            <h4>CATEGORIES</h4>
-                        </div>
-
-                        <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                            <li class="list-group-item active">
-                                <a class="dropdown-toggle" href="#">WOMEN</a>
-                                <ul>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(123)</span> Shoes &amp; Boots</a></li>
-                                    <li class="active"><a href="#"><span class="size-11 text-muted pull-right">(331)</span> Top &amp; Blouses</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(234)</span> Dresses &amp; Skirts</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item">
-                                <a class="dropdown-toggle" href="#">MEN</a>
-                                <ul>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(88)</span> Accessories</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(67)</span> Shoes &amp; Boots</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(32)</span> Dresses &amp; Skirts</a></li>
-                                    <li class="active"><a href="#"><span class="size-11 text-muted pull-right">(78)</span> Top &amp; Blouses</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item">
-                                <a class="dropdown-toggle" href="#">JEWELLERY</a>
-                                <ul>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(23)</span> Dresses &amp; Skirts</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(34)</span> Shoes &amp; Boots</a></li>
-                                    <li class="active"><a href="#"><span class="size-11 text-muted pull-right">(21)</span> Top &amp; Blouses</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(88)</span> Accessories</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item">
-                                <a class="dropdown-toggle" href="#">KIDS</a>
-                                <ul>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(88)</span> Shoes &amp; Boots</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(22)</span> Dresses &amp; Skirts</a></li>
-                                    <li><a href="#"><span class="size-11 text-muted pull-right">(31)</span> Accessories</a></li>
-                                    <li class="active"><a href="#"><span class="size-11 text-muted pull-right">(18)</span> Top &amp; Blouses</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(189)</span> ACCESSORIES</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(61)</span> GLASSES</a></li>
-
-                        </ul>
-
-                    </div>
-                    <!-- /CATEGORIES -->
-
-                    <!-- SIZE -->
-                    <div class="margin-bottom-60">
-                        <h4>SIZE</h4>
-
-                        <a class="tag" href="#">
-                            <span class="txt">S</span>
-                        </a>
-                        <a class="tag" href="#">
-                            <span class="txt bold">M</span>
-                        </a>
-                        <a class="tag" href="#">
-                            <span class="txt">L</span>
-                        </a>
-                        <a class="tag" href="#">
-                            <span class="txt">XL</span>
-                        </a>
-                        <a class="tag" href="#">
-                            <span class="txt">2XL</span>
-                        </a>
-                        <a class="tag" href="#">
-                            <span class="txt">3XL</span>
-                        </a>
-
-                        <hr>
-
-                        <div class="clearfix size-12">
-                            <a class="pull-right glyphicon glyphicon-remove" href="#"></a>
-                            SELECTED SIZE: <strong>M</strong>
-                        </div>
-                    </div>
-                    <!-- /SIZE -->
-
-
-                    <!-- COLOR -->
-                    <div class="margin-bottom-60">
-                        <h4>COLOR</h4>
-
-                        <a class="tag shop-color" href="#" style="background-color:#000000"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#FFFFFF"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#C0C0C0"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#0000E0"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#800080"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#FF0000"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#FF0080"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#FF6600"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#E0DCC8"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#F0E68C"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#FFFFD0"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#4B0082"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#666666"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#00FF00"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#36454F"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#F4A460"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#0088CC"></a>
-                        <a class="tag shop-color" href="#" style="background-color:#B38B6D"></a>
-
-                        <hr>
-
-                        <div class="clearfix size-12">
-                            <a class="pull-right glyphicon glyphicon-remove" href="#"></a>
-                            SELECTED COLOR: <strong>Red</strong>
-                        </div>
-                    </div>
-                    <!-- /COLOR -->
-
-
-                    <!-- BRANDS -->
-                    <div class="side-nav margin-bottom-60">
-
-                        <div class="side-nav-head">
-                            <button class="fa fa-bars"></button>
-                            <h4>BRANDS</h4>
-                        </div>
-
-                        <ul class="list-group list-unstyled">
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(21)</span> Armani</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(44)</span> Nike</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(2)</span> Jolidon</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(18)</span> Ralph Lauren</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(87)</span> Lotto</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(32)</span> Fila</a></li>
-                            <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(69)</span> Boss</a></li>
-                        </ul>
-
-                    </div>
-                    <!-- BRANDS -->
-
-
-                    <!-- BANNER ROTATOR -->
-                    <div style="opacity: 1; display: block;" class="owl-carousel buttons-autohide controlls-over margin-bottom-60 text-center owl-theme owl-carousel-init" data-plugin-options="{&quot;singleItem&quot;: true, &quot;autoPlay&quot;: 4000, &quot;navigation&quot;: true, &quot;pagination&quot;: false, &quot;transitionStyle&quot;:&quot;goDown&quot;}">
-                        <div class="owl-wrapper-outer"><div style="width: 1052px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(-263px, 0px, 0px); perspective-origin: 394.5px 50%;" class="owl-wrapper"><div style="width: 263px;" class="owl-item"><a href="#">
-                                        <img class="img-responsive" src="assets/images/demo/shop/banners/off_1.png" alt="" height="350" width="270">
-                                    </a></div><div style="width: 263px;" class="owl-item"><a href="#">
-                                        <img class="img-responsive" src="assets/images/demo/shop/banners/off_2.png" alt="" height="350" width="270">
-                                    </a></div></div></div>
-
-                        <div class="owl-controls clickable"><div class="owl-buttons"><div class="owl-prev"><i class="fa fa-angle-left"></i></div><div class="owl-next"><i class="fa fa-angle-right"></i></div></div></div></div>
-                    <!-- /BANNER ROTATOR -->
-
-
-                    <!-- FEATURED -->
-                    <div class="margin-bottom-60">
-
-                        <h2 class="owl-featured">FEATURED</h2>
-                        <div style="opacity: 1; display: block;" class="owl-carousel featured owl-theme owl-carousel-init" data-plugin-options="{&quot;singleItem&quot;: true, &quot;stopOnHover&quot;:false, &quot;autoPlay&quot;:false, &quot;autoHeight&quot;: false, &quot;navigation&quot;: true, &quot;pagination&quot;: false}">
-
-                            <div class="owl-wrapper-outer"><div style="width: 1052px; left: 0px; display: block;" class="owl-wrapper"><div style="width: 263px;" class="owl-item"><div><!-- SLIDE 1 -->
-                                            <ul class="list-unstyled nomargin nopadding text-left">
-
-                                                <li class="clearfix"><!-- item -->
-                                                    <div class="thumbnail featured clearfix pull-left">
-                                                        <a href="#">
-                                                            <img src="assets/images/demo/shop/products/100x100/p10.jpg" alt="featured item" height="80" width="80">
-                                                        </a>
-                                                    </div>
-
-                                                    <a class="block size-12" href="#">Long Grey Dress - Special</a>
-                                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
-                                                    <div class="size-18 text-left">$132.00</div>
-                                                </li><!-- /item -->
-
-                                                <li class="clearfix"><!-- item -->
-                                                    <div class="thumbnail featured clearfix pull-left">
-                                                        <a href="#">
-                                                            <img src="assets/images/demo/shop/products/100x100/p2.jpg" alt="featured item" height="80" width="80">
-                                                        </a>
-                                                    </div>
-
-                                                    <a class="block size-1" href="#">Black Fashion Hat</a>
-                                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
-                                                    <div class="size-18 text-left">$65.00</div>
-                                                </li><!-- /item -->
-
-                                                <li class="clearfix"><!-- item -->
-                                                    <div class="thumbnail featured clearfix pull-left">
-                                                        <a href="#">
-                                                            <img src="assets/images/demo/shop/products/100x100/p13.jpg" alt="featured item" height="80" width="80">
-                                                        </a>
-                                                    </div>
-
-                                                    <a class="block size-1" href="#">Cotton 100% - Pink Dress</a>
-                                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
-                                                    <div class="size-18 text-left">$77.00</div>
-                                                </li><!-- /item -->
-
-                                            </ul>
-                                        </div></div><div style="width: 263px;" class="owl-item"><div><!-- SLIDE 2 -->
-                                            <ul class="list-unstyled nomargin nopadding text-left">
-
-                                                <li class="clearfix"><!-- item -->
-                                                    <div class="thumbnail featured clearfix pull-left">
-                                                        <a href="#">
-                                                            <img src="assets/images/demo/shop/products/100x100/p12.jpg" alt="featured item" height="80" width="80">
-                                                        </a>
-                                                    </div>
-
-                                                    <a class="block size-12" href="#">Long Grey Dress - Special</a>
-                                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
-                                                    <div class="size-18 text-left">$132.00</div>
-                                                </li><!-- /item -->
-
-                                                <li class="clearfix"><!-- item -->
-                                                    <div class="thumbnail featured clearfix pull-left">
-                                                        <a href="#">
-                                                            <img src="assets/images/demo/shop/products/100x100/p6.jpg" alt="featured item" height="80" width="80">
-                                                        </a>
-                                                    </div>
-
-                                                    <a class="block size-1" href="#">Black Fashion Hat</a>
-                                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
-                                                    <div class="size-18 text-left">$65.00</div>
-                                                </li><!-- /item -->
-
-                                                <li class="clearfix"><!-- item -->
-                                                    <div class="thumbnail featured clearfix pull-left">
-                                                        <a href="#">
-                                                            <img src="assets/images/demo/shop/products/100x100/p14.jpg" alt="featured item" height="80" width="80">
-                                                        </a>
-                                                    </div>
-
-                                                    <a class="block size-1" href="#">Cotton 100% - Pink Dress</a>
-                                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
-                                                    <div class="size-18 text-left">$77.00</div>
-                                                </li><!-- /item -->
-
-                                            </ul>
-                                        </div></div></div></div><!-- /SLIDE 1 -->
-
-                            <!-- /SLIDE 2 -->
-
-                            <div class="owl-controls clickable"><div class="owl-buttons"><div class="owl-prev"><i class="fa fa-angle-left"></i></div><div class="owl-next"><i class="fa fa-angle-right"></i></div></div></div></div>
-
-                    </div>
-                    <!-- /FEATURED -->
-
-
-                    <!-- HTML BLOCK -->
-                    <div class="margin-bottom-60">
-                        <h4>HTML BLOCK</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus eunit.</p>
-
-                        <form action="#" role="form" method="post">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input id="email" name="email" class="form-control required" placeholder="Enter your Email" type="email">
-										<span class="input-group-btn">
-											<button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-send"></i></button>
-										</span>
-                            </div>
-                        </form>
-
-                    </div>
-                    <!-- /HTML BLOCK -->
-
-                </div>
-
             </div>
 
         </div>
@@ -1609,6 +1335,11 @@
         .remove-button-col{
             border: none !important;
             background-color: white !important;
+        }
+
+        #modalItem .stepper-wrap{
+            display: inline-block;
+            width: 70%;
         }
     </style>
 @endsection
