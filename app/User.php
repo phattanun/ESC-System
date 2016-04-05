@@ -18,7 +18,7 @@ class User extends Model implements AuthenticatableContract,
     public $timestamps = false;
     protected $primaryKey = 'student_id';
     protected $table = 'users';
-    protected $fillable = ['student_id','password','name','surname','nickname','address','birthdate','phone_number','email','facebook_link','line_id','emergency_contact','department_id','group','allergy','anomaly','religion','blood_type','clothing_size'];
+    protected $fillable = ['student_id','password','name','surname','nickname','address','birthdate','phone_number','email','facebook_link','line_id','emergency_contact','department','group','generation','allergy','anomaly','religion','blood_type','clothing_size'];
     protected $hidden = ['password', 'remember_token'];
     public function department()
     {

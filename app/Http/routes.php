@@ -11,6 +11,10 @@
 |
 */
 
+// Test
+Route::get('/test', function(){ return view('test'); });
+Route::post('/test/login', 'PagesController@cas_login');
+
 // Default
 Route::get('/', 'NewsController@view_home');
 
@@ -48,7 +52,9 @@ Route::get ('/room/report', 'RoomController@roomReportQuery');
 Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
-Route::get ('/supplies', 'PagesController@suppliesPage');
+Route::get ('/supplies', 'InventoryController@inventoryPage');
+Route::get ('/supplies/approve', 'InventoryController@approve');
+Route::post ('/supplies/approve/modal', 'InventoryController@getApproveModal');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
@@ -56,7 +62,7 @@ Route::get ('/students/getExcelFile', 'StudentController@generateXLS');
 Route::post('/students/search', 'StudentController@search');
 
 // Login/Logout Register
-Route::post('/login', 'PagesController@login');
+Route::post('/login', 'PagesController@cas_login');
 Route::get ('/logout', 'PagesController@logout');
 Route::post('/register', 'PagesController@registerConfirm');
 

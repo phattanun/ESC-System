@@ -393,10 +393,13 @@ class ActivityController extends Controller
         $raw_act_year = Activity::select('year')->get();
         $division = Division::all();
         $act_year = [];
+        if(!in_array($this_year,$act_year))
+            array_push($act_year,$this_year);
         foreach($raw_act_year as $ay){
             if(!in_array($ay['year'],$act_year))
                 array_push($act_year,$ay['year']);
         }
+        rsort($act_year);
         $count = [];
         $count['sport'] = 0;
         $count['volunteer'] = 0;

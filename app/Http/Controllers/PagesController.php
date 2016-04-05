@@ -16,10 +16,74 @@ use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
-    public function login(){
-        $id = Input::get('studentID');
+    public function cas_login() {
+        $CUCAS = \Config::get('app.CUCAS');
+        $studentId = Input::get('studentID');
         $password = Input::get('password');
-        $remember = Input::get('checkbox-inline');
+        $remember = is_null(Input::get('checkbox-inline'))? false:true;
+        //$remember_me = Input::get('checkbox-inline');
+
+        $url = $CUCAS['apibase'].$CUCAS['apiname'];
+        $fields = array(
+            'appid' => $CUCAS['appid'],
+			'appsecret' => $CUCAS['appsecret'],
+            'username' => $studentId,
+            'password' => $password
+        );
+        $postvars='';
+        $sep='';
+        foreach($fields as $key => $value) {
+            $postvars.= $sep.urlencode($key).'='.urlencode($value);
+            $sep='&';
+        }
+
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch,CURLOPT_POST,count($fields));
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$postvars);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+
+        $result = json_decode(curl_exec($ch));
+        if(!$result)
+            $result = curl_error($ch);
+        curl_close($ch);
+
+        //var_dump($remember);
+        if($result->type == 'error') return $this->local_login($studentId,$password,$remember);
+
+        if($result->content->faculty != 21) return Redirect::back()->with('hasError', true);
+
+        // Code Handle HERE!!!!
+        //var_dump($result);
+        if(!User::where('student_id',$result->content->studentid)->exists()) {
+            $name_surname = explode(" ",$result->content->name_th);
+            $name = $name_surname[0];
+            $surname = $name_surname[1];
+            $sid = $result->content->studentid;
+            $email = $result->content->email;
+            $gen = substr($sid,0,2);
+            $gen = $gen + 41;
+            User::create(['student_id'=>$sid,
+                'name'=>$name,
+                'surname'=>$surname,
+                'department'=>100000,
+                'group'=>1001,
+                'generation'=>$gen,
+                'email'=>$email]);
+        }
+
+        Auth::loginUsingId($result->content->studentid,$remember);
+        if(is_null(Auth::user()->last_time_attemp))
+            return $this->register();
+        $this->updateUserTime();
+        return Redirect::back();
+    }
+
+    public function local_login($id, $password, $remember){
+//        $id = Input::get('studentID');
+//        $password = Input::get('password');
+//        $remember = Input::get('checkbox-inline');
         if(Auth::attempt(['student_id' => $id, 'password' => $password], $remember)) {
             if(is_null(Auth::user()->last_time_attemp))
                 return $this->register();
@@ -113,11 +177,6 @@ class PagesController extends Controller
     public function newsPage(){
         $user = $this->getUser();
         return view('news');
-    }
-
-    public function suppliesPage(){
-        $user = $this->getUser();
-        return view('supplies');
     }
 
     public function profilePage() {

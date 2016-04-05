@@ -2,6 +2,13 @@
 
 return [
 
+    'CUCAS' => [
+        'apibase' => env('CUCAS_APIBASE',''),
+        'apiname' => env('CUCAS_APINAME',''),
+        'appid' => env('CUCAS_APPID',''),
+        'appsecret' => env('CUCAS_APPSECRET',''),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
