@@ -489,7 +489,7 @@
                 displayEventEnd: true,
                 editable: true,
                 allDaySlot: false,
-    			eventLimit: true,
+    			eventLimit: 6,
                 resources: '{{url('/room/get_room')}}',
                 events: '{{url('/room/get_room_reservation_schedule')}}',
     			dayClick: function(date, jsEvent, view, resource) {
