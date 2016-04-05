@@ -527,7 +527,7 @@
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
                                     <span class="input-group-btn" id="add-new-permission-btn">
-                                        <a class="btn btn-success">ค้นหา</a>
+                                        <a class="btn btn-success">ค้นหา{{$inventory['1']['name']}}</a>
                                     </span>
                             </div>
                         </div>
@@ -1400,8 +1400,10 @@
         }
 
         function addToCart(id){
+            {{--var something = JSON.parse({{$inventory}});--}}
             alert(id);
-            alert({{$inventory[0]['name']}});
+//            alert(something);
+            {{--alert({{$inventory[1]['name']}});--}}
         }
 
         function removeCartItem(order){

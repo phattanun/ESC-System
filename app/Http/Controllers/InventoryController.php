@@ -20,8 +20,21 @@ class InventoryController extends Controller
 
     public function inventoryPage(){
         $user = $this->getUser();
-        $inventory = Inventory::all();
-
+        $items = Inventory::all();
+//        return $items;
+        $inventory = [];
+        foreach($items as $item){
+            $inventory[$item['inv_id']] = [];
+            $inventory[$item['inv_id']]['inv_id'] = $item['inv_id'];
+            $inventory[$item['inv_id']]['name'] = $item['name'];
+            $inventory[$item['inv_id']]['image'] = $item['image'];
+            $inventory[$item['inv_id']]['unit'] = $item['unit'];
+            $inventory[$item['inv_id']]['prive_per_unit'] = $item['prive_per_unit'];
+            $inventory[$item['inv_id']]['total_qty'] = $item['total_qty'];
+            $inventory[$item['inv_id']]['broken_qty'] = $item['broken_qty'];
+            $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
+            $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
+        }
 //        $detail=[];
 //        $detail['name'] = 'name';
 //        $detail2 = [];
@@ -31,7 +44,7 @@ class InventoryController extends Controller
 //        $list['2000'] = $detail2;
 //        $tmp = json_encode($list);
 //        return $tmp;
-
+//
 //        return $inventory;
         return view('supplies', compact('inventory'));
     }
