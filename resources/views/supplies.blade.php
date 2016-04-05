@@ -16,6 +16,8 @@
     <button class="hidden" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
 
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form class="validate" action="{{url().'/supplies/send_cart'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="ส่งเรื่องยืมสำเร็จ!<script>submitCartButton();</script>" data-toastr-position="top-right">
+        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -39,6 +41,7 @@
                             </thead>
                             <tbody>
                             <tr id="cart-item-id-2" class="cart-item-order-1">
+                                <input type="hidden" id="cart-item-input-id-2" name="cart[2][id]" value="2" />
                                 <td class="text-center remove-button-col">
                                     <a id="room-remove-button-" onclick="removeCartItem(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
@@ -47,9 +50,10 @@
                                 </td>
                                 <td class="text-center">1</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
-                                <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
+                                <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-2"  name="cart[2][amount]" type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr id="cart-item-id-1" class="cart-item-order-2">
+                                <input type="hidden" id="cart-item-input-id-1" name="cart[1][id]" value="1" />
                                 <td class="text-center remove-button-col">
                                     <a id="room-remove-button-" onclick="removeCartItem(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
@@ -58,9 +62,10 @@
                                 </td>
                                 <td class="text-center">2</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
-                                <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
+                                <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-1"  name="cart[1][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             <tr id="cart-item-id-3" class="cart-item-order-3">
+                                <input type="hidden" id="cart-item-input-id-3" name="cart[3][id]" value="3" />
                                 <td class="text-center remove-button-col">
                                     <a id="room-remove-button-" onclick="removeCartItem(3)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
                                         <i class="fa fa-minus"></i>
@@ -69,7 +74,7 @@
                                 </td>
                                 <td class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
-                                <td><div style="width:80%; display: inline-block"><input type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
+                                <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-3"  name="cart[3][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
                             </tbody>
                         </table>
@@ -80,17 +85,17 @@
                     <div class="row no-mergin">
                         <div class="col-md-6">
                             <label>วันที่ยืม</label>
-                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                            <input id="cart-start-date" name="startDate" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
                         </div>
                         <div class="col-md-6">
                             <label>วันที่คืน</label>
-                            <input type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                            <input id="cart-end-date" name="endDate" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
                         </div>
                     </div>
 
                     <label class="margin-top-20">โครงการ</label>
                     <div id="inListActivity">
-                        <select name="project" class="form-control select2 required" id="project-selection">
+                        <select id="catr-activity" name="activity" class="form-control select2 required">
                             <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
                             <option value="1">งานชั้นปี</option>
                             <option value="2">ค่ายลานเกียร์</option>
@@ -104,7 +109,7 @@
                     </div>
                     <div id="otherActivity" class="hidden">
                         <div>
-                            <input required id="otherAct" name="otherAct" type="text" class="form-control"
+                            <input required id="cart-otherActivity" name="otherActivity" type="text" class="form-control"
                                    placeholder="ระบุโครงการ / กิจกรรมของคุณ">
                         </div>
                         <div class="pull-right" onclick="backToActicityList()">
@@ -114,11 +119,11 @@
 
                     <label class="margin-top-20">หน่วยงาน</label>
                     <div id="inListDivision">
-                        <select name="division" class="form-control select2 required" id="division-selection">
+                        <select id="cart-division" name="division" class="form-control select2 required">
                             <option selected="selected" value="0">หน่วยงาน</option>
-                            <option value="">รุ่น</option>
-                            <option value="">กรุ๊ป</option>
-                            <option value="">ภาควิชา</option>
+                            <option value="1">รุ่น</option>
+                            <option value="2">กรุ๊ป</option>
+                            <option value="3">ภาควิชา</option>
                         </select>
                         <div class="text-right">
                             <a class="underline-hover" onclick="otherDivision()">ไม่มีหน่วยงานที่คุณต้องการอยู่ในระบบ?</a>
@@ -126,7 +131,7 @@
                     </div>
                     <div id="otherDivision" class="hidden">
                         <div>
-                            <input required id="otherDiv" name="otherDiv" type="text" class="form-control"
+                            <input required id="cart-otherDivision" name="otherDivision" type="text" class="form-control"
                                    placeholder="ระบุหน่วยงานของคุณ">
                         </div>
                         <div class="text-right">
@@ -139,7 +144,7 @@
                             <label>รายละเอียด</label>
                         </div>
                         <div class="col-md-12 col-sm-10 col-xs-12">
-                            <textarea name="" rows="4" class="form-control required"></textarea>
+                            <textarea id="cart-detail" name="detail" rows="4" class="form-control required"></textarea>
                         </div>
                     </div>
                 </div>
@@ -147,11 +152,12 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">กลับไปเลือกเพิ่ม</button>
-                    <button type="button" class="btn btn-primary" onclick="submitCartButton()">ส่งเรื่องยืม</button>
+                    <button type="submit" class="btn btn-primary" onclick="submitCartButton()">ส่งเรื่องยืม</button>
                 </div>
 
             </div>
         </div>
+        </form>
     </div>
 
     <div id="modalCartSuccess" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -347,16 +353,16 @@
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <div class="row no-margin" style="width: 100%; display: inline-block;">
+                    <div class="row no-margin" style="width: 90%; display: inline-block; text-align:center; margin-bottom: 15px;">
                         <input type="text" value="" min="0" class="form-control stepper required" style="display: inline-block !important; width: 100%;">
-                        <label style="display: inline-block !important; width: 10%;">เครื่อง</label>
+                        <label style="display: inline-block !important; width: 20%;">เครื่อง</label>
                     </div>
                     <div class="row no-margin">
                         <a class="btn btn-3d btn-reveal btn-default" data-dismiss="modal" style="width: 90px;">
                             <i class="fa fa-times"></i>
                             <span>ยกเลิก</span>
                         </a>
-                        <a id="" class="btn btn-3d btn-primary" data-dismiss="modal" onclick="addToCart()" style="width: 110px;">
+                        <a id="" class="btn btn-3d btn-primary" data-dismiss="modal" onclick="addToCart(1)" style="width: 110px;">
                             <i class="fa fa-cart-plus"></i>
                             <span>Add to Cart</span>
                         </a>
@@ -1347,6 +1353,9 @@
 @section('js')
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
     <script>
+
+        var amountCartItem = 3;
+
         function otherActivity(){
             $('#inListActivity').addClass('hidden');
             $('#otherActivity').removeClass('hidden');
@@ -1363,6 +1372,7 @@
             $('#inListDivision').removeClass('hidden');
             $('#otherDivision').addClass('hidden');
         }
+
         function submitCartButton(){
 //            alert();
             $('#modalCart').addClass('hidden');
@@ -1381,11 +1391,11 @@
         });
 
         function openModalItem(id){
-            alert(id);
+//            alert(id);
         }
 
         function openModalItemEdit(id){
-            alert("a"+id);
+//            alert("a"+id);
             $('#modalItemEdit').modal('show');
         }
 

@@ -22,8 +22,32 @@ class InventoryController extends Controller
         $user = $this->getUser();
         $inventory = Inventory::all();
 
+//        $detail=[];
+//        $detail['name'] = 'name';
+//        $detail2 = [];
+//        $detail2['name'] = 'name2';
+//        $list = [];
+//        $list['1000'] = $detail;
+//        $list['2000'] = $detail2;
+//        $tmp = json_encode($list);
+//        return $tmp;
+
 //        return $inventory;
         return view('supplies', compact('inventory'));
+    }
+
+    public function sendCart()
+    {
+        $items = Input::get('cart');
+        $startDate = Input::get('startDate');
+        $endDate = Input::get('endDate');
+        $activity = Input::get('activity');
+        $otherActivity = Input::get('otherActivity');
+        $division = Input::get('division');
+        $otherDivision = Input::get('otherDivision');
+        $detail = Input::get('detail');
+
+        return compact('items','startDate','endDate','activity','otherActivity','division','otherDivision','detail');
     }
 
     public function approve(){
