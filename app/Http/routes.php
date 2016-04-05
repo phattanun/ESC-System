@@ -54,6 +54,7 @@ Route::post('/room/result', 'RoomController@roomResult');
 // Supply
 Route::get ('/supplies', 'InventoryController@inventoryPage');
 Route::get ('/supplies/approve', 'InventoryController@approve');
+Route::post ('/supplies/approve/modal', 'InventoryController@getApproveModal');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
