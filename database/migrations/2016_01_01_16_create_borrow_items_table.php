@@ -16,12 +16,12 @@ class CreateBorrowItemsTable extends Migration
             $table->integer('list_id')->unsigned();
             $table->integer('inv_id')->unsigned();
             $table->double('borrow_request_amount',10,2);
-            $table->double('borrow_actual_amount',10,2);
+            $table->double('borrow_actual_amount',10,2)->nullable();
             $table->timestamp('borrow_date');
             $table->timestamp('return_date');
             $table->tinyinteger('status');
-            $table->bigInteger('approver_id')->unsigned();
-            $table->bigInteger('giver_id')->unsigned();
+            $table->bigInteger('approver_id')->unsigned()->nullable();
+            $table->bigInteger('giver_id')->unsigned()->nullable();
             $table->string('reason_if_not_approve')->nullable();
 
             $table->primary(array('list_id','inv_id'));
