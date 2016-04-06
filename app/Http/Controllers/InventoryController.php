@@ -123,6 +123,11 @@ class InventoryController extends Controller
             return "startAfterEnd";
         }
 
+        foreach($items as $item){
+            if($item['amount']<=0)
+                return 'amountInvalid';
+        }
+
         if($otherActivityFlag=="true")
             $activity = null;
         else
