@@ -116,6 +116,7 @@
                             <a id="back-to-activity" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                         </div>
                     </div>
+                    <input required id="cart-otherActivity-flag" name="otherActivityFlag" type="hidden" class="form-control" value="false">
 
                     <label class="margin-top-20">หน่วยงาน</label>
                     <div id="inListDivision">
@@ -138,6 +139,7 @@
                             <a class="underline-hover" onclick="backToDivisionList()">กลับไปยังลิสต์รายการเดิม</a>
                         </div>
                     </div>
+                    <input required id="cart-otherDivision-flag" name="otherDivisionFlag" type="hidden" class="form-control" value="false">
 
                     <div class="row">
                         <div class="col-md-3 col-xs-6"  style="margin-top: 5px;">
@@ -1440,18 +1442,22 @@
         function otherActivity(){
             $('#inListActivity').addClass('hidden');
             $('#otherActivity').removeClass('hidden');
+            $('#cart-otherActivity-flag').val(true);
         }
         function backToActicityList(){
             $('#inListActivity').removeClass('hidden');
             $('#otherActivity').addClass('hidden');
+            $('#cart-otherActivity-flag').val(false);
         }
         function otherDivision(){
             $('#inListDivision').addClass('hidden');
             $('#otherDivision').removeClass('hidden');
+            $('#cart-otherDivision-flag').val(true);
         }
         function backToDivisionList(){
             $('#inListDivision').removeClass('hidden');
             $('#otherDivision').addClass('hidden');
+            $('#cart-otherDivision-flag').val(false);
         }
 
         function submitCartButton(){

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\BorrowItem;
 use App\BorrowList;
 use App\Division;
 use App\Inventory;
 use App\Permission;
+use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
@@ -73,17 +76,76 @@ class InventoryController extends Controller
 
     public function sendCart()
     {
+        $user = $this->getUser();
         $items = Input::get('cart');
         $startDate = Input::get('startDate');
         $endDate = Input::get('endDate');
         $activity = Input::get('activity');
         $otherActivity = Input::get('otherActivity');
+        $otherActivityFlag = Input::get('otherActivityFlag');
         $division = Input::get('division');
         $otherDivision = Input::get('otherDivision');
+        $otherDivisionFlag = Input::get('otherDivisionFlag');
         $detail = Input::get('detail');
 
+//        return $otherActivityFlag;
+        if( ($otherActivityFlag=="false"&&$activity=='0') || ($otherActivityFlag=="true"&&$otherActivity=="") ){
+            return 'noproject';
+        }
+        if( ($otherDivisionFlag=="false"&&$division=="0") || ($otherDivisionFlag=="true"&&$otherDivision=="") ){
+            return 'nodivision';
+        }
+
+        $startDate = date('Y-m-d',strtotime($startDate));
+        $endDate = date('Y-m-d',strtotime($endDate));
+        if($startDate > $endDate){
+            return "startAfterEnd";
+        }
+
+        if($otherActivityFlag=="true")
+            $activity = null;
+        else
+            $otherActivity = null;
+
+        if($otherDivisionFlag=="true")
+            $division = null;
+        else
+            $otherDivision = null;
+
+        $nowDate = Carbon::now();
+//        BorrowList::create([
+//            'status'=> 0,
+//            'creator_id'=> $user['student_id'],
+//            'div_id'=> $division,
+//            'other_div'=> $otherDivision,
+//            'act_id'=> $activity,
+//            'other_act'=> $otherActivity,
+//            'create_at'=> $nowDate
+//        ]);
+//
+//
+//        $list = BorrowList::where('create_at',$nowDate);
+//        return $list;
+
+//        foreach($items as $item){
+//            BorrowItem::create([
+//                'list_id' =>,
+//                'inv_id' => ,
+//                'borrow_request_amount' => $item,
+//                'borrow_actual_amount' => null,
+//                'borrow_date' => $startDate,
+//                'return_date' => $endDate,
+//                'status' => 0,
+//                'approver_id' => null,
+//                'giver_id' => null,
+//                'reason_if_not_approve' =>
+//                ]);
+//        }
+
+
+
 //        return 'error';
-        return compact('items','startDate','endDate','activity','otherActivity','division','otherDivision','detail');
+        return compact('user','items','startDate','endDate','activity','otherActivity','otherActivityFlag','division','otherDivision','otherDivisionFlag','detail');
     }
 
     public function approve(){
