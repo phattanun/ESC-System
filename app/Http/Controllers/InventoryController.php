@@ -133,8 +133,6 @@ class InventoryController extends Controller
         else
             $otherDivision = null;
 
-        $division=97;
-
         $nowDate = Carbon::now();
         BorrowList::create([
             'status'=> 0,
