@@ -11,6 +11,6 @@ class BorrowList extends Model
     public $timestamps = false;
 
     public function itemList(){
-        return $this->belongsToMany('App\Inventory');
+        return $this->belongsToMany('App\Inventory','borrow_items','list_id','inv_id');
     }
 }
