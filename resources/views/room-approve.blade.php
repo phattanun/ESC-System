@@ -62,8 +62,7 @@
     </div>
 
     <div id="event-template" style="display:none">
-        <form id="container" class="validate" method="post"
-              enctype="multipart/form-data" style="margin:0">
+        <form id="container" class="validate" method="post" enctype="multipart/form-data" style="margin:0">
             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
             <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
 
@@ -331,12 +330,12 @@
             }
 
             slideBar.find("#"+contentType+"-tab a[data-tab]").click(function(e) {
-                    e.preventDefault();
-                    $("#slide-bar #"+contentType+"-tab > li").removeClass('active');
-                    $(this.parentElement).addClass('active');
-                    $("#slide-bar div[id*='"+contentType+"-info-']").addClass('hide').scrollTop(0);
-                    $("#slide-bar #"+contentType+"-info-"+$(this).data('tab')).removeClass('hide');
-                });
+                e.preventDefault();
+                $("#slide-bar #"+contentType+"-tab > li").removeClass('active');
+                $(this.parentElement).addClass('active');
+                $("#slide-bar div[id*='"+contentType+"-info-']").addClass('hide').scrollTop(0);
+                $("#slide-bar #"+contentType+"-info-"+$(this).data('tab')).removeClass('hide');
+            });
             var headerHeight = $("#slide-bar > #container > .modal-header").outerHeight(),
                 footerHeight = $("#slide-bar > #container > .modal-footer").outerHeight(),
                 bodyHeight = 0;

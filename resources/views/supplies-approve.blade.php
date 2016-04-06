@@ -27,7 +27,7 @@
                                 <th style="vertical-align:middle;text-align: center;width:10%">สถานะ</th>
                                 <th style="vertical-align:middle;text-align: center;width:100%"></th>
                             </tr>
-                            <tr id="template-tr" style="display:none">
+                            <tr id="template-tr">
                                 <td id="number"   style="vertical-align:middle;text-align: center">-</td>
                                 <td id="activity" style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
                                 <td id="club"     style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
@@ -35,7 +35,7 @@
                                 <td id="create_at"style="vertical-align:middle;text-align: center">--/--/--</td>
                                 <td id="status"   style="vertical-align:middle;text-align: center">รอการอนุมัติ</td>
                                 <td style="vertical-align:middle;text-align: center">
-                                    <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow">
+                                    <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow" onclick='$("#act-detail").modal("toggle");'>
                                         <i class="fa fa-edit"></i>
                                         <span>รายละเอียด</span>
                                     </button>
@@ -63,27 +63,127 @@
         </div>
     </section>
     <div id="act-detail" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div id="header" class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 id="title" class="modal-title">Title</h4>
-          </div>
-          <div id="content" class="modal-body">
-            <p id="detail">Content<p>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="container" class="validate" method="post" enctype="multipart/form-data" style="margin:0">
+                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                    <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
 
-      </div>
+                    <div id="head" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="title" class="modal-title">
+                            <i class="fa fa-list-alt"></i> รายละเอียดการจอง</h4>
+                        <!-- TABs -->
+                        <ul id="act-tab" class="nav nav-tabs">
+                            <li class="active"><a href="#" data-tab="reserve">ใบจอง</a></li>
+                            <li><a href="#" data-tab="owner"  >ผู้จอง</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="content" class="modal-body">
+
+                        <div id="act-info-reserve">
+                            <table class="table nomargin" id="activity-table" width="100%">
+                                <tr>
+                                    <th style="vertical-align:middle;text-align: center;width:25%">ชื่อพัสดุ</th>
+                                    <th style="vertical-align:middle;text-align: center;width:20%">วันเริ่มต้นการยืม</th>
+                                    <th style="vertical-align:middle;text-align: center;width:20%">วันสิ้นสุดการยืม</th>
+                                    <th colspan="2" style="vertical-align:middle;text-align: center;width:20%">จำนวน</th>
+                                    <th style="vertical-align:middle;text-align: center;width:15%">ไม่อนุมัติ</th>
+                                </tr>
+                                @for($i=0;$i<10;$i++)
+                                <tr id="template-tr">
+                                    <td id=""   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                    <td id=""   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                    <td id=""   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                    <td id=""   style="vertical-align:middle;text-align: center">--</td>
+                                    <td id=""   style="vertical-align:middle;text-align: center">/ --</td>
+                                    <td style="vertical-align:middle;text-align: center">
+                                        <label class="checkbox"><input type="checkbox" name="disapprove"><i style="position:initial"></i></label>
+                                    </td>
+                                </tr>
+                                @endfor
+                                <tr id="item-notfound" style="display:none">
+                                    <td colspan="7" style="vetical-align:middle;text-align: center">ไม่พบรายการจอง</td>
+                                </tr>
+                                <tbody id="items-list"></tbody>
+                            </table>
+                        </div>
+
+                        <div id="act-info-owner" class="hide">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>รหัสนิสิต <span id="student_id" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ชื่อ <span id="name" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>นามสกุล <span id="surname" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ชื่อเล่น <span id="nickname" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>รุ่น <span id="generation" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>ภาควิชา <span id="department" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>เบอร์ติดต่อ <span id="phone_number" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>E-mail <span id="email" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Facebook <span id="facebook_link" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>กิจกรรม <span id="activity" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>หน่วยงาน <span id="club" class="text-blue">ไม่มีข้อมูล</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-green" onclick="">
+                            <i class="fa fa-check"></i><span>ยืนยัน</span>
+                        </button>
+                        <button type="button" class="btn btn-red" onclick="">
+                            <i class="fa fa-times"></i><span>ไม่อนุมัติทั้งหมด</span>
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <i class="fa fa-minus"></i><span>ยกเลิก</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 
 @section('css')
-
+    <style>
+        .modal-header {
+            padding-bottom: 0;
+        }
+        .nav-tabs {
+            padding-top: 10px;
+            border-bottom: none;
+        }
+        .checkbox input + i:after{
+            top:1px;
+            left:29px;
+        }
+    </style>
 @endsection
 
 @section('js')
@@ -176,6 +276,13 @@
                 }
             });
         }
+        $("#act-detail").find("#act-tab a[data-tab]").click(function(e) {
+            e.preventDefault();
+            $("#act-detail #act-tab > li").removeClass('active');
+            $(this.parentElement).addClass('active');
+            $("#act-detail div[id*='act-info-']").addClass('hide').scrollTop(0);
+            $("#act-detail #act-info-"+$(this).data('tab')).removeClass('hide');
+        });
         loadList();
     </script>
 @endsection
