@@ -15,7 +15,8 @@ class CreateBorrowItemsTable extends Migration
         Schema::create('borrow_items', function (Blueprint $table) {
             $table->integer('list_id')->unsigned();
             $table->integer('inv_id')->unsigned();
-            $table->double('amount',10,2);
+            $table->double('borrow_request_amount',10,2);
+            $table->double('borrow_actual_amount',10,2);
             $table->timestamp('borrow_date');
             $table->timestamp('return_date');
             $table->tinyinteger('status');
