@@ -40,7 +40,7 @@
                             </tr>
                             </thead>
                             <tbody class="cart-item-table-body">
-                            <tr id="cart-item-id-2" class="cart-item cart-item-order-1">
+                            <!--tr id="cart-item-id-2" class="cart-item cart-item-order-1">
                                 <input type="hidden" id="cart-item-input-id-2" name="cart[2][id]" value="2" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-1" onclick="removeCartItem(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -75,7 +75,7 @@
                                 <td id="cart-item-order-number-3" class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-3"  name="cart[3][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
-                            </tr>
+                            </tr-->
                             </tbody>
                         </table>
                     </div>
@@ -97,11 +97,14 @@
                     <div id="inListActivity">
                         <select id="cart-activity" name="activity" class="form-control select2 required">
                             <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
-                            <option value="1">งานชั้นปี</option>
+                            <!--option value="1">งานชั้นปี</option>
                             <option value="2">ค่ายลานเกียร์</option>
                             <option value="3">ConneK 7</option>
                             <option value="4">FE Camp</option>
-                            <option value="5">ฟันเฟือง</option>
+                            <option value="5">ฟันเฟือง</option-->
+                            @foreach($activity as $act)
+                                <option value="{{$act['act_id']}}">{{$act['name']}}</option>
+                            @endforeach
                         </select>
                         <div class="pull-right">
                             <a class="underline-hover" onclick="otherActivity()">ไม่มีโครงการ/กิจกรรมที่คุณต้องการอยู่ในระบบ?</a>
@@ -122,9 +125,12 @@
                     <div id="inListDivision">
                         <select id="cart-division" name="division" class="form-control select2 required">
                             <option selected="selected" value="0">หน่วยงาน</option>
-                            <option value="1">รุ่น</option>
+                            <!--option value="1">รุ่น</option>
                             <option value="2">กรุ๊ป</option>
-                            <option value="3">ภาควิชา</option>
+                            <option value="3">ภาควิชา</option-->
+                            @foreach($division as $div)
+                                <option value="{{$div['div_id']}}">{{$div['name']}}</option>
+                            @endforeach
                         </select>
                         <div class="text-right">
                             <a class="underline-hover" onclick="otherDivision()">ไม่มีหน่วยงานที่คุณต้องการอยู่ในระบบ?</a>
@@ -499,8 +505,8 @@
     <section>
         <div class="container">
 
-            <div class="cart-button"  data-toggle="modal" data-target="#modalCart" style="position: fixed; top: 85px; right: 8%; z-index: 1000;">
-                <span class="cart-button-badge badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">3</span>
+            <div class="cart-button hidden"  data-toggle="modal" data-target="#modalCart" style="position: fixed; top: 85px; right: 8%; z-index: 1000;">
+                <span class="cart-button-badge badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">0</span>
                 <a class="social-icon social-icon-round social-icon-light cart" data-toggle="tooltip" data-placement="top" title="รายการยืม">
                     <i class="fa fa-shopping-cart"></i>
                     <i class="fa fa-shopping-cart"></i>
@@ -529,7 +535,7 @@
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
                                     <span class="input-group-btn" id="add-new-permission-btn">
-                                        <a class="btn btn-success">ค้นหา===={{$inventory['1']['name']}}</a>
+                                        <a class="btn btn-success">ค้นหา</a>
                                     </span>
                             </div>
                         </div>
@@ -1629,7 +1635,7 @@
 
         }
 
-        var cartItemAmount = 3;
+        var cartItemAmount = 0;
         var stepperN = 2;
         function addToCart(id){
 //            alert(id);

@@ -51,7 +51,27 @@ class InventoryController extends Controller
 //        return $tmp;
 //
 //        return $inventory;
-        return view('supplies', compact('inventory'));
+
+        $tmp = Activity::all();
+        $activity = [];
+        $i = 0;
+        foreach($tmp as $t){
+            $activity[$i]['act_id'] = $t['act_id'];
+            $activity[$i]['name'] = $t['name'];
+            $i++;
+        }
+
+        $tmp = Division::all();
+        $division = [];
+        $i = 0;
+        foreach($tmp as $t){
+            $division[$i]['div_id'] = $t['div_id'];
+            $division[$i]['name'] = $t['name'];
+            $i++;
+        }
+
+//        return compact('inventory','activity','division');
+        return view('supplies', compact('inventory','activity','division'));
     }
 
     public function changeToPage(Request $request){
