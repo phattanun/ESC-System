@@ -1500,12 +1500,26 @@
 //            document.getElementById("submitCartButton").click();
         }
         function updateModalCartSuccess(data){
-            alert(data['startDate']);
+//            alert(data['startDate']);
             $("#cart-success-activity").text(data['activity']);
             $("#cart-success-division").text(data['division']);
             $("#cart-success-startDate").text(data['startDate']);
             $("#cart-success-endDate").text(data['endDate']);
             $("#cart-success-detail").text(data['detail']);
+
+            $(".cart-success-item").remove();
+            var count = 1;
+            for(tmp in data['items'])
+            {
+                var txt = '<tr class="cart-success-item">'
+                            +'<td class="text-center">'+count+'</td>'
+                            +'<td>'+data['items'][tmp]['name']+'</td>'
+                            +'<td>'+data['items'][tmp]['amount']+' '+data['items'][tmp]['unit']+'</td>'
+                        +'</tr>';
+                $("#cart-success-table-body").append(txt);
+                count = count + 1;
+            }
+
             setTimeout(clickToShowModalCartSuccess, 500);
         }
         function clickToShowModalCartSuccess(){
@@ -1618,7 +1632,7 @@
         var cartItemAmount = 3;
         var stepperN = 2;
         function addToCart(id){
-            alert(id);
+//            alert(id);
             var inv_id = allItem[id]['inv_id'];
             var amount = $("#item-input-amount-"+id).val();
             changeCartItemAmount(cartItemAmount+1);

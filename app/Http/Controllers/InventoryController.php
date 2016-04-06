@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
 use Carbon\Carbon;
 use App\BorrowItem;
 use App\BorrowList;
@@ -145,6 +146,30 @@ class InventoryController extends Controller
                 ]);
         }
 
+//send data back
+
+        foreach($items as $item){
+            $tmp = Inventory::where('inv_id',$item['id'])->first();
+            $items[$item['id']]['name'] = $tmp['name'];
+            $items[$item['id']]['unit'] = $tmp['unit'];
+        }
+
+        if($otherActivityFlag=="true")
+            $activity = $otherActivity;
+        else {
+            $tmp = Activity::where('act_id', $activity)->first();
+            $activity = $tmp['name'];
+        }
+
+        if($otherDivisionFlag=="true")
+            $division = $otherDivision;
+        else{
+            $tmp = Division::where('div_id', $division)->first();
+            $division = $tmp['name'];
+        }
+
+        $startDate = date('d-m-Y',strtotime($startDate));
+        $endDate = date('d-m-Y',strtotime($endDate));
 
 
 //        return 'error';
