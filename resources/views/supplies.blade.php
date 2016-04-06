@@ -1480,7 +1480,7 @@
                         }
                         else {
                             _toastr("ส่งเรื่องยืมสำเร็จ", "top-right", "success", false);
-//                            updateModalCartSuccess(data);
+                            updateModalCartSuccess(data);
                             clearCart();
                         }
                     },
@@ -1500,8 +1500,9 @@
             $("#cart-success-startDate").text(data['startDate']);
             $("#cart-success-endDate").text(data['endDate']);
             $("#cart-success-detail").text(data['detail']);
-
-//            $('#modalCart').addClass('hidden');
+            setTimeout(clickToShowModalCartSuccess, 500);
+        }
+        function clickToShowModalCartSuccess(){
             document.getElementById("submitCartButton").click();
         }
         function clearCart(){
