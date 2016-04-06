@@ -38,8 +38,8 @@
                                 <th class="width-50 table-cart-top">จำนวน</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr id="cart-item-id-2" class="cart-item-order-1">
+                            <tbody class="cart-item-table-body">
+                            <tr id="cart-item-id-2" class="cart-item cart-item-order-1">
                                 <input type="hidden" id="cart-item-input-id-2" name="cart[2][id]" value="2" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-1" onclick="removeCartItem(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -51,7 +51,7 @@
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-2"  name="cart[2][amount]" type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
-                            <tr id="cart-item-id-1" class="cart-item-order-2">
+                            <tr id="cart-item-id-1" class="cart-item cart-item-order-2">
                                 <input type="hidden" id="cart-item-input-id-1" name="cart[1][id]" value="1" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-2" onclick="removeCartItem(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -63,7 +63,7 @@
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-1"  name="cart[1][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
-                            <tr id="cart-item-id-3" class="cart-item-order-3">
+                            <tr id="cart-item-id-3" class="cart-item cart-item-order-3">
                                 <input type="hidden" id="cart-item-input-id-3" name="cart[3][id]" value="3" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-3" onclick="removeCartItem(3)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -497,7 +497,7 @@
         <div class="container">
 
             <div class="cart-button"  data-toggle="modal" data-target="#modalCart" style="position: fixed; top: 85px; right: 8%; z-index: 1000;">
-                <span class="badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">2</span>
+                <span class="cart-button-badge badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">3</span>
                 <a class="social-icon social-icon-round social-icon-light cart" data-toggle="tooltip" data-placement="top" title="รายการยืม">
                     <i class="fa fa-shopping-cart"></i>
                     <i class="fa fa-shopping-cart"></i>
@@ -1386,8 +1386,8 @@
     <script>
         /** Form Stepper
          **************************************************************** **/
-        function myStepper() {
-            var _container = jQuery('input.stepper2');
+        function myStepper(stepperN) {
+            var _container = jQuery('input.stepper'+stepperN);
 
             if(_container.length > 0) {
 
@@ -1434,7 +1434,6 @@
         var firstTime = true;
         changePageTo(1);
 
-        var amountCartItem = 3;
         var allItem;
 
         function otherActivity(){
@@ -1533,7 +1532,7 @@
 
                                     +'<div class="amount text-center">'
                                         +'<div style="width: 50%; display: inline-block">'
-                                            +'<input type="text" value="" min="0" class="form-control stepper2 required">'
+                                            +'<input id="item-input-amount-'+input[tmp]['inv_id']+'" type="text" value="" min="0" class="form-control stepper2 required">'
                                         +'</div>'
                                         +' '+input[tmp]['unit']
                                     +'</div>'
@@ -1546,7 +1545,7 @@
                     $('.shop-item-list').append(txt);
                 }
                 if(firstTime) {
-                    myStepper();
+                    myStepper(2);
                 }
                 else
                     firstTime = false;
@@ -1554,18 +1553,42 @@
 
         }
 
+        var cartItemAmount = 3;
+        var stepperN = 2;
         function addToCart(id){
             alert(id);
-            var name = allItem[id]['name'];
             var inv_id = allItem[id]['inv_id'];
-            alert(name + " " + inv_id);
+            var amount = $("#item-input-amount-"+id).val();
+            if(cartItemAmount == 0){
+                $(".cart-button").removeClass("hidden");
+            }
+
+            cartItemAmount = cartItemAmount + 1;
+            stepperN = stepperN +1;
+
+            $(".cart-button-badge").text(cartItemAmount);
+
+            var txt = '<tr id="cart-item-id-'+inv_id+'" class="cart-item cart-item-order-'+cartItemAmount+'">'
+                        +'<input type="hidden" id="cart-item-input-id-'+inv_id+'" name="cart['+inv_id+'][id]" value="'+inv_id+'" />'
+                        +'<td class="text-center remove-button-col">'
+                            +'<a id="cart-remove-button-'+cartItemAmount+'" onclick="removeCartItem('+cartItemAmount+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">'
+                            +'<i class="fa fa-minus"></i>'
+                            +'<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
+                            +'</a>'
+                        +'</td>'
+                        +'<td id="cart-item-order-number-'+cartItemAmount+'" class="text-center">'+cartItemAmount+'</td>'
+                        +'<td>'+allItem[id]['name']+'</td>'
+                        +'<td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-'+inv_id+'"  name="cart['+inv_id+'][amount]"  type="text" value="'+amount+'" min="0" class="form-control stepper'+stepperN+' required"></div> '+allItem[id]['unit']+'</td>'
+                    +'</tr>';
+            $('.cart-item-table-body').append(txt);
+            myStepper(stepperN);
         }
 
         function removeCartItem(order){
             var r = confirm("ยืนยันการลบพัสดุนี้ออกจากรายการยืม ?");
             if (r == true) {
                 $(".cart-item-order-"+order).remove();
-                for(var i = r+1 ; i<=amountCartItem ; i++){
+                for(var i = r+1 ; i<=cartItemAmount ; i++){
                     $('.cart-item-order-'+i).addClass('cart-item-order-'+(i-1));
                     $('.cart-item-order-'+(i-1)).removeClass('cart-item-order-'+i);
 
@@ -1584,6 +1607,12 @@
 
                     $('#cart-item-order-number-'+(i-1)).text((i-1));
                 }
+            }
+            cartItemAmount = cartItemAmount -1;
+            $(".cart-button-badge").text(cartItemAmount);
+            if(cartItemAmount == 0) {
+                $(".cart-button").addClass("hidden");
+                $('#modalCart').modal('hide');
             }
         }
 
