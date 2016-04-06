@@ -112,35 +112,38 @@ class InventoryController extends Controller
         else
             $otherDivision = null;
 
-        $nowDate = Carbon::now();
-//        BorrowList::create([
-//            'status'=> 0,
-//            'creator_id'=> $user['student_id'],
-//            'div_id'=> $division,
-//            'other_div'=> $otherDivision,
-//            'act_id'=> $activity,
-//            'other_act'=> $otherActivity,
-//            'create_at'=> $nowDate
-//        ]);
-//
-//
-//        $list = BorrowList::where('create_at',$nowDate);
-//        return $list;
+        $division=97;
 
-//        foreach($items as $item){
-//            BorrowItem::create([
-//                'list_id' =>,
-//                'inv_id' => ,
-//                'borrow_request_amount' => $item,
-//                'borrow_actual_amount' => null,
-//                'borrow_date' => $startDate,
-//                'return_date' => $endDate,
-//                'status' => 0,
-//                'approver_id' => null,
-//                'giver_id' => null,
-//                'reason_if_not_approve' =>
-//                ]);
-//        }
+        $nowDate = Carbon::now();
+        BorrowList::create([
+            'status'=> 0,
+            'creator_id'=> $user['student_id'],
+            'div_id'=> $division,
+            'other_div'=> $otherDivision,
+            'act_id'=> $activity,
+            'other_act'=> $otherActivity,
+            'reason' => $detail,
+            'create_at'=> $nowDate
+        ]);
+
+
+        $list = BorrowList::where('create_at',$nowDate)->first();
+        $listId = $list['list_id'];
+
+        foreach($items as $item){
+            BorrowItem::create([
+                'list_id' => $listId,
+                'inv_id' => $item['id'],
+                'borrow_request_amount' => $item['amount'],
+                'borrow_actual_amount' => null,
+                'borrow_date' => $startDate,
+                'return_date' => $endDate,
+                'status' => 0,
+                'approver_id' => null,
+                'giver_id' => null,
+                'reason_if_not_approve' => null
+                ]);
+        }
 
 
 
