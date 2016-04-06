@@ -9,37 +9,53 @@
     active
 @endsection
 @section('bodyTitle')
-    จัดการการยืมพัสดุ
+    อนุมัติการยืมพัสดุ
 @endsection
 @section('content')
     <section style="margin-top: -40px">
         <div class = "container">
             <div class = "panel panel-default">
-                {{--<div class="panel-heading panel-heading-transparent">--}}
-                {{--<h2 class="panel-title">เพิ่มกิจกรรม</h2>--}}
-                {{--</div>--}}
                 <div class = "panel-body">
                     <div class="table-responsive margin-bottom-30">
                         <table class="table nomargin" id="activity-table" width="100%">
                             <tr>
-                                <th style="vertical-align:middle;text-align: center;width:15%">ใบยืมพัสดุลำดับที่</th>
-                                <th style="vertical-align:middle;text-align: center;width:30%">กิจกรรม</th>
+                                <th style="vertical-align:middle;text-align: center;width:8%">ลำดับ</th>
+                                <th style="vertical-align:middle;text-align: center;width:25%">กิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center;width:20%">หน่วยงาน</th>
                                 <th style="vertical-align:middle;text-align: center;width:20%">ผู้ขอยืม</th>
-                                <th style="vertical-align:middle;text-align: center;width:15%"></th>
+                                <th style="vertical-align:middle;text-align: center;width:8%">วันที่</th>
+                                <th style="vertical-align:middle;text-align: center;width:10%">สถานะ</th>
+                                <th style="vertical-align:middle;text-align: center;width:100%"></th>
                             </tr>
-                            <tr>
-                                <td style="vertical-align:middle;text-align: center">35012</td>
-                                <td style="vertical-align:middle;text-align: center">ค่ายลานเกียร์ครั้งที่ 15</td>
-                                <td style="vertical-align:middle;text-align: center">ชมรมค่ายลานเกียร์</td>
-                                <td style="vertical-align:middle;text-align: center">นายปฏิพล เจียมมั่นจิต</td>
+                            <tr id="template-tr" style="display:none">
+                                <td id="number"   style="vertical-align:middle;text-align: center">-</td>
+                                <td id="activity" style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                <td id="club"     style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                <td id="student"  style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                <td id="create_at"style="vertical-align:middle;text-align: center">--/--/--</td>
+                                <td id="status"   style="vertical-align:middle;text-align: center">รอการอนุมัติ</td>
                                 <td style="vertical-align:middle;text-align: center">
-                                    <button type="button" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target="#act-detail" onclick="loadData('id')">
+                                    <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow">
                                         <i class="fa fa-edit"></i>
-                                        <span>แก้ไข</span>
+                                        <span>รายละเอียด</span>
                                     </button>
                                 </td>
                             </tr>
+                            <tr id="content-notfound" style="display:none">
+                                <td colspan="7" style="vetical-align:middle;text-align: center">ไม่พบรายการจอง</td>
+                            </tr>
+                            <tbody id="contents-list"></tbody>
+                            <tbody id="page-nav">
+                                <tr>
+                                    <td colspan="7" style="vetical-align:middle;text-align: center">
+                                        <ul class="pagination">
+                                            <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                            <li id="p1"><a href="#">1</a></li>
+                                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -88,11 +104,78 @@
                 }
             }
         }
-        function loadData(id) {
-            replace({
-                'header' : { 'title': 'Replaced Title'},
-                'content' : { 'detail' : 'Replaced Content' }
+        function loadDetail(id) {
+            $.ajax({
+                type: "POST",
+                url: '{{ url("/supplies/get_") }}',
+                data: {
+                  _token: '{{{ csrf_token() }}}',
+                  id: id
+                },
+                success: function(response) {
+                    _toastr("Okay", "top-right", "success", false);
+                    $("#act-detail").modal('toggle');
+                    replace(response, function(name, element, data) {
+                        // Nothing to do
+                        console.log(name,data);
+                    });
+                    $("#act-detail").modal('toggle');
+                },
+                error : function(e) {
+                    var response = e.responseText;
+                    _toastr("Error", "top-right", "error", false);
+                    return false;
+                }
             });
         }
+        function loadList() {
+            $.ajax({
+                type: "POST",
+                url: '{{ url("/supplies/get_") }}',
+                data: {
+                  _token: '{{{ csrf_token() }}}'
+                },
+                success: function(response) {
+                    /*
+                        Sample Response
+                        {
+                            '1' : { // ใส่ไอดีมาได้เลย
+                                'activity' : 'กิจกรรมกิจกรรม',
+                                'club' : 'ชมรมชมรม',
+                                'student' : 'ชื่อ นามสกุล',
+                                'creat_at' : '01/03/59', // format ใน javascript ก็ได้
+                                'status' : 'รอการอนุมัติ', // ส่ง  0 1 2 มาแปลทีหลังในนี้เอา
+                            },
+                            '2' : {
+                                ...
+                            },
+                            '3' : {
+                                ...
+                            },
+                        }
+                    */
+                    _toastr("Okay", "top-right", "success", false);
+                    console.log(response);
+                    var contents = Object.getOwnPropertyNames(data);
+                    var container = $("#contents-list").empty();
+                    for(contentId in contents) {
+                        console.log(contentId);
+                        var template = $("#template-tr").clone().css("display","");
+                        template.find("#number").html(contentId);
+                        template.find("button").attr("onclick","loadDetail("+contentId+");");
+                        // TODO : More
+                        container.append(template);
+                    }
+                    if(container.html()=="")
+                        container.html($("#content-notfound").clone().css("display",""));
+                },
+                error : function() {
+                    _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
+                    $("#contents-list").empty().html($("#content-notfound").clone().css("display",""));
+                    return false;
+                }
+            });
+        }
+        loadList();
     </script>
 @endsection

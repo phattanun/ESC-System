@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BorrowList;
 use App\Division;
 use App\Inventory;
 use App\Permission;
@@ -94,6 +95,10 @@ class InventoryController extends Controller
     }
 
     public function getApproveModal(Request $request){
-        
+        /*$borrow_list_id = $request->input('id');
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return redirect('/');
+        $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->itemList()->get();*/
+
     }
 }
