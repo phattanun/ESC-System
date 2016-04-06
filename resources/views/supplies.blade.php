@@ -15,9 +15,9 @@
     <button class="hidden" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
 
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        {{--<form class="validate" novalidate="novalidate" action="{{url().'/supplies/send_cart'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="ส่งเรื่องยืมสำเร็จ!<script>submitCartButton();</script>" data-toastr-position="top-right">--}}
-        <form class="validate" novalidate="novalidate" id="cart-form" action="{{url().'/supplies/send_cart'}}">
-        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+        {{--<form id="cart-form" class="validate" novalidate="novalidate" action="{{url().'/supplies/send_cart'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="ส่งเรื่องยืมสำเร็จ!<script>submitCartButton();</script>" data-toastr-position="top-right">--}}
+        <form id="cart-form" class="validate" novalidate="novalidate" action="{{url().'/supplies/send_cart'}}">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -152,7 +152,7 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">กลับไปเลือกเพิ่ม</button>
-                    <button type="submit" class="btn btn-primary" onclick="submitCartButton()">ส่งเรื่องยืม</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCartButton()">ส่งเรื่องยืม</button>
                 </div>
 
             </div>
@@ -1455,35 +1455,53 @@
         }
 
         function submitCartButton(){
-            alert("submit");
             if ($('#cart-form').valid()) {
-                $('#cart-form').on('submit', function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url : $(this).attr('action'),
-                        type: "POST",
-                        data: $(this).serialize(),
-                        success: function (data) {
+                $.ajax({
+                    url : $('#cart-form').attr('action'),
+                    type: "POST",
+                    data: $('#cart-form').serialize(),
+                    success: function (data) {
 //                        $("#form_output").html(data);
-                            alert(data);
-                            if(data=='บันทึกข้อมูลสำเร็จ') {
-                                toastr.success(data);
-                                updateAll();
-                            }
-                            else{
-                                toastr.error(data,'ขออภัย');
-                            }
-                        },
-                        error: function (jXHR, textStatus, errorThrown) {
-                            alert(errorThrown);
+                    alert(data['startDate']);
+                        if(data == 'startAfterEnd'){
+                            _toastr("วันที่ยืมอยู่หลังวันที่คืน กรุณากรอกใหม่", "top-right", "error", false);
                         }
-                    });
+                        else if (data == 'dateInvalid') {
+                            _toastr("โปรดระบุวันที่ให้ถูกต้อง", "top-right", "error", false);
+                            return false;
+                        }
+                        else if (data == 'noproject') {
+                            _toastr("โปรดระบุโครงการหรือกิจกรรมให้ถูกต้อง", "top-right", "error", false);
+                            return false;
+                        }
+                        else if (data == 'nodivision') {
+                            _toastr("โปรดระบุหน่วยงานให้ถูกต้อง", "top-right", "error", false);
+                            return false;
+                        }
+                        else {
+                            _toastr("ส่งเรื่องยืมสำเร็จ", "top-right", "success", false);
+                            $('#modalCart').addClass('hidden');
+                            document.getElementById("submitCartButton").click();
+                            clearCart();
+                        }
+                    },
+                    error: function (jXHR, textStatus, errorThrown) {
+                        _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+//                            alert(errorThrown);
+                    }
                 });
             }
-
 //            $('#modalCart').addClass('hidden');
 //            document.getElementById("submitCartButton").click();
         }
+        function clearCart(){
+            $('.cart-item').remove();
+            $('#cart-start-date').val("");
+            $('#cart-end-date').val("");
+            $('#cart-detail').val("");
+            changeCartItemAmount(0);
+        }
+
         function finishCart(){
             $('#modalCart').removeClass('hidden');
             $('#modalCart').modal('hide');
@@ -1584,14 +1602,15 @@
             alert(id);
             var inv_id = allItem[id]['inv_id'];
             var amount = $("#item-input-amount-"+id).val();
-            if(cartItemAmount == 0){
-                $(".cart-button").removeClass("hidden");
-            }
+//            if(cartItemAmount == 0){
+//                $(".cart-button").removeClass("hidden");
+//            }
 
-            cartItemAmount = cartItemAmount + 1;
+//            cartItemAmount = cartItemAmount + 1;
+            changeCartItemAmount(cartItemAmount+1);
             stepperN = stepperN +1;
 
-            $(".cart-button-badge").text(cartItemAmount);
+//            $(".cart-button-badge").text(cartItemAmount);
 
             var txt = '<tr id="cart-item-id-'+inv_id+'" class="cart-item cart-item-order-'+cartItemAmount+'">'
                         +'<input type="hidden" id="cart-item-input-id-'+inv_id+'" name="cart['+inv_id+'][id]" value="'+inv_id+'" />'
@@ -1633,12 +1652,26 @@
                     $('#cart-item-order-number-'+(i-1)).text((i-1));
                 }
             }
-            cartItemAmount = cartItemAmount -1;
-            $(".cart-button-badge").text(cartItemAmount);
-            if(cartItemAmount == 0) {
+//            cartItemAmount = cartItemAmount -1;
+//            $(".cart-button-badge").text(cartItemAmount);
+//            if(cartItemAmount == 0) {
+//                $(".cart-button").addClass("hidden");
+//                $('#modalCart').modal('hide');
+//            }
+            changeCartItemAmount(cartItemAmount-1);
+        }
+
+        function changeCartItemAmount(num){
+            cartItemAmount = num ;
+            if(cartItemAmount == 0){
                 $(".cart-button").addClass("hidden");
                 $('#modalCart').modal('hide');
             }
+            else {
+                $(".cart-button").removeClass("hidden");
+            }
+
+            $(".cart-button-badge").text(cartItemAmount);
         }
 
 

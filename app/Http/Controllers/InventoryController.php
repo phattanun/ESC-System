@@ -81,6 +81,7 @@ class InventoryController extends Controller
         $otherDivision = Input::get('otherDivision');
         $detail = Input::get('detail');
 
+//        return 'error';
         return compact('items','startDate','endDate','activity','otherActivity','division','otherDivision','detail');
     }
 
