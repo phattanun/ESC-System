@@ -278,7 +278,7 @@
                         <div class="col-sm-3 col-xs-4">
                             <label><b>รหัสพัสดุ</b></label>
                         </div>
-                        <div class="col-sm-9 col-xs-8">
+                        <div id="item-id" class="col-sm-9 col-xs-8">
                             ESC-0001
                         </div>
                     </div>
@@ -286,7 +286,7 @@
                         <div class="col-md-3">
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-name" class="col-md-9">
                             ดินสอแสนน่ารัก
                         </div>
                     </div>
@@ -294,7 +294,7 @@
                         <div class="col-md-3">
                             <label><b>ประเภท</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-type" class="col-md-9">
                             ใช้แล้วหมดไป
                         </div>
                     </div>
@@ -302,7 +302,7 @@
                         <div class="col-md-3">
                             <label><b>จำนวนทั้งหมด</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-total_qty" class="col-md-9">
                             300
                         </div>
                     </div>
@@ -310,7 +310,7 @@
                         <div class="col-md-3">
                             <label><b>จำนวนที่เสีย</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-broken_qty" class="col-md-9">
                             26
                         </div>
                     </div>
@@ -318,7 +318,7 @@
                         <div class="col-md-3">
                             <label><b>หน่วย</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-unit" class="col-md-9">
                             แท่ง
                         </div>
                     </div>
@@ -329,7 +329,7 @@
                         <div class="col-md-3">
                             <label><b>ราคาที่ซื้อ</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-price_per_unit" class="col-md-9">
                             20.00 บาท
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                         <div class="col-md-3">
                             <label><b>สถานที่ซื้อ</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-store" class="col-md-9">
                             จีฉ่อย
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                         <div class="col-md-3">
                             <label><b>ข้อมูลติดต่อ</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-store-address" class="col-md-9">
                             32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111 32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111
                         </div>
                     </div>
@@ -353,7 +353,7 @@
                         <div class="col-md-3">
                             <label><b>เบอร์โทรศัพท์</b></label>
                         </div>
-                        <div class="col-md-9">
+                        <div id="item-store-tel" class="col-md-9">
                             085-111-1111
                         </div>
                     </div>
@@ -362,15 +362,15 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <div class="row no-margin" style="width: 90%; display: inline-block; text-align:center; margin-bottom: 15px;">
-                        <input type="text" value="" min="0" class="form-control stepper required" style="display: inline-block !important; width: 100%;">
-                        <label style="display: inline-block !important; width: 20%;">เครื่อง</label>
+                        <input id="modal-item-input-amount" type="text" value="" min="0" class="form-control stepper required" style="display: inline-block !important; width: 100%;">
+                        <label id="modal-item-input-mount-unit" style="display: inline-block !important; width: 20%;">เครื่อง</label>
                     </div>
                     <div class="row no-margin">
                         <a class="btn btn-3d btn-reveal btn-default" data-dismiss="modal" style="width: 90px;">
                             <i class="fa fa-times"></i>
                             <span>ยกเลิก</span>
                         </a>
-                        <a id="" class="btn btn-3d btn-primary" data-dismiss="modal" onclick="addToCart(1)" style="width: 110px;">
+                        <a id="modal-item-addToCart" class="btn btn-3d btn-primary" data-dismiss="modal" onclick="modalItemAddToCart(1)" style="width: 110px;">
                             <i class="fa fa-cart-plus"></i>
                             <span>Add to Cart</span>
                         </a>
@@ -1553,6 +1553,46 @@
 
         function openModalItem(id){
 //            alert(id);
+            alert(allItem[id]['name']);
+            $("#item-id").text(allItem[id]['inv_id']);
+            $("#item-name").text(allItem[id]['name']);
+            $("#item-type").text(allItem[id]['inv_id']);
+            $("#item-total_qty").text(allItem[id]['total_qty']);
+            $("#item-broken_qty").text(allItem[id]['broken_qty']);
+            $("#item-unit").text(allItem[id]['unit']);
+            $("#item-price_per_unit").text(allItem[id]['price_per_unit']);
+            $("#item-store").text(allItem[id]['inv_id']);
+            $("#item-store-address").text(allItem[id]['inv_id']);
+            $("#item-store-tel").text(allItem[id]['inv_id']);
+
+            var num = $("#item-input-amount-"+id).val();
+            $("#modal-item-input-amount").val(num);
+            $("#modal-item-input-mount-unit").text(allItem[id]['unit']);
+            $("#modal-item-addToCart").removeAttrs('onclick');
+            $("#modal-item-addToCart").attr('onclick','modalItemAddToCart('+id+')');
+        }
+
+        function modalItemAddToCart(id){
+            alert('++ '+id);
+            var inv_id = allItem[id]['inv_id'];
+            var amount = $("#modal-item-input-amount").val();
+            changeCartItemAmount(cartItemAmount+1);
+            stepperN = stepperN +1;
+
+            var txt = '<tr id="cart-item-id-'+inv_id+'" class="cart-item cart-item-order-'+cartItemAmount+'">'
+                    +'<input type="hidden" id="cart-item-input-id-'+inv_id+'" name="cart['+inv_id+'][id]" value="'+inv_id+'" />'
+                    +'<td class="text-center remove-button-col">'
+                    +'<a id="cart-remove-button-'+cartItemAmount+'" onclick="removeCartItem('+cartItemAmount+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">'
+                    +'<i class="fa fa-minus"></i>'
+                    +'<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
+                    +'</a>'
+                    +'</td>'
+                    +'<td id="cart-item-order-number-'+cartItemAmount+'" class="text-center">'+cartItemAmount+'</td>'
+                    +'<td>'+allItem[id]['name']+'</td>'
+                    +'<td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-'+inv_id+'"  name="cart['+inv_id+'][amount]"  type="text" value="'+amount+'" min="0" class="form-control stepper'+stepperN+' required"></div> '+allItem[id]['unit']+'</td>'
+                    +'</tr>';
+            $('.cart-item-table-body').append(txt);
+            myStepper(stepperN);
         }
 
         function openModalItemEdit(id){
