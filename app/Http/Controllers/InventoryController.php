@@ -49,6 +49,27 @@ class InventoryController extends Controller
         return view('supplies', compact('inventory'));
     }
 
+    public function changeToPage(Request $request){
+        $page = $request->page;
+
+        $items = Inventory::all();
+        $inventory = [];
+        foreach($items as $item){
+            $inventory[$item['inv_id']] = [];
+            $inventory[$item['inv_id']]['inv_id'] = $item['inv_id'];
+            $inventory[$item['inv_id']]['name'] = $item['name'];
+            $inventory[$item['inv_id']]['image'] = $item['image'];
+            $inventory[$item['inv_id']]['unit'] = $item['unit'];
+            $inventory[$item['inv_id']]['prive_per_unit'] = $item['prive_per_unit'];
+            $inventory[$item['inv_id']]['total_qty'] = $item['total_qty'];
+            $inventory[$item['inv_id']]['broken_qty'] = $item['broken_qty'];
+            $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
+            $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
+        }
+
+        return $inventory;
+    }
+
     public function sendCart()
     {
         $items = Input::get('cart');

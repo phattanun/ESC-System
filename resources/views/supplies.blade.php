@@ -12,7 +12,6 @@
     พัสดุ
 @endsection
 @section('content')
-
     <button class="hidden" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
 
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -39,8 +38,8 @@
                                 <th class="width-50 table-cart-top">จำนวน</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr id="cart-item-id-2" class="cart-item-order-1">
+                            <tbody class="cart-item-table-body">
+                            <tr id="cart-item-id-2" class="cart-item cart-item-order-1">
                                 <input type="hidden" id="cart-item-input-id-2" name="cart[2][id]" value="2" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-1" onclick="removeCartItem(1)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -52,7 +51,7 @@
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-2"  name="cart[2][amount]" type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
-                            <tr id="cart-item-id-1" class="cart-item-order-2">
+                            <tr id="cart-item-id-1" class="cart-item cart-item-order-2">
                                 <input type="hidden" id="cart-item-input-id-1" name="cart[1][id]" value="1" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-2" onclick="removeCartItem(2)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -64,7 +63,7 @@
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-1"  name="cart[1][amount]"  type="text" value="10" min="0" class="form-control stepper required"></div> อัน</td>
                             </tr>
-                            <tr id="cart-item-id-3" class="cart-item-order-3">
+                            <tr id="cart-item-id-3" class="cart-item cart-item-order-3">
                                 <input type="hidden" id="cart-item-input-id-3" name="cart[3][id]" value="3" />
                                 <td class="text-center remove-button-col">
                                     <a id="cart-remove-button-3" onclick="removeCartItem(3)" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">
@@ -498,7 +497,7 @@
         <div class="container">
 
             <div class="cart-button"  data-toggle="modal" data-target="#modalCart" style="position: fixed; top: 85px; right: 8%; z-index: 1000;">
-                <span class="badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">2</span>
+                <span class="cart-button-badge badge btn-xs" style="top: -40px !important; right: -50px !important; position: relative !important; color: #fff !important; z-index:1010; background-color: #5cb85c;">3</span>
                 <a class="social-icon social-icon-round social-icon-light cart" data-toggle="tooltip" data-placement="top" title="รายการยืม">
                     <i class="fa fa-shopping-cart"></i>
                     <i class="fa fa-shopping-cart"></i>
@@ -514,12 +513,12 @@
                     <div class="clearfix margin-bottom-20">
 
                         <ul class="pagination nomargin pull-right">
-                            <li><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">»</a></li>
+                            <li><a>«</a></li>
+                            <li class="page-1 active" onclick="changePageTo(1)"><a>1</a></li>
+                            <li class="page-2" onclick="changePageTo(2)"><a>2</a></li>
+                            <li class="page-3" onclick="changePageTo(3)"><a>3</a></li>
+                            <li class="page-4" onclick="changePageTo(4)"><a>4</a></li>
+                            <li><a>»</a></li>
                         </ul>
 
                         <div class="options-left col-lg-5 col-md-5 col-sm-5">
@@ -537,8 +536,8 @@
 
                     <ul class="shop-item-list row list-inline nomargin">
 
-                        @foreach($inventory as $inven)
-                            <li class="col-lg-3 col-sm-3">
+                        {{--@foreach($inventory as $inven)
+                            <li class="col-lg-3 col-sm-3 each-item">
 
                                 <div class="shop-item">
 
@@ -547,7 +546,7 @@
                                         <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inven['inv_id']}})">
                                             <!--img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
                                             <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image"-->
-                                            {{--<div style="width:100%; height:100%; background-image: url({{$inventory['image']}})"></div>--}}
+                                            <div style="width:100%; height:100%; background-image: url({{$inventory['image']}})"></div>
                                             <img class="img-responsive" src="{{$inven['image']}}" alt="shop hover image" style="width: 100%;">
                                         </a>
                                         <!-- /product image(s) -->
@@ -599,7 +598,7 @@
                                 </div>
 
                             </li>
-                        @endforeach
+                        @endforeach--}}
 
                         <!-- ITEM -->
                         <li class="col-lg-3 col-sm-3">
@@ -1284,13 +1283,12 @@
                     <!-- Pagination Default -->
                     <div class="text-center">
                         <ul class="pagination">
-                            <li><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
+                            <li><a>«</a></li>
+                            <li class="page-1 active" onclick="changePageTo(1)"><a>1</a></li>
+                            <li class="page-2" onclick="changePageTo(2)"><a>2</a></li>
+                            <li class="page-3" onclick="changePageTo(3)"><a>3</a></li>
+                            <li class="page-4" onclick="changePageTo(4)"><a>4</a></li>
+                            <li><a>»</a></li>
                         </ul>
                     </div>
                     <!-- /Pagination Default -->
@@ -1300,6 +1298,39 @@
             </div>
 
         </div>
+        {{--
+        <li class="col-lg-3 col-sm-3 each-item">
+
+            <div class="shop-item">
+
+                <div class="thumbnail" >
+                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inven['inv_id']}})">
+                        <img class="img-responsive" src="{{$inven['image']}}" alt="shop hover image" style="width: 100%;">
+                    </a>
+
+                    <div class="shop-option-over" style="opacity: 1 !important;">
+                        <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit({{$inven['inv_id']}})"><i class="fa fa-edit nopadding"></i></a>
+                        <a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="shop-item-summary text-center">
+                    <h2>{{$inven['name']}}</h2>
+                </div>
+
+                <div class="amount text-center">
+                    <div style="width: 50%; display: inline-block">
+                        <input type="text" value="" min="0" class="form-control stepper required">
+                    </div>
+                    เครื่อง
+                </div>
+
+                <div class="shop-item-buttons text-center">
+                    <a class="btn btn-default" onclick="addToCart({{$inven['inv_id']}})"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                </div>
+            </div>
+        </li>--}}
     </section>
 
 @endsection
@@ -1353,8 +1384,57 @@
 @section('js')
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
     <script>
+        /** Form Stepper
+         **************************************************************** **/
+        function myStepper(stepperN) {
+            var _container = jQuery('input.stepper'+stepperN);
 
-        var amountCartItem = 3;
+            if(_container.length > 0) {
+
+                loadScript(plugin_path + 'form.stepper/jquery.stepper.min.js', function() {
+
+                    if(jQuery().stepper) {
+
+                        jQuery(_container).each(function() {
+                            var _t 		= jQuery(this),
+                                    _min 	= _t.attr('min') || null,
+                                    _max 	= _t.attr('max') || null;
+
+                            _t.stepper({
+                                limit:						[_min,_max],
+                                floatPrecission:			_t.attr('data-floatPrecission') || 2,
+                                wheel_step: 				_t.attr('data-wheelstep') 		|| 0.1,
+                                arrow_step:	 				_t.attr('data-arrowstep') 		|| 0.2,
+                                allowWheel: 				_t.attr('data-mousescrool') 	== "false" ? false : true,
+                                UI: 						_t.attr('data-UI') 				== "false" ? false : true,
+                                // --
+                                type: 						_t.attr('data-type') 			|| "float",
+                                preventWheelAcceleration:	_t.attr('data-preventWheelAcceleration') == "false" ? false : true,
+                                incrementButton:			_t.attr('data-incrementButton') || "&blacktriangle;",
+                                decrementButton:			_t.attr('data-decrementButton') || "&blacktriangledown;",
+                                onStep:						null,
+                                onWheel:					null,
+                                onArrow:					null,
+                                onButton:					null,
+                                onKeyUp:					null
+                            });
+
+                        });
+
+                    }
+
+                });
+
+            }
+
+        }
+    </script>
+    <script>
+
+        var firstTime = true;
+        changePageTo(1);
+
+        var allItem;
 
         function otherActivity(){
             $('#inListActivity').addClass('hidden');
@@ -1386,7 +1466,6 @@
 //            alert("aa");
         }
         $("#modalCartSuccess").focusout(function(){
-//            alert();
             finishCart();
         });
 
@@ -1399,20 +1478,117 @@
             $('#modalItemEdit').modal('show');
         }
 
+        var nowPage = 1;
+        var itemAmount = 121;
+        var pageAll = itemAmount / 12;
+
+        function changePageTo(page){
+            if(page == nowPage){
+//                alert(pageAll);
+                return ;
+            }
+//            alert(page);
+            $(".page-"+nowPage).removeClass("active");
+            $(".page-"+page).addClass("active");
+            nowPage = page;
+
+            $.post("{{url('supplies')}}",
+                    {page:page, _token:'{{csrf_token()}}'  } ).done(function( input ) {
+//                alert(input);
+                allItem = input;
+                $(".each-item").remove();
+
+                Object.size = function(obj) {
+                    var size = 0, key;
+                    for (key in obj) {
+                        if (obj.hasOwnProperty(key)) size++;
+                    }
+                    return size;
+                };
+                var size = Object.size(input);
+//                alert(size);
+
+                var tmp;
+                for (tmp in input) {
+//                    alert(input[tmp]['name']);
+                    var txt = '<li class="col-lg-3 col-sm-3 each-item">'
+
+                                +'<div class="shop-item">'
+
+                                    +'<div class="thumbnail" >'
+                                        +'<a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem('+input[tmp]['inv_id']+')">'
+                                        +'<img class="img-responsive" src="'+input[tmp]['image']+'" alt="shop hover image" style="width: 100%;">'
+                                        +'</a>'
+
+                                        +'<div class="shop-option-over" style="opacity: 1 !important;">'
+                                        +'<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit('+input[tmp]['inv_id']+')"><i class="fa fa-edit nopadding"></i></a>'
+                                        +'<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>'
+                                        +'</div>'
+                                    +'</div>'
+
+                                    +'<div class="shop-item-summary text-center">'
+                                        +'<h2>'+input[tmp]['name']+'</h2>'
+                                    +'</div>'
+
+                                    +'<div class="amount text-center">'
+                                        +'<div style="width: 50%; display: inline-block">'
+                                            +'<input id="item-input-amount-'+input[tmp]['inv_id']+'" type="text" value="" min="0" class="form-control stepper2 required">'
+                                        +'</div>'
+                                        +' '+input[tmp]['unit']
+                                    +'</div>'
+
+                                    +'<div class="shop-item-buttons text-center">'
+                                        +'<a class="btn btn-default" onclick="addToCart('+input[tmp]['inv_id']+')"><i class="fa fa-cart-plus"></i> Add to Cart</a>'
+                                    +'</div>'
+                                +'</div>'
+                            +'</li>';
+                    $('.shop-item-list').append(txt);
+                }
+                if(firstTime) {
+                    myStepper(2);
+                }
+                else
+                    firstTime = false;
+            });
+
+        }
+
+        var cartItemAmount = 3;
+        var stepperN = 2;
         function addToCart(id){
-            {{--var something = JSON.parse({{$inventory['1']['name']}});--}}
             alert(id);
-            alert("{{$inventory['1']['name']}}");
-//            var x = json_decode($inventory);
-//            alert(x);
-//            alert(something);
+            var inv_id = allItem[id]['inv_id'];
+            var amount = $("#item-input-amount-"+id).val();
+            if(cartItemAmount == 0){
+                $(".cart-button").removeClass("hidden");
+            }
+
+            cartItemAmount = cartItemAmount + 1;
+            stepperN = stepperN +1;
+
+            $(".cart-button-badge").text(cartItemAmount);
+
+            var txt = '<tr id="cart-item-id-'+inv_id+'" class="cart-item cart-item-order-'+cartItemAmount+'">'
+                        +'<input type="hidden" id="cart-item-input-id-'+inv_id+'" name="cart['+inv_id+'][id]" value="'+inv_id+'" />'
+                        +'<td class="text-center remove-button-col">'
+                            +'<a id="cart-remove-button-'+cartItemAmount+'" onclick="removeCartItem('+cartItemAmount+')" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบพัสดุนี้" style="vertical-align:middle">'
+                            +'<i class="fa fa-minus"></i>'
+                            +'<i class="fa fa-trash" data-toggle="modal" data-target=".room-modal"></i>'
+                            +'</a>'
+                        +'</td>'
+                        +'<td id="cart-item-order-number-'+cartItemAmount+'" class="text-center">'+cartItemAmount+'</td>'
+                        +'<td>'+allItem[id]['name']+'</td>'
+                        +'<td><div style="width:80%; display: inline-block"><input id="cart-item-input-amount-'+inv_id+'"  name="cart['+inv_id+'][amount]"  type="text" value="'+amount+'" min="0" class="form-control stepper'+stepperN+' required"></div> '+allItem[id]['unit']+'</td>'
+                    +'</tr>';
+            $('.cart-item-table-body').append(txt);
+            myStepper(stepperN);
         }
 
         function removeCartItem(order){
             var r = confirm("ยืนยันการลบพัสดุนี้ออกจากรายการยืม ?");
             if (r == true) {
                 $(".cart-item-order-"+order).remove();
-                for(var i = r+1 ; i<=amountCartItem ; i++){
+                for(var i = r+1 ; i<=cartItemAmount ; i++){
                     $('.cart-item-order-'+i).addClass('cart-item-order-'+(i-1));
                     $('.cart-item-order-'+(i-1)).removeClass('cart-item-order-'+i);
 
@@ -1432,6 +1608,17 @@
                     $('#cart-item-order-number-'+(i-1)).text((i-1));
                 }
             }
+            cartItemAmount = cartItemAmount -1;
+            $(".cart-button-badge").text(cartItemAmount);
+            if(cartItemAmount == 0) {
+                $(".cart-button").addClass("hidden");
+                $('#modalCart').modal('hide');
+            }
         }
+
+
+
+
+
     </script>
 @endsection

@@ -53,6 +53,7 @@ Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
 Route::get ('/supplies', 'InventoryController@inventoryPage');
+Route::post ('/supplies', 'InventoryController@changeToPage');
 Route::post ('/supplies/send_cart', 'InventoryController@sendCart');
 Route::get ('/supplies/approve', 'InventoryController@approve');
 Route::post ('/supplies/approve/modal', 'InventoryController@getApproveModal');
