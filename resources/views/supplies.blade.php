@@ -15,7 +15,8 @@
     <button class="hidden" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
 
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form class="validate" action="{{url().'/supplies/send_cart'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="ส่งเรื่องยืมสำเร็จ!<script>submitCartButton();</script>" data-toastr-position="top-right">
+        {{--<form class="validate" novalidate="novalidate" action="{{url().'/supplies/send_cart'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="ส่งเรื่องยืมสำเร็จ!<script>submitCartButton();</script>" data-toastr-position="top-right">--}}
+        <form class="validate" novalidate="novalidate" id="cart-form" action="{{url().'/supplies/send_cart'}}">
         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -84,11 +85,11 @@
                     <div class="row no-mergin">
                         <div class="col-md-6">
                             <label>วันที่ยืม</label>
-                            <input id="cart-start-date" name="startDate" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                            <input id="cart-start-date" name="startDate" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false" required>
                         </div>
                         <div class="col-md-6">
                             <label>วันที่คืน</label>
-                            <input id="cart-end-date" name="endDate" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false">
+                            <input id="cart-end-date" name="endDate" type="text" class="form-control datepicker" data-format="dd-mm-yyyy" data-lang="en" data-RTL="false" required>
                         </div>
                     </div>
 
@@ -143,7 +144,7 @@
                             <label>รายละเอียด</label>
                         </div>
                         <div class="col-md-12 col-sm-10 col-xs-12">
-                            <textarea id="cart-detail" name="detail" rows="4" class="form-control required"></textarea>
+                            <textarea id="cart-detail" name="detail" rows="4" class="form-control required" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -1454,10 +1455,34 @@
         }
 
         function submitCartButton(){
-//            alert();
-            $('#modalCart').addClass('hidden');
-//            $('#modalCartSuccess').modal('show');
-            document.getElementById("submitCartButton").click();
+            alert("submit");
+            if ($('#cart-form').valid()) {
+                $('#cart-form').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url : $(this).attr('action'),
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function (data) {
+//                        $("#form_output").html(data);
+                            alert(data);
+                            if(data=='บันทึกข้อมูลสำเร็จ') {
+                                toastr.success(data);
+                                updateAll();
+                            }
+                            else{
+                                toastr.error(data,'ขออภัย');
+                            }
+                        },
+                        error: function (jXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                });
+            }
+
+//            $('#modalCart').addClass('hidden');
+//            document.getElementById("submitCartButton").click();
         }
         function finishCart(){
             $('#modalCart').removeClass('hidden');
