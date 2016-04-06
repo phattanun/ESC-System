@@ -95,7 +95,7 @@
 
                     <label class="margin-top-20">โครงการ</label>
                     <div id="inListActivity">
-                        <select id="catr-activity" name="activity" class="form-control select2 required">
+                        <select id="cart-activity" name="activity" class="form-control select2 required">
                             <option selected="selected" value="0">โครงการ / กิจกรรมที่ต้องการ</option>
                             <option value="1">งานชั้นปี</option>
                             <option value="2">ค่ายลานเกียร์</option>
@@ -176,7 +176,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-3">
                             <label><b>โครงการ</b></label>
                         </div>
-                        <div class="col-md-10 col-sm-9 col-xs-9">
+                        <div id="cart-success-activity" class="col-md-10 col-sm-9 col-xs-9">
                             งานชั้นปี
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-3">
                             <label><b>หน่วยงาน</b></label>
                         </div>
-                        <div class="col-md-10 col-sm-9 col-xs-9">
+                        <div id="cart-success-division" class="col-md-10 col-sm-9 col-xs-9">
                             รุ่น 97
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-3">
                             <label><b>วันที่ยืม</b></label>
                         </div>
-                        <div class="col-md-10 col-sm-9 col-xs-9">
+                        <div id="cart-success-startDate" class="col-md-10 col-sm-9 col-xs-9">
                             05-04-2016
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                         <div class="col-md-2 col-sm-2 col-xs-3">
                             <label><b>วันที่คืน</b></label>
                         </div>
-                        <div class="col-md-10 col-sm-9 col-xs-9">
+                        <div id="cart-success-endDate" class="col-md-10 col-sm-9 col-xs-9">
                             07-04-2016
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                         <div class="col-md-3 col-xs-6">
                             <label><b>รายละเอียด</b></label>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px;">
+                        <div id="cart-success-detail" class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px;">
                             ยืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปี
                             ยืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปี
                             ยืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปียืมเพื่อไปใช้ในงานชั้นปี
@@ -224,18 +224,18 @@
                                 <th class="width-50">จำนวน</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
+                            <tbody id="cart-success-table-body">
+                            <tr class="cart-success-item">
                                 <td class="text-center">1</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td>10 อัน</td>
                             </tr>
-                            <tr>
+                            <tr class="cart-success-item">
                                 <td class="text-center">2</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร</td>
                                 <td>10 อัน</td>
                             </tr>
-                            <tr>
+                            <tr class="cart-success-item">
                                 <td class="text-center">3</td>
                                 <td>ไม้หน้า3 ยาว 36 เมตร เนื้อดีเป็นพิเศษ เหมาะสำหรับการทำเสลี่ยงให้กลุ่มตัวแทนนิสิตแห่งจุฬาลงกรณ์มหาวิทยาลัย</td>
                                 <td>10 อัน</td>
@@ -1462,7 +1462,7 @@
                     data: $('#cart-form').serialize(),
                     success: function (data) {
 //                        $("#form_output").html(data);
-                    alert(data['startDate']);
+//                    alert(data['startDate']);
                         if(data == 'startAfterEnd'){
                             _toastr("วันที่ยืมอยู่หลังวันที่คืน กรุณากรอกใหม่", "top-right", "error", false);
                         }
@@ -1480,8 +1480,7 @@
                         }
                         else {
                             _toastr("ส่งเรื่องยืมสำเร็จ", "top-right", "success", false);
-                            $('#modalCart').addClass('hidden');
-                            document.getElementById("submitCartButton").click();
+//                            updateModalCartSuccess(data);
                             clearCart();
                         }
                     },
@@ -1494,11 +1493,24 @@
 //            $('#modalCart').addClass('hidden');
 //            document.getElementById("submitCartButton").click();
         }
+        function updateModalCartSuccess(data){
+            alert(data['startDate']);
+            $("#cart-success-activity").text(data['activity']);
+            $("#cart-success-division").text(data['division']);
+            $("#cart-success-startDate").text(data['startDate']);
+            $("#cart-success-endDate").text(data['endDate']);
+            $("#cart-success-detail").text(data['detail']);
+
+//            $('#modalCart').addClass('hidden');
+            document.getElementById("submitCartButton").click();
+        }
         function clearCart(){
             $('.cart-item').remove();
             $('#cart-start-date').val("");
             $('#cart-end-date').val("");
             $('#cart-detail').val("");
+            $('#otherActivity').val("");
+            $('#otherDivision').val("");
             changeCartItemAmount(0);
         }
 
@@ -1602,15 +1614,8 @@
             alert(id);
             var inv_id = allItem[id]['inv_id'];
             var amount = $("#item-input-amount-"+id).val();
-//            if(cartItemAmount == 0){
-//                $(".cart-button").removeClass("hidden");
-//            }
-
-//            cartItemAmount = cartItemAmount + 1;
             changeCartItemAmount(cartItemAmount+1);
             stepperN = stepperN +1;
-
-//            $(".cart-button-badge").text(cartItemAmount);
 
             var txt = '<tr id="cart-item-id-'+inv_id+'" class="cart-item cart-item-order-'+cartItemAmount+'">'
                         +'<input type="hidden" id="cart-item-input-id-'+inv_id+'" name="cart['+inv_id+'][id]" value="'+inv_id+'" />'
@@ -1652,12 +1657,6 @@
                     $('#cart-item-order-number-'+(i-1)).text((i-1));
                 }
             }
-//            cartItemAmount = cartItemAmount -1;
-//            $(".cart-button-badge").text(cartItemAmount);
-//            if(cartItemAmount == 0) {
-//                $(".cart-button").addClass("hidden");
-//                $('#modalCart').modal('hide');
-//            }
             changeCartItemAmount(cartItemAmount-1);
         }
 
@@ -1670,7 +1669,6 @@
             else {
                 $(".cart-button").removeClass("hidden");
             }
-
             $(".cart-button-badge").text(cartItemAmount);
         }
 
