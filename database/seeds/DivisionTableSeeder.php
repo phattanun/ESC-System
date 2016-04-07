@@ -37,8 +37,8 @@ class DivisionTableSeeder extends Seeder
         Division::create(['div_id'=>1017,'name'=>'S','type'=>'Group','short_name'=>'S']);
         Division::create(['div_id'=>1018,'name'=>'T','type'=>'Group','short_name'=>'T']);
 
-        Division::create(['div_id'=>10001,'name'=>'ชมรม Clique','type'=>'Club','short_name'=>'']);
-        Division::create(['div_id'=>10002,'name'=>'ชมรมค่ายลานเกียร์','type'=>'Club','short_name'=>'']);
+        Division::create(['div_id'=>10001,'name'=>'Clique','type'=>'Club','short_name'=>'']);
+        Division::create(['div_id'=>10002,'name'=>'ค่ายลานเกียร์','type'=>'Club','short_name'=>'']);
 
         Division::create(['div_id'=>100000,'name'=>'วิศวกรรมทั่วไป','type'=>'Department','short_name'=>'ENG']);
         Division::create(['div_id'=>100001,'name'=>'วิศวกรรมคอมพิวเตอร์','type'=>'Department','short_name'=>'CP']);
