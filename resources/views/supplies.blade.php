@@ -1442,7 +1442,10 @@
     <script>
 
         var firstTime = true;
-        changePageTo(1);
+        var nowPage = {{$page}};
+        var itemAmount = 121;
+        var pageAll = Math.ceil(itemAmount / 12);
+        changePageTo(nowPage);
 
         var allItem;
 
@@ -1605,16 +1608,13 @@
             $('#modalItemEdit').modal('show');
         }
 
-        var nowPage = 1;
-        var itemAmount = 121;
-        var pageAll = Math.ceil(itemAmount / 12);
 
         function changePageTo(page){
-            if(page == nowPage){
-//                alert(pageAll);
-                return ;
-            }
-            alert(page);
+//            if(page == nowPage){
+////                alert(pageAll);
+//                return ;
+//            }
+//            alert(page);
 //            $(".page-"+nowPage).removeClass("active");
 //            $(".page-"+page).addClass("active");
             nowPage = page;

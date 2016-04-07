@@ -24,7 +24,11 @@ use Illuminate\Support\Facades\Hash;
 class InventoryController extends Controller
 {
 
-    public function inventoryPage(){
+    public function inventoryPageDefault(){
+        return $this->inventoryPage(1);
+    }
+
+    public function inventoryPage($page){
         $user = $this->getUser();
         $items = Inventory::all();
 //        return $items;
@@ -41,6 +45,8 @@ class InventoryController extends Controller
             $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
             $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
         }
+
+
 //        $detail=[];
 //        $detail['name'] = 'name';
 //        $detail2 = [];
@@ -72,7 +78,7 @@ class InventoryController extends Controller
         }
 
 //        return compact('inventory','activity','division');
-        return view('supplies', compact('inventory','activity','division'));
+        return view('supplies', compact('page','inventory','activity','division'));
     }
 
     public function changeToPage(Request $request){
