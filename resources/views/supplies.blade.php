@@ -522,12 +522,12 @@
                     <div class="clearfix margin-bottom-20">
 
                         <ul class="pagination nomargin pull-right">
-                            <li><a>«</a></li>
+                            <!--li><a>«</a></li>
                             <li class="page-1 active" onclick="changePageTo(1)"><a>1</a></li>
                             <li class="page-2" onclick="changePageTo(2)"><a>2</a></li>
                             <li class="page-3" onclick="changePageTo(3)"><a>3</a></li>
                             <li class="page-4" onclick="changePageTo(4)"><a>4</a></li>
-                            <li><a>»</a></li>
+                            <li><a>»</a></li-->
                         </ul>
 
                         <div class="options-left col-lg-5 col-md-5 col-sm-5">
@@ -1292,12 +1292,12 @@
                     <!-- Pagination Default -->
                     <div class="text-center">
                         <ul class="pagination">
-                            <li><a>«</a></li>
+                            <!--li><a>«</a></li>
                             <li class="page-1 active" onclick="changePageTo(1)"><a>1</a></li>
                             <li class="page-2" onclick="changePageTo(2)"><a>2</a></li>
                             <li class="page-3" onclick="changePageTo(3)"><a>3</a></li>
                             <li class="page-4" onclick="changePageTo(4)"><a>4</a></li>
-                            <li><a>»</a></li>
+                            <li><a>»</a></li-->
                         </ul>
                     </div>
                     <!-- /Pagination Default -->
@@ -1392,6 +1392,7 @@
 
 @section('js')
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script>
         /** Form Stepper
          **************************************************************** **/
@@ -1606,16 +1607,16 @@
 
         var nowPage = 1;
         var itemAmount = 121;
-        var pageAll = itemAmount / 12;
+        var pageAll = Math.ceil(itemAmount / 12);
 
         function changePageTo(page){
             if(page == nowPage){
 //                alert(pageAll);
                 return ;
             }
-//            alert(page);
-            $(".page-"+nowPage).removeClass("active");
-            $(".page-"+page).addClass("active");
+            alert(page);
+//            $(".page-"+nowPage).removeClass("active");
+//            $(".page-"+page).addClass("active");
             nowPage = page;
 
             $.post("{{url('supplies')}}",
@@ -1743,7 +1744,15 @@
             $(".cart-button-badge").text(cartItemAmount);
         }
 
-
+        MagicPagi.init({
+            url : '{{ url("supplies/")}}',
+            ul : $(".pagination"),
+            min : 1,
+            max : pageAll,
+            range : 2,
+            mode : 'jquery',
+            onclick : function(page) { changePageTo(page); },
+        }).go(nowPage);
 
 
 
