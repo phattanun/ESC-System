@@ -141,7 +141,7 @@
                                     <label>กิจกรรม <span id="activity" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <label>หน่วยงาน <span id="club" class="text-blue">ไม่มีข้อมูล</span></label>
+                                    <label>หน่วยงาน <span id="division" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                             </div>
                         </div>
