@@ -203,10 +203,24 @@ class InventoryController extends Controller
     }
 
     public function getApproveModal(Request $request){
-        $borrow_list_id = $request->input('id');
         $user = $this->getUser();
-        if(!isset($user['supplies'])) return redirect('/');
-        $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first()->itemList()->get();
+        if(!isset($user['supplies'])) return response("noinfo", "500");
+        $borrow_list_id = $request->input('id');
+        $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first();
+        $borrow_item_list = $borrow_list_detail->itemList()->get();
 
+        return $borrow_item_list;
+    }
+
+    public function getBorrowList(){
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return response("noinfo", "500");
+        $borrow_list = BorrowList::all();
+
+        $send_data = [];
+        foreach($borrow_list as $b){
+            $send_data[$b['list_id']]['activity'] = "เงี่ยน";
+        }
+        return $send_data;
     }
 }
