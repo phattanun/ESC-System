@@ -196,9 +196,8 @@
             max : 10,
             range : 2,
             mode : 'jquery',
-            onclick : function(page) { alert('loading page ' + page); },
-        });
-        MagicPagi.make(5);
+            onclick : function(page) { loadList(page); },
+        }).go(1);
 
         function replace(data, postCallback) {
             var modal = $("#act-detail");
@@ -303,6 +302,6 @@
             $("#act-detail div[id*='act-info-']").addClass('hide').scrollTop(0);
             $("#act-detail #act-info-"+$(this).data('tab')).removeClass('hide');
         });
-        loadList();
+        loadList(1);
     </script>
 @endsection
