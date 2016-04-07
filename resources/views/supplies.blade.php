@@ -1490,6 +1490,10 @@
                             _toastr("โปรดระบุหน่วยงานให้ถูกต้อง", "top-right", "error", false);
                             return false;
                         }
+                        else if (data == 'amountInvalid') {
+                            _toastr("โปรดระบุจำนวนพัสดุให้ถูกต้อง", "top-right", "error", false);
+                            return false;
+                        }
                         else {
                             _toastr("ส่งเรื่องยืมสำเร็จ", "top-right", "success", false);
                             updateModalCartSuccess(data);
