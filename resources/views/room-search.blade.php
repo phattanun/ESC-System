@@ -154,6 +154,7 @@
             history['endDate']=$('#endDate').val();
             history['activity']=$('#activity').val();
             history['division']=$('#division').val();
+            history['userType']=$('#userType').val();
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT + '/room/result',
                     {
@@ -161,6 +162,7 @@
                         endDate: history['endDate'],
                         activity: history['activity'],
                         division: history['division'],
+                        userType: history['userType'],
                         _token: '{{csrf_token()}}',
                         type: '{{$type}}'
                     }).done(function (input) {
@@ -186,10 +188,10 @@
                             '<th style="vertical-align:middle" rowspan="1">เวลาเริ่ม</th>' +
                             '<th style="vertical-align:middle" rowspan="1">เวลาสิ้นสุด</th>' +
                             '<th style="vertical-align:middle" rowspan="1">สถานะ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ห้องที่อนุมัติ</th>' +
                             '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">จำนวนเครื่องฉายที่ได้</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">จำนวนปลั๊กไฟที่ได้</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>';
+                            '<th style="vertical-align:middle" rowspan="1">เครื่องฉาย</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">ปลั๊กไฟ</th>';
 
                     @if($type == 'report')
                             tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้จอง</th>' +
@@ -202,36 +204,31 @@
 
                     //--row data--
                     for (var counter = 0; counter < input.length; counter++) {
-                        var tabledata = '<tr class = "clickrowcss';
-                        /*
-                        @if($type == 'report')
-                                tabledata += ' clickrow" data-toggle="tooltip" data-placement="top" title="คลิกเพื่อแก้ไขข้อมูล" id = "'+input[counter]["student_id"];
-                        @endif
-                        */
 
-                        tabledata += '" >'+
+                        var tabledata = '<tr class = "clickrowcss" >'+
                         '<td>' + (counter + 1) + '</td>'+
-                        '<td>' + input[counter][""] + '</td>'+
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>' +
-                        '<td>' + input[counter][""] + '</td>';
+                        '<td>' + (input[counter]["act_id"]==null?input[counter]["other_act"]:input[counter]["act_id"]) + '</td>'+
+                        '<td>' + (input[counter]["div_id"]==null?input[counter]["other_div"]:input[counter]["div_id"]) + '</td>' +
+                        '<td>' + input[counter]["reason"] + '</td>' +
+                        '<td>' + input[counter]["number_of_people"] + '</td>' +
+                        '<td>' + input[counter]["request_start_time"] + '</td>' +
+                        '<td>' + input[counter]["request_end_time"] + '</td>' +
+                        '<td>' + input[counter]["status"] + '</td>' +
+                        '<td>' + input[counter]["allow_room_id"] + '</td>' +
+                        '<td>' + input[counter]["reason_if_not_approve"] + '</td>' +
+                        '<td>' + input[counter]["allow_projector"] + '/' + input[counter]["request_projector"] + '</td>' +
+                        '<td>' + input[counter]["allow_plug"] + '/' + input[counter]["request_plug"] + '</td>';
 
                         @if($type == 'report')
                                 tabledata +=
-                                '<td>' +  input[counter][""]  + '</td>' +
-                                '<td>' +  input[counter][""]  + '</td>' +
-                                '<td>' +  input[counter][""]  + '</td>' +
-                                '<td>' +  input[counter][""]  + '</td>' +
-                                '<td>' +  input[counter][""]  + '</td>';
+                                '<td>' +  input[counter]["student_id"]  + '</td>' +
+                                '<td>' +  input[counter]["student_id"]  + '</td>' +
+                                '<td>' +  input[counter]["student_id"]  + '</td>' +
+                                '<td>' +  input[counter]["student_id"]  + '</td>' +
+                                '<td>' +  input[counter]["student_id"]  + '</td>';
                         @endif
                                 tabledata += '</tr>';
+
                         $('#search-result-table').append(tabledata);
                     }
 

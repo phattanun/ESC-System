@@ -653,8 +653,7 @@ class RoomController extends Controller
     public function roomSearchQuery()
     {
         $user = $this->getUser();
-        $permission = Permission::find($user['student_id']);
-        if (is_null($user)||!$permission||!$permission->student)
+        if (is_null($user))
             return redirect('/');
 
         $activity = Activity::select('act_id', 'name')->get();
@@ -692,9 +691,40 @@ class RoomController extends Controller
         $reservation = [];
         if ($request->input('type') == 'search'){
 
+            $reservation = UserReservation::where(function ($query) use ($request, $user) {
+                $query->where('student_id','=',$user['student_id']);
+                if ($request->input('startDate')&&$request->input('endDate')) $query->where('request_start_time', '>=', $request->input('startDate'), 'AND', 'request_end_time', '<', $request->input('endDate'));
+                else if ($request->input('startDate')) $query->where('request_start_time', '>=', $request->input('startDate'));
+                else if ($request->input('endDate')) $query->where('request_end_time', '<=', $request->input('endDate'));
+                if ($request->input('activity')) $query->where('act_id', '=', $request->input('activity'));
+                if ($request->input('division')) $query->where('div_id', '=', $request->input('division'));
+            })
+                ->with('division','activity')
+                ->whereHas('division', function ($query) use ($request) {
+                    if ($request->input('division')) $query->where('div_id', '=', $request->input('division'));
+                })
+                ->whereHas('activity', function ($query) use ($request) {
+                    if ($request->input('activity')) $query->where('act_id', '=', $request->input('activity'));
+                })
+                ->get();
         }
         if ($request->input('type') == 'report' && $permission && $permission->room){
 
+            if($request->input('userType')==0||$request->input('userType')=='user')
+            $reservation = UserReservation::where(function ($query) use ($request, $user) {
+                if ($request->input('startDate')&&$request->input('endDate')) $query->where('request_start_time', '>=', $request->input('startDate'), 'AND', 'request_end_time', '<', $request->input('endDate'));
+                else if ($request->input('startDate')) $query->where('request_start_time', '>=', $request->input('startDate'));
+                else if ($request->input('endDate')) $query->where('request_end_time', '<=', $request->input('endDate'));
+                if ($request->input('activity')) $query->where('act_id', '=', $request->input('activity'));
+                if ($request->input('division')) $query->where('div_id', '=', $request->input('division'));
+            })->get();
+
+            if(($request->input('userType')==0||$request->input('userType')=='guest'))
+                $reservation = array_merge($reservation->toArray(), GuestReservation::where(function ($query) use ($request) {
+                if ($request->input('startDate')&&$request->input('endDate')) $query->where('request_start_time', '>=', $request->input('startDate'), 'AND', 'request_end_time', '<', $request->input('endDate'));
+                else if ($request->input('startDate')) $query->where('request_start_time', '>=', $request->input('startDate'));
+                else if ($request->input('endDate')) $query->where('request_end_time', '<=', $request->input('endDate'));
+                })->get()->toArray());
         }
 
         if(sizeof($reservation)==0) return 'fail';
