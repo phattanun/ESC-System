@@ -204,6 +204,14 @@
                 }
             }
         }
+        replace({
+            'reserve' : {
+                
+            },
+            'owner' : {
+
+            }
+        });
         function loadDetail(id) {
             $.ajax({
                 type: "POST",

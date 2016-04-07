@@ -16,13 +16,14 @@ class CreateReturnItemsTable extends Migration
             $table->increments('ret_id');
             $table->integer('list_id')->unsigned();
             $table->integer('inv_id')->unsigned();
-            $table->bigInteger('receiver_id')->unsigned();
             $table->double('amount',10,2);
-            $table->timestamp('receive_date');
+            $table->boolean('type');
+            $table->bigInteger('staff_id')->unsigned();
+            $table->timestamp('date');
 
             $table->foreign('list_id')->references('list_id')->on('borrow_lists');
             $table->foreign('inv_id')->references('inv_id')->on('inventories');
-            $table->foreign('receiver_id')->references('student_id')->on('users');
+            $table->foreign('staff_id')->references('student_id')->on('users');
         });
     }
 
