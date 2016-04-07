@@ -210,13 +210,69 @@ class InventoryController extends Controller
         $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first();
         $borrow_item_list = $borrow_list_detail->itemList()->get();
 
+
         return $borrow_item_list;
     }
 
     public function getBorrowList(){
         $user = $this->getUser();
         if(!isset($user['supplies'])) return response("noinfo", "500");
-        $borrow_list = BorrowList::all();
+        return $this->getBorrowListAtPage(1);
+        /*$borrow_list = BorrowList::all();
+
+        // Prepare Activity
+        $activity = Activity::all();
+        $activities = [];
+        foreach($activity as $a){
+            $activities[$a['act_id']] = $a['name'];
+        }
+
+        // Prepare Division
+        $div = Division::all();
+        $division = [];
+        foreach($div as $d){
+            if($d['type']=='Generation')
+                $division[$d['div_id']] = 'รุ่น'." ".$d['name'];
+            if($d['type']=='Group')
+                $division[$d['div_id']] = 'กรุ๊ป'." ".$d['name'];
+            if($d['type']=='Club')
+                $division[$d['div_id']] = 'ชมรม'." ".$d['name'];
+            if($d['type']=='Department')
+                $division[$d['div_id']] = 'ภาควิชา'." ".$d['name'];
+        }
+
+        // Prepare User
+        $stud = User::all();
+        $student = [];
+        foreach($stud as $s){
+            $student[$s['student_id']] = $s['name']." ".$s['surname'];
+        }
+
+
+
+        $send_data = [];
+        foreach($borrow_list as $b){
+            $send_data[$b['list_id']]['activity_name'] = $activities[$b['act_id']];
+            $send_data[$b['list_id']]['division_name'] = $division[$b['div_id']];
+            $send_data[$b['list_id']]['creator_name'] = $student[$b['creator_id']];
+            $send_data[$b['list_id']]['create_at'] = $b['create_at'];
+            switch($b['status']){
+                case 0 : $send_data[$b['list_id']]['status'] = "รออนุมัติ"; break;
+                case 1 : $send_data[$b['list_id']]['status'] = "อนุมัติ"; break;
+                case 2 : $send_data[$b['list_id']]['status'] = "กำลังดำเนินการ"; break;
+                case 3 : $send_data[$b['list_id']]['status'] = "เกินกำหนดคืน"; break;
+                case 4 : $send_data[$b['list_id']]['status'] = "ปิดรายการ"; break;
+            }
+
+        }
+        return $send_data;*/
+    }
+
+    public function getBorrowListAtPage(Request $request){
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return response("noinfo", "500");
+        $page = $request->input('page');
+        $borrow_list = BorrowList::orderBy('create_at','desc')->skip(($page-1)*10)->take(10)->get();
 
         // Prepare Activity
         $activity = Activity::all();
@@ -297,4 +353,6 @@ class InventoryController extends Controller
         $new_id = Supplier::where(['name'=>$name,'address'=>$addr,'phone_no'=>$phone])->select('supplier_id')->get('supplier_id');
         return $new_id;
     }
+
+
 }
