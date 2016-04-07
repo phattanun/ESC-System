@@ -187,7 +187,18 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script type="text/javascript">
+        MagicPagi.init({
+            url : '{{ url("supplies/approve")}}',
+            ul : $("#page-nav .pagination"),
+            min : 1,
+            max : 10,
+            range : 2,
+            mode : 'jquery',
+            onclick : function(page) { loadList(page); },
+        }).go(1);
+
         function replace(data, postCallback) {
             var modal = $("#act-detail");
             console.log(data);
@@ -204,10 +215,18 @@
                 }
             }
         }
+        replace({
+            'reserve' : {
+
+            },
+            'owner' : {
+
+            }
+        });
         function loadDetail(id) {
             $.ajax({
                 type: "POST",
-                url: '{{ url("/supplies/approve/getApproveModal") }}',
+                url: '{{ url("/supplies/approve/modal") }}',
                 data: {
                   _token: '{{ csrf_token() }}',
                   id: id
@@ -231,7 +250,7 @@
         function loadList() {
             $.ajax({
                 type: "POST",
-                url: '{{ url("/supplies/get_") }}',
+                url: '{{ url("/supplies/approve/list") }}',
                 data: {
                   _token: '{{ csrf_token() }}'
                 },
@@ -256,7 +275,7 @@
                     */
                     _toastr("Okay", "top-right", "success", false);
                     console.log(response);
-                    var contents = Object.getOwnPropertyNames(data);
+                    var contents = Object.getOwnPropertyNames(response);
                     var container = $("#contents-list").empty();
                     for(contentId in contents) {
                         console.log(contentId);
@@ -283,6 +302,6 @@
             $("#act-detail div[id*='act-info-']").addClass('hide').scrollTop(0);
             $("#act-detail #act-info-"+$(this).data('tab')).removeClass('hide');
         });
-        loadList();
+        loadList(1);
     </script>
 @endsection

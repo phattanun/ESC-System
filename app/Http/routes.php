@@ -56,7 +56,9 @@ Route::get ('/supplies', 'InventoryController@inventoryPage');
 Route::post ('/supplies', 'InventoryController@changeToPage');
 Route::post ('/supplies/send_cart', 'InventoryController@sendCart');
 Route::get ('/supplies/approve', 'InventoryController@approve');
+Route::get ('/supplies/approve/{page}', 'InventoryController@approve');
 Route::post ('/supplies/approve/modal', 'InventoryController@getApproveModal');
+Route::post ('/supplies/approve/list', 'InventoryController@getBorrowList');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');

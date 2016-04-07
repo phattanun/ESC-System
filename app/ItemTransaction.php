@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReturnItem extends Model
+class ItemTransaction extends Model
 {
-    protected $table = 'return_items';
+    protected $table = 'items_transaction';
     protected $primaryKey = 'ret_id';
     public $timestamps = false;
 }
