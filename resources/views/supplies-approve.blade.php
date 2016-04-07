@@ -187,7 +187,19 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script type="text/javascript">
+        MagicPagi.init({
+            url : '{{ url("supplies/approve")}}',
+            ul : $("#page-nav .pagination"),
+            min : 1,
+            max : 10,
+            range : 2,
+            mode : 'jquery',
+            onclick : function(page) { alert('loading page ' + page); },
+        });
+        MagicPagi.make(5);
+
         function replace(data, postCallback) {
             var modal = $("#act-detail");
             console.log(data);
@@ -206,7 +218,7 @@
         }
         replace({
             'reserve' : {
-                
+
             },
             'owner' : {
 
