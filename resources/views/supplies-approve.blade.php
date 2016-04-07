@@ -207,9 +207,9 @@
         function loadDetail(id) {
             $.ajax({
                 type: "POST",
-                url: '{{ url("/supplies/get_") }}',
+                url: '{{ url("/supplies/approve/getApproveModal") }}',
                 data: {
-                  _token: '{{{ csrf_token() }}}',
+                  _token: '{{ csrf_token() }}',
                   id: id
                 },
                 success: function(response) {
@@ -233,7 +233,7 @@
                 type: "POST",
                 url: '{{ url("/supplies/get_") }}',
                 data: {
-                  _token: '{{{ csrf_token() }}}'
+                  _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     /*

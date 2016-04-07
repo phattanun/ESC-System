@@ -203,10 +203,10 @@ class InventoryController extends Controller
     }
 
     public function getApproveModal(Request $request){
-        /*$borrow_list_id = $request->input('id');
+        $borrow_list_id = $request->input('id');
         $user = $this->getUser();
         if(!isset($user['supplies'])) return redirect('/');
-        $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->itemList()->get();*/
+        $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first()->itemList()->get();
 
     }
 }
