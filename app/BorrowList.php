@@ -14,4 +14,16 @@ class BorrowList extends Model
     public function itemList(){
         return $this->belongsToMany('App\Inventory','borrow_items','list_id','inv_id');
     }
+
+    public function creator(){
+        return $this->hasOne('App\User','student_id','creator_id');
+    }
+
+    public function activity(){
+        return $this->hasOne('App\Activity','act_id','act_id');
+    }
+
+    public function division(){
+        return $this->hasOne('App\Division','div_id','div_id');
+    }
 }

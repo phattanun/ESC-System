@@ -247,7 +247,7 @@
                 url: '{{ url("/supplies/approve/modal") }}',
                 data: {
                   _token: '{{ csrf_token() }}',
-                  id: id
+                  id: 1
                 },
                 success: function(response) {
                     _toastr("Okay", "top-right", "success", false);
@@ -256,7 +256,7 @@
                         // Nothing to do
                         console.log(name,data);
                     });
-                    $("#act-detail").modal('toggle');
+                    //$("#act-detail").modal('toggle');
                 },
                 error : function(e) {
                     var response = e.responseText;

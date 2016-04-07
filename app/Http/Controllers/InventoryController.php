@@ -210,13 +210,37 @@ class InventoryController extends Controller
 
     public function getApproveModal(Request $request){
         $user = $this->getUser();
-        if(!isset($user['supplies'])) return response("noinfo", "500");
+        //if(!isset($user['supplies'])) return response("noinfo", "500");
         $borrow_list_id = $request->input('id');
         $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first();
         $borrow_item_list = $borrow_list_detail->itemList()->get();
 
+        $creator = $borrow_list_detail->creator()->first();
+        $div_info = $borrow_list_detail->division()->first();
 
-        return $borrow_item_list;
+        $send_data = [];
+        $send_data['owner']['student_id'] = $creator['student_id'];
+        $send_data['owner']['name'] = $creator['name'];
+        $send_data['owner']['surname'] = $creator['surname'];
+        $send_data['owner']['nickname'] = $creator['nickname'];
+        $send_data['owner']['generation'] = $creator->generation()->first()['name'];
+        $send_data['owner']['department'] = $creator->department()->first()['name'];
+        $send_data['owner']['phone_number'] = $creator['phone_number'];
+        $send_data['owner']['email'] = $creator['email'];
+        $send_data['owner']['facebook_link'] = $creator['facebook_link'];
+        $send_data['owner']['activity'] = $borrow_list_detail->activity()->first()['name'];
+        if($div_info['type']=='Generation')
+            $send_data['owner']['division'] = 'รุ่น'." ".$div_info['name'];
+        if($div_info['type']=='Group')
+            $send_data['owner']['division'] = 'กรุ๊ป'." ".$div_info['name'];
+        if($div_info['type']=='Club')
+            $send_data['owner']['division'] = 'ชมรม'." ".$div_info['name'];
+        if($div_info['type']=='Department')
+            $send_data['owner']['division'] = 'ภาควิชา'." ".$div_info['name'];
+
+
+
+        return $send_data;
     }
 
     public function getBorrowList(){
