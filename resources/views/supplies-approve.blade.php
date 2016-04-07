@@ -264,7 +264,7 @@
                     */
                     _toastr("Okay", "top-right", "success", false);
                     console.log(response);
-                    var contents = Object.getOwnPropertyNames(data);
+                    var contents = Object.getOwnPropertyNames(response);
                     var container = $("#contents-list").empty();
                     for(contentId in contents) {
                         console.log(contentId);
