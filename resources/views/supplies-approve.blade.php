@@ -141,7 +141,7 @@
                                     <label>กิจกรรม <span id="activity" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <label>หน่วยงาน <span id="club" class="text-blue">ไม่มีข้อมูล</span></label>
+                                    <label>หน่วยงาน <span id="division" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +247,7 @@
                 url: '{{ url("/supplies/approve/modal") }}',
                 data: {
                   _token: '{{ csrf_token() }}',
-                  id: id
+                  id: 1
                 },
                 success: function(response) {
                     _toastr("Okay", "top-right", "success", false);
@@ -256,7 +256,7 @@
                         // Nothing to do
                         console.log(name,data);
                     });
-                    $("#act-detail").modal('toggle');
+                    //$("#act-detail").modal('toggle');
                 },
                 error : function(e) {
                     var response = e.responseText;
