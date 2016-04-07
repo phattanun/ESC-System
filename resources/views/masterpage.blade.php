@@ -147,6 +147,7 @@
                                             <li><a href="{{ URL::to('room/report') }}">ออกรายงาน</a></li>
                                 </ul>
                             </li>
+                            @if(isset($user) && $user)
                             <li class="dropdown @yield('suppliesNavToggle')"><!-- SUPPLIES -->
                                 <a class="dropdown-toggle" href="{{ URL::to('/supplies') }}">
                                     พัสดุ
@@ -154,11 +155,13 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ URL::to('/supplies') }}">ค้นหา/ยืมพัสดุ</a></li>
                                     @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/approve') }}">อนุมัติการยืมพัสดุ</a></li>@endif
-                                    <li><a href="">ประวัติการจอง</a></li>
-                                    <li><a href="">แก้ไขข้อมูลพัสดุ</a></li>
-                                    <li><a href="">ออกรายงาน</a></li>
+                                    <li><a href="">ประวัติการยืม</a></li>
+                                    @if(isset($user['supplies']))<li><a href="">แก้ไขข้อมูลพัสดุ</a></li>@endif
+                                    @if(isset($user['supplies']))<li><a href="{{ URL::to('supplies/supplier') }}">แก้ไขข้อมูลร้านค้า</a></li>@endif
+                                    @if(isset($user['supplies']))<li><a href="">ออกรายงาน</a></li>@endif
                                 </ul>
                             </li>
+                            @endif
                             @if(isset($user) && $user)
                             <li class="dropdown @yield('activitiesNavToggle')"><!-- ACTIVITIES -->
                                 <a class="dropdown-toggle" href="#">
