@@ -53,10 +53,14 @@ Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
 Route::get ('/supplies', 'InventoryController@inventoryPage');
-Route::post ('/supplies', 'InventoryController@changeToPage');
-Route::post ('/supplies/send_cart', 'InventoryController@sendCart');
+Route::post('/supplies', 'InventoryController@changeToPage');
+Route::post('/supplies/send_cart', 'InventoryController@sendCart');
 Route::get ('/supplies/approve', 'InventoryController@approve');
-Route::post ('/supplies/approve/modal', 'InventoryController@getApproveModal');
+Route::post('/supplies/approve/modal', 'InventoryController@getApproveModal');
+Route::get ('/supplies/supplier', 'InventoryController@supplierPage');
+Route::post('/supplies/delete_supplier', 'InventoryController@deleteSupplier');
+Route::post('/supplies/edit_supplier', 'InventoryController@editSupplier');
+Route::post('/supplies/add_supplier', 'InventoryController@addSupplier');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');

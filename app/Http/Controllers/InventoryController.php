@@ -8,6 +8,7 @@ use App\BorrowItem;
 use App\BorrowList;
 use App\Division;
 use App\Inventory;
+use App\Supplier;
 use App\Permission;
 use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Http\Request;
@@ -208,5 +209,37 @@ class InventoryController extends Controller
         if(!isset($user['supplies'])) return redirect('/');
         $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first()->itemList()->get();
 
+    }
+
+    public function supplierPage(){
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
+        $all_supplier = Supplier::All();
+        $new_id = '';
+        return view('supplier',compact('all_supplier','new_id'));
+    }
+
+    public function deleteSupplier(Request $request) {
+        $id = $request['id'];
+        Supplier::where('supplier_id',$id)->delete();
+    }
+
+    public function editSupplier(Request $request) {
+        $id = $request['id'];
+        $name = $request['name'];
+        $addr = $request['addr'];
+        $phone = $request['phone'];
+        Supplier::where('supplier_id',$id)->update(['name'=>$name,'address'=>$addr,'phone_no'=>$phone]);
+    }
+
+    public function addSupplier(Request $request) {
+        $name = $request['name'];
+        $addr = $request['addr'];
+        $phone = $request['phone'];
+        Supplier::insert(['name'=>$name,'address'=>$addr,'phone_no'=>$phone]);
+        $new_id = Supplier::where(['name'=>$name,'address'=>$addr,'phone_no'=>$phone])->select('supplier_id')->get('supplier_id');
+        return $new_id;
     }
 }
