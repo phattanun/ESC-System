@@ -1443,7 +1443,7 @@
 
         var firstTime = true;
         var nowPage = {{$page}};
-        var itemAmount = 121;
+        var itemAmount = {{$itemAmount}};
         var pageAll = Math.ceil(itemAmount / 12);
         changePageTo(nowPage);
 

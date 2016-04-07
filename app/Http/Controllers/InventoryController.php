@@ -31,20 +31,21 @@ class InventoryController extends Controller
     public function inventoryPage($page){
         $user = $this->getUser();
         $items = Inventory::all();
-//        return $items;
-        $inventory = [];
-        foreach($items as $item){
-            $inventory[$item['inv_id']] = [];
-            $inventory[$item['inv_id']]['inv_id'] = $item['inv_id'];
-            $inventory[$item['inv_id']]['name'] = $item['name'];
-            $inventory[$item['inv_id']]['image'] = $item['image'];
-            $inventory[$item['inv_id']]['unit'] = $item['unit'];
-            $inventory[$item['inv_id']]['prive_per_unit'] = $item['prive_per_unit'];
-            $inventory[$item['inv_id']]['total_qty'] = $item['total_qty'];
-            $inventory[$item['inv_id']]['broken_qty'] = $item['broken_qty'];
-            $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
-            $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
-        }
+        $itemAmount = count($items);
+////        return $items;
+//        $inventory = [];
+//        foreach($items as $item){
+//            $inventory[$item['inv_id']] = [];
+//            $inventory[$item['inv_id']]['inv_id'] = $item['inv_id'];
+//            $inventory[$item['inv_id']]['name'] = $item['name'];
+//            $inventory[$item['inv_id']]['image'] = $item['image'];
+//            $inventory[$item['inv_id']]['unit'] = $item['unit'];
+//            $inventory[$item['inv_id']]['prive_per_unit'] = $item['prive_per_unit'];
+//            $inventory[$item['inv_id']]['total_qty'] = $item['total_qty'];
+//            $inventory[$item['inv_id']]['broken_qty'] = $item['broken_qty'];
+//            $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
+//            $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
+//        }
 
 
 //        $detail=[];
@@ -77,8 +78,8 @@ class InventoryController extends Controller
             $i++;
         }
 
-//        return compact('inventory','activity','division');
-        return view('supplies', compact('page','inventory','activity','division'));
+//        return compact('page','itemAmount','activity','division');
+        return view('supplies', compact('page','itemAmount','activity','division'));
     }
 
     public function changeToPage(Request $request){
