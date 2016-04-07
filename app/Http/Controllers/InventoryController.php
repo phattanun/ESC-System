@@ -148,7 +148,9 @@ class InventoryController extends Controller
             'act_id'=> $activity,
             'other_act'=> $otherActivity,
             'reason' => $detail,
-            'create_at'=> $nowDate
+            'create_at'=> $nowDate,
+            'borrow_date' => $startDate,
+            'return_date' => $endDate
         ]);
 
 
@@ -161,11 +163,8 @@ class InventoryController extends Controller
                 'inv_id' => $item['id'],
                 'borrow_request_amount' => $item['amount'],
                 'borrow_actual_amount' => null,
-                'borrow_date' => $startDate,
-                'return_date' => $endDate,
                 'status' => 0,
                 'approver_id' => null,
-                'giver_id' => null,
                 'reason_if_not_approve' => null
                 ]);
         }
