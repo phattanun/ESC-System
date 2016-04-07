@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReturnItemsTable extends Migration
+class CreateItemsTransactionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateReturnItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('return_items', function (Blueprint $table) {
+        Schema::create('items_transaction', function (Blueprint $table) {
             $table->increments('ret_id');
             $table->integer('list_id')->unsigned();
             $table->integer('inv_id')->unsigned();
@@ -34,6 +34,6 @@ class CreateReturnItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('return_items');
+        Schema::drop('items_transaction');
     }
 }
