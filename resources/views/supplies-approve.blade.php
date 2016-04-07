@@ -66,7 +66,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="container" class="validate" method="post" enctype="multipart/form-data" style="margin:0">
-                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
 
                     <div id="head" class="modal-header">
@@ -86,23 +86,19 @@
                             <table class="table nomargin" id="activity-table" width="100%">
                                 <tr>
                                     <th style="vertical-align:middle;text-align: center;width:25%">ชื่อพัสดุ</th>
-                                    <th style="vertical-align:middle;text-align: center;width:20%">วันเริ่มต้นการยืม</th>
-                                    <th style="vertical-align:middle;text-align: center;width:20%">วันสิ้นสุดการยืม</th>
                                     <th colspan="2" style="vertical-align:middle;text-align: center;width:20%">จำนวน</th>
                                     <th style="vertical-align:middle;text-align: center;width:15%">ไม่อนุมัติ</th>
                                 </tr>
-                                @for($i=0;$i<10;$i++)
                                 <tr id="template-tr">
-                                    <td id=""   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
-                                    <td id=""   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
-                                    <td id=""   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
-                                    <td id=""   style="vertical-align:middle;text-align: center">--</td>
-                                    <td id=""   style="vertical-align:middle;text-align: center">/ --</td>
+                                    <td id="name"   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                    <td  style="vertical-align:middle;text-align: center">
+                                        <input id="borrow_allow" type="text">
+                                    </td>
+                                    <td id="borrow_request"   style="vertical-align:middle;text-align: center">/ --</td>
                                     <td style="vertical-align:middle;text-align: center">
                                         <label class="checkbox"><input type="checkbox" name="disapprove"><i style="position:initial"></i></label>
                                     </td>
                                 </tr>
-                                @endfor
                                 <tr id="item-notfound" style="display:none">
                                     <td colspan="7" style="vetical-align:middle;text-align: center">ไม่พบรายการจอง</td>
                                 </tr>
@@ -189,6 +185,7 @@
 @section('js')
     <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script type="text/javascript">
+        var modalOrg = $("#act-detail").clone(true,true);
         MagicPagi.init({
             url : '{{ url("supplies/approve")}}',
             ul : $("#page-nav .pagination"),
@@ -198,7 +195,6 @@
             mode : 'jquery',
             onclick : function(page) { loadList(page); },
         }).go(1);
-
         function replace(data, postCallback) {
             var modal = $("#act-detail");
             console.log(data);
@@ -207,20 +203,42 @@
             for(i in infoTabs) {
                 var names = Object.getOwnPropertyNames(data[infoTabs[i]]);
                 for(j in names) {
-                    //console.log("#"+infoTabs[i]+" *[id="+names[j]+"]");
-                    modal.find("#"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
-                    modal.find("#"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
-                    if(postCallback != null)
-                        postCallback(names[j],modal.find("#"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
+                    if(infoTabs[i] == "reserve") {
+                        var attr = Object.getOwnPropertyNames(data[infoTabs[i]][names[j]]);
+                        for(k in attr) {
+                            console.log(infoTabs[i], names[j], attr[k], data[infoTabs[i]][names[j]][attr[k]]);
+                            modal.find("#act-info-"+infoTabs[i]+" tr[id="+names[j]+"] td[id="+attr[k]+"]").html(data[infoTabs[i]][names[j]][attr[k]]);
+                            modal.find("#act-info-"+infoTabs[i]+" tr[id="+names[j]+"] input[id="+attr[k]+"]").val(data[infoTabs[i]][names[j]][attr[k]]);
+                        }
+                    }
+                    else {
+                        modal.find("#act-info-"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
+                        modal.find("#act-info-"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
+                        if(postCallback != null)
+                            postCallback(names[j],modal.find("#act-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
+                    }
                 }
             }
         }
         replace({
             'reserve' : {
-
+                '1' : {
+                    'name' : 'ไอเทม1',
+                    'borrow_allow' : 10,
+                },
+                '2' : {
+                    'name' : 'ไอเทม2',
+                    'borrow_allow' : 20,
+                },
+                '3' : {
+                    'name' : 'ไอเทม3',
+                    'borrow_allow' : 30,
+                }
             },
             'owner' : {
-
+                'student_id' : 56211231,
+                'name' : 'ชื่อใหม่',
+                'surname' : 'นามสกุลใหม่'
             }
         });
         function loadDetail(id) {
