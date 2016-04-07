@@ -22,6 +22,8 @@ class CreateBorrowListsTable extends Migration
             $table->string('other_act')->nullable();
             $table->text('reason')->nullable();
             $table->timestamp('create_at');
+            $table->timestamp('borrow_date');
+            $table->timestamp('return_date');
 
             $table->foreign('creator_id')->references('student_id')->on('users');
             $table->foreign('div_id')->references('div_id')->on('divisions');
