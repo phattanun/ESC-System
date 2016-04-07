@@ -273,10 +273,9 @@ class InventoryController extends Controller
         return $send_data;*/
     }
 
-    public function getBorrowListAtPage(Request $request){
+    public function getBorrowListAtPage($page){
         $user = $this->getUser();
         if(!isset($user['supplies'])) return response("noinfo", "500");
-        $page = $request->input('page');
         $borrow_list = BorrowList::orderBy('create_at','desc')->skip(($page-1)*10)->take(10)->get();
 
         // Prepare Activity
