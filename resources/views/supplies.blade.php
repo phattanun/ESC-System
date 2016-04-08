@@ -1641,13 +1641,14 @@
             $("#edit-item-id").text(allItem[id]['inv_id']);
             $("#edit-item-name").val(allItem[id]['name']);
 
-//            $("#edit-item-type-all").removeAttrs('selected');
-//            if(allItem[id]['type'] == 'ใช้แล้วหมดไป')
-//                $("#edit-item-type-1").attr('selected','selected');
-//            else if(allItem[id]['type'] == 'ใช้แล้วต้องนำมาคืน')
-//                $("#edit-item-type-2").attr('selected','selected');
-//            else
-//                $("#edit-item-type-0").attr('selected','selected');
+            $(".edit-item-type-all").removeAttrs('selected');
+            if(allItem[id]['type'] == 'ใช้แล้วหมดไป')
+                $("#edit-item-type-1").attr('selected','selected');
+            else if(allItem[id]['type'] == 'ใช้แล้วต้องนำมาคืน')
+                $("#edit-item-type-2").attr('selected','selected');
+            else
+                $("#edit-item-type-0").attr('selected','selected');
+            _select2();
 
             $("#edit-item-total_qty").val(allItem[id]['total_qty']);
             $("#edit-item-broken_qty").val(allItem[id]['broken_qty']);
