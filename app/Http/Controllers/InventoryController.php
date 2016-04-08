@@ -112,13 +112,16 @@ class InventoryController extends Controller
 //            $json = json_encode($array);
 //            die($json);
 
+            $count = count($items);
         }
         else
         {
             $items = Inventory::all();
+            $count = count($items);
+            $items = Inventory::orderBy('inv_id', 'asc')->skip(($page - 1) * 12)->take(12)->get();
         }
 
-        $count = count($items);
+        
 
 //        $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 
