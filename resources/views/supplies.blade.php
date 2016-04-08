@@ -1449,6 +1449,7 @@
 
         var allItem;
 
+        //trigger activity and division to other in cart modal
         function otherActivity(){
             $('#inListActivity').addClass('hidden');
             $('#otherActivity').removeClass('hidden');
@@ -1470,6 +1471,7 @@
             $('#cart-otherDivision-flag').val(false);
         }
 
+        //send cart
         function submitCartButton(){
             if ($('#cart-form').valid()) {
                 $.ajax({
@@ -1549,6 +1551,7 @@
             changeCartItemAmount(0);
         }
 
+        //close modalCart and modalCartSuccess
         function finishCart(){
             $('#modalCart').removeClass('hidden');
             $('#modalCart').modal('hide');
@@ -1559,6 +1562,7 @@
             finishCart();
         });
 
+        //modalItem
         function openModalItem(id){
 //            alert(id);
             alert(allItem[id]['name']);
@@ -1579,7 +1583,6 @@
             $("#modal-item-addToCart").removeAttrs('onclick');
             $("#modal-item-addToCart").attr('onclick','modalItemAddToCart('+id+')');
         }
-
         function modalItemAddToCart(id){
             alert('++ '+id);
             var inv_id = allItem[id]['inv_id'];
@@ -1603,6 +1606,7 @@
             myStepper(stepperN);
         }
 
+        //modalItemEdit
         function openModalItemEdit(id){
 //            alert("a"+id);
             $('#modalItemEdit').modal('show');
@@ -1655,7 +1659,7 @@
 
                                         +'<div class="shop-option-over" style="opacity: 1 !important;">'
                                         +'<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit('+allItem[tmp]['inv_id']+')"><i class="fa fa-edit nopadding"></i></a>'
-                                        +'<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>'
+                                        +'<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem('+allItem[tmp]['inv_id']+')"><i class="fa fa-trash nopadding"></i></a>'
                                         +'</div>'
                                     +'</div>'
 
@@ -1749,6 +1753,7 @@
             changeCartItemAmount(cartItemAmount-1);
         }
 
+        //other method
         function changeCartItemAmount(num){
             cartItemAmount = num ;
             if(cartItemAmount == 0){
@@ -1760,7 +1765,6 @@
             }
             $(".cart-button-badge").text(cartItemAmount);
         }
-
         function updatePagination(){
             MagicPagi.init({
                 url : '{{ url("supplies/")}}',
