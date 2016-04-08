@@ -283,42 +283,42 @@
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
-                        <div id="item-name" class="col-md-9">
+                        <div id="item-name" class="col-sm-9">
                             ดินสอแสนน่ารัก
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>ประเภท</b></label>
                         </div>
-                        <div id="item-type" class="col-md-9">
+                        <div id="item-type" class="col-sm-9">
                             ใช้แล้วหมดไป
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>จำนวนทั้งหมด</b></label>
                         </div>
-                        <div id="item-total_qty" class="col-md-9">
+                        <div id="item-total_qty" class="col-sm-9">
                             300
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>จำนวนที่เสีย</b></label>
                         </div>
-                        <div id="item-broken_qty" class="col-md-9">
+                        <div id="item-broken_qty" class="col-sm-9">
                             26
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>หน่วย</b></label>
                         </div>
-                        <div id="item-unit" class="col-md-9">
+                        <div id="item-unit" class="col-sm-9">
                             แท่ง
                         </div>
                     </div>
@@ -326,34 +326,34 @@
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
                     <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>ราคาที่ซื้อ</b></label>
                         </div>
-                        <div id="item-price_per_unit" class="col-md-9">
+                        <div id="item-price_per_unit" class="col-sm-9">
                             20.00 บาท
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>สถานที่ซื้อ</b></label>
                         </div>
-                        <div id="item-store" class="col-md-9">
+                        <div id="item-store" class="col-sm-9">
                             จีฉ่อย
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>ข้อมูลติดต่อ</b></label>
                         </div>
-                        <div id="item-store-address" class="col-md-9">
+                        <div id="item-store-address" class="col-sm-9">
                             32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111 32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <label><b>เบอร์โทรศัพท์</b></label>
                         </div>
-                        <div id="item-store-tel" class="col-md-9">
+                        <div id="item-store-tel" class="col-sm-9">
                             085-111-1111
                         </div>
                     </div>
