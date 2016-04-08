@@ -216,10 +216,10 @@ class InventoryController extends Controller
 
     public function getApproveModal(Request $request){
         $user = $this->getUser();
-        //if(!isset($user['supplies'])) return response("noinfo", "500");
+        if(!isset($user['supplies'])) return response("noinfo", "500");
         $borrow_list_id = $request->input('id');
         $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first();
-        $borrow_item_list = $borrow_list_detail->itemList()->get();
+        $borrow_item_list = $borrow_list_detail->itemList()->withPivot('borrow_request_amount')->get();
 
         $creator = $borrow_list_detail->creator()->first();
         $div_info = $borrow_list_detail->division()->first();
@@ -244,6 +244,15 @@ class InventoryController extends Controller
         if($div_info['type']=='Department')
             $send_data['owner']['division'] = 'ภาควิชา'." ".$div_info['name'];
 
+        $send_data['reserve'] = [];
+        $count = 1;
+        foreach($borrow_item_list as $b){
+            $tmp = [];
+            $tmp['name'] = $b['name'];
+            $tmp['borrow_request'] = $b->pivot->borrow_request_amount;
+            $send_data['reserve'][$count] = $tmp;
+            $count++;
+        }
 
 
         return $send_data;
