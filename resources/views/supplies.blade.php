@@ -418,8 +418,8 @@
                         <div class="col-md-9">
                             <select id="edit-item-type" name="project" class="form-control select2 required">
                                 <option id="edit-item-type-0" class="edit-item-type-all" selected="selected" value="0">ประเภทพัสดุ</option>
-                                <option id="edit-item-type-1" class="edit-item-type-all" value="1">ใช้แล้วหมดไป</option>
-                                <option id="edit-item-type-2" class="edit-item-type-all" value="2">ใช้แล้วต้องนำมาคืน</option>
+                                <option id="edit-item-type-1" class="edit-item-type-all" value="ใช้แล้วหมดไป">ใช้แล้วหมดไป</option>
+                                <option id="edit-item-type-2" class="edit-item-type-all" value="ใช้แล้วต้องนำมาคืน">ใช้แล้วต้องนำมาคืน</option>
                             </select>
                         </div>
                     </div>
@@ -1642,7 +1642,12 @@
             $("#edit-item-name").val(allItem[id]['name']);
 
 //            $("#edit-item-type-all").removeAttrs('selected');
-//            $("#edit-item-type-"+allItem[id]['type']).attr('selected','selected');
+//            if(allItem[id]['type'] == 'ใช้แล้วหมดไป')
+//                $("#edit-item-type-1").attr('selected','selected');
+//            else if(allItem[id]['type'] == 'ใช้แล้วต้องนำมาคืน')
+//                $("#edit-item-type-2").attr('selected','selected');
+//            else
+//                $("#edit-item-type-0").attr('selected','selected');
 
             $("#edit-item-total_qty").val(allItem[id]['total_qty']);
             $("#edit-item-broken_qty").val(allItem[id]['broken_qty']);
