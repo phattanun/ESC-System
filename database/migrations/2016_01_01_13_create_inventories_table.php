@@ -15,11 +15,13 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->increments('inv_id');
             $table->string('name');
+            $table->string('type');
             $table->mediumText('image');
             $table->string('unit');
-            $table->double('prive_per_unit',10,2);
+            $table->double('price_per_unit',10,2);
             $table->double('total_qty',10,2);
             $table->double('broken_qty',10,2);
+            $table->double('remain_qty',10,2);
             $table->bigInteger('editor_id')->unsigned();
             $table->timestamp('edit_at');
 
