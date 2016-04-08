@@ -155,10 +155,10 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ URL::to('/supplies') }}">ค้นหา/ยืมพัสดุ</a></li>
                                     @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/approve') }}">อนุมัติการยืมพัสดุ</a></li>@endif
-                                    <li><a href="">ประวัติการยืม</a></li>
+                                    <li><a href="{{ URL::to('/supplies/search') }}">ประวัติการยืม</a></li>
                                     @if(isset($user['supplies']))<li><a href="">แก้ไขข้อมูลพัสดุ</a></li>@endif
                                     @if(isset($user['supplies']))<li><a href="{{ URL::to('supplies/supplier') }}">แก้ไขข้อมูลร้านค้า</a></li>@endif
-                                    @if(isset($user['supplies']))<li><a href="">ออกรายงาน</a></li>@endif
+                                    @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/report') }}">ออกรายงาน</a></li>@endif
                                 </ul>
                             </li>
                             @endif

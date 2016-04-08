@@ -52,17 +52,22 @@ Route::get ('/room/report', 'RoomController@roomReportQuery');
 Route::post('/room/result', 'RoomController@roomResult');
 
 // Supply
+
+Route::get ('/supplies/search', 'InventoryController@invSearchQuery');
+Route::get ('/supplies/report', 'InventoryController@invReportQuery');
+Route::post('/supplies/result', 'InventoryController@invResult');
+
 Route::get ('/supplies', 'InventoryController@inventoryPageDefault');
 Route::post('/supplies', 'InventoryController@changeToPage');
-Route::get('/supplies/{page}', 'InventoryController@inventoryPage');
 Route::post('/supplies/send_cart', 'InventoryController@sendCart');
-Route::get ('/supplies/approve/{page}', 'InventoryController@approve');
 Route::post('/supplies/approve/modal', 'InventoryController@getApproveModal');
 Route::post('/supplies/approve/list', 'InventoryController@getBorrowList');
+Route::get ('/supplies/approve/{page}', 'InventoryController@approve');
 Route::get ('/supplies/supplier', 'InventoryController@supplierPage');
 Route::post('/supplies/delete_supplier', 'InventoryController@deleteSupplier');
 Route::post('/supplies/edit_supplier', 'InventoryController@editSupplier');
 Route::post('/supplies/add_supplier', 'InventoryController@addSupplier');
+Route::get ('/supplies/{page}', 'InventoryController@inventoryPage');
 
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
