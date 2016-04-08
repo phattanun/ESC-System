@@ -399,7 +399,7 @@
                         <div class="col-sm-3 col-xs-4">
                             <label><b>รหัสพัสดุ</b></label>
                         </div>
-                        <div class="col-sm-9 col-xs-8">
+                        <div id="edit-item-id" class="col-sm-9 col-xs-8">
                             ESC-0001
                         </div>
                     </div>
@@ -408,7 +408,7 @@
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="" value="" class="form-control required">
+                            <input id="edit-item-name" type="text" name="" value="" class="form-control required">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -416,13 +416,10 @@
                             <label><b>ประเภท</b></label>
                         </div>
                         <div class="col-md-9">
-                            <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">ประเภทพัสดุ</option>
-                                <option value="1">งานช่าง</option>
-                                <option value="2">เย็บปักถักร้อย</option>
-                                <option value="3">ของกิน</option>
-                                <option value="4">อุปกรณ์ปฐมพยาบาล</option>
-                                <option value="5">เครื่องเขียน</option>
+                            <select id="edit-item-type" name="project" class="form-control select2 required">
+                                <option id="edit-item-type-0" class="edit-item-type-all" selected="selected" value="0">ประเภทพัสดุ</option>
+                                <option id="edit-item-type-1" class="edit-item-type-all" value="1">ใช้แล้วหมดไป</option>
+                                <option id="edit-item-type-2" class="edit-item-type-all" value="2">ใช้แล้วต้องนำมาคืน</option>
                             </select>
                         </div>
                     </div>
@@ -431,7 +428,7 @@
                             <label><b>จำนวนทั้งหมด</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" value="" min="0" class="form-control stepper required">
+                            <input id="edit-item-total_qty" type="text" value="" min="0" class="form-control stepper required">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -439,7 +436,7 @@
                             <label><b>จำนวนที่เสีย</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" value="" min="0" class="form-control stepper required">
+                            <input id="edit-item-broken_qty" type="text" value="" min="0" class="form-control stepper required">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -447,7 +444,7 @@
                             <label><b>หน่วย</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                            <input id="edit-item-unit" type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
                         </div>
                     </div>
                 </div>
@@ -455,10 +452,11 @@
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
                     <div class="row" style="margin-top: 15px;">
                         <div class="col-md-3" style="margin-top: 5px;">
-                            <label><b>ราคาที่ซื้อ</b></label>
+                            <label><b>ราคาที่ซื้อ (ต่อหน่วย)</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">
+                            {{--<input id="edit-item-price_per_unit" type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">--}}
+                            <input id="edit-item-price_per_unit" type="text" value="" min="0" class="form-control stepper required">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -466,18 +464,18 @@
                             <label><b>สถานที่ซื้อ</b></label>
                         </div>
                         <div class="col-md-9">
-                            <select name="project" class="form-control select2 required" id="project-selection">
-                                <option selected="selected" value="0">สถานที่ซื้อ</option>
-                                <option value="1">จีฉ่อย</option>
-                                <option value="2">ช.การช่าง</option>
-                                <option value="3">ค.เครื่องเขียน</option>
-                                <option value="4">สมใจ</option>
-                                <option value="5">จามจุรีสแควร์</option>
+                            <select id="edit-item-store" name="project" class="form-control select2 required" id="project-selection">
+                                <option id="edit-item-store-0" class="edit-item-store-all" selected="selected" value="0">สถานที่ซื้อ</option>
+                                <option id="edit-item-store-1" class="edit-item-store-all" value="1">จีฉ่อย</option>
+                                <option id="edit-item-store-2" class="edit-item-store-all" value="2">ช.การช่าง</option>
+                                <option id="edit-item-store-3" class="edit-item-store-all" value="3">ค.เครื่องเขียน</option>
+                                <option id="edit-item-store-4" class="edit-item-store-all" value="4">สมใจ</option>
+                                <option id="edit-item-store-5" class="edit-item-store-all" value="5">จามจุรีสแควร์</option>
                             </select>
                         </div>
                     </div>
                     <div class="row text-center" style="margin-top: 15px;">
-                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" onclick="">
+                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" href="/addStore">
                             <i class="fa fa-plus"></i>
                             <span>เพิ่มร้านค้า</span>
                         </a>
@@ -490,7 +488,7 @@
                         <i class="fa fa-times"></i>
                         <span>ยกเลิก</span>
                     </a>
-                    <a id="room-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;">
+                    <a id="edit-item-confirm-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;" onclick="confirmEditItem(1)">
                         <i class="fa fa-check"></i>
                         <span>ยืนยัน</span>
                     </a>
@@ -1593,7 +1591,7 @@
         //modalItem
         function openModalItem(id){
 //            alert(id);
-            alert(allItem[id]['name']);
+//            alert(allItem[id]['name']);
             $("#item-id").text(allItem[id]['inv_id']);
             $("#item-name").text(allItem[id]['name']);
             $("#item-type").text(allItem[id]['inv_id']);
@@ -1640,7 +1638,28 @@
         //modalItemEdit
         function openModalItemEdit(id){
 //            alert("a"+id);
+            $("#edit-item-id").text(allItem[id]['inv_id']);
+            $("#edit-item-name").val(allItem[id]['name']);
+
+//            $("#edit-item-type-all").removeAttrs('selected');
+//            $("#edit-item-type-"+allItem[id]['type']).attr('selected','selected');
+
+            $("#edit-item-total_qty").val(allItem[id]['total_qty']);
+            $("#edit-item-broken_qty").val(allItem[id]['broken_qty']);
+            $("#edit-item-unit").val(allItem[id]['unit']);
+            $("#edit-item-price_per_unit").val(allItem[id]['price_per_unit']);
+
+//            $("#edit-item-store-all").removeAttrs('selected');
+//            $("#edit-item-store-"+allItem[id]['store_id']).attr('selected','selected');
+
+            $("#edit-item-confirm-button").removeAttrs('onclick');
+            $("#edit-item-confirm-button").attr('onclick','confirmEditItem('+allItem[id]['inv_id']+')');
+
             $('#modalItemEdit').modal('show');
+        }
+        function confirmEditItem(id){
+            //ajax post to edit
+            alert('edit'+id);
         }
 
         //removeItem
