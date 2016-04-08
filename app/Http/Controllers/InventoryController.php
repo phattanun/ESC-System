@@ -121,7 +121,7 @@ class InventoryController extends Controller
             $items = Inventory::orderBy('inv_id', 'asc')->skip(($page - 1) * 12)->take(12)->get();
         }
 
-        
+
 
 //        $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 
