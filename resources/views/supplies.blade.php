@@ -1619,7 +1619,7 @@
 //            $(".page-"+page).addClass("active");
             nowPage = page;
             var word = $("#searchInventory").val();
-            alert(word);
+//            alert(word);
 
             $.post("{{url('supplies')}}",
                     {page:page,word:word, _token:'{{csrf_token()}}'  } ).done(function( input ) {
@@ -1627,6 +1627,7 @@
                 allItem = input['inventory'];
                 itemAmount = input['count'];
                 pageAll = Math.ceil(itemAmount / 12);
+                updatePagination();
 
                 $(".each-item").remove();
 
@@ -1749,15 +1750,19 @@
             $(".cart-button-badge").text(cartItemAmount);
         }
 
-        MagicPagi.init({
-            url : '{{ url("supplies/")}}',
-            ul : $(".pagination"),
-            min : 1,
-            max : pageAll,
-            range : 2,
-            mode : 'jquery',
-            onclick : function(page) { changePageTo(page); },
-        }).go(nowPage);
+        function updatePagination(){
+            MagicPagi.init({
+                url : '{{ url("supplies/")}}',
+                ul : $(".pagination"),
+                min : 1,
+                max : pageAll,
+                range : 2,
+                mode : 'jquery',
+                onclick : function(page) { changePageTo(page); },
+            }).go(nowPage);
+        }
+
+        updatePagination();
 
     </script>
 @endsection

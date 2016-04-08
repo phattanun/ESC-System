@@ -94,8 +94,8 @@ class InventoryController extends Controller
 
             $items=Inventory::
                 where(function ($query) use ($KEYWORD_splitted) {
-                    foreach($KEYWORD_splitted as $KEYWORD)
-                        $query->where('name', 'LIKE', '%'.$KEYWORD.'%');
+                    foreach($KEYWORD_splitted as $KEY)
+                        $query->where('name', 'LIKE', '%'.$KEY.'%');
 //                    $query->orWhere('name', 'LIKE', '%'.$KEYWORD.'%');
 //                    $query->orWhere('surname', 'LIKE', '%'.$KEYWORD.'%');
                 })
@@ -119,6 +119,8 @@ class InventoryController extends Controller
         }
 
         $count = count($items);
+
+//        $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 
 //        $items = Inventory::all();
         $inventory = [];
