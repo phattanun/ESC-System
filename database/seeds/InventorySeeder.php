@@ -34,5 +34,138 @@ class InventorySeeder extends Seeder
             'editor_id'=>2,
             'edit_at'=>date("Y-m-d")." 14:30:00"
         ]);
+
+        Inventory::create([
+            'inv_id'=>'3',
+            'name'=>'ตะปู',
+            'image'=>'',
+            'unit'=>'ตัว',
+            'prive_per_unit'=>1.00,
+            'total_qty'=>100,
+            'broken_qty'=>15,
+            'editor_id'=>1,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'4',
+            'name'=>'ค้อน THOR',
+            'image'=>'',
+            'unit'=>'อัน',
+            'prive_per_unit'=>1000000.00,
+            'total_qty'=>1,
+            'broken_qty'=>0,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'5',
+            'name'=>'โล่ กัปตันอเมริกา',
+            'image'=>'',
+            'unit'=>'อัน',
+            'prive_per_unit'=>2000000.00,
+            'total_qty'=>1,
+            'broken_qty'=>0,
+            'editor_id'=>1,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'6',
+            'name'=>'ไม้หน้า 2',
+            'image'=>'',
+            'unit'=>'อัน',
+            'prive_per_unit'=>300.00,
+            'total_qty'=>20,
+            'broken_qty'=>0,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'7',
+            'name'=>'ไม้หน้า 3',
+            'image'=>'',
+            'unit'=>'อัน',
+            'prive_per_unit'=>300.00,
+            'total_qty'=>25,
+            'broken_qty'=>0,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'8',
+            'name'=>'ไขควง',
+            'image'=>'',
+            'unit'=>'อัน',
+            'prive_per_unit'=>400.00,
+            'total_qty'=>15,
+            'broken_qty'=>3,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'9',
+            'name'=>'กรรไกร',
+            'image'=>'',
+            'unit'=>'อัน',
+            'prive_per_unit'=>25.00,
+            'total_qty'=>50,
+            'broken_qty'=>10,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'10',
+            'name'=>'กาว',
+            'image'=>'',
+            'unit'=>'กระปุก',
+            'prive_per_unit'=>120.00,
+            'total_qty'=>12,
+            'broken_qty'=>0,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'11',
+            'name'=>'ถังกินน้ำ',
+            'image'=>'',
+            'unit'=>'ถัง',
+            'prive_per_unit'=>20.00,
+            'total_qty'=>105,
+            'broken_qty'=>10,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'12',
+            'name'=>'ถังอาบน้ำขนาดใหญ่มโหฬาร',
+            'image'=>'',
+            'unit'=>'ถัง',
+            'prive_per_unit'=>200.00,
+            'total_qty'=>10,
+            'broken_qty'=>2,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'13',
+            'name'=>'กาว LATEX',
+            'image'=>'',
+            'unit'=>'กระปุก',
+            'prive_per_unit'=>75.00,
+            'total_qty'=>15,
+            'broken_qty'=>0,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
+        Inventory::create([
+            'inv_id'=>'14',
+            'name'=>'กาว UHU',
+            'image'=>'',
+            'unit'=>'หลอด',
+            'prive_per_unit'=>25.00,
+            'total_qty'=>36,
+            'broken_qty'=>0,
+            'editor_id'=>2,
+            'edit_at'=>date("Y-m-d")." 14:30:00"
+        ]);
     }
 }
