@@ -1691,6 +1691,17 @@
         function addToCart(id){
 //            alert(id);
             var inv_id = allItem[id]['inv_id'];
+            for(var i=1;i<=cartItemAmount;i++)
+            {
+                var tmp = $(".cart-item-order-"+i).attr('id');
+//                alert(tmp);
+                if(tmp == 'cart-item-id-'+inv_id)
+                {
+                    _toastr("มีพัสดุนี้ในรายการยืมแล้ว", "top-right", "warning", false);
+                    return;
+                }
+            }
+
             var amount = $("#item-input-amount-"+id).val();
             changeCartItemAmount(cartItemAmount+1);
             stepperN = stepperN +1;
