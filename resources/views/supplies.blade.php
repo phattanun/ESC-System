@@ -1584,8 +1584,11 @@
             $("#modal-item-addToCart").attr('onclick','modalItemAddToCart('+id+')');
         }
         function modalItemAddToCart(id){
-            alert('++ '+id);
+//            alert('++ '+id);
             var inv_id = allItem[id]['inv_id'];
+            var check = checkDuplicateItemInCart(inv_id);
+            if(!check) return;
+
             var amount = $("#modal-item-input-amount").val();
             changeCartItemAmount(cartItemAmount+1);
             stepperN = stepperN +1;
@@ -1612,6 +1615,10 @@
             $('#modalItemEdit').modal('show');
         }
 
+        //removeItem
+        function removeItem(id){
+
+        }
 
         function changePageTo(page){
 //            if(page == nowPage){
@@ -1695,16 +1702,8 @@
         function addToCart(id){
 //            alert(id);
             var inv_id = allItem[id]['inv_id'];
-            for(var i=1;i<=cartItemAmount;i++)
-            {
-                var tmp = $(".cart-item-order-"+i).attr('id');
-//                alert(tmp);
-                if(tmp == 'cart-item-id-'+inv_id)
-                {
-                    _toastr("มีพัสดุนี้ในรายการยืมแล้ว", "top-right", "warning", false);
-                    return;
-                }
-            }
+            var check = checkDuplicateItemInCart(inv_id);
+            if(!check) return;
 
             var amount = $("#item-input-amount-"+id).val();
             changeCartItemAmount(cartItemAmount+1);
@@ -1775,6 +1774,19 @@
                 mode : 'jquery',
                 onclick : function(page) { changePageTo(page); },
             }).go(nowPage);
+        }
+        function checkDuplicateItemInCart(id){
+            for(var i=1;i<=cartItemAmount;i++)
+            {
+                var tmp = $(".cart-item-order-"+i).attr('id');
+//                alert(tmp);
+                if(tmp == 'cart-item-id-'+id)
+                {
+                    _toastr("มีพัสดุนี้ในรายการยืมแล้ว", "top-right", "warning", false);
+                    return false;
+                }
+            }
+            return true;
         }
 
         updatePagination();
