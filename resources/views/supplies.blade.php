@@ -502,6 +502,34 @@
         </div>
     </div>
 
+    <div id="modalRemoveItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <!-- header modal -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">ต้องการลบพัสดุนี้ใช่หรือไม่ ?</h4>
+                </div>
+
+                <!-- body modal -->
+                <div class="modal-body">
+                    <div class="row text-center">
+                        <a id="item-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal">
+                            <i class="fa fa-check"></i>
+                            <span>ใช่</span>
+                        </a>
+                        <a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal">
+                            <i class="fa fa-times"></i>
+                            <span>ไม่ใช่</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <section>
         <div class="container">
 
@@ -1617,7 +1645,12 @@
 
         //removeItem
         function removeItem(id){
-
+            $("#modalRemoveItem").modal("show");
+            $("#item-confirm-remove-button").attr("onclick","confirmRemoveItem("+id+")");
+        }
+        function confirmRemoveItem(id){
+            //ajax post to delete
+            alert('remove'+id);
         }
 
         function changePageTo(page){
