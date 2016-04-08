@@ -136,16 +136,18 @@
                                 </a>
                             </li>
                             <li class="dropdown @yield('conferenceNavToggle')"><!-- CONFERENCE ROOM -->
-                                <a class="dropdown-toggle" href="#">
+                                <a @if(isset($user) && $user)class="dropdown-toggle"@endif href="{{ URL::to('room/reserve') }}">
                                     ห้องประชุม
                                 </a>
+                                @if(isset($user) && $user)
                                 <ul class="dropdown-menu">
-                                            <li><a href="{{ URL::to('room/reserve') }}">จองห้อง/ผลการจองห้อง</a></li>
-                                            <li><a href="{{ URL::to('room/search') }}">ประวัติการจอง</a></li>
-                                            <li><a href="{{ URL::to('room/approve') }}">อนุมัติการจอง</a></li>
-                                            <li><a href="{{ URL::to('room/room-manage') }}">ตั้งค่าห้องประชุม</a></li>
-                                            <li><a href="{{ URL::to('room/report') }}">ออกรายงาน</a></li>
+                                    <li><a href="{{ URL::to('room/reserve') }}">จองห้อง/ผลการจองห้อง</a></li>
+                                    <li><a href="{{ URL::to('room/search') }}">ประวัติการจอง</a></li>
+                                    @if(isset($user['room']))<li><a href="{{ URL::to('room/approve') }}">อนุมัติการจอง</a></li>@endif
+                                    @if(isset($user['room']))<li><a href="{{ URL::to('room/room-manage') }}">ตั้งค่าห้องประชุม</a></li>@endif
+                                    @if(isset($user['room']))<li><a href="{{ URL::to('room/report') }}">ออกรายงาน</a></li>@endif
                                 </ul>
+                                @endif
                             </li>
                             @if(isset($user) && $user)
                             <li class="dropdown @yield('suppliesNavToggle')"><!-- SUPPLIES -->
