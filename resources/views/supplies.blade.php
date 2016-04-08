@@ -1598,7 +1598,7 @@
             $("#item-total_qty").text(allItem[id]['total_qty']);
             $("#item-broken_qty").text(allItem[id]['broken_qty']);
             $("#item-unit").text(allItem[id]['unit']);
-            $("#item-price_per_unit").text(allItem[id]['price_per_unit']);
+            $("#item-price_per_unit").text(allItem[id]['price_per_unit']+' บาท');
             $("#item-store").text(allItem[id]['inv_id']);
             $("#item-store-address").text(allItem[id]['inv_id']);
             $("#item-store-tel").text(allItem[id]['inv_id']);
