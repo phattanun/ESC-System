@@ -84,8 +84,43 @@ class InventoryController extends Controller
 
     public function changeToPage(Request $request){
         $page = $request->page;
+        $KEYWORD = $request->word;
 
-        $items = Inventory::all();
+
+        if($KEYWORD != '') {
+//            $LIMIT 		= isset($_REQUEST['limit']) 	? (int) 	$_REQUEST['limit'] 		: 30;
+//            $KEYWORD 	= isset($_REQUEST['search']) 	? (string) 	$_REQUEST['search'] 	: null;
+            $KEYWORD_splitted = explode(' ',$KEYWORD);
+
+            $items=Inventory::
+                where(function ($query) use ($KEYWORD_splitted) {
+                    foreach($KEYWORD_splitted as $KEYWORD)
+                        $query->where('name', 'LIKE', '%'.$KEYWORD.'%');
+//                    $query->orWhere('name', 'LIKE', '%'.$KEYWORD.'%');
+//                    $query->orWhere('surname', 'LIKE', '%'.$KEYWORD.'%');
+                })
+//                ->take($LIMIT)
+                ->orderBy('inv_id', 'asc')
+                ->get();
+
+//            $array=[];
+//            if(isset($user)&&$user != null){
+//                foreach($user as $users){
+//                    array_push($array,$users->student_id." ".$users->name." ".$users->surname);
+//                }
+//            }
+//            $json = json_encode($array);
+//            die($json);
+
+        }
+        else
+        {
+            $items = Inventory::all();
+        }
+
+        $count = count($items);
+
+//        $items = Inventory::all();
         $inventory = [];
         foreach($items as $item){
             $inventory[$item['inv_id']] = [];
@@ -100,7 +135,7 @@ class InventoryController extends Controller
             $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
         }
 
-        return $inventory;
+        return compact('inventory','count');
     }
 
     public function sendCart()

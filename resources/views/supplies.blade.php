@@ -533,8 +533,8 @@
                         <div class="options-left col-lg-5 col-md-5 col-sm-5">
                             <div class="input-group autosuggest" data-minLength="1">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
-                                    <span class="input-group-btn" id="add-new-permission-btn">
+                                <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text" onchange="changePageTo(1)">
+                                    <span class="input-group-btn" id="add-new-permission-btn" onclick="changePageTo(1)">
                                         <a class="btn btn-success">ค้นหา</a>
                                     </span>
                             </div>
@@ -1618,11 +1618,16 @@
 //            $(".page-"+nowPage).removeClass("active");
 //            $(".page-"+page).addClass("active");
             nowPage = page;
+            var word = $("#searchInventory").val();
+            alert(word);
 
             $.post("{{url('supplies')}}",
-                    {page:page, _token:'{{csrf_token()}}'  } ).done(function( input ) {
+                    {page:page,word:word, _token:'{{csrf_token()}}'  } ).done(function( input ) {
 //                alert(input);
-                allItem = input;
+                allItem = input['inventory'];
+                itemAmount = input['count'];
+                pageAll = Math.ceil(itemAmount / 12);
+
                 $(".each-item").remove();
 
                 Object.size = function(obj) {
@@ -1632,40 +1637,40 @@
                     }
                     return size;
                 };
-                var size = Object.size(input);
+                var size = Object.size(allItem);
 //                alert(size);
 
                 var tmp;
-                for (tmp in input) {
+                for (tmp in allItem) {
 //                    alert(input[tmp]['name']);
                     var txt = '<li class="col-lg-3 col-sm-3 each-item">'
 
                                 +'<div class="shop-item">'
 
                                     +'<div class="thumbnail" >'
-                                        +'<a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem('+input[tmp]['inv_id']+')">'
-                                        +'<img class="img-responsive" src="'+input[tmp]['image']+'" alt="shop hover image" style="width: 100%;">'
+                                        +'<a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem('+allItem[tmp]['inv_id']+')">'
+                                        +'<img class="img-responsive" src="'+allItem[tmp]['image']+'" alt="shop hover image" style="width: 100%;">'
                                         +'</a>'
 
                                         +'<div class="shop-option-over" style="opacity: 1 !important;">'
-                                        +'<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit('+input[tmp]['inv_id']+')"><i class="fa fa-edit nopadding"></i></a>'
+                                        +'<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit('+allItem[tmp]['inv_id']+')"><i class="fa fa-edit nopadding"></i></a>'
                                         +'<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>'
                                         +'</div>'
                                     +'</div>'
 
                                     +'<div class="shop-item-summary text-center">'
-                                        +'<h2>'+input[tmp]['name']+'</h2>'
+                                        +'<h2>'+allItem[tmp]['name']+'</h2>'
                                     +'</div>'
 
                                     +'<div class="amount text-center">'
                                         +'<div style="width: 50%; display: inline-block">'
-                                            +'<input id="item-input-amount-'+input[tmp]['inv_id']+'" type="text" value="" min="0" class="form-control stepper2 required">'
+                                            +'<input id="item-input-amount-'+allItem[tmp]['inv_id']+'" type="text" value="" min="0" class="form-control stepper2 required">'
                                         +'</div>'
-                                        +' '+input[tmp]['unit']
+                                        +' '+allItem[tmp]['unit']
                                     +'</div>'
 
                                     +'<div class="shop-item-buttons text-center">'
-                                        +'<a class="btn btn-default" onclick="addToCart('+input[tmp]['inv_id']+')"><i class="fa fa-cart-plus"></i> Add to Cart</a>'
+                                        +'<a class="btn btn-default" onclick="addToCart('+allItem[tmp]['inv_id']+')"><i class="fa fa-cart-plus"></i> Add to Cart</a>'
                                     +'</div>'
                                 +'</div>'
                             +'</li>';
@@ -1753,8 +1758,6 @@
             mode : 'jquery',
             onclick : function(page) { changePageTo(page); },
         }).go(nowPage);
-
-
 
     </script>
 @endsection
