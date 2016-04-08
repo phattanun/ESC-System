@@ -20,6 +20,7 @@ class CreateItemsTransactionTable extends Migration
             $table->boolean('type');
             $table->bigInteger('staff_id')->unsigned();
             $table->timestamp('date');
+            $table->double('remain_qty',10,2);
 
             $table->foreign('list_id')->references('list_id')->on('borrow_lists');
             $table->foreign('inv_id')->references('inv_id')->on('inventories');
