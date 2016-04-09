@@ -119,31 +119,24 @@ class InventoryController extends Controller
 
 
         if($KEYWORD != '') {
-//            $LIMIT 		= isset($_REQUEST['limit']) 	? (int) 	$_REQUEST['limit'] 		: 30;
-//            $KEYWORD 	= isset($_REQUEST['search']) 	? (string) 	$_REQUEST['search'] 	: null;
             $KEYWORD_splitted = explode(' ',$KEYWORD);
 
             $items=Inventory::
                 where(function ($query) use ($KEYWORD_splitted) {
                     foreach($KEYWORD_splitted as $KEY)
                         $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
-//                    $query->orWhere('name', 'LIKE', '%'.$KEYWORD.'%');
-//                    $query->orWhere('surname', 'LIKE', '%'.$KEYWORD.'%');
-                })
-//                ->take($LIMIT)
-                ->orderBy('inv_id', 'asc')
-                ->get();
-
-//            $array=[];
-//            if(isset($user)&&$user != null){
-//                foreach($user as $users){
-//                    array_push($array,$users->student_id." ".$users->name." ".$users->surname);
-//                }
-//            }
-//            $json = json_encode($array);
-//            die($json);
+                })->get();
 
             $count = count($items);
+            $items=Inventory::
+            where(function ($query) use ($KEYWORD_splitted) {
+                foreach($KEYWORD_splitted as $KEY)
+                    $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
+            })
+                ->skip(($page - 1) * 12)
+                ->take(12)
+                ->orderBy('inv_id', 'asc')
+                ->get();
         }
         else
         {
