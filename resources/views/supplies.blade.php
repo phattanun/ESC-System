@@ -1657,7 +1657,7 @@
                     var unit = '-';
                 else
                     var unit = allItem[id]['supplier'][i]['unit'];
-                
+
                 var tmp = '<tr class="modal-item-tuple">'
                             +'<td style="min-width: 50px; max-width: 50px;">'+(i+1)+'</td>'
                             +'<td style="min-width: 100px; max-width: 100px;">'+allItem[id]['supplier'][i]['name']+'</td>'
