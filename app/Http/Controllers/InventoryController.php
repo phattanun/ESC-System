@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\InventorySupplier;
 use Carbon\Carbon;
 use App\BorrowItem;
 use App\BorrowList;
@@ -152,7 +153,6 @@ class InventoryController extends Controller
         }
 
 
-
 //        $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 
 //        $items = Inventory::all();
@@ -170,6 +170,24 @@ class InventoryController extends Controller
             $inventory[$item['inv_id']]['remain_qty'] = $item['remain_qty'];
             $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
             $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
+
+            $suppliers = InventorySupplier::where('inv_id',$item['inv_id'])->get();
+//            $inventory[$item['inv_id']]['supplier'] = $suppliers;
+            $inventory[$item['inv_id']]['supplier'] = [];
+
+            $i = 0;
+            foreach($suppliers as $supplier){
+                $tmp = Supplier::where('supplier_id',$supplier['supplier_id']) -> first();
+                $inventory[$item['inv_id']]['supplier'][$i] = [];
+                $inventory[$item['inv_id']]['supplier'][$i]['name'] = $tmp['name'];
+                $inventory[$item['inv_id']]['supplier'][$i]['address'] = $tmp['address'];
+                $inventory[$item['inv_id']]['supplier'][$i]['phone_no'] = $tmp['phone_no'];
+                $inventory[$item['inv_id']]['supplier'][$i]['price_per_unit'] = $supplier['price_per_unit'];
+                $inventory[$item['inv_id']]['supplier'][$i]['unit'] = $supplier['unit'];
+
+                $i++;
+            }
+
         }
 
         return compact('inventory','count');
