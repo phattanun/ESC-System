@@ -1789,18 +1789,24 @@
 //                    alert(input[tmp]['name']);
                     var txt = '<li class="col-lg-3 col-sm-3 each-item">'
 
-                                +'<div class="shop-item">'
+                            + '<div class="shop-item">'
 
-                                    +'<div class="thumbnail" >'
-                                        +'<a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem('+allItem[tmp]['inv_id']+')">'
-                                        +'<img class="img-responsive" src="'+allItem[tmp]['image']+'" alt="shop hover image" style="width: 100%;">'
-                                        +'</a>'
+                            + '<div class="thumbnail" >'
+                            + '<a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem(' + allItem[tmp]['inv_id'] + ')">'
+                            + '<img class="img-responsive" src="' + allItem[tmp]['image'] + '" alt="shop hover image" style="width: 100%;">'
+                            + '</a>'
 
-                                        +'<div class="shop-option-over" style="opacity: 1 !important;">'
-                                        +'<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit('+allItem[tmp]['inv_id']+')"><i class="fa fa-edit nopadding"></i></a>'
-                                        +'<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem('+allItem[tmp]['inv_id']+')"><i class="fa fa-trash nopadding"></i></a>'
-                                        +'</div>'
-                                    +'</div>'
+                            + '<div class="shop-option-over" style="opacity: 1 !important;">'
+                            + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
+                            + '<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>'
+                            + '</div>';
+                    if(allItem[tmp]['remain_qty'] == 0){
+                        txt = txt + '<div class="shop-item-info">'
+                            +'<span class="label label-danger">หมด</span>'
+                            +'</div>';
+                    }
+
+                        txt = txt   +'</div>'
 
                                     +'<div class="shop-item-summary text-center">'
                                         +'<h2>'+allItem[tmp]['name']+'</h2>'
