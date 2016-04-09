@@ -15,7 +15,7 @@
     <button class="hidden" id="submitCartButton" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCartSuccess">ส่งเรื่องยืม</button>
 
     <div id="modalCart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        {{--<form id="cart-form" class="validate" novalidate="novalidate" action="{{url().'/supplies/send_cart'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="ส่งเรื่องยืมสำเร็จ!<script>submitCartButton();</script>" data-toastr-position="top-right">--}}
+
         <form id="cart-form" class="validate" novalidate="novalidate" action="{{url().'/supplies/send_cart'}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="modal-dialog modal-lg">
@@ -375,8 +375,6 @@
                             <span>Add to Cart</span>
                         </a>
                     </div>
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>--}}
-                    {{--<button type="button" class="btn btn-primary" data-dismiss="modal">ยืนยัน</button>--}}
                 </div>
 
             </div>
@@ -455,7 +453,6 @@
                             <label><b>ราคาที่ซื้อ (ต่อหน่วย)</b></label>
                         </div>
                         <div class="col-md-9">
-                            {{--<input id="edit-item-price_per_unit" type="text" class="form-control masked" data-format="999,999.99" data-placeholder="X" placeholder="ราคาที่ซื้อ">--}}
                             <input id="edit-item-price_per_unit" type="text" value="" min="0" class="form-control stepper required">
                         </div>
                     </div>
@@ -492,8 +489,6 @@
                         <i class="fa fa-check"></i>
                         <span>ยืนยัน</span>
                     </a>
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>--}}
-                    {{--<button type="button" class="btn btn-primary" data-dismiss="modal">ยืนยัน</button>--}}
                 </div>
 
             </div>
@@ -571,69 +566,6 @@
 
                     <ul class="shop-item-list row list-inline nomargin">
 
-                        {{--@foreach($inventory as $inven)
-                            <li class="col-lg-3 col-sm-3 each-item">
-
-                                <div class="shop-item">
-
-                                    <div class="thumbnail" >
-                                        <!-- product image(s) -->
-                                        <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inven['inv_id']}})">
-                                            <!--img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
-                                            <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image"-->
-                                            <div style="width:100%; height:100%; background-image: url({{$inventory['image']}})"></div>
-                                            <img class="img-responsive" src="{{$inven['image']}}" alt="shop hover image" style="width: 100%;">
-                                        </a>
-                                        <!-- /product image(s) -->
-
-                                        <!-- hover buttons -->
-                                        <div class="shop-option-over" style="opacity: 1 !important;"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                            <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit({{$inven['inv_id']}})"><i class="fa fa-edit nopadding"></i></a>
-                                            <a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>
-                                        </div>
-                                        <!-- /hover buttons -->
-
-                                        <!-- product more info -->
-                                        <div class="shop-item-info">
-                                            <!--span class="label label-success">NEW</span>
-                                            <span class="label label-danger">SALE</span-->
-                                        </div>
-                                        <!-- /product more info -->
-                                    </div>
-
-                                    <div class="shop-item-summary text-center">
-                                        <h2>{{$inven['name']}}</h2>
-
-                                        <!-- rating -->
-                                        <!--div class="shop-item-rating-line">
-                                            <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --><!--/div>
-                                        </div>
-                                        <!-- /rating -->
-
-                                        <!-- price -->
-                                        <!--div class="shop-item-price">
-                                            <span class="line-through">$98.00</span>
-                                            $900
-                                        </div>
-                                        <!-- /price -->
-                                    </div>
-
-                                    <div class="amount text-center">
-                                        <div style="width: 50%; display: inline-block">
-                                            <input type="text" value="" min="0" class="form-control stepper required">
-                                        </div>
-                                        เครื่อง
-                                    </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-default" onclick="addToCart({{$inven['inv_id']}})"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                                </div>
-
-                            </li>
-                        @endforeach--}}
 
                         <!-- ITEM -->
                         <li class="col-lg-3 col-sm-3">
@@ -642,7 +574,7 @@
 
                                 <div class="thumbnail" >
                                     <!-- product image(s) -->
-                                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" {{--href="shop-single-left.html"--}}>
+                                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem">
                                         <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
                                         <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
                                     </a>
@@ -1333,39 +1265,7 @@
             </div>
 
         </div>
-        {{--
-        <li class="col-lg-3 col-sm-3 each-item">
 
-            <div class="shop-item">
-
-                <div class="thumbnail" >
-                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem({{$inven['inv_id']}})">
-                        <img class="img-responsive" src="{{$inven['image']}}" alt="shop hover image" style="width: 100%;">
-                    </a>
-
-                    <div class="shop-option-over" style="opacity: 1 !important;">
-                        <a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit({{$inven['inv_id']}})"><i class="fa fa-edit nopadding"></i></a>
-                        <a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-trash nopadding"></i></a>
-                    </div>
-
-                </div>
-
-                <div class="shop-item-summary text-center">
-                    <h2>{{$inven['name']}}</h2>
-                </div>
-
-                <div class="amount text-center">
-                    <div style="width: 50%; display: inline-block">
-                        <input type="text" value="" min="0" class="form-control stepper required">
-                    </div>
-                    เครื่อง
-                </div>
-
-                <div class="shop-item-buttons text-center">
-                    <a class="btn btn-default" onclick="addToCart({{$inven['inv_id']}})"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                </div>
-            </div>
-        </li>--}}
     </section>
 
 @endsection
