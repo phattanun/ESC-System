@@ -1652,13 +1652,19 @@
                     var price_per_unit = '-';
                 else
                     var price_per_unit = allItem[id]['supplier'][i]['price_per_unit'];
+
+                if(allItem[id]['supplier'][i]['unit'] == null)
+                    var unit = '-';
+                else
+                    var unit = allItem[id]['supplier'][i]['unit'];
+                
                 var tmp = '<tr class="modal-item-tuple">'
                             +'<td style="min-width: 50px; max-width: 50px;">'+(i+1)+'</td>'
                             +'<td style="min-width: 100px; max-width: 100px;">'+allItem[id]['supplier'][i]['name']+'</td>'
                             +'<td style="min-width: 400px; max-width: 400px;">'+allItem[id]['supplier'][i]['address']+'</td>'
                             +'<td style="min-width: 110px; max-width: 110px;">'+allItem[id]['supplier'][i]['phone_no']+'</td>'
                             +'<td style="min-width: 110px; max-width: 110px;">'+price_per_unit+'</td>'
-                            +'<td style="min-width: 99px; max-width: 99px;">'+allItem[id]['supplier'][i]['unit']+'</td>'
+                            +'<td style="min-width: 99px; max-width: 99px;">'+unit+'</td>'
                         +'</tr>';
                 $(".modal-item-table-body").append(tmp);
             }
