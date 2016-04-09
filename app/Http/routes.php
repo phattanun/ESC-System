@@ -56,10 +56,11 @@ Route::post('/room/result', 'RoomController@roomResult');
 Route::get ('/supplies/search', 'InventoryController@invSearchQuery');
 Route::get ('/supplies/report', 'InventoryController@invReportQuery');
 Route::post('/supplies/result', 'InventoryController@invResult');
-Route::get ('/supplies/auto_suggest', 'InventoryController@autoSuggest');
 
 Route::get ('/supplies', 'InventoryController@inventoryPageDefault');
 Route::post('/supplies', 'InventoryController@changeToPage');
+Route::post('/supplies/search_count', 'InventoryController@searchCountInventory');
+Route::get ('/supplies/auto_suggest', 'InventoryController@autoSuggest');
 Route::post('/supplies/send_cart', 'InventoryController@sendCart');
 Route::post('/supplies/approve/modal', 'InventoryController@getApproveModal');
 Route::post('/supplies/approve/list', 'InventoryController@getBorrowList');

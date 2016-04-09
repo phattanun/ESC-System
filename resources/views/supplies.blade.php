@@ -686,7 +686,7 @@
                             <div class="input-group autosuggest" data-minLength="1">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
-                                    <span class="input-group-btn" id="add-new-permission-btn" onclick="changePageTo(1)">
+                                    <span class="input-group-btn" id="add-new-permission-btn" onclick="searchCountInventory(1)">
                                         <a class="btn btn-success">ค้นหา</a>
                                     </span>
                             </div>
@@ -1513,7 +1513,8 @@
         var nowPage = {{$page}};
         var itemAmount = {{$itemAmount}};
         var pageAll = Math.ceil(itemAmount / 12);
-        changePageTo(nowPage);
+//        changePageTo(nowPage);
+        searchCountInventory(nowPage);
 
         var allItem;
 
@@ -1749,8 +1750,24 @@
         });
         $('#searchInventory').keypress(function(e){
             if(e.keyCode == 13)
-                changePageTo(1);
+                searchCountInventory(1);
+//                changePageTo(1);
         });
+
+        function searchCountInventory(page){
+            var word = $("#searchInventory").val();
+
+            $.post("{{url('supplies/search_count')}}",
+                    {word:word, _token:'{{csrf_token()}}'  } ).done(function( input ) {
+//                alert(input);
+                nowPage = page;
+                itemAmount = input;
+                pageAll = Math.ceil(itemAmount / 12);
+                updatePagination();
+                changePageTo(page);
+            });
+
+        }
 
         function changePageTo(page){
 //            if(page == nowPage){
@@ -1768,9 +1785,9 @@
                     {page:page,word:word, _token:'{{csrf_token()}}'  } ).done(function( input ) {
 //                alert(input);
                 allItem = input['inventory'];
-                itemAmount = input['count'];
+                /*itemAmount = input['count'];
                 pageAll = Math.ceil(itemAmount / 12);
-                updatePagination();
+                updatePagination();*/
 
                 $(".each-item").remove();
 

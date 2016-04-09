@@ -113,6 +113,29 @@ class InventoryController extends Controller
         }
     }
 
+    public function searchCountInventory(Request $request){
+        $KEYWORD = $request->word;
+
+        if($KEYWORD != '') {
+            $KEYWORD_splitted = explode(' ',$KEYWORD);
+
+            $items=Inventory::
+            where(function ($query) use ($KEYWORD_splitted) {
+                foreach($KEYWORD_splitted as $KEY)
+                    $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
+            })->get();
+
+            $count = count($items);
+        }
+        else
+        {
+            $items = Inventory::all();
+            $count = count($items);
+        }
+
+        return $count;
+    }
+
     public function changeToPage(Request $request){
         $page = $request->page;
         $KEYWORD = $request->word;
@@ -121,13 +144,6 @@ class InventoryController extends Controller
         if($KEYWORD != '') {
             $KEYWORD_splitted = explode(' ',$KEYWORD);
 
-            $items=Inventory::
-                where(function ($query) use ($KEYWORD_splitted) {
-                    foreach($KEYWORD_splitted as $KEY)
-                        $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
-                })->get();
-
-            $count = count($items);
             $items=Inventory::
             where(function ($query) use ($KEYWORD_splitted) {
                 foreach($KEYWORD_splitted as $KEY)
@@ -140,8 +156,6 @@ class InventoryController extends Controller
         }
         else
         {
-            $items = Inventory::all();
-            $count = count($items);
             $items = Inventory::orderBy('inv_id', 'asc')->skip(($page - 1) * 12)->take(12)->get();
         }
 
@@ -183,7 +197,7 @@ class InventoryController extends Controller
 
         }
 
-        return compact('inventory','count');
+        return compact('inventory');
     }
 
     public function sendCart()
