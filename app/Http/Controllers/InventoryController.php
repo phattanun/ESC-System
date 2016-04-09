@@ -97,7 +97,7 @@ class InventoryController extends Controller
             $items=Inventory::
                 where(function ($query) use ($KEYWORD_splitted) {
                     foreach($KEYWORD_splitted as $KEY)
-                        $query->where('name', 'LIKE', '%'.$KEY.'%');
+                        $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
 //                    $query->orWhere('name', 'LIKE', '%'.$KEYWORD.'%');
 //                    $query->orWhere('surname', 'LIKE', '%'.$KEYWORD.'%');
                 })
