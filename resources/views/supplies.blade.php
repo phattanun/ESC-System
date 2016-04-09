@@ -652,7 +652,7 @@
                         <div class="options-left col-lg-5 col-md-5 col-sm-5">
                             <div class="input-group autosuggest" data-minLength="1">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text" onchange="changePageTo(1)">
+                                <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
                                     <span class="input-group-btn" id="add-new-permission-btn" onclick="changePageTo(1)">
                                         <a class="btn btn-success">ค้นหา</a>
                                     </span>
@@ -1689,6 +1689,11 @@
             $('.autosuggest').attr('data-queryURL','{!! url('supplies/auto_suggest?limit=10&search=') !!}'+$(this).val());
             _autosuggest();
             $(this).trigger( "focus" );
+        });
+
+        $('#searchInventory').keypress(function(e){
+            if(e.keyCode == 13)
+                changePageTo(1);
         });
 
         function changePageTo(page){
