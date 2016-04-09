@@ -16,7 +16,7 @@ class CreateInventorySupplierRelationTable extends Migration
             $table->integer('inv_id')->unsigned();
             $table->integer('supplier_id')->unsigned();
             $table->string('unit')->nullable();
-            $table->double('price_per_unit',10,2)->nullabe();
+            $table->double('price_per_unit',10,2)->nullable();
 
             $table->primary(array('inv_id', 'supplier_id'));
 
