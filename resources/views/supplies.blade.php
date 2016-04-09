@@ -263,7 +263,7 @@
     </div>
 
     <div id="modalItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -275,30 +275,46 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-3 col-xs-4">
+                        <div class="col-md-2 col-sm-3 col-xs-5">
                             <label><b>รหัสพัสดุ</b></label>
                         </div>
-                        <div id="item-id" class="col-sm-9 col-xs-8">
+                        <div id="item-id" class="col-md-10 col-sm-9 col-xs-7">
                             ESC-0001
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-sm-3">
+                        <div class="col-md-2 col-sm-3 col-xs-5">
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
-                        <div id="item-name" class="col-sm-9">
+                        <div id="item-name" class="col-md-10 col-sm-9 col-xs-7">
                             ดินสอแสนน่ารัก
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-sm-3">
+                        <div class="col-md-2 col-sm-3 col-xs-5">
                             <label><b>ประเภท</b></label>
                         </div>
-                        <div id="item-type" class="col-sm-9">
+                        <div id="item-type" class="col-md-10 col-sm-9 col-xs-7">
                             ใช้แล้วหมดไป
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-2 col-sm-3 col-xs-5">
+                            <label><b>จำนวนคงเหลือ</b></label>
+                        </div>
+                        <div id="item-remain_qty" class="col-md-10 col-sm-9 col-xs-7">
+                            300
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-2 col-sm-3 col-xs-5">
+                            <label><b>ราคากลาง</b></label>
+                        </div>
+                        <div id="item-price_per_unit" class="col-md-10 col-sm-9 col-xs-7">
+                            20.00 บาท
+                        </div>
+                    </div>
+                    <!--div class="row" style="margin-top: 20px;">
                         <div class="col-sm-3">
                             <label><b>จำนวนทั้งหมด</b></label>
                         </div>
@@ -313,27 +329,44 @@
                         <div id="item-broken_qty" class="col-sm-9">
                             26
                         </div>
-                    </div>
+                    </div-->
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-sm-3">
+                        <div class="col-md-2 col-sm-3 col-xs-5">
                             <label><b>หน่วย</b></label>
                         </div>
-                        <div id="item-unit" class="col-sm-9">
+                        <div id="item-unit" class="col-md-10 col-sm-9 col-xs-7">
                             แท่ง
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-sm-3">
-                            <label><b>ราคาที่ซื้อ</b></label>
-                        </div>
-                        <div id="item-price_per_unit" class="col-sm-9">
-                            20.00 บาท
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-modal-item">
+                            <thead>
+                            <tr>
+                                <th class="width-50" style="min-width: 50px; max-width: 50px;">ลำดับ</th>
+                                <th class="width-100" style="min-width: 100px; max-width: 100px;">สถานที่ซื้อ</th>
+                                <th class="width-400" style="min-width: 400px; max-width: 400px;">ข้อมูลติดต่อ</th>
+                                <th class="width-110" style="min-width: 110px; max-width: 110px;">เบอร์โทรศัพท์</th>
+                                <th class="width-110" style="min-width: 110px; max-width: 110px;">ราคาต่อหน่วย</th>
+                                <th class="width-100" style="min-width: 99px; max-width: 99px;">หน่วย</th>
+                            </tr>
+                            </thead>
+                            <tbody class="modal-item-table-body">
+                                <tr class="modal-item-tuple">
+                                    <td style="min-width: 50px; max-width: 50px;">1</td>
+                                    <td style="min-width: 100px; max-width: 100px;">จีฉ่อย</td>
+                                    <td style="min-width: 400px; max-width: 400px;">32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111 32/25 ถนนพระราม4 แขวงปทุมวัน เขตพญาไท กรุงเทพฯ 10111</td>
+                                    <td style="min-width: 110px; max-width: 110px;">085-111-1111</td>
+                                    <td style="min-width: 110px; max-width: 110px;">20.00</td>
+                                    <td style="min-width: 99px; max-width: 99px;">เครื่อง</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="row" style="margin-top: 20px;">
+                    <!--div class="row" style="margin-top: 20px;">
                         <div class="col-sm-3">
                             <label><b>สถานที่ซื้อ</b></label>
                         </div>
@@ -356,7 +389,7 @@
                         <div id="item-store-tel" class="col-sm-9">
                             085-111-1111
                         </div>
-                    </div>
+                    </div-->
                 </div>
 
                 <!-- Modal Footer -->
@@ -1418,6 +1451,10 @@
             display: inline-block;
             width: 70%;
         }
+
+        .table-modal-item tr, .table-modal-item td{
+            white-space: pre-wrap !important;
+        }
     </style>
 @endsection
 
@@ -1599,14 +1636,16 @@
 //            alert(allItem[id]['name']);
             $("#item-id").text(allItem[id]['inv_id']);
             $("#item-name").text(allItem[id]['name']);
-            $("#item-type").text(allItem[id]['inv_id']);
-            $("#item-total_qty").text(allItem[id]['total_qty']);
-            $("#item-broken_qty").text(allItem[id]['broken_qty']);
+            $("#item-type").text(allItem[id]['type']);
+            $("#item-remain_qty").text(allItem[id]['remain_qty']);
+//            $("#item-total_qty").text(allItem[id]['total_qty']);
+//            $("#item-broken_qty").text(allItem[id]['broken_qty']);
             $("#item-unit").text(allItem[id]['unit']);
-            $("#item-price_per_unit").text(allItem[id]['price_per_unit']+' บาท');
-            $("#item-store").text(allItem[id]['inv_id']);
-            $("#item-store-address").text(allItem[id]['inv_id']);
-            $("#item-store-tel").text(allItem[id]['inv_id']);
+            $("#item-price_per_unit").text(allItem[id]['price_per_unit']+' บาท / '+allItem[id]['unit']);
+
+//            $("#item-store").text(allItem[id]['inv_id']);
+//            $("#item-store-address").text(allItem[id]['inv_id']);
+//            $("#item-store-tel").text(allItem[id]['inv_id']);
 
             var num = $("#item-input-amount-"+id).val();
             $("#modal-item-input-amount").val(num);
@@ -1690,7 +1729,6 @@
             _autosuggest();
             $(this).trigger( "focus" );
         });
-
         $('#searchInventory').keypress(function(e){
             if(e.keyCode == 13)
                 changePageTo(1);
