@@ -107,14 +107,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if (isset($user['activities']))
+
                         <div class = "row">
                             <div class="col-md-offset-6 col-md-1">
                                 <a id="add-file" class="btn btn-3d btn-reveal btn-green">
                                     <i class="fa fa-plus"></i>
-                                    <span>เพิ่มไฟล์</span>
+                                    <span>{{$user['activities']}}เพิ่มไฟล์</span>
                                 </a>
                             </div>
                         </div>
+                        @endif
                         <div class = "row">
                             <div class="col-md-8 col-sm-8">
                                 <label>หน่วยงานที่เกี่ยวข้อง *</label>

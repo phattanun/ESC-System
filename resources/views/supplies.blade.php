@@ -381,6 +381,112 @@
         </div>
     </div>
 
+    <div id="modalItemCreate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CreateItem" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i> เพิ่มพัสดุ</h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ชื่อพัสดุ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-name" placeholder="กรุณากรอกชื่อพัสดุ" type="text"  name="" value="" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ประเภท</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select id="edit-item-type" name="project" class="form-control select2 required">
+                                <option id="edit-item-type-0" class="edit-item-type-all" selected="selected" value="0">ประเภทพัสดุ</option>
+                                <option id="edit-item-type-1" class="edit-item-type-all" value="ใช้แล้วหมดไป">ใช้แล้วหมดไป</option>
+                                <option id="edit-item-type-2" class="edit-item-type-all" value="ใช้แล้วต้องนำมาคืน">ใช้แล้วต้องนำมาคืน</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>จำนวนทั้งหมด</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-total_qty" type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>จำนวนที่เสีย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-broken_qty" type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>หน่วย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-unit" type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ราคาที่ซื้อ (ต่อหน่วย)</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-price_per_unit" type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>สถานที่ซื้อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select id="edit-item-store" name="project" class="form-control select2 required" id="project-selection">
+                                <option id="edit-item-store-0" class="edit-item-store-all" selected="selected" value="0">สถานที่ซื้อ</option>
+                                <option id="edit-item-store-1" class="edit-item-store-all" value="1">จีฉ่อย</option>
+                                <option id="edit-item-store-2" class="edit-item-store-all" value="2">ช.การช่าง</option>
+                                <option id="edit-item-store-3" class="edit-item-store-all" value="3">ค.เครื่องเขียน</option>
+                                <option id="edit-item-store-4" class="edit-item-store-all" value="4">สมใจ</option>
+                                <option id="edit-item-store-5" class="edit-item-store-all" value="5">จามจุรีสแควร์</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row text-center" style="margin-top: 15px;">
+                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" href="/addStore">
+                            <i class="fa fa-plus"></i>
+                            <span>เพิ่มร้านค้า</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal" style="width: 90px;">
+                        <i class="fa fa-times"></i>
+                        <span>ยกเลิก</span>
+                    </a>
+                    <a id="edit-item-confirm-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;" onclick="confirmEditItem(1)">
+                        <i class="fa fa-check"></i>
+                        <span>ยืนยัน</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div id="modalItemEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -560,7 +666,14 @@
                                     </span>
                             </div>
                         </div>
-
+                    @if(isset($user['supplies']))
+                            <div class="col-md-1">
+                                <button type="button" data-toggle="modal" data-target="#modalItemCreate" id="add-file" class="btn btn-3d btn-reveal btn-green">
+                                    <i class="fa fa-plus"></i>
+                                    <span>เพิ่มพัสดุ</span>
+                                </button>
+                            </div>
+                        @endif
                     </div>
                     <!-- /LIST OPTIONS -->
 
