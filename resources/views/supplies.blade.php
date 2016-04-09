@@ -1643,6 +1643,24 @@
             $("#item-unit").text(allItem[id]['unit']);
             $("#item-price_per_unit").text(allItem[id]['price_per_unit']+' บาท / '+allItem[id]['unit']);
 
+            $(".modal-item-tuple").remove();
+            var len = allItem[id]['supplier'].length;
+//            alert(allItem[id]['supplier'].length);
+            for(var i = 0 ; i < len ;i++){
+                if(allItem[id]['supplier'][i]['price_per_unit'] == null)
+                    var price_per_unit = '-';
+                else
+                    var price_per_unit = allItem[id]['supplier'][i]['price_per_unit'];
+                var tmp = '<tr class="modal-item-tuple">'
+                            +'<td style="min-width: 50px; max-width: 50px;">'+(i+1)+'</td>'
+                            +'<td style="min-width: 100px; max-width: 100px;">'+allItem[id]['supplier'][i]['name']+'</td>'
+                            +'<td style="min-width: 400px; max-width: 400px;">'+allItem[id]['supplier'][i]['address']+'</td>'
+                            +'<td style="min-width: 110px; max-width: 110px;">'+allItem[id]['supplier'][i]['phone_no']+'</td>'
+                            +'<td style="min-width: 110px; max-width: 110px;">'+price_per_unit+'</td>'
+                            +'<td style="min-width: 99px; max-width: 99px;">'+allItem[id]['supplier'][i]['unit']+'</td>'
+                        +'</tr>';
+                $(".modal-item-table-body").append(tmp);
+            }
 //            $("#item-store").text(allItem[id]['inv_id']);
 //            $("#item-store-address").text(allItem[id]['inv_id']);
 //            $("#item-store-tel").text(allItem[id]['inv_id']);
