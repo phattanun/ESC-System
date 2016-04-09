@@ -423,14 +423,6 @@
                     </div>
                     <div class="row" style="margin-top: 15px;">
                         <div class="col-md-3" style="margin-top: 5px;">
-                            <label><b>จำนวนที่เสีย</b></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input id="edit-item-broken_qty" type="text" value="" min="0" class="form-control stepper required">
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
                             <label><b>หน่วย</b></label>
                         </div>
                         <div class="col-md-9">
