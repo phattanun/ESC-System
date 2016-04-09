@@ -84,6 +84,34 @@ class InventoryController extends Controller
         return view('supplies', compact('page','itemAmount','activity','division'));
     }
 
+    public function autoSuggest()
+    {
+        if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])) {
+            $LIMIT 		= isset($_REQUEST['limit']) 	? (int) 	$_REQUEST['limit'] 		: 30;
+            $KEYWORD 	= isset($_REQUEST['search']) 	? (string) 	$_REQUEST['search'] 	: null;
+            $KEYWORD_splitted = explode(' ',$KEYWORD);
+
+            $items=Inventory::select(['name'])
+            ->where(function ($query) use ($KEYWORD_splitted) {
+                foreach($KEYWORD_splitted as $KEY)
+                    $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
+            })
+                ->take($LIMIT)
+                ->orderBy('inv_id', 'asc')
+                ->get();
+
+            $array=[];
+            if(isset($items)&&$items != null){
+                foreach($items as $item){
+                    array_push($array,$item->name);
+                }
+            }
+            $json = json_encode($array);
+            die($json);
+
+        }
+    }
+
     public function changeToPage(Request $request){
         $page = $request->page;
         $KEYWORD = $request->word;

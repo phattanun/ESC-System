@@ -56,6 +56,7 @@ Route::post('/room/result', 'RoomController@roomResult');
 Route::get ('/supplies/search', 'InventoryController@invSearchQuery');
 Route::get ('/supplies/report', 'InventoryController@invReportQuery');
 Route::post('/supplies/result', 'InventoryController@invResult');
+Route::get ('/supplies/auto_suggest', 'InventoryController@autoSuggest');
 
 Route::get ('/supplies', 'InventoryController@inventoryPageDefault');
 Route::post('/supplies', 'InventoryController@changeToPage');

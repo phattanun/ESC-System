@@ -1683,6 +1683,14 @@
             alert('remove'+id);
         }
 
+        //autoSuggest
+        $('#searchInventory').keyup(function(){
+            $('.typeahead').typeahead('destroy');
+            $('.autosuggest').attr('data-queryURL','{!! url('supplies/auto_suggest?limit=10&search=') !!}'+$(this).val());
+            _autosuggest();
+            $(this).trigger( "focus" );
+        });
+
         function changePageTo(page){
 //            if(page == nowPage){
 ////                alert(pageAll);
