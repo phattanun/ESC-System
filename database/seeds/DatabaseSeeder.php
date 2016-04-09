@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(BorrowListSeeder::class);
         $this->call(BorrowItemSeeder::class);
+        $this->call(InventoriesSuppliersSeeder::class);
 
         Model::reguard();
     }
