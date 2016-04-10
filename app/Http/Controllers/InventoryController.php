@@ -303,12 +303,14 @@ class InventoryController extends Controller
         return compact('user','items','startDate','endDate','activity','otherActivity','otherActivityFlag','division','otherDivision','otherDivisionFlag','detail');
     }
 
-    public function approve(){
+    private $numberPerPage = 10;
+
+    public function viewApprove($page = 1) {
         $user = $this->getUser();
-        $inventory = Inventory::all();
         if(!isset($user['supplies'])) return redirect('/');
-//
-        return view('supplies-approve', compact('inventory'));
+
+        $maxpage = ceil(BorrowList::count()/$this->numberPerPage);
+        return view('supplies-approve', compact('page','maxpage'));
     }
 
     public function getApproveModal(Request $request){
@@ -355,64 +357,10 @@ class InventoryController extends Controller
         return $send_data;
     }
 
-    public function getBorrowList(){
+    public function getBorrowList($page = 1){
         $user = $this->getUser();
         if(!isset($user['supplies'])) return response("noinfo", "500");
-        return $this->getBorrowListAtPage(1);
-        /*$borrow_list = BorrowList::all();
-
-        // Prepare Activity
-        $activity = Activity::all();
-        $activities = [];
-        foreach($activity as $a){
-            $activities[$a['act_id']] = $a['name'];
-        }
-
-        // Prepare Division
-        $div = Division::all();
-        $division = [];
-        foreach($div as $d){
-            if($d['type']=='Generation')
-                $division[$d['div_id']] = 'รุ่น'." ".$d['name'];
-            if($d['type']=='Group')
-                $division[$d['div_id']] = 'กรุ๊ป'." ".$d['name'];
-            if($d['type']=='Club')
-                $division[$d['div_id']] = 'ชมรม'." ".$d['name'];
-            if($d['type']=='Department')
-                $division[$d['div_id']] = 'ภาควิชา'." ".$d['name'];
-        }
-
-        // Prepare User
-        $stud = User::all();
-        $student = [];
-        foreach($stud as $s){
-            $student[$s['student_id']] = $s['name']." ".$s['surname'];
-        }
-
-
-
-        $send_data = [];
-        foreach($borrow_list as $b){
-            $send_data[$b['list_id']]['activity_name'] = $activities[$b['act_id']];
-            $send_data[$b['list_id']]['division_name'] = $division[$b['div_id']];
-            $send_data[$b['list_id']]['creator_name'] = $student[$b['creator_id']];
-            $send_data[$b['list_id']]['create_at'] = $b['create_at'];
-            switch($b['status']){
-                case 0 : $send_data[$b['list_id']]['status'] = "รออนุมัติ"; break;
-                case 1 : $send_data[$b['list_id']]['status'] = "อนุมัติ"; break;
-                case 2 : $send_data[$b['list_id']]['status'] = "กำลังดำเนินการ"; break;
-                case 3 : $send_data[$b['list_id']]['status'] = "เกินกำหนดคืน"; break;
-                case 4 : $send_data[$b['list_id']]['status'] = "ปิดรายการ"; break;
-            }
-
-        }
-        return $send_data;*/
-    }
-
-    public function getBorrowListAtPage($page){
-        $user = $this->getUser();
-        if(!isset($user['supplies'])) return response("noinfo", "500");
-        $borrow_list = BorrowList::orderBy('create_at','desc')->skip(($page-1)*10)->take(10)->get();
+        $borrow_list = BorrowList::orderBy('create_at','desc')->skip(($page-1)*$this->numberPerPage)->take($this->numberPerPage)->get();
 
         // Prepare Activity
         $activity = Activity::all();

@@ -9,7 +9,6 @@ MagicPagi.init = function(setting) {
     this.onclick = setting['onclick'];
     if(MagicPagi.JQUERYmode)
         $(window).bind('popstate', function(event) {
-            console.log('pop ' + window.event.state);
             MagicPagi.go(window.event.state);
             MagicPagi.onclick(window.event.state);
         });
