@@ -13,7 +13,7 @@
 
 // Test
 Route::get('/test', function(){ return view('test'); });
-Route::post('/test/login', 'PagesController@cas_login');
+Route::post('/test', function() { return Input::all(); });
 
 // Default
 Route::get('/', 'NewsController@view_home');
@@ -66,6 +66,7 @@ Route::get ('/supplies/approve', 'InventoryController@viewApprove');
 Route::get ('/supplies/approve/{page}', 'InventoryController@viewApprove');
 Route::post('/supplies/approve/list/{page}', 'InventoryController@getBorrowList');
 Route::post('/supplies/approve/modal', 'InventoryController@getApproveModal');
+Route::post('/supplies/approve/approve','InventoryController@approveBorrowList');
 Route::get ('/supplies/supplier', 'InventoryController@supplierPage');
 Route::post('/supplies/delete_supplier', 'InventoryController@deleteSupplier');
 Route::post('/supplies/edit_supplier', 'InventoryController@editSupplier');

@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    จัดการการยืมพัสดุ
+    อนุมัติการยืมพัสดุ
 @endsection
 @section('body-attribute')
 @endsection
@@ -17,7 +17,7 @@
             <div class = "panel panel-default">
                 <div class = "panel-body">
                     <div class="table-responsive margin-bottom-30">
-                        <table class="table nomargin" id="activity-table" width="100%">
+                        <table class="table nomargin" width="100%">
                             <tr>
                                 <th style="vertical-align:middle;text-align: center;width:8%">ลำดับ</th>
                                 <th style="vertical-align:middle;text-align: center;width:25%">กิจกรรม</th>
@@ -35,7 +35,7 @@
                                 <td id="create_at"style="vertical-align:middle;text-align: center">--/--/--</td>
                                 <td id="status"   style="vertical-align:middle;text-align: center">รอการอนุมัติ</td>
                                 <td style="vertical-align:middle;text-align: center">
-                                    <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow" onclick='$("#act-detail").modal("toggle");'>
+                                    <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow" onclick='$("#sup-detail").modal("toggle");'>
                                         <i class="fa fa-edit"></i>
                                         <span>รายละเอียด</span>
                                     </button>
@@ -49,9 +49,6 @@
                                 <tr>
                                     <td colspan="7" style="vetical-align:middle;text-align: center">
                                         <ul class="pagination">
-                                            <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                            <li id="p1"><a href="#">1</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -62,19 +59,31 @@
             </div>
         </div>
     </section>
-    <div id="act-detail" class="modal fade" role="dialog">
+    <div id="sup-detail" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="container" class="validate" method="post" enctype="multipart/form-data" style="margin:0">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
+                    <input type="hidden" name="list_id">
 
                     <div id="head" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 id="title" class="modal-title">
                             <i class="fa fa-list-alt"></i> รายละเอียดการจอง</h4>
+                            <br>
+                            <div class="col-sm-4">
+                                <label>กิจกรรม <span id="activity" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>หน่วยงาน <span id="division" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom:10px;">
+                                <label>เหตุผล</label><span>&emsp;</span><span id="reason" class="text-blue" data-default="ไม่มีข้อมูล"></span>
+                            </div>
+
                         <!-- TABs -->
-                        <ul id="act-tab" class="nav nav-tabs">
+                        <ul id="sup-tab" class="nav nav-tabs">
                             <li class="active"><a href="#" data-tab="reserve">ใบจอง</a></li>
                             <li><a href="#" data-tab="owner"  >ผู้จอง</a></li>
                         </ul>
@@ -82,21 +91,38 @@
 
                     <div id="content" class="modal-body">
 
-                        <div id="act-info-reserve">
-                            <table class="table nomargin" id="activity-table" width="100%">
+                        <div id="sup-info-reserve">
+                            <table class="table nomargin" width="100%">
                                 <tr>
-                                    <th style="vertical-align:middle;text-align: center;width:25%">ชื่อพัสดุ</th>
-                                    <th colspan="2" style="vertical-align:middle;text-align: center;width:20%">จำนวน</th>
-                                    <th style="vertical-align:middle;text-align: center;width:15%">ไม่อนุมัติ</th>
+                                    <th style="vertical-align:middle;text-align: center;width:15%">ชื่อพัสดุ</th>
+                                    <th colspan="2" style="vertical-align:middle;text-align: center;width:15%">จำนวน</th>
+                                    <th style="vertical-align:middle;text-align: center;width:5%">หน่วย</th>
+                                    <th style="vertical-align:middle;text-align: center;width:5%">ไม่อนุมัติ</th>
+                                    <th style="vertical-align:middle;text-align: center;width:10%">หมายเหตุ</th>
                                 </tr>
                                 <tr id="template-item" style="display:none;">
+                                    <input id="item_id" type="hidden" class="required">
                                     <td id="name"   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
                                     <td  style="vertical-align:middle;text-align: center">
-                                        <input id="borrow_allow" type="text">
+                                        <div class="stepper-wrap">
+                                            <input id="borrow_allow" type="text" min="0" class="form-control required" style="margin: 0px;">
+                                            <div class="stepper-btn-wrap">
+                                                <a class="stepper-btn-up">▴</a>
+                                                <a class="stepper-btn-dwn">▾</a>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td id="borrow_request"   style="vertical-align:middle;text-align: center">--</td>
+                                    <td id="unit"   style="vertical-align:middle;text-align: center">(หน่วย)</td>
                                     <td style="vertical-align:middle;text-align: center">
-                                        <label class="checkbox"><input type="checkbox" name="disapprove"><i style="position:initial"></i></label>
+                                        <label class="checkbox">
+                                            <input id='disapprove' type="hidden"   value="false">
+                                            <input id="disapprove" type="checkbox" value="false">
+                                            <i style="position:initial"></i>
+                                        </label>
+                                    </td>
+                                    <td id="reason" style="vertical-align:middle;text-align: center">
+                                        <input id="reason" type="text">
                                     </td>
                                 </tr>
                                 <tr id="item-notfound" style="display:none">
@@ -106,7 +132,7 @@
                             </table>
                         </div>
 
-                        <div id="act-info-owner" class="hide">
+                        <div id="sup-info-owner" class="hide">
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label>รหัสนิสิต <span id="student_id" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
@@ -136,23 +162,15 @@
                                     <label>Facebook <span id="facebook_link" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label>กิจกรรม <span id="activity" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>หน่วยงาน <span id="division" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-green" onclick="">
+                        <button type="button" class="btn btn-green" onclick="sendDetail();">
                             <i class="fa fa-check"></i><span>ยืนยัน</span>
                         </button>
-                        <button type="button" class="btn btn-red" onclick="">
+                        <button type="button" class="btn btn-red" onclick="disAll();">
                             <i class="fa fa-times"></i><span>ไม่อนุมัติทั้งหมด</span>
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -175,9 +193,16 @@
             padding-top: 10px;
             border-bottom: none;
         }
+        label.checkbox {
+            padding: 0;
+            margin-left: 27px;
+        }
         .checkbox input + i:after{
             top:1px;
-            left:29px;
+            left:2px;
+        }
+        tr.disabled {
+            background-color: #eee;
         }
     </style>
 @endsection
@@ -185,7 +210,7 @@
 @section('js')
     <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script type="text/javascript">
-        var modal = $("#act-detail");
+        var modal = $("#sup-detail");
         MagicPagi.init({
             url : '{{ url("supplies/approve")}}',
             ul : $("#page-nav .pagination"),
@@ -197,29 +222,37 @@
         }).go({{ $page }});
         function replace(data, postCallback) {
             modal.find("*[data-default]").each(function(){ $(this).html($(this).data('default')); });
-            modal.find("#act-tab > li").removeClass('active');
-            modal.find("#act-tab > li:first-child").addClass('active');
-            modal.find("div[id*='act-info']").addClass('hide').scrollTop(0);
-            modal.find("div[id*='act-info']:first-child").removeClass('hide');
+            modal.find("#sup-tab > li").removeClass('active');
+            modal.find("#sup-tab > li:first-child").addClass('active');
+            modal.find("div[id*='sup-info']").addClass('hide').scrollTop(0);
+            modal.find("div[id*='sup-info']:first-child").removeClass('hide');
             // console.log(data);
 
             var infoTabs = Object.getOwnPropertyNames(data);
             for(i in infoTabs) {
                 var names = Object.getOwnPropertyNames(data[infoTabs[i]]);
                 for(j in names) {
+                    if(infoTabs[i] == "head") {
+                        modal.find("#"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
+                        modal.find("#"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
+                        if(postCallback != null)
+                            postCallback(names[j],modal.find("#sup-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
+                    }
                     if(infoTabs[i] == "reserve") {
                         var attr = Object.getOwnPropertyNames(data[infoTabs[i]][names[j]]);
                         for(k in attr) {
                             // console.log(infoTabs[i], names[j], attr[k], data[infoTabs[i]][names[j]][attr[k]]);
-                            modal.find("#act-info-"+infoTabs[i]+" tr[id="+names[j]+"] td[id="+attr[k]+"]").html(data[infoTabs[i]][names[j]][attr[k]]);
-                            modal.find("#act-info-"+infoTabs[i]+" tr[id="+names[j]+"] input[id="+attr[k]+"]").val(data[infoTabs[i]][names[j]][attr[k]]);
+                            modal.find("#sup-info-"+infoTabs[i]+" tr[id="+names[j]+"] td[id="+attr[k]+"]").html(data[infoTabs[i]][names[j]][attr[k]]);
+                            modal.find("#sup-info-"+infoTabs[i]+" tr[id="+names[j]+"] input[id="+attr[k]+"]").val(data[infoTabs[i]][names[j]][attr[k]]);
+                            if(postCallback != null)
+                                postCallback(attr[k],modal.find("#sup-info-"+infoTabs[i]+" tr[id="+names[j]+"] *[id="+attr[k]+"]"),data[infoTabs[i]][names[j]][attr[k]]);
                         }
                     }
                     else {
-                        modal.find("#act-info-"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
-                        modal.find("#act-info-"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
+                        modal.find("#sup-info-"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
+                        modal.find("#sup-info-"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
                         if(postCallback != null)
-                            postCallback(names[j],modal.find("#act-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
+                            postCallback(names[j],modal.find("#sup-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
                     }
                 }
             }
@@ -234,13 +267,42 @@
                 },
                 success: function(response) {
                     _toastr("Okay", "top-right", "success", false);
-                    $("#act-detail").modal('toggle');
+                    $("#sup-detail").modal('toggle');
+                    $("#sup-detail input[name=list_id]").val(id);
                     var items = Object.getOwnPropertyNames(response['reserve']);
                     var itemsList = $("#items-list").empty();
-                    for(i in items)
-                        $("#template-item").clone(true).attr('id',items[i]).css('display','').appendTo(itemsList);
+                    for(i in items) {
+                        var template = $("#template-item").clone(true).attr('id',items[i]).css('display','');
+                        template.find("#item_id").val(items[i]);
+                        template.find("input").each(function() {
+                            $(this).attr('name',$(this).attr('id')+'[' + i + ']');
+                        });
+                        template.find("label[class=checkbox]").each(function () {
+                            var row = $(this.parentElement.parentElement),
+                                borrow = row.find("input[id=borrow_allow]"),
+                                input = $(this).find("input[type=checkbox]"),
+                                inputHidden = $(this).find("input[type=hidden]"),
+                                i = $(this).find("i");
+                            i.click(function() {
+                                var value = JSON.parse(input.val());
+                                inputHidden.disabled = value;
+                                input.val(!value);
+                                borrow.prop("disabled", !value);
+                                row.toggleClass("disabled", !value);
 
-                    replace(response);
+                            });
+                        });
+                        template.appendTo(itemsList);
+                    }
+
+                    replace(response, function(name, element, data) {
+                        switch(name) {
+                            case "borrow_request":
+                                element.html("จาก " + data);
+                                $(element[0].parentElement).find("#borrow_allow").val(data);
+                                break;
+                        }
+                    });
                 },
                 error : function(e) {
                     var response = e.responseText;
@@ -279,12 +341,30 @@
                 }
             });
         }
-        $("#act-detail").find("#act-tab a[data-tab]").click(function(e) {
+        function disAll() {
+            $("#sup-detail label[class=checkbox] i").trigger("click");
+        }
+        function sendDetail() {
+            $.ajax({
+                type: "POST",
+                url: '{{ url("/test") }}',
+                data: (new FormData($("#sup-detail #container")[0])),
+                processData: false,
+                contentType: false,
+                success: function(response)      {
+                    console.log(response);
+                },
+                error : function(e) {
+                    console.log(e);
+                }
+              });
+        }
+        $("#sup-detail").find("#sup-tab a[data-tab]").click(function(e) {
             e.preventDefault();
-            $("#act-detail #act-tab > li").removeClass('active');
+            $("#sup-detail #sup-tab > li").removeClass('active');
             $(this.parentElement).addClass('active');
-            $("#act-detail div[id*='act-info-']").addClass('hide').scrollTop(0);
-            $("#act-detail #act-info-"+$(this).data('tab')).removeClass('hide');
+            $("#sup-detail div[id*='sup-info-']").addClass('hide').scrollTop(0);
+            $("#sup-detail #sup-info-"+$(this).data('tab')).removeClass('hide');
         });
         loadList({{ $page }});
     </script>

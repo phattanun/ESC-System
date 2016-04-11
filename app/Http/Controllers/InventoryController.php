@@ -321,7 +321,7 @@ class InventoryController extends Controller
         if(!isset($user['supplies'])) return response("noinfo", "500");
         $borrow_list_id = $request->input('id');
         $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first();
-        $borrow_item_list = $borrow_list_detail->itemList()->withPivot('borrow_request_amount')->get();
+            $borrow_item_list = $borrow_list_detail->itemList()->withPivot('borrow_request_amount','borrow_actual_amount')->get();
 
         $creator = $borrow_list_detail->creator()->first();
         $div_info = $borrow_list_detail->division()->first();
@@ -336,15 +336,6 @@ class InventoryController extends Controller
         $send_data['owner']['phone_number'] = $creator['phone_number'];
         $send_data['owner']['email'] = $creator['email'];
         $send_data['owner']['facebook_link'] = $creator['facebook_link'];
-        $send_data['owner']['activity'] = $borrow_list_detail->activity()->first()['name'];
-        if($div_info['type']=='Generation')
-            $send_data['owner']['division'] = 'รุ่น'." ".$div_info['name'];
-        if($div_info['type']=='Group')
-            $send_data['owner']['division'] = 'กรุ๊ป'." ".$div_info['name'];
-        if($div_info['type']=='Club')
-            $send_data['owner']['division'] = 'ชมรม'." ".$div_info['name'];
-        if($div_info['type']=='Department')
-            $send_data['owner']['division'] = 'ภาควิชา'." ".$div_info['name'];
 
         $send_data['reserve'] = [];
         $count = 1;
@@ -352,10 +343,21 @@ class InventoryController extends Controller
             $tmp = [];
             $tmp['name'] = $b['name'];
             $tmp['borrow_request'] = $b->pivot->borrow_request_amount;
+            $tmp['borrow_allow'] = $b->pivot->borrow_actual_amount;
             $send_data['reserve'][$count] = $tmp;
             $count++;
         }
 
+        $send_data['head']['activity'] = $borrow_list_detail->activity()->first()['name'];
+        if($div_info['type']=='Generation')
+            $send_data['head']['division'] = 'รุ่น'." ".$div_info['name'];
+        if($div_info['type']=='Group')
+            $send_data['head']['division'] = 'กรุ๊ป'." ".$div_info['name'];
+        if($div_info['type']=='Club')
+            $send_data['head']['division'] = 'ชมรม'." ".$div_info['name'];
+        if($div_info['type']=='Department')
+            $send_data['head']['division'] = 'ภาควิชา'." ".$div_info['name'];
+        $send_data['head']['reason'] = $borrow_list_detail->reason;
 
         return $send_data;
     }
@@ -411,6 +413,28 @@ class InventoryController extends Controller
 
         }
         return $send_data;
+    }
+
+    public function approveBorrowList(Request $request){
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return response("noinfo", "500");
+
+        $approver_id = $request->input('approver_id');
+        $list_id = $request->input('list_id');
+        $item_id = $request->input('item_id');
+        $borrow_allow = $request->input('borrow_allow');
+        $disapprove = $request->input('disapprove');
+        $reason = $request->input('reason');
+
+        for ($i = 0; $i < count($item_id); ++$i) {
+
+            if(!$disapprove[$i])
+                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>$borrow_allow[$i],'approver_id'=>$approver_id]);
+            else
+                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>0,'approver_id'=>$approver_id]);
+        }
+
+
     }
 
     public function supplierPage(){
