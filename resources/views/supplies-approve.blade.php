@@ -65,6 +65,7 @@
                 <form id="container" class="validate" method="post" enctype="multipart/form-data" style="margin:0">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
+                    <input type="hidden" name="list_id">
 
                     <div id="head" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -251,6 +252,7 @@
                 success: function(response) {
                     _toastr("Okay", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');
+                    $("#sup-detail input[name=list_id]").val(id);
                     var items = Object.getOwnPropertyNames(response['reserve']);
                     var itemsList = $("#items-list").empty();
                     for(i in items) {
