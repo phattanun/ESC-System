@@ -13,7 +13,7 @@
 
 // Test
 Route::get('/test', function(){ return view('test'); });
-Route::post('/test/login', 'PagesController@cas_login');
+Route::post('/test', function() { return Input::all(); });
 
 // Default
 Route::get('/', 'NewsController@view_home');
