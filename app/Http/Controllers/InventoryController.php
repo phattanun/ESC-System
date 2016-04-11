@@ -349,6 +349,7 @@ class InventoryController extends Controller
             $tmp = [];
             $tmp['name'] = $b['name'];
             $tmp['borrow_request'] = $b->pivot->borrow_request_amount;
+            $tmp['borrow_allow'] = $b->pivot->borrow_actual_amount;
             $send_data['reserve'][$count] = $tmp;
             $count++;
         }
@@ -408,6 +409,24 @@ class InventoryController extends Controller
 
         }
         return $send_data;
+    }
+
+    public function approveBorrowList(Request $request){
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return response("noinfo", "500");
+
+        $approver_id = $request->input('approver_id');
+        $list_id = $request->input('list_id');
+        $item_id = $request->input('item_id');
+        $borrow_allow = $request->input('borrow_allow');
+        $disapprove = $request->input('disapprove');
+        $reason = $request->input('reason');
+
+        foreach($item_id as $id){
+
+        }
+
+
     }
 
     public function supplierPage(){
