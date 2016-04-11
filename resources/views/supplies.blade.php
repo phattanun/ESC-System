@@ -418,7 +418,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form class="validate" action="{{url('/supplies/create')}}" method="post"
-                      enctype="multipart/form-data" data-success="สร้างพัสดุสำเร็จ<script>window.location='{{url('/supplies')}}';</script>"
+                      {{--enctype="multipart/form-data" data-success="สร้างพัสดุสำเร็จ<script>window.location='{{url('/supplies')}}';</script>"--}}
+                      enctype="multipart/form-data" data-success="สร้างพัสดุสำเร็จ"
                       data-toastr-position="top-right">
                     <!-- required [php action request] -->
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
@@ -431,6 +432,23 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>รูปภาพ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="fancy-file-upload fancy-file-default">
+                                <i class="fa fa-upload"></i>
+                                <input type="file" id="create-item-pic-input" required class="form-control"  onchange="jQuery(this).next('input').val(this.value);" />
+                                <input type="text" id="create-item-pic-name" required class="form-control" placeholder="ยังไม่ได้เลือกรูปภาพ" readonly="" />
+                                <span class="button">เลือกไฟล์</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="cropping-wrapper" style="margin-top: 0px;margin-bottom: 0px;">
+                        <img class="hidden" id="cropping-area" style="max-width: 100%">
+                        <input type="hidden" name="createItemPicCropped" id="create-item-pic-cropped" class="form-control" placeholder="ยังไม่ได้เลือกรูปภาพ" value=""/>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3" style="margin-top: 5px;">
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
@@ -490,7 +508,7 @@
                             <label><b>หน่วย</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input  id="create-item-store-unit" type="text" name="createItemStoreUnit" class="form-control required" placeholder="ลักษณนาม">
+                            <input  id="create-item-store-unit" type="text" class="form-control required" placeholder="ลักษณนาม">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -503,25 +521,25 @@
                     </div>
 
                     <div class="row text-center" style="margin-top: 15px;">
-                        <a id="addShop" class="btn btn-3d btn-reveal btn-green">
+                        <a id="createItemAddShop" class="btn btn-3d btn-reveal btn-green">
                             <i class="fa fa-plus"></i>
                             <span>เพิ่มร้านค้า</span>
                         </a>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-modal-item table-cart">
+                    <div id="create-item-store-table" class="table-responsive hidden">
+                        <table class="table table-bordered table-striped table-cart">
                             <thead>
                             <tr>
-                                <th class="width-10 remove-button-col" style="width: 10px !important;"></th>
+                                <th class="remove-button-col"></th>
                                 <th  class="table-cart-top">ลำดับ</th>
                                 <th class="table-cart-top">สถานที่ซื้อ</th>
                                 <th class="table-cart-top">ราคาต่อหน่วย</th>
                                 <th class="table-cart-top">หน่วย</th>
                             </tr>
                             </thead>
-                            <tbody class="modal-item-table-body">
+                            <tbody id="add-store-table-body">
                             <tr class="modal-item-tuple">
-                                <td class="remove-button-col" style="max-width: 60px; max-height: 60px">
+                                <td class="remove-button-col text-center">
                                     <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
                                         <i class="fa fa-minus"></i>
                                         <i class="fa fa-trash"></i>
@@ -803,627 +821,6 @@
 
                     </ul>
 
-                    <!--default ul-->
-                    <ul class="shop-item-list row list-inline nomargin">
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="label label-success">NEW</span>
-                                        <span class="label label-danger">SALE</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Cotton 100% - Pink Shirt</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        <span class="line-through">$98.00</span>
-                                        $78.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p11.jpg" alt="shop hover image">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p3.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="2" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="2" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Black Long Lady Shirt</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-0 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $128.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <span class="out-of-stock">out of stock</span><!-- add .clean to remove css characteres -->
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p12.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="3" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="3" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- countdown -->
-                                    <div class="shop-item-counter">
-                                        <div class="countdown is-countdown" data-from="January 31, 2018 15:03:26" data-labels="years,months,weeks,days,hour,min,sec"><span class="countdown-row countdown-show4"><span class="countdown-section"><span class="countdown-amount">733</span><span class="countdown-period">days</span></span><span class="countdown-section"><span class="countdown-amount">15</span><span class="countdown-period">hour</span></span><span class="countdown-section"><span class="countdown-amount">30</span><span class="countdown-period">min</span></span><span class="countdown-section"><span class="countdown-amount">19</span><span class="countdown-period">sec</span></span></span></div>
-                                    </div>
-                                    <!-- /countdown -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Night Dress For Ladies</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-1 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $34.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <!-- CAROUSEL -->
-                                        <div style="opacity: 1; display: block;" class="owl-carousel nomargin owl-theme owl-carousel-init" data-plugin-options="{&quot;singleItem&quot;: true, &quot;autoPlay&quot;: 3000, &quot;navigation&quot;: false, &quot;pagination&quot;: false, &quot;transitionStyle&quot;:&quot;fadeUp&quot;}">
-                                            <div class="owl-wrapper-outer"><div style="width: 1152px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px); perspective-origin: 96px 50%;" class="owl-wrapper"><div style="width: 192px;" class="owl-item"><img class="img-responsive" src="assets/images/demo/shop/products/300x450/p10.jpg" alt=""></div><div style="width: 192px;" class="owl-item"><img class="img-responsive" src="assets/images/demo/shop/products/300x450/p1.jpg" alt=""></div><div style="width: 192px;" class="owl-item"><img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt=""></div></div></div>
-
-
-                                        </div>
-                                        <!-- /CAROUSEL -->
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="4" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="4" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="label label-success">NEW</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Long Grey Dress - Special</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-5 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $76.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p9.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="5" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="5" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="label label-danger">SALE</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Grey Lady Hat</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        <span class="line-through">$67.00</span>
-                                        $21.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p8.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="6" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="6" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- countdown -->
-                                    <div class="shop-item-counter">
-                                        <div class="countdown is-countdown" data-from="December 31, 2017 08:22:01" data-labels="years,months,weeks,days,hour,min,sec"><span class="countdown-row countdown-show4"><span class="countdown-section"><span class="countdown-amount">702</span><span class="countdown-period">days</span></span><span class="countdown-section"><span class="countdown-amount">8</span><span class="countdown-period">hour</span></span><span class="countdown-section"><span class="countdown-amount">48</span><span class="countdown-period">min</span></span><span class="countdown-section"><span class="countdown-amount">54</span><span class="countdown-period">sec</span></span></span></div>
-                                    </div>
-                                    <!-- /countdown -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Beach Black Lady Suit</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $56.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p7.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="7" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="7" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Town Dress - Black</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $154.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p6.jpg" alt="shop first image">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="8" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="8" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Chick Lady Fashion</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $167.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <!-- CAROUSEL -->
-                                        <div style="opacity: 1; display: block;" class="owl-carousel buttons-autohide controlls-over nomargin owl-theme owl-carousel-init" data-plugin-options="{&quot;singleItem&quot;: true, &quot;autoPlay&quot;: 3500, &quot;navigation&quot;: false, &quot;pagination&quot;: false, &quot;transitionStyle&quot;:&quot;fadeUp&quot;}">
-                                            <div class="owl-wrapper-outer"><div style="width: 768px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px); perspective-origin: 96px 50%;" class="owl-wrapper"><div style="width: 192px;" class="owl-item"><img class="img-responsive" src="assets/images/demo/shop/products/300x450/p5.jpg" alt=""></div><div style="width: 192px;" class="owl-item"><img class="img-responsive" src="assets/images/demo/shop/products/300x450/p1.jpg" alt=""></div></div></div>
-
-                                        </div>
-                                        <!-- /CAROUSEL -->
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="9" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="9" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Pink Dress 100% Cotton</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $44.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p4.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="10" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="10" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>White And Black</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $31.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p11.jpg" alt="shop first image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="11" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="11" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- countdown -->
-                                    <div class="shop-item-counter">
-                                        <div class="countdown is-countdown" data-from="January 12, 2018 12:34:55" data-labels="years,months,weeks,days,hour,min,sec"><span class="countdown-row countdown-show4"><span class="countdown-section"><span class="countdown-amount">714</span><span class="countdown-period">days</span></span><span class="countdown-section"><span class="countdown-amount">13</span><span class="countdown-period">hour</span></span><span class="countdown-section"><span class="countdown-amount">1</span><span class="countdown-period">Minute</span></span><span class="countdown-section"><span class="countdown-amount">48</span><span class="countdown-period">sec</span></span></span></div>
-                                    </div>
-                                    <!-- /countdown -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Long Black Top</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $99.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p2.jpg" alt="shop first image">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p12.jpg" alt="shop hover image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="12" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="12" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="label label-success">NEW</span>
-                                        <span class="label label-danger">SALE</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Black Fashion Hat</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        <span class="line-through">$77.00</span>
-                                        $65.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                    </ul>
-                    <!--default ul-->
-
                     <hr>
 
                     <!-- Pagination Default -->
@@ -1451,6 +848,7 @@
 
 @section('css')
     <link href="{{url('assets/css/layout-shop.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/plugins/cropper/cropper.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
         .no-margin{
             margin: 0;
@@ -1501,6 +899,7 @@
 
 @section('js')
     <script type="text/javascript" src="{{url('assets/js/view/demo.shop.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/plugins/cropper/cropper.min.js')}}"></script>
     <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script>
         /** Form Stepper
@@ -1558,6 +957,75 @@
         searchCountInventory(nowPage);
 
         var allItem;
+
+//create Item
+        var sequenceNumber=1;
+        // File Handling
+        var  $image=$('#cropping-area');
+        var $imageWrapper = $('#cropping-wrapper');
+        function handleFileSelect(evt) {
+            var f = evt.target.files[0];
+            if (!f.type.match('image.*')) {
+                return false;
+            }
+            var reader = new FileReader();
+            reader.onload = (function(theFile) {
+                return function(e) {
+                    $image.cropper('replace',e.target.result);
+                }
+            })(f);
+            reader.readAsDataURL(f);
+        };
+        var croppedInput=$('#create-item-pic-cropped');
+        $('#create-item-pic-input').on('change',function(e){
+            $image.cropper({
+                aspectRatio: 2 / 3,
+                autoCropArea: 1.0,
+                cropend: function() {
+                    croppedInput.val(($image.cropper("getCroppedCanvas",{
+                        width: 300,
+                        height: 450
+                    })).toDataURL());
+                },
+                built: function () {
+                    croppedInput.val(($image.cropper("getCroppedCanvas",{
+                        width: 300,
+                        height: 450
+                    })).toDataURL());
+                }
+            });
+            handleFileSelect(e);
+            $image.removeClass('hidden');
+            $imageWrapper.css('margin-bottom','15px');
+        });
+        $('#modalItemCreate').on('shown.bs.modal', function () {
+        }).on('hidden.bs.modal', function () {
+            sequenceNumber=1;
+            $('#add-store-table-body').html('');
+            $('#create-item-store-table').addClass('hidden');
+            $('#create-item-pic-name').val('');
+            $image.cropper('destroy');
+            $image.attr('src','');
+            $image.addClass('hidden');
+            $imageWrapper.css('margin-bottom','0px');
+        });
+        $('#createItemAddShop').click(function (){
+            $('#create-item-store-table').removeClass('hidden');
+            $('#add-store-table-body').append('<tr class="modal-item-tuple">'+
+                    '<td class="remove-button-col text-center">'+
+                        '<a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'+
+                            '<i class="fa fa-minus"></i>'+
+                            '<i class="fa fa-trash"></i>'+
+                        '</a>'+
+                    '</td>'+
+                    '<td>'+sequenceNumber+'</td>'+
+                    '<td>'+ $( "#create-item-store option:selected" ).text() +'</td><input type="hidden" name="createItemStore[]" class="form-control" value="'+ $( "#create-item-store" ).val() +'">'+
+                    '<td>'+ $('#create-item-store-unit').val() +'</td><input type="hidden" name="createItemStoreUnit[]" class="form-control" value="'+ $('#create-item-store-unit').val() +'">'+
+                    '<td>'+ $('#create-item-price_per_unit').val() +'</td><input type="hidden" name="createItemStorePrice[]" class="form-control" value="'+ $('#create-item-price_per_unit').val() +'">'+
+            '</tr>'
+            );
+            sequenceNumber++;
+        });
 
         //trigger activity and division to other in cart modal
         function otherActivity(){

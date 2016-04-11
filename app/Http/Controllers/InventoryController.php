@@ -85,6 +85,7 @@ class InventoryController extends Controller
         return view('supplies', compact('page','itemAmount','activity','division','supplier'));
     }
     public function createItem(){
+
         return 'success';
     }
 
