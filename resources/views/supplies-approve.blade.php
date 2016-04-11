@@ -29,11 +29,11 @@
                             </tr>
                             <tr id="template-reserve" style="display:none">
                                 <td id="number"   style="vertical-align:middle;text-align: center">-</td>
-                                <td id="activity_name" style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
-                                <td id="division_name"     style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
-                                <td id="creator_name"  style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
+                                <td id="activity_name" style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
+                                <td id="division_name"     style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
+                                <td id="creator_name"  style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
                                 <td id="create_at"style="vertical-align:middle;text-align: center">--/--/--</td>
-                                <td id="status"   style="vertical-align:middle;text-align: center">รอการอนุมัติ</td>
+                                <td id="status"   style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
                                 <td style="vertical-align:middle;text-align: center">
                                     <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow" onclick='$("#sup-detail").modal("toggle");'>
                                         <i class="fa fa-edit"></i>
@@ -105,7 +105,7 @@
                                     <td id="name"   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
                                     <td  style="vertical-align:middle;text-align: center">
                                         <div class="stepper-wrap">
-                                            <input id="borrow_allow" type="text" min="0" class="form-control required" style="margin: 0px;">
+                                            <input id="borrow_allow" type="number" data-min="0" class="form-control required" style="margin: 0px;">
                                             <div class="stepper-btn-wrap">
                                                 <a class="stepper-btn-up">▴</a>
                                                 <a class="stepper-btn-dwn">▾</a>
@@ -204,6 +204,11 @@
         tr.disabled {
             background-color: #eee;
         }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
     </style>
 @endsection
 
@@ -284,22 +289,42 @@
                                 inputHidden = $(this).find("input[type=hidden]"),
                                 i = $(this).find("i");
                             i.click(function() {
-                                var value = JSON.parse(input.val());
-                                inputHidden.disabled = value;
-                                input.val(!value);
-                                borrow.prop("disabled", !value);
-                                row.toggleClass("disabled", !value);
-
+                                var value = !JSON.parse(input.val());
+                                inputHidden.disabled = !value;
+                                input.val(value);
+                                borrow.prop("disabled", value);
+                                row.toggleClass("disabled", value);
+                                if(value) {
+                                    borrow.data('cur',borrow.val());
+                                    borrow.val(0);
+                                }else {
+                                    borrow.val(borrow.data('cur'));
+                                }
                             });
                         });
                         template.appendTo(itemsList);
                     }
+                    itemsList.find(".stepper-wrap").each(function() {
+                        var input = $(this).find("input"),
+                            up = $(this).find(".stepper-btn-up"),
+                            down = $(this).find(".stepper-btn-dwn");
+                        up.click(function() {
+                            input.val(Math.min(parseInt(input.val()) + 1,input.data('max')));
+                        });
+                        down.click(function() {
+                            input.val(Math.max(parseInt(input.val()) - 1,input.data('min')));
+                        });
+                    });
 
                     replace(response, function(name, element, data) {
                         switch(name) {
                             case "borrow_request":
                                 element.html("จาก " + data);
-                                $(element[0].parentElement).find("#borrow_allow").val(data);
+                                $(element[0].parentElement).find("#borrow_allow").data('max',data);
+                                break;
+                            case "borrow_allow":
+                                if(data==null)
+                                    element.val(element.data('max'));
                                 break;
                         }
                     });
@@ -319,7 +344,6 @@
                   _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    _toastr("Okay", "top-right", "success", false);
                     var contents = Object.getOwnPropertyNames(response);
                     var container = $("#contents-list").empty();
                     for(i in contents) {
@@ -351,11 +375,12 @@
                 data: (new FormData($("#sup-detail #container")[0])),
                 processData: false,
                 contentType: false,
-                success: function(response)      {
-                    console.log(response);
+                success: function() {
+                    _toastr("ยืนยันสำเร็จ", "top-right", "success", false);
+                    $("#sup-detail").modal('toggle');
                 },
                 error : function(e) {
-                    console.log(e);
+                    _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "success", false);
                 }
               });
         }
