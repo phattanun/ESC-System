@@ -462,9 +462,9 @@
                         </div>
                         <div class="col-md-9">
                             <select required id="create-item-type" name="createItemType" class="form-control select2 required">
-                                <option id="edit-item-type-0" class="edit-item-type-all" selected="selected" value="0">ประเภทพัสดุ</option>
-                                <option id="edit-item-type-1" class="edit-item-type-all" value="ใช้แล้วหมดไป">ใช้แล้วหมดไป</option>
-                                <option id="edit-item-type-2" class="edit-item-type-all" value="ใช้แล้วต้องนำมาคืน">ใช้แล้วต้องนำมาคืน</option>
+                                <option selected="selected" value="0">ประเภทพัสดุ</option>
+                                <option value="ใช้แล้วหมดไป">ใช้แล้วหมดไป</option>
+                                <option value="ใช้แล้วต้องนำมาคืน">ใช้แล้วต้องนำมาคืน</option>
                             </select>
                         </div>
                     </div>
@@ -546,18 +546,6 @@
                             </tr>
                             </thead>
                             <tbody id="add-store-table-body">
-                            <tr class="modal-item-tuple">
-                                <td class="remove-button-col text-center">
-                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
-                                        <i class="fa fa-minus"></i>
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>จีฉ่อย</td>
-                                <td>20.00</td>
-                                <td>เครื่อง</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -643,17 +631,17 @@
                             <input id="edit-item-unit" type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
                         </div>
                     </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ราคากลาง (ต่อหน่วย)</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-price-per-unit" required type="text" min="0" name="editItemPricePerUnit" class="form-control stepper required">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
-                            <label><b>ราคาที่ซื้อ (ต่อหน่วย)</b></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input id="edit-item-price_per_unit" type="text" value="" min="0" class="form-control stepper required">
-                        </div>
-                    </div>
                     <div class="row" style="margin-top: 15px;">
                         <div class="col-md-3" style="margin-top: 5px;">
                             <label><b>สถานที่ซื้อ</b></label>
@@ -667,11 +655,43 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>หน่วย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-store-unit" type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ราคาที่ซื้อ (ต่อหน่วย)</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input id="edit-item-price_per_unit" type="text" value="" min="0" class="form-control stepper required">
+                        </div>
+                    </div>
+
                     <div class="row text-center" style="margin-top: 15px;">
                         <a id="addShop" class="btn btn-3d btn-reveal btn-green" href="/addStore">
                             <i class="fa fa-plus"></i>
                             <span>เพิ่มร้านค้า</span>
                         </a>
+                    </div>
+                    <div id="edit-item-store-table" class="table-responsive hidden">
+                        <table class="table table-bordered table-striped table-cart">
+                            <thead>
+                            <tr>
+                                <th class="remove-button-col"></th>
+                                <th  class="table-cart-top">ลำดับ</th>
+                                <th class="table-cart-top">สถานที่ซื้อ</th>
+                                <th class="table-cart-top">ราคาต่อหน่วย</th>
+                                <th class="table-cart-top">หน่วย</th>
+                            </tr>
+                            </thead>
+                            <tbody id="edit-store-table-body">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -963,7 +983,7 @@
             $('#create-item-store-table').removeClass('hidden');
             $('#add-store-table-body').append('<tr class="modal-item-tuple">'+
                     '<td class="remove-button-col text-center">'+
-                        '<a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'+
+                        '<a id="" class="delete-create-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">'+
                             '<i class="fa fa-minus"></i>'+
                             '<i class="fa fa-trash"></i>'+
                         '</a>'+
@@ -1164,30 +1184,60 @@
         }
 
         //modalItemEdit
+        $('#modalItemEdit').on('hidden.bs.modal', function () {
+            $('#edit-store-table-body').html('');
+            $('#edit-item-store-table').addClass('hidden');
+//            $('#edit-item-pic-name').val('');
+//            $image.cropper('destroy');
+//            $image.attr('src','');
+//            $image.addClass('hidden');
+//            $imageWrapper.css('margin-bottom','0px');
+        });
         function openModalItemEdit(id){
-//            alert("a"+id);
+
             $("#edit-item-id").text(allItem[id]['inv_id']);
             $("#edit-item-name").val(allItem[id]['name']);
-
-//            $(".edit-item-type-all").removeAttrs('selected');
-//            if(allItem[id]['type'] == 'ใช้แล้วหมดไป')
-//                $("#edit-item-type-1").attr('selected','selected');
-//            else if(allItem[id]['type'] == 'ใช้แล้วต้องนำมาคืน')
-//                $("#edit-item-type-2").attr('selected','selected');
-//            else
-//                $("#edit-item-type-0").attr('selected','selected');
-//            _select2();
-
+            if(allItem[id]['type']=='' || allItem[id]['type']==null){
+                $('#edit-item-type').select2("val", '0');
+            } else {
+            $('#edit-item-type').select2("val", allItem[id]['type']);
+            }
             $("#edit-item-total_qty").val(allItem[id]['total_qty']);
             $("#edit-item-broken_qty").val(allItem[id]['broken_qty']);
             $("#edit-item-unit").val(allItem[id]['unit']);
-            $("#edit-item-price_per_unit").val(allItem[id]['price_per_unit']);
+            $("#edit-item-price-per-unit").val(allItem[id]['price_per_unit']);
 
-//            $("#edit-item-store-all").removeAttrs('selected');
-            $("#edit-item-store").val(allItem[id]['store_id']);
-            $('select2 option[value="1"]').attr("selected",true);
             $("#edit-item-confirm-button").removeAttrs('onclick');
             $("#edit-item-confirm-button").attr('onclick','confirmEditItem('+allItem[id]['inv_id']+')');
+            var len = allItem[id]['supplier'].length;
+            if(len!=0){
+                $('#edit-item-store-table').removeClass('hidden');
+                for(var i = 0 ; i < len ;i++) {
+                    if (allItem[id]['supplier'][i]['price_per_unit'] == null)
+                        var price_per_unit = '-';
+                    else
+                        var price_per_unit = allItem[id]['supplier'][i]['price_per_unit'];
+
+                    if (allItem[id]['supplier'][i]['unit'] == null)
+                        var unit = '-';
+                    else
+                        var unit = allItem[id]['supplier'][i]['unit'];
+
+                    var tmp = '<tr class="modal-item-tuple">'+
+                    '<td class="remove-button-col text-center">'+
+                    '<a id="" class="delete-edit-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบร้านนี้">'+
+                    '<i class="fa fa-minus"></i>'+
+                    '<i class="fa fa-trash"></i>'+
+                    '</a>'+
+                    '</td>'
+                            + '<td >' + (i + 1) + '</td>'
+                            + '<td >' + allItem[id]['supplier'][i]['name'] + '</td>'
+                            + '<td >' + price_per_unit + '</td>'
+                            + '<td >' + unit + '</td>'
+                            + '</tr>';
+                    $("#edit-store-table-body").append(tmp);
+                }
+            }
 
             $('#modalItemEdit').modal('show');
         }

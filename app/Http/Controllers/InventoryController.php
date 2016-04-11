@@ -98,13 +98,15 @@ class InventoryController extends Controller
             'editor_id'=> $user['student_id'],
             'edit_at'=> Carbon::now()
         ]);
-        for($i=0;$i<sizeof($_POST['createItemStore']);$i++){
-            InventorySupplier::create([
-                'inv_id'=> $newInventory->inv_id,
-                'supplier_id'=>$_POST['createItemStore'][$i],
-                'unit'=>$_POST['createItemStoreUnit'][$i],
-                'price_per_unit'=>$_POST['createItemStorePrice'][$i]
-            ]);
+        if(isset($_POST['createItemStore'])){
+            for($i=0;$i<sizeof($_POST['createItemStore']);$i++){
+                InventorySupplier::create([
+                    'inv_id'=> $newInventory->inv_id,
+                    'supplier_id'=>$_POST['createItemStore'][$i],
+                    'unit'=>$_POST['createItemStoreUnit'][$i],
+                    'price_per_unit'=>$_POST['createItemStorePrice'][$i]
+                ]);
+            }
         }
         return 'success';
     }
