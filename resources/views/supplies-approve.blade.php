@@ -289,12 +289,17 @@
                                 inputHidden = $(this).find("input[type=hidden]"),
                                 i = $(this).find("i");
                             i.click(function() {
-                                var value = JSON.parse(input.val());
-                                inputHidden.disabled = value;
-                                input.val(!value);
-                                borrow.prop("disabled", !value);
-                                row.toggleClass("disabled", !value);
-
+                                var value = !JSON.parse(input.val());
+                                inputHidden.disabled = !value;
+                                input.val(value);
+                                borrow.prop("disabled", value);
+                                row.toggleClass("disabled", value);
+                                if(value) {
+                                    borrow.data('cur',borrow.val());
+                                    borrow.val(0);
+                                }else {
+                                    borrow.val(borrow.data('cur'));
+                                }
                             });
                         });
                         template.appendTo(itemsList);
