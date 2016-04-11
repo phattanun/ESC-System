@@ -362,7 +362,6 @@
                                     <td style="min-width: 110px; max-width: 110px;">20.00</td>
                                     <td style="min-width: 99px; max-width: 99px;">เครื่อง</td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -414,10 +413,15 @@
         </div>
     </div>
 
-    <div id="modalItemCreate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CreateItem" aria-hidden="true">
+    <div id="modalItemCreate" class="modal fade" role="dialog" aria-labelledby="CreateItem" aria-hidden="true">
+
         <div class="modal-dialog">
             <div class="modal-content">
-
+                <form class="validate" action="{{url('/supplies/create')}}" method="post"
+                      enctype="multipart/form-data" data-success="สร้างพัสดุสำเร็จ<script>window.location='{{url('/supplies')}}';</script>"
+                      data-toastr-position="top-right">
+                    <!-- required [php action request] -->
+                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -431,7 +435,7 @@
                             <label><b>ชื่อพัสดุ</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input id="edit-item-name" placeholder="กรุณากรอกชื่อพัสดุ" type="text"  name="" value="" class="form-control required">
+                            <input required id="create-item-name" placeholder="กรุณากรอกชื่อพัสดุ" type="text"  name="createItemName" class="form-control required">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -439,7 +443,7 @@
                             <label><b>ประเภท</b></label>
                         </div>
                         <div class="col-md-9">
-                            <select id="edit-item-type" name="project" class="form-control select2 required">
+                            <select required id="create-item-type" name="createItemType" class="form-control select2 required">
                                 <option id="edit-item-type-0" class="edit-item-type-all" selected="selected" value="0">ประเภทพัสดุ</option>
                                 <option id="edit-item-type-1" class="edit-item-type-all" value="ใช้แล้วหมดไป">ใช้แล้วหมดไป</option>
                                 <option id="edit-item-type-2" class="edit-item-type-all" value="ใช้แล้วต้องนำมาคืน">ใช้แล้วต้องนำมาคืน</option>
@@ -451,7 +455,7 @@
                             <label><b>จำนวนทั้งหมด</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input id="edit-item-total_qty" type="text" value="" min="0" class="form-control stepper required">
+                            <input required id="create-item-total_qty" type="text" min="0" name="createItemTotal" class="form-control stepper required">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -459,40 +463,77 @@
                             <label><b>หน่วย</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input id="edit-item-unit" type="text" name="" value="" class="form-control required" placeholder="ลักษณนาม">
+                            <input required id="create-item-unit" type="text" name="createItemUnit" class="form-control required" placeholder="ลักษณนาม">
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
+                    <div class="row" style="margin-top: 15px;margin-bottom: 0px">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>สถานที่ซื้อ</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <select id="create-item-store"  class="form-control select2">
+                                <option selected="selected" value="0">สถานที่ซื้อ</option>
+                                @foreach($supplier as $asupplier)
+                                    <option value="{{$asupplier['supplier_id']}}">{{$asupplier['name']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div  style="margin-bottom: 15px;text-align: right">
+                        <a target="_blank" class="underline-hover" href="{{url('/supplies/supplier')}}">คลิกที่นี่เพื่อเพิ่มร้านค้า</a>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>หน่วย</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input  id="create-item-store-unit" type="text" name="createItemStoreUnit" class="form-control required" placeholder="ลักษณนาม">
+                        </div>
+                    </div>
                     <div class="row" style="margin-top: 15px;">
                         <div class="col-md-3" style="margin-top: 5px;">
                             <label><b>ราคาที่ซื้อ (ต่อหน่วย)</b></label>
                         </div>
                         <div class="col-md-9">
-                            <input id="edit-item-price_per_unit" type="text" value="" min="0" class="form-control stepper required">
+                            <input  id="create-item-price_per_unit" type="text" min="0" class="form-control stepper">
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 15px;">
-                        <div class="col-md-3" style="margin-top: 5px;">
-                            <label><b>สถานที่ซื้อ</b></label>
-                        </div>
-                        <div class="col-md-9">
-                            <select id="edit-item-store" name="project" class="form-control select2 required" id="project-selection">
-                                <option id="edit-item-store-0" class="edit-item-store-all" selected="selected" value="0">สถานที่ซื้อ</option>
-                                <option id="edit-item-store-1" class="edit-item-store-all" value="1">จีฉ่อย</option>
-                                <option id="edit-item-store-2" class="edit-item-store-all" value="2">ช.การช่าง</option>
-                                <option id="edit-item-store-3" class="edit-item-store-all" value="3">ค.เครื่องเขียน</option>
-                                <option id="edit-item-store-4" class="edit-item-store-all" value="4">สมใจ</option>
-                                <option id="edit-item-store-5" class="edit-item-store-all" value="5">จามจุรีสแควร์</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="row text-center" style="margin-top: 15px;">
-                        <a id="addShop" class="btn btn-3d btn-reveal btn-green" href="/addStore">
+                        <a id="addShop" class="btn btn-3d btn-reveal btn-green">
                             <i class="fa fa-plus"></i>
                             <span>เพิ่มร้านค้า</span>
                         </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-modal-item table-cart">
+                            <thead>
+                            <tr>
+                                <th class="width-10 remove-button-col" style="width: 10px !important;"></th>
+                                <th  class="table-cart-top">ลำดับ</th>
+                                <th class="table-cart-top">สถานที่ซื้อ</th>
+                                <th class="table-cart-top">ราคาต่อหน่วย</th>
+                                <th class="table-cart-top">หน่วย</th>
+                            </tr>
+                            </thead>
+                            <tbody class="modal-item-table-body">
+                            <tr class="modal-item-tuple">
+                                <td class="remove-button-col" style="max-width: 60px; max-height: 60px">
+                                    <a id="" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-toggle="tooltip" data-placement="top" title="ลบจากสิทธิ์ทั้งหมด">
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td>1</td>
+                                <td>จีฉ่อย</td>
+                                <td>20.00</td>
+                                <td>เครื่อง</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -502,12 +543,12 @@
                         <i class="fa fa-times"></i>
                         <span>ยกเลิก</span>
                     </a>
-                    <a id="edit-item-confirm-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal" style="width: 90px;" onclick="confirmEditItem(1)">
+                    <button type="submit" id="create-item-confirm-button" class="btn btn-3d btn-reveal btn-green"  style="width: 90px;">
                         <i class="fa fa-check"></i>
                         <span>ยืนยัน</span>
-                    </a>
+                    </button>
                 </div>
-
+                </form>
             </div>
         </div>
     </div>

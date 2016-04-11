@@ -80,9 +80,12 @@ class InventoryController extends Controller
             $division[$i]['name'] = $t['name'];
             $i++;
         }
-
+        $supplier = Supplier::all();
 //        return compact('page','itemAmount','activity','division');
-        return view('supplies', compact('page','itemAmount','activity','division'));
+        return view('supplies', compact('page','itemAmount','activity','division','supplier'));
+    }
+    public function createItem(){
+        return 'success';
     }
 
     public function autoSuggest()
