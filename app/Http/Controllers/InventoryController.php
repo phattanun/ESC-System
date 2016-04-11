@@ -85,7 +85,27 @@ class InventoryController extends Controller
         return view('supplies', compact('page','itemAmount','activity','division','supplier'));
     }
     public function createItem(){
-
+        $user = $this->getUser();
+        if (is_null($user)||!isset($user['supplies'])) return redirect('/');
+        $newInventory=Inventory::create([
+            'name'=> $_POST['createItemName'],
+            'type'=> $_POST['createItemType'],
+            'image'=> $_POST['createItemPicCropped'],
+            'unit'=> $_POST['createItemUnit'],
+            'price_per_unit'=> $_POST['createItemPricePerUnit'],
+            'total_qty'=> $_POST['createItemTotal'],
+            'remain_qty'=> $_POST['createItemTotal'],
+            'editor_id'=> $user['student_id'],
+            'edit_at'=> Carbon::now()
+        ]);
+        for($i=0;$i<sizeof($_POST['createItemStore']);$i++){
+            InventorySupplier::create([
+                'inv_id'=> $newInventory->inv_id,
+                'supplier_id'=>$_POST['createItemStore'][$i],
+                'unit'=>$_POST['createItemStoreUnit'][$i],
+                'price_per_unit'=>$_POST['createItemStorePrice'][$i]
+            ]);
+        }
         return 'success';
     }
 

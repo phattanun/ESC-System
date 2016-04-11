@@ -484,6 +484,14 @@
                             <input required id="create-item-unit" type="text" name="createItemUnit" class="form-control required" placeholder="ลักษณนาม">
                         </div>
                     </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3" style="margin-top: 5px;">
+                            <label><b>ราคากลาง (ต่อหน่วย)</b></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input required type="text" min="0" name="createItemPricePerUnit" class="form-control stepper required">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
@@ -605,7 +613,7 @@
                         </div>
                         <div class="col-md-9">
                             <select id="edit-item-type" name="project" class="form-control select2 required">
-                                <option id="edit-item-type-0" class="edit-item-type-all" selected="selected" value="0">ประเภทพัสดุ</option>
+                                <option id="edit-item-type-0" class="edit-item-type-all" value="0">ประเภทพัสดุ</option>
                                 <option id="edit-item-type-1" class="edit-item-type-all" value="ใช้แล้วหมดไป">ใช้แล้วหมดไป</option>
                                 <option id="edit-item-type-2" class="edit-item-type-all" value="ใช้แล้วต้องนำมาคืน">ใช้แล้วต้องนำมาคืน</option>
                             </select>
@@ -652,12 +660,10 @@
                         </div>
                         <div class="col-md-9">
                             <select id="edit-item-store" name="project" class="form-control select2 required" id="project-selection">
-                                <option id="edit-item-store-0" class="edit-item-store-all" selected="selected" value="0">สถานที่ซื้อ</option>
-                                <option id="edit-item-store-1" class="edit-item-store-all" value="1">จีฉ่อย</option>
-                                <option id="edit-item-store-2" class="edit-item-store-all" value="2">ช.การช่าง</option>
-                                <option id="edit-item-store-3" class="edit-item-store-all" value="3">ค.เครื่องเขียน</option>
-                                <option id="edit-item-store-4" class="edit-item-store-all" value="4">สมใจ</option>
-                                <option id="edit-item-store-5" class="edit-item-store-all" value="5">จามจุรีสแควร์</option>
+                                <option id="edit-item-store-0" class="edit-item-store-all" value="0">สถานที่ซื้อ</option>
+                                @foreach($supplier as $asupplier)
+                                    <option value="{{$asupplier['supplier_id']}}">{{$asupplier['name']}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -762,62 +768,6 @@
                     <!-- /LIST OPTIONS -->
 
                     <ul class="shop-item-list row list-inline nomargin">
-
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3 col-sm-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail" >
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" data-toggle="modal" data-target="#modalItem">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p13.jpg" alt="shop first image">
-                                        <img class="img-responsive" src="assets/images/demo/shop/products/300x450/p14.jpg" alt="shop hover image">
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a data-original-title="Add To Wishlist" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-heart nopadding"></i></a>
-                                        <a data-original-title="Add To Compare" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title=""><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="label label-success">NEW</span>
-                                        <span class="label label-danger">SALE</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-
-                                <div class="shop-item-summary text-center">
-                                    <h2>Cotton 100% - Pink Shirt</h2>
-
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        <span class="line-through">$98.00</span>
-                                        $78.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                <!-- buttons -->
-                                <div class="shop-item-buttons text-center">
-                                    <a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                </div>
-                                <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
 
                     </ul>
 
@@ -1234,8 +1184,8 @@
             $("#edit-item-price_per_unit").val(allItem[id]['price_per_unit']);
 
 //            $("#edit-item-store-all").removeAttrs('selected');
-//            $("#edit-item-store-"+allItem[id]['store_id']).attr('selected','selected');
-
+            $("#edit-item-store").val(allItem[id]['store_id']);
+            $('select2 option[value="1"]').attr("selected",true);
             $("#edit-item-confirm-button").removeAttrs('onclick');
             $("#edit-item-confirm-button").attr('onclick','confirmEditItem('+allItem[id]['inv_id']+')');
 
@@ -1329,15 +1279,14 @@
                             + '</a>'
 
                             + '<div class="shop-option-over" style="opacity: 1 !important;">'
-                            + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
-                            + '<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>'
+                            @if($user['supplies'])           + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
+                            + '<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>' @endif
                             + '</div>';
                     if(allItem[tmp]['remain_qty'] == 0){
                         txt = txt + '<div class="shop-item-info">'
                             +'<span class="label label-danger">หมด</span>'
                             +'</div>';
                     }
-
                         txt = txt   +'</div>'
 
                                     +'<div class="shop-item-summary text-center">'
@@ -1358,6 +1307,7 @@
                             +'</li>';
                     $('.shop-item-list').append(txt);
                 }
+                jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
                 if(firstTime) {
                     myStepper(2);
                 }
