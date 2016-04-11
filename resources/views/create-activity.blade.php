@@ -113,7 +113,7 @@
                             <div class="col-md-offset-6 col-md-1">
                                 <a id="add-file" class="btn btn-3d btn-reveal btn-green">
                                     <i class="fa fa-plus"></i>
-                                    <span>{{$user['activities']}}เพิ่มไฟล์</span>
+                                    <span>เพิ่มไฟล์</span>
                                 </a>
                             </div>
                         </div>
