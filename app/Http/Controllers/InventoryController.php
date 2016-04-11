@@ -422,8 +422,12 @@ class InventoryController extends Controller
         $disapprove = $request->input('disapprove');
         $reason = $request->input('reason');
 
-        foreach($item_id as $id){
+        for ($i = 0; $i < count($item_id); ++$i)
 
+            if(!$disapprove[$i])
+                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>$borrow_allow[$i],'approver_id'=>$approver_id]);
+            else
+                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>0,'approver_id'=>$approver_id]);
         }
 
 
