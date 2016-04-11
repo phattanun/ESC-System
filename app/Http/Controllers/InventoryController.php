@@ -451,10 +451,25 @@ class InventoryController extends Controller
 
         for ($i = 0; $i < count($item_id); ++$i) {
 
-            if(!$disapprove[$i])
-                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>$borrow_allow[$i],'approver_id'=>$approver_id]);
+            /*if(!$disapprove[$i])
+                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>$borrow_allow[$i],'status'=>1,'approver_id'=>$approver_id,'reason_if_not_approve'=>""]);
             else
-                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>0,'approver_id'=>$approver_id]);
+                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>0,'status'=>-1,'approver_id'=>$approver_id,'reason_if_not_approve'=>$reason[$i]]);*/
+
+            $borrow = BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->first();
+            $borrow['approver_id'] = $approver_id;
+
+            if(!$disapprove[$i]){
+                if($borrow_allow[$i] > $borrow['borrow_request_amount']) return "อนุมัติเกินจำนวนไม่ได้ค่ะนิสิต";
+                $borrow['borrow_actual_amount'] = $borrow_allow[$i];
+            }
+            else{
+                $borrow['borrow_actual_amount'] = 0;
+            }
+
+            $borrow['status'] = $disapprove[$i]? -1 : 1;
+            $borrow['reason_if_not_approve'] = $disapprove[$i]? $reason[$i] : "";
+
         }
 
 
