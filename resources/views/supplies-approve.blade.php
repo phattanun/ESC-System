@@ -190,9 +190,16 @@
             padding-top: 10px;
             border-bottom: none;
         }
+        label.checkbox {
+            padding: 0;
+            margin-left: 27px;
+        }
         .checkbox input + i:after{
             top:1px;
-            left:29px;
+            left:2px;
+        }
+        tr.disabled {
+            background-color: #eee;
         }
     </style>
 @endsection
@@ -262,12 +269,18 @@
                             $(this).attr('name',$(this).attr('id')+'[' + i + ']');
                         });
                         template.find("label[class=checkbox]").each(function () {
-                            var input = $(this).find("input[type=checkbox]"),
+                            var row = $(this.parentElement.parentElement),
+                                borrow = row.find("input[id=borrow_allow]"),
+                                input = $(this).find("input[type=checkbox]"),
                                 inputHidden = $(this).find("input[type=hidden]"),
                                 i = $(this).find("i");
                             i.click(function() {
-                                input.val(!JSON.parse(input.val()));
-                                inputHidden.disabled = JSON.parse(input.val());
+                                var value = JSON.parse(input.val());
+                                inputHidden.disabled = value;
+                                input.val(!value);
+                                borrow.prop("disabled", !value);
+                                row.toggleClass("disabled", !value);
+
                             });
                         });
                         template.appendTo(itemsList);
