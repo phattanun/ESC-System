@@ -80,9 +80,33 @@ class InventoryController extends Controller
             $division[$i]['name'] = $t['name'];
             $i++;
         }
-
+        $supplier = Supplier::all();
 //        return compact('page','itemAmount','activity','division');
-        return view('supplies', compact('page','itemAmount','activity','division'));
+        return view('supplies', compact('page','itemAmount','activity','division','supplier'));
+    }
+    public function createItem(){
+        $user = $this->getUser();
+        if (is_null($user)||!isset($user['supplies'])) return redirect('/');
+        $newInventory=Inventory::create([
+            'name'=> $_POST['createItemName'],
+            'type'=> $_POST['createItemType'],
+            'image'=> $_POST['createItemPicCropped'],
+            'unit'=> $_POST['createItemUnit'],
+            'price_per_unit'=> $_POST['createItemPricePerUnit'],
+            'total_qty'=> $_POST['createItemTotal'],
+            'remain_qty'=> $_POST['createItemTotal'],
+            'editor_id'=> $user['student_id'],
+            'edit_at'=> Carbon::now()
+        ]);
+        for($i=0;$i<sizeof($_POST['createItemStore']);$i++){
+            InventorySupplier::create([
+                'inv_id'=> $newInventory->inv_id,
+                'supplier_id'=>$_POST['createItemStore'][$i],
+                'unit'=>$_POST['createItemStoreUnit'][$i],
+                'price_per_unit'=>$_POST['createItemStorePrice'][$i]
+            ]);
+        }
+        return 'success';
     }
 
     public function autoSuggest()
@@ -333,15 +357,6 @@ class InventoryController extends Controller
         $send_data['owner']['phone_number'] = $creator['phone_number'];
         $send_data['owner']['email'] = $creator['email'];
         $send_data['owner']['facebook_link'] = $creator['facebook_link'];
-        $send_data['owner']['activity'] = $borrow_list_detail->activity()->first()['name'];
-        if($div_info['type']=='Generation')
-            $send_data['owner']['division'] = 'รุ่น'." ".$div_info['name'];
-        if($div_info['type']=='Group')
-            $send_data['owner']['division'] = 'กรุ๊ป'." ".$div_info['name'];
-        if($div_info['type']=='Club')
-            $send_data['owner']['division'] = 'ชมรม'." ".$div_info['name'];
-        if($div_info['type']=='Department')
-            $send_data['owner']['division'] = 'ภาควิชา'." ".$div_info['name'];
 
         $send_data['reserve'] = [];
         $count = 1;
@@ -354,6 +369,16 @@ class InventoryController extends Controller
             $count++;
         }
 
+        $send_data['head']['activity'] = $borrow_list_detail->activity()->first()['name'];
+        if($div_info['type']=='Generation')
+            $send_data['head']['division'] = 'รุ่น'." ".$div_info['name'];
+        if($div_info['type']=='Group')
+            $send_data['head']['division'] = 'กรุ๊ป'." ".$div_info['name'];
+        if($div_info['type']=='Club')
+            $send_data['head']['division'] = 'ชมรม'." ".$div_info['name'];
+        if($div_info['type']=='Department')
+            $send_data['head']['division'] = 'ภาควิชา'." ".$div_info['name'];
+        $send_data['head']['reason'] = $borrow_list_detail->reason;
 
         return $send_data;
     }

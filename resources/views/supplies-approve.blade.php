@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    จัดการการยืมพัสดุ
+    อนุมัติการยืมพัสดุ
 @endsection
 @section('body-attribute')
 @endsection
@@ -71,6 +71,17 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 id="title" class="modal-title">
                             <i class="fa fa-list-alt"></i> รายละเอียดการจอง</h4>
+                            <br>
+                            <div class="col-sm-4">
+                                <label>กิจกรรม <span id="activity" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>หน่วยงาน <span id="division" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom:10px;">
+                                <label>เหตุผล</label><span>&emsp;</span><span id="reason" class="text-blue" data-default="ไม่มีข้อมูล"></span>
+                            </div>
+
                         <!-- TABs -->
                         <ul id="sup-tab" class="nav nav-tabs">
                             <li class="active"><a href="#" data-tab="reserve">ใบจอง</a></li>
@@ -151,14 +162,6 @@
                                     <label>Facebook <span id="facebook_link" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label>กิจกรรม <span id="activity" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>หน่วยงาน <span id="division" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -190,9 +193,16 @@
             padding-top: 10px;
             border-bottom: none;
         }
+        label.checkbox {
+            padding: 0;
+            margin-left: 27px;
+        }
         .checkbox input + i:after{
             top:1px;
-            left:29px;
+            left:2px;
+        }
+        tr.disabled {
+            background-color: #eee;
         }
     </style>
 @endsection
@@ -222,6 +232,12 @@
             for(i in infoTabs) {
                 var names = Object.getOwnPropertyNames(data[infoTabs[i]]);
                 for(j in names) {
+                    if(infoTabs[i] == "head") {
+                        modal.find("#"+infoTabs[i]+" *[id="+names[j]+"]:not(input)").html(data[infoTabs[i]][names[j]]);
+                        modal.find("#"+infoTabs[i]+" input[id="+names[j]+"]").val(data[infoTabs[i]][names[j]]);
+                        if(postCallback != null)
+                            postCallback(names[j],modal.find("#sup-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
+                    }
                     if(infoTabs[i] == "reserve") {
                         var attr = Object.getOwnPropertyNames(data[infoTabs[i]][names[j]]);
                         for(k in attr) {
@@ -262,12 +278,18 @@
                             $(this).attr('name',$(this).attr('id')+'[' + i + ']');
                         });
                         template.find("label[class=checkbox]").each(function () {
-                            var input = $(this).find("input[type=checkbox]"),
+                            var row = $(this.parentElement.parentElement),
+                                borrow = row.find("input[id=borrow_allow]"),
+                                input = $(this).find("input[type=checkbox]"),
                                 inputHidden = $(this).find("input[type=hidden]"),
                                 i = $(this).find("i");
                             i.click(function() {
-                                input.val(!JSON.parse(input.val()));
-                                inputHidden.disabled = JSON.parse(input.val());
+                                var value = JSON.parse(input.val());
+                                inputHidden.disabled = value;
+                                input.val(!value);
+                                borrow.prop("disabled", !value);
+                                row.toggleClass("disabled", !value);
+
                             });
                         });
                         template.appendTo(itemsList);
