@@ -318,7 +318,7 @@ class InventoryController extends Controller
         if(!isset($user['supplies'])) return response("noinfo", "500");
         $borrow_list_id = $request->input('id');
         $borrow_list_detail = BorrowList::where('list_id',$borrow_list_id)->first();
-        $borrow_item_list = $borrow_list_detail->itemList()->withPivot('borrow_request_amount')->get();
+            $borrow_item_list = $borrow_list_detail->itemList()->withPivot('borrow_request_amount','borrow_actual_amount')->get();
 
         $creator = $borrow_list_detail->creator()->first();
         $div_info = $borrow_list_detail->division()->first();
