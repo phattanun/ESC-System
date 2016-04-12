@@ -72,8 +72,8 @@ Route::post('/supplies/delete_supplier', 'InventoryController@deleteSupplier');
 Route::post('/supplies/edit_supplier', 'InventoryController@editSupplier');
 Route::post('/supplies/add_supplier', 'InventoryController@addSupplier');
 Route::get ('/supplies/{page}', 'InventoryController@inventoryPage');
-
 Route::post('/supplies/create', 'InventoryController@createItem');
+Route::post('/supplies/edit', 'InventoryController@editItem');
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
 Route::get ('/students/getExcelFile', 'StudentController@generateXLS');

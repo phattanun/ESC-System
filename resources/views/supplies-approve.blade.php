@@ -105,7 +105,7 @@
                                     <td id="name"   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
                                     <td  style="vertical-align:middle;text-align: center">
                                         <div class="stepper-wrap">
-                                            <input id="borrow_allow" type="number" data-min="0" class="form-control required" style="margin: 0px;">
+                                            <input id="borrow_allow" type="number" class="form-control required" style="margin: 0px;">
                                             <div class="stepper-btn-wrap">
                                                 <a class="stepper-btn-up">▴</a>
                                                 <a class="stepper-btn-dwn">▾</a>
@@ -288,6 +288,7 @@
                                 input = $(this).find("input[type=checkbox]"),
                                 inputHidden = $(this).find("input[type=hidden]"),
                                 i = $(this).find("i");
+                            borrow.data('min',0);
                             i.click(function() {
                                 var value = !JSON.parse(input.val());
                                 inputHidden.disabled = !value;
@@ -297,7 +298,8 @@
                                 if(value) {
                                     borrow.data('cur',borrow.val());
                                     borrow.val(0);
-                                }else {
+                                }
+                                else {
                                     borrow.val(borrow.data('cur'));
                                 }
                             });
@@ -336,6 +338,7 @@
                 }
             });
         }
+        var mydebug;
         function loadList(page) {
             $.ajax({
                 type: "POST",
@@ -344,7 +347,7 @@
                   _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    var contents = Object.getOwnPropertyNames(response);
+                    var contents = Object.getOwnPropertyNames(response).reverse();
                     var container = $("#contents-list").empty();
                     for(i in contents) {
                         var template = $("#template-reserve").clone().css("display","");

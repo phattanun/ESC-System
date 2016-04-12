@@ -98,14 +98,52 @@ class InventoryController extends Controller
             'editor_id'=> $user['student_id'],
             'edit_at'=> Carbon::now()
         ]);
-        for($i=0;$i<sizeof($_POST['createItemStore']);$i++){
-            InventorySupplier::create([
-                'inv_id'=> $newInventory->inv_id,
-                'supplier_id'=>$_POST['createItemStore'][$i],
-                'unit'=>$_POST['createItemStoreUnit'][$i],
-                'price_per_unit'=>$_POST['createItemStorePrice'][$i]
-            ]);
+        if(isset($_POST['createItemStore'])){
+            for($i=0;$i<sizeof($_POST['createItemStore']);$i++){
+                InventorySupplier::create([
+                    'inv_id'=> $newInventory->inv_id,
+                    'supplier_id'=>$_POST['createItemStore'][$i],
+                    'unit'=>$_POST['createItemStoreUnit'][$i],
+                    'price_per_unit'=>$_POST['createItemStorePrice'][$i]
+                ]);
+            }
         }
+        return 'success';
+    }
+
+    public function editItem()
+    {
+        $user = $this->getUser();
+        if (is_null($user)||!isset($user['supplies'])) return redirect('/');
+        $inventory=Inventory::find($_POST['editItemID']);
+        if(!isset($inventory)){return 'fail';}
+        $inventory->name = $_POST['editItemName'];
+        $inventory->type = $_POST['editItemType'];
+        $inventory->image = $_POST['editItemPicCropped'];
+        $inventory->unit = $_POST['editItemUnit'];
+        $inventory->price_per_unit = $_POST['editItemPricePerUnit'];
+        $inventory->total_qty = $_POST['editItemTotal'];
+        $inventory->broken_qty = $_POST['editItemBroken'];
+        $inventory->remain_qty = $_POST['editItemRemain'];
+        $inventory->editor_id =  $user['student_id'];
+        $inventory->edit_at = Carbon::now();
+        $inventory->save();
+
+        if(sizeof($_POST['editItemStore'])>0){
+            InventorySupplier::where('inv_id','=',$_POST['editItemID'])->delete();
+            for($i=0;$i<sizeof($_POST['editItemStore']);$i++){
+                    InventorySupplier::create([
+                        'inv_id'=> $_POST['editItemID'],
+                        'supplier_id'=>$_POST['editItemStore'][$i],
+                        'unit'=>$_POST['editItemStoreUnit'][$i],
+                        'price_per_unit'=>$_POST['editItemStorePrice'][$i]
+                    ]);
+            }
+        }
+        else{
+            InventorySupplier::where('inv_id','=',$_POST['editItemID'])->delete();
+        }
+
         return 'success';
     }
 
@@ -210,6 +248,7 @@ class InventoryController extends Controller
             foreach($suppliers as $supplier){
                 $tmp = Supplier::where('supplier_id',$supplier['supplier_id']) -> first();
                 $inventory[$item['inv_id']]['supplier'][$i] = [];
+                $inventory[$item['inv_id']]['supplier'][$i]['supplier_id'] = $tmp['supplier_id'];
                 $inventory[$item['inv_id']]['supplier'][$i]['name'] = $tmp['name'];
                 $inventory[$item['inv_id']]['supplier'][$i]['address'] = $tmp['address'];
                 $inventory[$item['inv_id']]['supplier'][$i]['phone_no'] = $tmp['phone_no'];
