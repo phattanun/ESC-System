@@ -378,7 +378,8 @@
                 data: (new FormData($("#sup-detail #container")[0])),
                 processData: false,
                 contentType: false,
-                success: function() {
+                success: function(response) {
+                    console.log(response);
                     _toastr("ยืนยันสำเร็จ", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');
                 },
