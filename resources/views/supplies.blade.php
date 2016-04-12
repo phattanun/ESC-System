@@ -987,18 +987,18 @@
         var croppedInput=$('#create-item-pic-cropped');
         $('#create-item-pic-input').on('change',function(e){
             $image.cropper({
-                aspectRatio: 2 / 3,
+                aspectRatio: 4 / 3,
                 autoCropArea: 1.0,
                 cropend: function() {
                     croppedInput.val(($image.cropper("getCroppedCanvas",{
-                        width: 300,
-                        height: 450
+                        width: 400,
+                        height: 300
                     })).toDataURL());
                 },
                 built: function () {
                     croppedInput.val(($image.cropper("getCroppedCanvas",{
-                        width: 300,
-                        height: 450
+                        width: 400,
+                        height: 300
                     })).toDataURL());
                 }
             });
@@ -1241,18 +1241,18 @@
         var croppedInputEdit=$('#edit-item-pic-cropped');
         $('#edit-item-pic-input').on('change',function(e){
             $imageEdit.cropper({
-                aspectRatio: 2 / 3,
+                aspectRatio: 4 / 3,
                 autoCropArea: 1.0,
                 cropend: function() {
                     croppedInputEdit.val(($imageEdit.cropper("getCroppedCanvas",{
-                        width: 300,
-                        height: 450
+                        width: 400,
+                        height: 300
                     })).toDataURL());
                 },
                 built: function () {
                     croppedInputEdit.val(($imageEdit.cropper("getCroppedCanvas",{
-                        width: 300,
-                        height: 450
+                        width: 400,
+                        height: 300
                     })).toDataURL());
                 }
             });
@@ -1299,18 +1299,18 @@
         function openModalItemEdit(id){
             $("#cropping-area-edit").attr('src',allItem[id]['image']);
             $imageEdit.cropper({
-                aspectRatio: 2 / 3,
+                aspectRatio: 4 / 3,
                 autoCropArea: 1.0,
                 cropend: function() {
                     croppedInputEdit.val(($imageEdit.cropper("getCroppedCanvas",{
-                        width: 300,
-                        height: 450
+                        width: 400,
+                        height: 300
                     })).toDataURL());
                 },
                 built: function () {
                     croppedInputEdit.val(($imageEdit.cropper("getCroppedCanvas",{
-                        width: 300,
-                        height: 450
+                        width: 400,
+                        height: 300
                     })).toDataURL());
                 }
             });
