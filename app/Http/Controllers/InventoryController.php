@@ -507,6 +507,8 @@ class InventoryController extends Controller
             $borrow['status'] = $disapprove[$i]? -1 : 1;
             $borrow['reason_if_not_approve'] = $disapprove[$i]? $reason[$i] : "";
 
+            $borrow->save();
+
         }
 
 

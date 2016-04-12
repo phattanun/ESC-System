@@ -374,7 +374,7 @@
         function sendDetail() {
             $.ajax({
                 type: "POST",
-                url: '{{ url("/supplies/approve/approve") }}',
+                url: '{{ url("/supplies/approve/approve")}}',
                 data: (new FormData($("#sup-detail #container")[0])),
                 processData: false,
                 contentType: false,
