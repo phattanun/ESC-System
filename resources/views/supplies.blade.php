@@ -1296,7 +1296,8 @@
         }).on('shown.bs.modal', function () {
 
         });
-        function openModalItemEdit(id){
+        function openModalItemEdit(event,id){
+            event.preventDefault();
             $("#cropping-area-edit").attr('src',allItem[id]['image']);
             $imageEdit.cropper({
                 aspectRatio: 4 / 3,
@@ -1366,7 +1367,8 @@
         }
 
         //removeItem
-        function removeItem(id){
+        function removeItem(event,id){
+            event.preventDefault();
             $("#modalRemoveItem").modal("show");
             $("#item-confirm-remove-button").attr("onclick","confirmRemoveItem("+id+")");
         }
@@ -1448,8 +1450,8 @@
                             + '</a>'
 
                             + '<div class="shop-option-over" style="opacity: 1 !important;">'
-                            @if($user['supplies'])           + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
-                            + '<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>' @endif
+                            @if($user['supplies'])           + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(event,' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
+                            + '<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(event,' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>' @endif
                             + '</div>';
                     if(allItem[tmp]['remain_qty'] == 0){
                         txt = txt + '<div class="shop-item-info">'
