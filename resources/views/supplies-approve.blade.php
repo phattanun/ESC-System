@@ -23,8 +23,8 @@
                                 <th style="vertical-align:middle;text-align: center;width:25%">กิจกรรม</th>
                                 <th style="vertical-align:middle;text-align: center;width:20%">หน่วยงาน</th>
                                 <th style="vertical-align:middle;text-align: center;width:20%">ผู้ขอยืม</th>
-                                <th style="vertical-align:middle;text-align: center;width:8%">วันที่</th>
-                                <th style="vertical-align:middle;text-align: center;width:10%">สถานะ</th>
+                                <th style="vertical-align:middle;text-align: center;width:10%">วันที่</th>
+                                <th style="vertical-align:middle;text-align: center;width:15%">สถานะ</th>
                                 <th style="vertical-align:middle;text-align: center;width:100%"></th>
                             </tr>
                             <tr id="template-reserve" style="display:none">
@@ -33,7 +33,7 @@
                                 <td id="division_name"     style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
                                 <td id="creator_name"  style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
                                 <td id="create_at"style="vertical-align:middle;text-align: center">--/--/--</td>
-                                <td id="status"   style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
+                                <td style="vertical-align:middle;text-align: center"><span id="status">ไม่มีข้อมูล</span></td>
                                 <td style="vertical-align:middle;text-align: center">
                                     <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow" onclick='$("#sup-detail").modal("toggle");'>
                                         <i class="fa fa-edit"></i>
@@ -209,6 +209,33 @@
           -webkit-appearance: none;
           margin: 0;
         }
+        .status{
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 3px;
+        }
+        .status-step-1{
+            color: white;
+            background-color: rgb(255,116,116);
+        }
+        .status-step-2{
+            color: white;
+            background-color: red;
+        }
+        .status-step-3{
+            color: white;
+            background-color: green;
+        }
+        .status-step-4{
+            color: white;
+            background-color: blue;
+        }
+        .status-step-5{
+            color: white;
+            background-color: black;
+        }
     </style>
 @endsection
 
@@ -357,9 +384,22 @@
                         for(j in attrs)
                             template.find("#"+attrs[j]).html(response[contents[i]][attrs[j]]);
                         var status = template.find("#status");
+                        template.find("#status").addClass("status");
                         switch(status.html()) {
                             case "รออนุมัติ":
-                                // TODO: Add CSS to all status
+                                template.find("#status").addClass("status-step-1");
+                                break;
+                            case "อนุมัติ":
+                                template.find("#status").addClass("status-step-2");
+                                break;
+                            case "กำลังดำเนินการ":
+                                template.find("#status").addClass("status-step-3");
+                                break;
+                            case "เกินกำหนดคืน":
+                                template.find("#status").addClass("status-step-4");
+                                break;
+                            case "ปิดรายการ":
+                                template.find("#status").addClass("status-step-5");
                                 break;
                         }
                         container.append(template);
