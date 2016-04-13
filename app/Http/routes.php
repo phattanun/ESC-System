@@ -77,6 +77,7 @@ Route::get ('/supplies/{page}', 'InventoryController@inventoryPage');
 Route::post('/supplies/create', 'InventoryController@createItem');
 Route::post('/supplies/edit', 'InventoryController@editItem');
 Route::post('/supplies/toggle_show_item', 'InventoryController@toggleShowItem');
+Route::post('/supplies/edit_announcement', 'InventoryController@editAnnouncement');
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
 Route::get ('/students/getExcelFile', 'StudentController@generateXLS');

@@ -14,27 +14,27 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigInteger('student_id')->unsigned()->primary();
-            $table->string('password');
             $table->string('name');
             $table->string('surname');
             $table->string('nickname');
-            $table->boolean('sex');
             $table->string('address');
-            $table->date('birthdate');
             $table->string('phone_number');
+            $table->string('emergency_contact');
             $table->string('email');
             $table->string('facebook_link');
             $table->string('line_id');
-            $table->string('emergency_contact');
-            $table->integer('department')->unsigned();
-            $table->integer('group')->unsigned();
-            $table->integer('generation')->unsigned();
-            $table->string('allergy');
-            $table->string('anomaly'); # AKA. disease
+            $table->boolean('sex');
+            $table->date('birthdate');
             $table->string('religion');
             $table->char('blood_type',2);
             $table->char('clothing_size',5);
+            $table->string('allergy');
+            $table->string('anomaly'); # AKA. disease
             $table->timestamp('last_time_attemp')->nullable();
+            $table->integer('department')->unsigned();
+            $table->integer('group')->unsigned();
+            $table->integer('generation')->unsigned();
+            $table->string('password');
             $table->rememberToken();
 
             $table->foreign('department')->references('div_id')->on('divisions');

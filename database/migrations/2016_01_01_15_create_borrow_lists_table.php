@@ -15,15 +15,15 @@ class CreateBorrowListsTable extends Migration
         Schema::create('borrow_lists', function (Blueprint $table) {
             $table->increments('list_id');
             $table->boolean('status')->nullable();
+            $table->text('reason')->nullable();
+            $table->timestamp('borrow_date');
+            $table->timestamp('return_date');
             $table->bigInteger('creator_id')->unsigned();
             $table->integer('div_id')->unsigned()->nullable();
             $table->string('other_div')->nullable();
             $table->integer('act_id')->unsigned()->nullable();
             $table->string('other_act')->nullable();
-            $table->text('reason')->nullable();
             $table->timestamp('create_at');
-            $table->timestamp('borrow_date');
-            $table->timestamp('return_date');
 
             $table->foreign('creator_id')->references('student_id')->on('users');
             $table->foreign('div_id')->references('div_id')->on('divisions');
