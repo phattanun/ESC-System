@@ -13,7 +13,7 @@ class CreateItemsTransactionTable extends Migration
     public function up()
     {
         Schema::create('items_transaction', function (Blueprint $table) {
-            $table->increments('ret_id');
+            $table->increments('transaction_id');
             $table->integer('list_id')->unsigned();
             $table->integer('inv_id')->unsigned();
             $table->double('amount',10,2);
