@@ -14,10 +14,11 @@ class CreateActivityFilesTable extends Migration
     {
         Schema::create('activity_files', function (Blueprint $table) {
             $table->increments('file_id');
-            $table->integer('act_id')->unsigned();
+
             $table->string('file_name');
             $table->string('type');
             $table->bigInteger('size')->unsigned();
+            $table->integer('act_id')->unsigned();
             $table->timestamp('create_at');
             $table->bigInteger('uploader_id')->unsigned();
 
