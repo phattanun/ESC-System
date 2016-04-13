@@ -617,4 +617,12 @@ class InventoryController extends Controller
         return $reservation;
     }
 
+    public function viewManage($page = 1) {
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return redirect('/');
+
+        $maxpage = ceil(BorrowList::count()/$this->numberPerPage);
+        return view('supplies-manage', compact('page','maxpage'));
+    }
+
 }
