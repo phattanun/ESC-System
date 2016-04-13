@@ -33,7 +33,12 @@ class InventoryController extends Controller
 
     public function inventoryPage($page){
         $user = $this->getUser();
-        $items = Inventory::all();
+        if (is_null($user)) return redirect('/');
+        $user = $this->getUser();
+        if(isset($user['supplies']))
+            $items = Inventory::all();
+        else
+            $items = Inventory::where('isVisible','1')->get();
         $itemAmount = count($items);
 ////        return $items;
 //        $inventory = [];
@@ -82,7 +87,10 @@ class InventoryController extends Controller
         }
         $supplier = Supplier::all();
 //        return compact('page','itemAmount','activity','division');
-        return view('supplies', compact('page','itemAmount','activity','division','supplier'));
+        if(isset($user['supplies']))
+            return view('supplies', compact('page','itemAmount','activity','division','supplier'));
+        else
+            return view('supplies', compact('page','itemAmount','activity','division'));
     }
     public function createItem(){
         $user = $this->getUser();
@@ -147,80 +155,147 @@ class InventoryController extends Controller
         return 'success';
     }
 
+    public function toggleShowItem(Request $request)
+    {
+        $user=$this->getUser();
+        if (is_null($user)||!isset($user['supplies'])) return 'noright';
+        $inventory = Inventory::find($request->input('data'));
+        $inventory->isVisible = !$inventory->isVisible;
+        $inventory->save();
+        if($inventory->isVisible)return 'show_success';
+        else {return 'hide_success';}
+
+    }
     public function autoSuggest()
     {
+        $user = $this->getUser();
+        if (is_null($user)) return redirect('/');
         if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])) {
             $LIMIT 		= isset($_REQUEST['limit']) 	? (int) 	$_REQUEST['limit'] 		: 30;
             $KEYWORD 	= isset($_REQUEST['search']) 	? (string) 	$_REQUEST['search'] 	: null;
             $KEYWORD_splitted = explode(' ',$KEYWORD);
+            if(isset($user['supplies'])) {
+                $items = Inventory::select(['name'])
+                    ->where(function ($query) use ($KEYWORD_splitted) {
+                        foreach ($KEYWORD_splitted as $KEY)
+                            $query->orWhere('name', 'LIKE', '%' . $KEY . '%');
+                    })
+                    ->take($LIMIT)
+                    ->orderBy('inv_id', 'asc')
+                    ->get();
 
-            $items=Inventory::select(['name'])
-            ->where(function ($query) use ($KEYWORD_splitted) {
-                foreach($KEYWORD_splitted as $KEY)
-                    $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
-            })
-                ->take($LIMIT)
-                ->orderBy('inv_id', 'asc')
-                ->get();
-
-            $array=[];
-            if(isset($items)&&$items != null){
-                foreach($items as $item){
-                    array_push($array,$item->name);
+                $array = [];
+                if (isset($items) && $items != null) {
+                    foreach ($items as $item) {
+                        array_push($array, $item->name);
+                    }
                 }
+                $json = json_encode($array);
+                die($json);
             }
-            $json = json_encode($array);
-            die($json);
+            else {
+                $items = Inventory::select(['name'])
+                    ->where(function ($query) use ($KEYWORD_splitted) {
+                        foreach ($KEYWORD_splitted as $KEY)
+                            $query->orWhere('name', 'LIKE', '%' . $KEY . '%');
+                    }) ->where('isVisible',1)
+                    ->take($LIMIT)
+                    ->orderBy('inv_id', 'asc')
+                    ->get();
 
+                $array = [];
+                if (isset($items) && $items != null) {
+                    foreach ($items as $item) {
+                        array_push($array, $item->name);
+                    }
+                }
+                $json = json_encode($array);
+                die($json);
+            }
         }
     }
 
     public function searchCountInventory(Request $request){
+        $user = $this->getUser();
+        if (is_null($user)) return redirect('/');
         $KEYWORD = $request->word;
+        if(isset($user['supplies'])) {
+            if ($KEYWORD != '') {
+                $KEYWORD_splitted = explode(' ', $KEYWORD);
 
-        if($KEYWORD != '') {
-            $KEYWORD_splitted = explode(' ',$KEYWORD);
+                $items = Inventory::
+                where(function ($query) use ($KEYWORD_splitted) {
+                    foreach ($KEYWORD_splitted as $KEY)
+                        $query->orWhere('name', 'LIKE', '%' . $KEY . '%');
+                })->get();
 
-            $items=Inventory::
-            where(function ($query) use ($KEYWORD_splitted) {
-                foreach($KEYWORD_splitted as $KEY)
-                    $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
-            })->get();
-
-            $count = count($items);
+                $count = count($items);
+            } else {
+                $items = Inventory::all();
+                $count = count($items);
+            }
         }
-        else
-        {
-            $items = Inventory::all();
-            $count = count($items);
-        }
+        else {
+            if ($KEYWORD != '') {
+                $KEYWORD_splitted = explode(' ', $KEYWORD);
 
+                $items = Inventory::
+                where(function ($query) use ($KEYWORD_splitted) {
+                    foreach ($KEYWORD_splitted as $KEY)
+                        $query->orWhere('name', 'LIKE', '%' . $KEY . '%');
+                })->where('isVisible',1)
+                    ->get();
+
+                $count = count($items);
+            } else {
+                $items = Inventory::where('isVisible',1)->get();
+                $count = count($items);
+            }
+        }
         return $count;
     }
 
     public function changeToPage(Request $request){
+        $user = $this->getUser();
+        if (is_null($user)) return redirect('/');
+        $user = $this->getUser();
         $page = $request->page;
         $KEYWORD = $request->word;
 
+        if(isset($user['supplies'])) {
+            if ($KEYWORD != '') {
+                $KEYWORD_splitted = explode(' ', $KEYWORD);
 
-        if($KEYWORD != '') {
-            $KEYWORD_splitted = explode(' ',$KEYWORD);
-
-            $items=Inventory::
-            where(function ($query) use ($KEYWORD_splitted) {
-                foreach($KEYWORD_splitted as $KEY)
-                    $query->orWhere('name', 'LIKE', '%'.$KEY.'%');
-            })
-                ->skip(($page - 1) * 12)
-                ->take(12)
-                ->orderBy('inv_id', 'asc')
-                ->get();
+                $items = Inventory::
+                where(function ($query) use ($KEYWORD_splitted) {
+                    foreach ($KEYWORD_splitted as $KEY)
+                        $query->orWhere('name', 'LIKE', '%' . $KEY . '%');
+                })
+                    ->skip(($page - 1) * 12)
+                    ->take(12)
+                    ->orderBy('inv_id', 'asc')
+                    ->get();
+            } else {
+                $items = Inventory::orderBy('inv_id', 'asc')->skip(($page - 1) * 12)->take(12)->get();
+            }
         }
-        else
-        {
-            $items = Inventory::orderBy('inv_id', 'asc')->skip(($page - 1) * 12)->take(12)->get();
-        }
+        else {
+            if ($KEYWORD != '') {
+                $KEYWORD_splitted = explode(' ', $KEYWORD);
 
+                $items = Inventory::
+                where(function ($query) use ($KEYWORD_splitted) {
+                    foreach ($KEYWORD_splitted as $KEY)
+                        $query->orWhere('name', 'LIKE', '%' . $KEY . '%');
+                })  ->where('isVisible','1')
+                    ->skip(($page - 1) * 12)
+                    ->take(12)
+                    ->orderBy('inv_id', 'asc')
+                    ->get();
+            } else {
+                $items = Inventory::where('isVisible','1')->orderBy('inv_id', 'asc')->skip(($page - 1) * 12)->take(12)->get();
+            }
+        }
 
 //        $news = News::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 
@@ -237,6 +312,7 @@ class InventoryController extends Controller
             $inventory[$item['inv_id']]['total_qty'] = $item['total_qty'];
             $inventory[$item['inv_id']]['broken_qty'] = $item['broken_qty'];
             $inventory[$item['inv_id']]['remain_qty'] = $item['remain_qty'];
+            $inventory[$item['inv_id']]['isVisible'] = $item['isVisible'];
             $inventory[$item['inv_id']]['editor_id'] = $item['editor_id'];
             $inventory[$item['inv_id']]['edit_at'] = $item['edit_at'];
 

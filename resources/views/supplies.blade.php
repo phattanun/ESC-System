@@ -412,7 +412,7 @@
             </div>
         </div>
     </div>
-
+    @if(isset($user['supplies']))
     <div id="modalItemCreate" class="modal fade" role="dialog" aria-labelledby="CreateItem" aria-hidden="true">
 
         <div class="modal-dialog">
@@ -741,34 +741,34 @@
         </div>
     </div>
 
-    <div id="modalRemoveItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
+    {{--<div id="modalRemoveItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">--}}
+        {{--<div class="modal-dialog modal-sm">--}}
+            {{--<div class="modal-content">--}}
 
-                <!-- header modal -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="mySmallModalLabel">ต้องการลบพัสดุนี้ใช่หรือไม่ ?</h4>
-                </div>
+                {{--<!-- header modal -->--}}
+                {{--<div class="modal-header">--}}
+                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                    {{--<h4 class="modal-title" id="mySmallModalLabel">ต้องการลบพัสดุนี้ใช่หรือไม่ ?</h4>--}}
+                {{--</div>--}}
 
-                <!-- body modal -->
-                <div class="modal-body">
-                    <div class="row text-center">
-                        <a id="item-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal">
-                            <i class="fa fa-check"></i>
-                            <span>ใช่</span>
-                        </a>
-                        <a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal">
-                            <i class="fa fa-times"></i>
-                            <span>ไม่ใช่</span>
-                        </a>
-                    </div>
-                </div>
+                {{--<!-- body modal -->--}}
+                {{--<div class="modal-body">--}}
+                    {{--<div class="row text-center">--}}
+                        {{--<a id="item-confirm-remove-button" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal">--}}
+                            {{--<i class="fa fa-check"></i>--}}
+                            {{--<span>ใช่</span>--}}
+                        {{--</a>--}}
+                        {{--<a class="btn btn-3d btn-reveal btn-red" data-dismiss="modal">--}}
+                            {{--<i class="fa fa-times"></i>--}}
+                            {{--<span>ไม่ใช่</span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-            </div>
-        </div>
-    </div>
-
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    @endif
     <section>
         <div class="container">
 
@@ -896,6 +896,17 @@
         }
         .cropper-container{
             width:100% !important;
+        }
+        .item-transparent {
+            opacity: 0.1;
+        }
+        .each-item-transparent {
+            background-image: -webkit-gradient(linear, left top, right bottom, color-stop(.25, rgba(0, 0, 0, .03)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(0, 0, 0, .03)), color-stop(.75, rgba(0, 0, 0, .03)), color-stop(.75, transparent), to(transparent));
+            background-image: -webkit-linear-gradient(135deg, rgba(0, 0, 0, .03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .03) 50%, rgba(0, 0, 0, .03) 75%, transparent 75%, transparent);
+            background-image: -webkit-linear-gradient(315deg, rgba(0, 0, 0, .03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .03) 50%, rgba(0, 0, 0, .03) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(135deg, rgba(0, 0, 0, .03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .03) 50%, rgba(0, 0, 0, .03) 75%, transparent 75%, transparent);
+            -webkit-background-size: 16px 16px;
+            background-size: 16px 16px;
         }
     </style>
 @endsection
@@ -1373,10 +1384,33 @@
         }
 
         //removeItem
-        function removeItem(event,id){
+        function toggleShowItem(event,id){
             event.preventDefault();
-            $("#modalRemoveItem").modal("show");
-            $("#item-confirm-remove-button").attr("onclick","confirmRemoveItem("+id+")");
+//            $("#modalRemoveItem").modal("show");
+//            $("#item-confirm-remove-button").attr("onclick","confirmRemoveItem("+id+")");
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/supplies/toggle_show_item',
+                    {data:  id, _token: '{{csrf_token()}}'}).done(function (input) {
+                if(input=='hide_success'){
+                    _toastr("ซ่อนพัสดุสำเร็จ","top-right","success",false);
+                    changePageTo(nowPage);
+                    return false;
+                }
+                else if(input=='show_success'){
+                    _toastr("แสดงพัสดุสำเร็จ","top-right","success",false);
+                    changePageTo(nowPage);
+                    return false;
+                }
+                else if(input=='noright'){
+                        _toastr("คุณไม่มีสิทธิทำรายการนี้","top-right","error",false);
+                        return false;
+                    }
+                else {
+                        _toastr("ผิดพลาด! กรุณาลองใหม่อีกครั้ง","top-right","error",false);
+                        return false;
+                    }
+                }
+            );
         }
         function confirmRemoveItem(id){
             //ajax post to delete
@@ -1445,19 +1479,26 @@
 
                 var tmp;
                 for (tmp in allItem) {
+                    @if($user['supplies'])
+                        var icon = (allItem[tmp]['isVisible'])?'fa-eye-slash':'fa-eye';
+                        var hideOrShowTitle = (allItem[tmp]['isVisible'])?'ซ่อนพัสดุนี้':'แสดงพัสดุนี้';
+                        var tranparentClass = (allItem[tmp]['isVisible'])?'':'item-transparent';
+                        var tranparentClassMain = (allItem[tmp]['isVisible'])?'':'each-item-transparent';
+                    @endif
 //                    alert(input[tmp]['name']);
-                    var txt = '<li class="col-lg-3 col-sm-3 each-item">'
+                    var txt = '<li class="col-lg-3 col-sm-3 each-item @if($user['supplies']) '+tranparentClassMain+'   @endif">'
 
                             + '<div class="shop-item">'
 
                             + '<div class="thumbnail" >'
-                            + '<a class="shop-item-image" data-toggle="modal" data-target="#modalItem" onclick="openModalItem(' + allItem[tmp]['inv_id'] + ')">'
+                            + '<a class="shop-item-image @if($user['supplies']) '+tranparentClass+'   @endif" data-toggle="modal" data-target="#modalItem" onclick="openModalItem(' + allItem[tmp]['inv_id'] + ')">'
                             + '<img class="img-responsive" src="' + allItem[tmp]['image'] + '" alt="shop hover image" style="width: 100%;">'
                             + '</a>'
 
                             + '<div class="shop-option-over" style="opacity: 1 !important;">'
                             @if($user['supplies'])           + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(event,' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
-                            + '<a data-original-title="ซ่อนพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(event,' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>' @endif
+                            + '<a data-original-title="'+hideOrShowTitle+'" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="toggleShowItem(event,' + allItem[tmp]['inv_id'] + ')"><i class="fa '+ icon +' nopadding"></i></a>'
+                            @endif
 
                             + '</div>';
                     if(allItem[tmp]['remain_qty'] == 0){
@@ -1471,14 +1512,14 @@
                                         +'<h2>'+allItem[tmp]['name']+'</h2>'
                                     +'</div>'
 
-                                    +'<div class="amount text-center">'
+                                    +'<div class="amount text-center @if($user['supplies']) '+tranparentClass+'   @endif">'
                                         +'<div style="width: 50%; display: inline-block">'
                                             +'<input id="item-input-amount-'+allItem[tmp]['inv_id']+'" type="text" value="" min="0" class="form-control stepper2 required">'
                                         +'</div>'
                                         +' '+allItem[tmp]['unit']
                                     +'</div>'
 
-                                    +'<div class="shop-item-buttons text-center">'
+                                    +'<div class="shop-item-buttons text-center @if($user['supplies']) '+tranparentClass+'   @endif">'
                                         +'<a class="btn btn-default" onclick="addToCart('+allItem[tmp]['inv_id']+')"><i class="fa fa-cart-plus"></i> Add to Cart</a>'
                                     +'</div>'
                                 +'</div>'
