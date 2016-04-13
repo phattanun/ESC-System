@@ -1286,6 +1286,10 @@
             var inv_id = allItem[id]['inv_id'];
             var check = checkDuplicateItemInCart(inv_id);
             if(!check) return;
+            if(allItem[id]['remain_qty'] == 0){
+                _toastr("ขออภัย พัสดุหมด", "top-right", "warning", false);
+                return;
+            }
 
             var amount = $("#modal-item-input-amount").val();
             changeCartItemAmount(cartItemAmount+1);
@@ -1616,6 +1620,10 @@
             var inv_id = allItem[id]['inv_id'];
             var check = checkDuplicateItemInCart(inv_id);
             if(!check) return;
+            if(allItem[id]['remain_qty'] == 0){
+                _toastr("ขออภัย พัสดุหมด", "top-right", "warning", false);
+                return;
+            }
 
             var amount = $("#item-input-amount-"+id).val();
             changeCartItemAmount(cartItemAmount+1);
