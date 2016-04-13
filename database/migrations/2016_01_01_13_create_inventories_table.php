@@ -22,6 +22,7 @@ class CreateInventoriesTable extends Migration
             $table->double('total_qty',10,2);
             $table->double('broken_qty',10,2);
             $table->double('remain_qty',10,2);
+            $table->boolean('isVisible');
             $table->bigInteger('editor_id')->unsigned();
             $table->timestamp('edit_at');
 

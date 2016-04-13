@@ -129,7 +129,7 @@ class InventoryController extends Controller
         $inventory->edit_at = Carbon::now();
         $inventory->save();
 
-        if(sizeof($_POST['editItemStore'])>0){
+        if(isset($_POST['editItemStore'])&&sizeof($_POST['editItemStore'])>0){
             InventorySupplier::where('inv_id','=',$_POST['editItemID'])->delete();
             for($i=0;$i<sizeof($_POST['editItemStore']);$i++){
                     InventorySupplier::create([

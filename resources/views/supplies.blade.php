@@ -572,7 +572,7 @@
             <div class="modal-content">
                 <form class="validate" action="{{url('/supplies/edit')}}" method="post"
                       {{--enctype="multipart/form-data" data-success="สร้างพัสดุสำเร็จ<script>window.location='{{url('/supplies')}}';</script>"--}}
-                      enctype="multipart/form-data" data-success="แก้ไขพัสดุสำเร็จ"
+                      enctype="multipart/form-data" data-success="แก้ไขพัสดุสำเร็จ<script>reload();$('#modalItemEdit').modal('hide');</script>"
                       data-toastr-position="top-right">
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                 <!-- Modal Header -->
@@ -893,6 +893,9 @@
 
         .table-modal-item tr, .table-modal-item td{
             white-space: pre-wrap !important;
+        }
+        .cropper-container{
+            width:100% !important;
         }
     </style>
 @endsection
@@ -1222,6 +1225,9 @@
         }
 
         //modalItemEdit
+        function reload(){
+            changePageTo(nowPage);
+        }
         // File Handling
         var  $imageEdit=$('#cropping-area-edit');
         var $imageWrapperEdit = $('#cropping-wrapper-edit');
@@ -1449,7 +1455,7 @@
 
                             + '<div class="shop-option-over" style="opacity: 1 !important;">'
                             @if($user['supplies'])           + '<a data-original-title="แก้ไขพัสดุนี้" class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="openModalItemEdit(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-edit nopadding"></i></a>'
-                            + '<a data-original-title="ลบพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-trash nopadding"></i></a>' @endif
+                            + '<a data-original-title="ซ่อนพัสดุนี้" class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" onclick="removeItem(' + allItem[tmp]['inv_id'] + ')"><i class="fa fa-eye-slash nopadding"></i></a>' @endif
                             + '</div>';
                     if(allItem[tmp]['remain_qty'] == 0){
                         txt = txt + '<div class="shop-item-info">'
