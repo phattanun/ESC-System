@@ -20,6 +20,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>300,
             'broken_qty'=>26,
             'editor_id'=>1,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 13:00:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>250
@@ -34,6 +35,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>150,
             'broken_qty'=>10,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>99
@@ -48,6 +50,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>100,
             'broken_qty'=>15,
             'editor_id'=>1,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>50
@@ -61,6 +64,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>1,
             'broken_qty'=>0,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วต้องนำมาคืน',
             'remain_qty'=>1
@@ -74,6 +78,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>1,
             'broken_qty'=>0,
             'editor_id'=>1,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วต้องนำมาคืน',
             'remain_qty'=>5
@@ -87,6 +92,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>20,
             'broken_qty'=>0,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>2
@@ -100,6 +106,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>25,
             'broken_qty'=>0,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>7
@@ -113,6 +120,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>15,
             'broken_qty'=>3,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วต้องนำมาคืน',
             'remain_qty'=>8
@@ -126,6 +134,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>50,
             'broken_qty'=>10,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วต้องนำมาคืน',
             'remain_qty'=>20
@@ -139,6 +148,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>12,
             'broken_qty'=>0,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>9
@@ -152,6 +162,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>105,
             'broken_qty'=>10,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วต้องนำมาคืน',
             'remain_qty'=>80
@@ -165,6 +176,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>10,
             'broken_qty'=>2,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วต้องนำมาคืน',
             'remain_qty'=>8
@@ -178,6 +190,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>15,
             'broken_qty'=>0,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>3
@@ -191,6 +204,7 @@ class InventorySeeder extends Seeder
             'total_qty'=>36,
             'broken_qty'=>0,
             'editor_id'=>2,
+            'isVisible'=>1,
             'edit_at'=>date("Y-m-d")." 14:30:00",
             'type'=>'ใช้แล้วหมดไป',
             'remain_qty'=>7
