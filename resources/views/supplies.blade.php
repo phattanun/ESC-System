@@ -1604,13 +1604,19 @@
                     $('.shop-item-list').append(txt);
                 }
                 jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
-                if(firstTime) {
-                    myStepper(2);
-                }
-                else
-                    firstTime = false;
+//                if(firstTime) {
+//                    myStepper(2);
+//                }
+//                else
+//                    firstTime = false;
+                setTimeout(step, 100);
+//                step();
             });
 
+        }
+
+        function step(){
+            myStepper(2);
         }
 
         var cartItemAmount = 0;
