@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    อนุมัติการยืมพัสดุ
+    จัดการยืม-คืนพัสดุ
 @endsection
 @section('body-attribute')
 @endsection
@@ -9,7 +9,7 @@
     active
 @endsection
 @section('bodyTitle')
-    อนุมัติการยืมพัสดุ
+    จัดการยืม-คืนพัสดุ
 @endsection
 @section('content')
     <section style="margin-top: -40px">
@@ -70,63 +70,101 @@
                     <div id="head" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 id="title" class="modal-title">
-                            <i class="fa fa-list-alt"></i> รายละเอียดการจอง</h4>
-                            <br>
-                            <div class="col-sm-4">
+                            <i class="fa fa-list-alt"></i> รายละเอียดการจอง
+                        </h4>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <label>กิจกรรม <span id="activity" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label>หน่วยงาน <span id="division" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
                             </div>
-                            <div class="col-sm-12" style="margin-bottom:10px;">
-                                <label>เหตุผล</label><span>&emsp;</span><span id="reason" class="text-blue" data-default="ไม่มีข้อมูล"></span>
+                        </div>
+
+                        <div class="row" style="margin:0">
+                            <div class="col-sm-6">
+                                <label style="text-align:center">รายการพัสดุ (เจ้าหน้าที่)</label>
+                                <table class="table">
+                                    <tr>
+                                        <th style="vertical-align:middle;text-align:center;">ชื่อพัสดุ</th>
+                                        <th colspan="2" style="vertical-align:middle;text-align:center;">จำนวน</th>
+                                        <th style="vertical-align:middle;text-align:center;">หน่วย</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr id="item-notfound">
+                                        <td colspan="5" style="vetical-align:middle;text-align: center">ไม่พบรายการ</td>
+                                    </tr>
+                                    <tbody id="staff-item-list">
+                                        <tr>
+                                            <input id="give_item_id" type="hidden" class="required">
+                                            <td style="vertical-align:middle;text-align:center;">ไม่มีข้อมูล</td>
+                                            <td style="vertical-align:middle;text-align:center;">-5</td>
+                                            <td style="vertical-align:middle;text-align:center;" class="text-red">3</td>
+                                            <td style="vertical-align:middle;text-align:center;">(หน่วย)</td>
+                                            <td style="vertical-align:middle;text-align:center;">
+                                                <button type="button" class="btn btn-yellow">ให้</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+                            <div class="col-sm-6">
+                                <label style="text-align:center">รายการพัสดุ (ผู้ยืมของ)</label>
+                                <table class="table nomargin">
+                                    <tr>
+                                        <th style="vertical-align:middle;text-align:center;">ชื่อพัสดุ</th>
+                                        <th colspan="2" style="vertical-align:middle;text-align:center;">จำนวน</th>
+                                        <th style="vertical-align:middle;text-align:center;">หน่วย</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr id="item-notfound">
+                                        <td colspan="5" style="vetical-align:middle;text-align: center">ไม่พบรายการ</td>
+                                    </tr>
+                                    <tbody id="user-item-list">
+                                        <tr>
+                                            <input id="reci_item_id" type="hidden" class="required">
+                                            <td style="vertical-align:middle;text-align:center;">ไม่มีข้อมูล</td>
+                                            <td style="vertical-align:middle;text-align:center;">+5</td>
+                                            <td style="vertical-align:middle;text-align:center;" class="text-green">5</td>
+                                            <td style="vertical-align:middle;text-align:center;">(หน่วย)</td>
+                                            <td style="vertical-align:middle;text-align:center;">
+                                                <button type="button" class="btn btn-green">รับ</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <!-- TABs -->
                         <ul id="sup-tab" class="nav nav-tabs">
-                            <li class="active"><a href="#" data-tab="reserve">ใบจอง</a></li>
+                            <li class="active"><a href="#" data-tab="reserve">ประวัติ</a></li>
                             <li><a href="#" data-tab="owner"  >ผู้จอง</a></li>
                         </ul>
                     </div>
 
                     <div id="content" class="modal-body">
-
                         <div id="sup-info-reserve">
                             <table class="table nomargin" width="100%">
                                 <tr>
-                                    <th style="vertical-align:middle;text-align: center;width:15%">ชื่อพัสดุ</th>
-                                    <th colspan="2" style="vertical-align:middle;text-align: center;width:15%">จำนวน</th>
-                                    <th style="vertical-align:middle;text-align: center;width:5%">หน่วย</th>
-                                    <th style="vertical-align:middle;text-align: center;width:5%">ไม่อนุมัติ</th>
-                                    <th style="vertical-align:middle;text-align: center;width:10%">หมายเหตุ</th>
+                                    <th style="vertical-align:middle;text-align:center;width:5%">วันที่</th>
+                                    <th style="vertical-align:middle;text-align:center;width:10%">ชื่อพัสดุ</th>
+                                    <th style="vertical-align:middle;text-align:center;width:5%">จำนวน</th>
+                                    <th style="vertical-align:middle;text-align:center;width:5%">หน่วย</th>
+                                    <th style="vertical-align:middle;text-align:center;width:5%">ผู้ดำเนินการ</th>
+                                    <th style="vertical-align:middle;text-align:center;width:5%">ประเภท</th>
                                 </tr>
                                 <tr id="template-item" style="display:none;">
-                                    <input id="item_id" type="hidden" class="required">
-                                    <td id="name"   style="vertical-align:middle;text-align: center">ไม่มีรายละเอียด</td>
-                                    <td  style="vertical-align:middle;text-align: center">
-                                        <div class="stepper-wrap">
-                                            <input id="borrow_allow" type="number" class="form-control required" style="margin: 0px;">
-                                            <div class="stepper-btn-wrap">
-                                                <a class="stepper-btn-up">▴</a>
-                                                <a class="stepper-btn-dwn">▾</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td id="borrow_request"   style="vertical-align:middle;text-align: center">--</td>
-                                    <td id="unit"   style="vertical-align:middle;text-align: center">(หน่วย)</td>
-                                    <td style="vertical-align:middle;text-align: center">
-                                        <label class="checkbox">
-                                            <input id='disapprove' type="hidden"   value="false">
-                                            <input id="disapprove" type="checkbox" value="false">
-                                            <i style="position:initial"></i>
-                                        </label>
-                                    </td>
-                                    <td id="reason" style="vertical-align:middle;text-align: center">
-                                        <input id="reason" type="text">
-                                    </td>
+                                    <td id="date"         style="vertical-align:middle;text-align:center">--/--/--</td>
+                                    <td id="name"         style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
+                                    <td id="borrow_allow" style="vertical-align:middle;text-align:center">--</td>
+                                    <td id="unit"         style="vertical-align:middle;text-align:center">(หน่วย)</td>
+                                    <td id="action_user"  style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
+                                    <td id="type"         style="vertical-align:middle;text-align:center">รับ-ให้</td>
                                 </tr>
                                 <tr id="item-notfound" style="display:none">
-                                    <td colspan="7" style="vetical-align:middle;text-align: center">ไม่พบรายการจอง</td>
+                                    <td colspan="7" style="vetical-align:middle;text-align:center">ไม่พบรายการประวัติ</td>
                                 </tr>
                                 <tbody id="items-list"></tbody>
                             </table>
@@ -167,11 +205,11 @@
                     </div>
 
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-red" style="float:left" onclick="alert('Close');">
+                            <i class="fa fa-times"></i><span>ปิดรายการ</span>
+                        </button>
                         <button type="button" class="btn btn-green" onclick="sendDetail();">
                             <i class="fa fa-check"></i><span>ยืนยัน</span>
-                        </button>
-                        <button type="button" class="btn btn-red" onclick="disAll();">
-                            <i class="fa fa-times"></i><span>ไม่อนุมัติทั้งหมด</span>
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             <i class="fa fa-minus"></i><span>ยกเลิก</span>
@@ -217,7 +255,7 @@
     <script type="text/javascript">
         var modal = $("#sup-detail");
         MagicPagi.init({
-            url : '{{ url("supplies/approve")}}',
+            url : '{{ url("supplies/manage") }}',
             ul : $("#page-nav .pagination"),
             min : 1,
             max : {{ $maxpage }},
@@ -282,54 +320,9 @@
                         template.find("input").each(function() {
                             $(this).attr('name',$(this).attr('id')+'[' + i + ']');
                         });
-                        template.find("label[class=checkbox]").each(function () {
-                            var row = $(this.parentElement.parentElement),
-                                borrow = row.find("input[id=borrow_allow]"),
-                                input = $(this).find("input[type=checkbox]"),
-                                inputHidden = $(this).find("input[type=hidden]"),
-                                i = $(this).find("i");
-                            borrow.data('min',0);
-                            i.click(function() {
-                                var value = !JSON.parse(input.val());
-                                inputHidden.disabled = !value;
-                                input.val(value);
-                                borrow.prop("disabled", value);
-                                row.toggleClass("disabled", value);
-                                if(value) {
-                                    borrow.data('cur',borrow.val());
-                                    borrow.val(0);
-                                }
-                                else {
-                                    borrow.val(borrow.data('cur'));
-                                }
-                            });
-                        });
                         template.appendTo(itemsList);
                     }
-                    itemsList.find(".stepper-wrap").each(function() {
-                        var input = $(this).find("input"),
-                            up = $(this).find(".stepper-btn-up"),
-                            down = $(this).find(".stepper-btn-dwn");
-                        up.click(function() {
-                            input.val(Math.min(parseInt(input.val()) + 1,input.data('max')));
-                        });
-                        down.click(function() {
-                            input.val(Math.max(parseInt(input.val()) - 1,input.data('min')));
-                        });
-                    });
-
-                    replace(response, function(name, element, data) {
-                        switch(name) {
-                            case "borrow_request":
-                                element.html("จาก " + data);
-                                $(element[0].parentElement).find("#borrow_allow").data('max',data);
-                                break;
-                            case "borrow_allow":
-                                if(data==null)
-                                    element.val(element.data('max'));
-                                break;
-                        }
-                    });
+                    replace(response);
                 },
                 error : function(e) {
                     var response = e.responseText;
@@ -356,12 +349,6 @@
                         template.find("button").attr("onclick","loadDetail(" + contents[i] + ");");
                         for(j in attrs)
                             template.find("#"+attrs[j]).html(response[contents[i]][attrs[j]]);
-                        var status = template.find("#status");
-                        switch(status.html()) {
-                            case "รออนุมัติ":
-                                // TODO: Add CSS to all status
-                                break;
-                        }
                         container.append(template);
                     }
                     if(container.html()=="")

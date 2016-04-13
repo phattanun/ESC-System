@@ -67,6 +67,8 @@ Route::get ('/supplies/approve/{page}', 'InventoryController@viewApprove');
 Route::post('/supplies/approve/list/{page}', 'InventoryController@getBorrowList');
 Route::post('/supplies/approve/modal', 'InventoryController@getApproveModal');
 Route::post('/supplies/approve/approve','InventoryController@approveBorrowList');
+Route::get ('/supplies/manage', 'InventoryController@viewManage');
+Route::get ('/supplies/manage/{page}', 'InventoryController@viewManage');
 Route::get ('/supplies/supplier', 'InventoryController@supplierPage');
 Route::post('/supplies/delete_supplier', 'InventoryController@deleteSupplier');
 Route::post('/supplies/edit_supplier', 'InventoryController@editSupplier');

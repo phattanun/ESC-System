@@ -32,7 +32,7 @@ MagicPagi.go = function(currentPage) {
 
     // 1 2 3
     for(i = this.start; i <= this.end; i++) {
-        this.target.append('<li id="p' + i + '" ' + (i == this.currentPage?'class="active"':'') +'><a class="link" data-page="' + i + '" href="' + this.baseURL + '/' + i + '">' + i + '</a></li>');
+        this.target.append('<li id="p' + i + '" ' + (i == this.currentPage?'class="active"':'') +'><a class="link" style="cursor:initial;" data-page="' + i + '" href="' + this.baseURL + '/' + i + '">' + i + '</a></li>');
     }
 
     // ...

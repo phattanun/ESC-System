@@ -402,6 +402,7 @@ class InventoryController extends Controller
         foreach($borrow_item_list as $b){
             $tmp = [];
             $tmp['name'] = $b['name'];
+            $tmp['unit'] = $b['unit'];
             $tmp['borrow_request'] = $b->pivot->borrow_request_amount;
             $tmp['borrow_allow'] = $b->pivot->borrow_actual_amount;
             $send_data['reserve'][$count] = $tmp;
@@ -477,7 +478,7 @@ class InventoryController extends Controller
 
     public function approveBorrowList(Request $request){
         $user = $this->getUser();
-        if(!isset($user['supplies'])) return response("noinfo", "500");
+        if(is_null($user) || !isset($user['supplies'])) return response("noinfo", "500");
 
         $approver_id = $request->input('approver_id');
         $list_id = $request->input('list_id');
@@ -488,26 +489,15 @@ class InventoryController extends Controller
 
         for ($i = 0; $i < count($item_id); ++$i) {
 
-            /*if(!$disapprove[$i])
-                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>$borrow_allow[$i],'status'=>1,'approver_id'=>$approver_id,'reason_if_not_approve'=>""]);
-            else
-                BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>0,'status'=>-1,'approver_id'=>$approver_id,'reason_if_not_approve'=>$reason[$i]]);*/
-
+            $amount = 0;
             $borrow = BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->first();
-            $borrow['approver_id'] = $approver_id;
-
-            if(!$disapprove[$i]){
-                if($borrow_allow[$i] > $borrow['borrow_request_amount']) return "อนุมัติเกินจำนวนไม่ได้ค่ะนิสิต";
-                $borrow['borrow_actual_amount'] = $borrow_allow[$i];
+            if($disapprove[$i] === 'false'){
+                if($borrow_allow[$i] > BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->first()['borrow_request_amount']) return "อนุมัติเกินจำนวนไม่ได้ค่ะนิสิต";
+                $amount = $borrow_allow[$i];
             }
-            else{
-                $borrow['borrow_actual_amount'] = 0;
-            }
-
-            $borrow['status'] = $disapprove[$i]? -1 : 1;
-            $borrow['reason_if_not_approve'] = $disapprove[$i]? $reason[$i] : "";
-
-            $borrow->save();
+            $status = $disapprove[$i]? -1 : 1;
+            $r = $disapprove[$i]? $reason[$i] : "";
+            BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->update(['borrow_actual_amount'=>$amount,'status'=>$status,'approver_id'=>$approver_id,'reason_if_not_approve'=>$r]);
 
         }
 
@@ -625,6 +615,14 @@ class InventoryController extends Controller
 
         if(sizeof($reservation)==0) return 'fail';
         return $reservation;
+    }
+
+    public function viewManage($page = 1) {
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return redirect('/');
+
+        $maxpage = ceil(BorrowList::count()/$this->numberPerPage);
+        return view('supplies-manage', compact('page','maxpage'));
     }
 
 }
