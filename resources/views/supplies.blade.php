@@ -340,7 +340,7 @@
                     </div>
                 </div>
 
-                <div class="modal-body" style="border-top: 1px solid #e5e5e5;">
+                <div class="modal-body supplier-table" style="border-top: 1px solid #e5e5e5;">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-modal-item">
                             <thead>
@@ -1248,6 +1248,8 @@
             $(".modal-item-tuple").remove();
             var len = allItem[id]['supplier'].length;
 //            alert(allItem[id]['supplier'].length);
+            if(len == 0) $(".supplier-table").addClass("hidden");
+            else $(".supplier-table").removeClass("hidden");
             for(var i = 0 ; i < len ;i++){
                 if(allItem[id]['supplier'][i]['price_per_unit'] == null)
                     var price_per_unit = '-';
