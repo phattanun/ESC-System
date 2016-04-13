@@ -216,7 +216,7 @@
         }
         .status-step-1{
             color: white;
-            background-color: rgba(253, 220, 72, 1);
+            background-color: rgb(255, 200, 20);
         }
         .status-step-2{
             color: white;
