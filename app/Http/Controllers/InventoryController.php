@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use App\InventorySupplier;
+use App\Setting;
 use Carbon\Carbon;
 use App\BorrowItem;
 use App\BorrowList;
@@ -19,6 +20,7 @@ use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -26,6 +28,20 @@ use Illuminate\Support\Facades\Hash;
 
 class InventoryController extends Controller
 {
+
+
+    public function editAnnouncement(){
+        $user = Auth::user();
+        if(is_null($user))
+            return response("login", "500");
+//        if(!isset($user['supplies']))
+//            return response("permission", "500");
+
+        DB::table('settings')
+            ->update(['inventory_announcement' => $_POST['announcement']]);
+
+        return redirect('/supplies');
+    }
 
     public function inventoryPageDefault(){
         return $this->inventoryPage(1);
@@ -86,11 +102,12 @@ class InventoryController extends Controller
             $i++;
         }
         $supplier = Supplier::all();
+        $announcement = Setting::first()['inventory_announcement'];
 //        return compact('page','itemAmount','activity','division');
         if(isset($user['supplies']))
-            return view('supplies', compact('page','itemAmount','activity','division','supplier'));
+            return view('supplies', compact('page','itemAmount','activity','division','supplier','announcement'));
         else
-            return view('supplies', compact('page','itemAmount','activity','division'));
+            return view('supplies', compact('page','itemAmount','activity','division','announcement'));
     }
     public function createItem(){
         $user = $this->getUser();

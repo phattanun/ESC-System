@@ -17,27 +17,23 @@
 
 
         <div id="content" class="padding-40">
-
+            @if($permission&&$permission->room||$announcement['announcement']!='')
             <div class="row">
-
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <!-- Panel -->
                     <div class="panel panel-default">
-
                         <div class="panel-heading">
-
 								<span class="title elipsis">
 									<strong>ประกาศ</strong> <!-- panel title -->
 								</span>
                         </div>
-
                         <!-- panel content -->
                         <div class="panel-body">
                             <div id="announcement" class="text-center"><p id="announcementText">{{$announcement['announcement']}}</p></div>
                             @if($permission&&$permission->room)
                                 <form novalidate="novalidate" class="validate" action="{{url().'/room/edit_announcement'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/room/reserve';</script>" data-toastr-position="top-right">
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                                <input id = "announcementEditBox"  name="announcement" class="form-control required hidden" type="text">
+                                <input id = "announcementEditBox"  name="announcement" class="form-control hidden" type="text">
                             <div id="editAnnouncementButton"  class="text-center">
                                 <a class="btn btn-3d btn-reveal btn-yellow">
                                     <i class="fa fa-edit"></i>
@@ -62,13 +58,11 @@
                             @endif
                         </div>
                         <!-- /panel content -->
-
                     </div>
                     <!-- /Panel -->
-
                 </div>
-
             </div>
+            @endif
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <!-- Panel -->

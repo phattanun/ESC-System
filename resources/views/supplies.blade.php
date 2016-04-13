@@ -779,7 +779,52 @@
                     <i class="fa fa-shopping-cart"></i>
                 </a>
             </div>
-
+            @if(isset($user['supplies'])||$announcement!='')
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <!-- Panel -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+								<span class="title elipsis">
+									<strong>ประกาศ</strong> <!-- panel title -->
+								</span>
+                            </div>
+                            <!-- panel content -->
+                            <div class="panel-body">
+                                <div id="announcement" class="text-center"><p id="announcementText">{{$announcement}}</p></div>
+                                @if(isset($user['supplies']))
+                                    <form novalidate="novalidate" class="validate" action="{{url().'/supplies/edit_announcement'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/supplies';</script>" data-toastr-position="top-right">
+                                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                                        <input id = "announcementEditBox"  name="announcement" class="form-control hidden" type="text">
+                                        <div id="editAnnouncementButton"  class="text-center">
+                                            <a class="btn btn-3d btn-reveal btn-yellow">
+                                                <i class="fa fa-edit"></i>
+                                                <span>แก้ไข</span>
+                                            </a>
+                                        </div>
+                                        <div class="row text-center hidden" id="edit-panel">
+                                            <div class="col-md-offset-5 col-md-1 ">
+                                                <button id="save-btn" type="submit" class="btn btn-3d btn-reveal btn-green ">
+                                                    <i class="fa fa-check"></i>
+                                                    <span>บันทึก</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a id="cancel-btn" class="btn btn-3d btn-reveal btn-red ">
+                                                    <i class="fa fa-times"></i>
+                                                    <span>ยกเลิก</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
+                            </div>
+                            <!-- /panel content -->
+                        </div>
+                        <!-- /Panel -->
+                    </div>
+                </div>
+            @endif
             <div class="row">
 
                 <!-- RIGHT -->
@@ -908,6 +953,16 @@
             -webkit-background-size: 16px 16px;
             background-size: 16px 16px;
         }
+        form {
+            margin-bottom: 0px;
+        }
+        #announcement p{
+            color: #780000;
+            word-break: break-all;
+            word-wrap: break-word;
+            font-size: 20px;
+            margin-bottom: 0px;
+        }
     </style>
 @endsection
 
@@ -971,7 +1026,22 @@
         searchCountInventory(nowPage);
 
         var allItem;
-
+//announcement
+        @if($user['supplies'])
+       $("#editAnnouncementButton").click(function () {
+            $("#announcement").hide();
+            $("#announcementEditBox").val($("#announcementText").text());
+            $("#announcementEditBox").removeClass('hidden');
+            $("#edit-panel").removeClass('hidden');
+            $(this).hide();
+        });
+        $("#cancel-btn").click(function(){
+            $("#announcement").show();
+            $("#announcementEditBox").addClass('hidden');
+            $("#edit-panel").addClass('hidden');
+            $("#editAnnouncementButton").show();
+        });
+        @endif
 //create Item
         $(document).on('click','.delete-create-tuple',function(){
             $(this).closest('tr').remove();
