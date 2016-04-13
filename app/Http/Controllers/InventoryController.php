@@ -597,6 +597,14 @@ class InventoryController extends Controller
 
     }
 
+    public function addTransaction(Request $request){
+
+    }
+
+    public function getTransaction(Request $request){
+
+    }
+
     public function supplierPage(){
         $user = $this->getUser();
         if(!isset($user['supplies']))
