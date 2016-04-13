@@ -1303,6 +1303,7 @@
                     +'</tr>';
             $('.cart-item-table-body').append(txt);
             myStepper(stepperN);
+            _toastr("เพิ่มพัสดุนี้ในรายการยืมแล้ว", "top-right", "success", false);
         }
 
         //modalItemEdit
@@ -1632,6 +1633,7 @@
                     +'</tr>';
             $('.cart-item-table-body').append(txt);
             myStepper(stepperN);
+            _toastr("เพิ่มพัสดุนี้ในรายการยืมแล้ว", "top-right", "success", false);
         }
 
         function removeCartItem(order){
