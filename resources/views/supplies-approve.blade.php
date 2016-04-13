@@ -356,6 +356,12 @@
                         template.find("button").attr("onclick","loadDetail(" + contents[i] + ");");
                         for(j in attrs)
                             template.find("#"+attrs[j]).html(response[contents[i]][attrs[j]]);
+                        var status = template.find("#status");
+                        switch(status.html()) {
+                            case "รออนุมัติ":
+                                // TODO: Add CSS to all status
+                                break;
+                        }
                         container.append(template);
                     }
                     if(container.html()=="")
