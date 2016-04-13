@@ -1604,20 +1604,20 @@
                     $('.shop-item-list').append(txt);
                 }
                 jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
-                if(firstTime) {
-                    myStepper(2);
-                }
-                else
-                    firstTime = false;
-//                setTimeout(step, 100);
+//                if(firstTime) {
+//                    myStepper(2);
+//                }
+//                else
+//                    firstTime = false;
+                setTimeout(step, 80);
 //                step();
             });
 
         }
 
-//        function step(){
-//            myStepper(2);
-//        }
+        function step(){
+            myStepper(2);
+        }
 
         var cartItemAmount = 0;
         var stepperN = 2;
