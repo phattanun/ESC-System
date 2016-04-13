@@ -769,7 +769,7 @@
         {{--</div>--}}
     {{--</div>--}}
     @endif
-    <section>
+    <section style="margin-top: -40px;">
         <div class="container">
 
             <div class="cart-button hidden"  data-toggle="modal" data-target="#modalCart" style="position: fixed; top: 85px; right: 8%; z-index: 1000;">

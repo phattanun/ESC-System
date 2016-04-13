@@ -16,7 +16,7 @@
     <section  id="middle">
 
 
-        <div id="content" class="padding-20">
+        <div id="content" class="padding-40">
 
             <div class="row">
 
