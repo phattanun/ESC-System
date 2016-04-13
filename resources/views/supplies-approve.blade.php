@@ -210,31 +210,29 @@
           margin: 0;
         }
         .status{
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            border-radius: 3px;
+            display: inline-block;
+            width: 120px;
+            border-radius: 5px;
         }
         .status-step-1{
             color: white;
-            background-color: rgb(255,116,116);
+            background-color: rgb(255, 200, 20);
         }
         .status-step-2{
             color: white;
-            background-color: red;
+            background-color: #b6e143;
         }
         .status-step-3{
             color: white;
-            background-color: green;
+            background-color: #5bc0eb;
         }
         .status-step-4{
             color: white;
-            background-color: blue;
+            background-color: #e55934;
         }
         .status-step-5{
             color: white;
-            background-color: black;
+            background-color: #d6d6d6;
         }
     </style>
 @endsection
