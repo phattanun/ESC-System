@@ -843,7 +843,7 @@
                         </ul>
 
                         <div class="options-left col-lg-5 col-md-5 col-sm-5">
-                            <div class="input-group autosuggest" data-minLength="1">
+                            <div class="input-group autosuggest" data-minLength="1" data-queryURL="{!! url('setting/auto_suggest?limit=10&search=') !!}">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input id="searchInventory" name="searchInventory" class="form-control typeahead" placeholder="กรอกรหัส/ชื่อพัสดุ" type="text">
                                     <span class="input-group-btn" id="add-new-permission-btn" onclick="searchCountInventory(1)">
@@ -1609,7 +1609,7 @@
 //                }
 //                else
 //                    firstTime = false;
-                setTimeout(step, 100);
+                setTimeout(step, 80);
 //                step();
             });
 
