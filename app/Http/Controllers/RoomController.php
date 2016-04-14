@@ -46,6 +46,10 @@ class RoomController extends Controller
         return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department,'generation' => $generation,'group'=>$group,'room'=>$room,'announcement'=>$announcement]);
     }
 
+    public function getMap()
+    {
+        return ScheduleSetting::select('image')->first()['image'];
+    }
     public function viewApprovePage()
     {
         $user = Auth::user();

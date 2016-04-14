@@ -73,7 +73,6 @@
 								<span class="title elipsis">
 									<strong>ปฏิทิน</strong> <!-- panel title -->
 								</span>
-
                             <div class="panel-options pull-right"><!-- panel options -->
                                 <ul class="options list-unstyled">
                                     <li>
@@ -88,6 +87,7 @@
                                     <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
                                 </ul>
                             </div><!-- /panel options -->
+                            <a class="pull-right" data-toggle="modal" data-target="#mapModal" id="map-btn">ดูแผนที่ห้อง</a>
                         </div>
 
                         <!-- panel content -->
@@ -349,6 +349,29 @@
         </div>
     </div>
 
+    <div id="mapModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mapPhoto" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">แผนที่ห้องประชุม</h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <img id="map-img" width="100%">
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer " style="text-align: center;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('css')
@@ -359,6 +382,11 @@
 @section('js')
     <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
     <script type="text/javascript">
+        $('#map-btn').click(function () {
+            $.get( "{{url('/room/map')}}").done(function(data) {
+                $('#map-img').attr('src', data);
+            });
+        });
         @if($permission&&$permission->room)
         $("#editAnnouncementButton").click(function () {
             $("#announcement").hide();
