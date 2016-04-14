@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use App\InventorySupplier;
+use App\ItemTransaction;
 use App\Setting;
 use Carbon\Carbon;
 use App\BorrowItem;
@@ -602,6 +603,28 @@ class InventoryController extends Controller
     }
 
     public function getTransaction(Request $request){
+
+        $borrowlist_id = $request->input('id');
+        //$borrowlist_id = $id;
+        $transactionList = ItemTransaction::where('list_id',$borrowlist_id)->get();
+
+        // Prepare User
+        $stud = User::all();
+        $student = [];
+        foreach($stud as $s){
+            $student[$s['student_id']] = $s['name']." ".$s['surname'];
+        }
+
+        $send_data = [];
+        foreach($transactionList as $t){
+            $send_data[$t['transaction_id']]['item_id'] = $t['inv_id'];
+            $send_data[$t['transaction_id']]['date'] = $t['date'];
+            $send_data[$t['transaction_id']]['type'] = $t['type'];
+            $send_data[$t['transaction_id']]['amount'] = $t['amount'];
+            $send_data[$t['transaction_id']]['staff'] = $student[$t['staff_id']];
+            $send_data[$t['transaction_id']]['remain_qty'] = $t['remain_qty'];
+        }
+        return $send_data;
 
     }
 
