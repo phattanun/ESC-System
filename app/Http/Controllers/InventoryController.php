@@ -603,7 +603,7 @@ class InventoryController extends Controller
         $actor_id = $request->input('actor_id');
         $transaction = $request->input('transaction');
         $remain_item = Inventory::where('inv_id',$transaction['item_id'])->first();
-        ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$transaction['amount'],'type'=>$transaction['type'],'inv_id'=>$transaction['item_id'],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0])
+        ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$transaction['amount'],'type'=>$transaction['type'],'inv_id'=>$transaction['item_id'],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0]);
 
     }
 
