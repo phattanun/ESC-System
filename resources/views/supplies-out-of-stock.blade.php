@@ -22,7 +22,7 @@
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><i class="fa fa-briefcase"></i> พัสดุหมด/เหลือน้อยุ</h2>
+                    <h2 class="panel-title"><i class="fa fa-briefcase"></i> พัสดุหมด/เหลือน้อย</h2>
                 </div>
                 <div class="panel-body">
                     </br>
@@ -32,6 +32,31 @@
                         <table class="table nomargin" id="search-result-table">
                         </table>
                     </div>
+                    {{--end table part--}}
+
+
+                    {{--table part--}}
+                    <div class="table-responsive">
+                        @if($items[0])
+                        <table class="table nomargin" id="search-result-table">
+                            <tr>
+                                <th>ชื่อพัสดุ</th>
+                                <th>จำนวนที่เหลืออยู่</th>
+                                <th>หน่วย</th>
+                            </tr>
+                            @foreach($items as $item)
+                                <tr>
+                                    <td>{{$item['name']}}</td>
+                                    <td>{{$item['remain_qty']}}</td>
+                                    <td>{{$item['unit']}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        @else <div class = \'text-center\'>ไม่มีรายการพัสดุหมด/เหลือน้อย</div>
+                        @endif
+                    </div>
+
+
                     {{--end table part--}}
 
                     {{--excel button part--}}

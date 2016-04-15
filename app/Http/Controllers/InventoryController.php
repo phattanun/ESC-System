@@ -762,7 +762,12 @@ class InventoryController extends Controller
     }
 
     public function outOfStock(){
-        return view('supplies-out-of-stock');
+        $user = $this->getUser();
+        if(!isset($user['supplies'])) return redirect('/');
+
+        $items = Inventory::where('remain_qty','<=','5')->get();
+
+        return view('supplies-out-of-stock', compact('items'));
     }
 
 }
