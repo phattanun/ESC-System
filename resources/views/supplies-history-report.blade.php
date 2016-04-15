@@ -174,15 +174,12 @@
                             '<th style="vertical-align:middle" rowspan="1">ลำดับ</th>' +
                             '<th style="vertical-align:middle" rowspan="1">กิจกรรม</th>' +
                             '<th style="vertical-align:middle" rowspan="1">หน่วยงาน</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">เหตุผลการจอง</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">จำนวนคน</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">เวลาเริ่ม</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">เวลาสิ้นสุด</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">พัสดุ</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">จำนวน</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">วันเริ่มต้น</th>' +
+                            '<th style="vertical-align:middle" rowspan="1">วันสิ้นสุด</th>' +
                             '<th style="vertical-align:middle" rowspan="1">สถานะ</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">ห้องที่อนุมัติ</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">เครื่องฉาย</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">ปลั๊กไฟ</th>';
+                            '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>';
 
                     @if($type == 'report')
                             tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้จอง</th>' +
@@ -205,10 +202,7 @@
                                 '<td>' + input[counter]["request_start_time"] + '</td>' +
                                 '<td>' + input[counter]["request_end_time"] + '</td>' +
                                 '<td>' + input[counter]["status"] + '</td>' +
-                                '<td>' + input[counter]["allow_room_id"] + '</td>' +
-                                '<td>' + input[counter]["reason_if_not_approve"] + '</td>' +
-                                '<td>' + input[counter]["allow_projector"] + '/' + input[counter]["request_projector"] + '</td>' +
-                                '<td>' + input[counter]["allow_plug"] + '/' + input[counter]["request_plug"] + '</td>';
+                                '<td>' + input[counter]["reason_if_not_approve"] + '</td>';
 
                         @if($type == 'report')
                                 tabledata +=
