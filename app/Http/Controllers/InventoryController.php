@@ -602,8 +602,15 @@ class InventoryController extends Controller
         $borrowlist_id = $request->input('list_id');
         $actor_id = $request->input('actor_id');
         $transaction = $request->input('transaction');
-        $remain_item = Inventory::where('inv_id',$transaction['item_id'])->first();
-        ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$transaction['amount'],'type'=>$transaction['type'],'inv_id'=>$transaction['item_id'],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0]);
+        $last_transaction = ItemTransaction::where('inv_id',$transaction['item_id'])->ordeyBy('date','desc')->take(1)->first();
+        $remain = 0;
+        if($transaction['type']==0 && $last_transaction['amount']-$transaction['amount'] >= 0){
+            $remain = $last_transaction['amount']-$transaction['amount'];
+        }
+        else if ($transaction['type'] == 1){
+            $remain = $last_transaction['amount']+$transaction['amount'];
+        }
+        ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$transaction['amount'],'type'=>$transaction['type'],'inv_id'=>$transaction['item_id'],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>$remain]);
 
     }
 
