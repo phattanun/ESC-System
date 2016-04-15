@@ -761,4 +761,8 @@ class InventoryController extends Controller
         return view('supplies-manage', compact('page','maxpage'));
     }
 
+    public function outOfStock(){
+        return view('supplies-out-of-stock');
+    }
+
 }

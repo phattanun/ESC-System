@@ -57,7 +57,7 @@ Route::post('/room/result', 'RoomController@roomResult');
 Route::get ('/supplies/search', 'InventoryController@invSearchQuery');
 Route::get ('/supplies/report', 'InventoryController@invReportQuery');
 Route::post('/supplies/result', 'InventoryController@invResult');
-
+Route::get ('/supplies/outofstock', 'InventoryController@outOfStock');
 Route::get ('/supplies', 'InventoryController@inventoryPageDefault');
 Route::post('/supplies', 'InventoryController@changeToPage');
 Route::post('/supplies/search_count', 'InventoryController@searchCountInventory');
@@ -79,6 +79,8 @@ Route::post('/supplies/create', 'InventoryController@createItem');
 Route::post('/supplies/edit', 'InventoryController@editItem');
 Route::post('/supplies/toggle_show_item', 'InventoryController@toggleShowItem');
 Route::post('/supplies/edit_announcement', 'InventoryController@editAnnouncement');
+
+
 // Students Search
 Route::get ('/students', 'StudentController@studentsPage');
 Route::get ('/students/getExcelFile', 'StudentController@generateXLS');

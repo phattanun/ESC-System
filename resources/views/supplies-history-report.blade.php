@@ -26,7 +26,7 @@
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><i class="fa fa-calendar"></i> ค้นหาข้อมูลการยืมพัสดุ</h2>
+                    <h2 class="panel-title"><i class="fa fa-briefcase"></i> ค้นหาข้อมูลการยืมพัสดุ</h2>
                 </div>
                 <div class="panel-body">
                     </br>
