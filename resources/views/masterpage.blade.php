@@ -159,7 +159,7 @@
                                     @else <li><a href="{{ URL::to('/supplies') }}">ค้นหา/ยืมพัสดุ</a></li>
                                     @endif
                                     @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/approve') }}">อนุมัติการยืมพัสดุ</a></li>@endif
-                                    @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/manage') }}">จัดการยืม-คืนพัสดุ</a></li>@endif
+                                    @if(isset($user['supplies']))<li><a href="{{ URL::to('/supplies/manage') }}">จัดการการยืม-คืนพัสดุ</a></li>@endif
                                     @if(isset($user['supplies']))<li><a href="{{ URL::to('supplies/outofstock') }}">พัสดุหมด/เหลือน้อย</a></li>@endif
                                     @if(isset($user['supplies']))<li><a href="{{ URL::to('supplies/supplier') }}">แก้ไขข้อมูลร้านค้า</a></li>@endif
                                     <li><a href="{{ URL::to('/supplies/search') }}">ประวัติการยืม</a></li>
