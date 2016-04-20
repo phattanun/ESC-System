@@ -363,7 +363,6 @@
                 }
             });
         }
-        var mydebug;
         function loadList(page) {
             $.ajax({
                 type: "POST",

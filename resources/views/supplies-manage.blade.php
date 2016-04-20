@@ -33,7 +33,7 @@
                                 <td id="division_name"     style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
                                 <td id="creator_name"  style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
                                 <td id="create_at"style="vertical-align:middle;text-align: center">--/--/--</td>
-                                <td id="status"   style="vertical-align:middle;text-align: center">ไม่มีข้อมูล</td>
+                                <td style="vertical-align:middle;text-align: center"><span id="status">ไม่มีข้อมูล</span></td>
                                 <td style="vertical-align:middle;text-align: center">
                                     <button id="button" type="button" class="btn btn-3d btn-reveal btn-yellow" onclick='$("#sup-detail").modal("toggle");'>
                                         <i class="fa fa-edit"></i>
@@ -247,6 +247,31 @@
           -webkit-appearance: none;
           margin: 0;
         }
+        .status{
+            display: inline-block;
+            width: 120px;
+            border-radius: 5px;
+        }
+        .status-step-1{
+            color: white;
+            background-color: rgb(255, 200, 20);
+        }
+        .status-step-2{
+            color: white;
+            background-color: #b6e143;
+        }
+        .status-step-3{
+            color: white;
+            background-color: #5bc0eb;
+        }
+        .status-step-4{
+            color: white;
+            background-color: #e55934;
+        }
+        .status-step-5{
+            color: white;
+            background-color: #d6d6d6;
+        }
     </style>
 @endsection
 
@@ -349,6 +374,25 @@
                         template.find("button").attr("onclick","loadDetail(" + contents[i] + ");");
                         for(j in attrs)
                             template.find("#"+attrs[j]).html(response[contents[i]][attrs[j]]);
+                        var status = template.find("#status");
+                        template.find("#status").addClass("status");
+                        switch(status.html()) {
+                            case "รออนุมัติ":
+                                template.find("#status").addClass("status-step-1");
+                                break;
+                            case "อนุมัติ":
+                                template.find("#status").addClass("status-step-2");
+                                break;
+                            case "กำลังดำเนินการ":
+                                template.find("#status").addClass("status-step-3");
+                                break;
+                            case "เกินกำหนดคืน":
+                                template.find("#status").addClass("status-step-4");
+                                break;
+                            case "ปิดรายการ":
+                                template.find("#status").addClass("status-step-5");
+                                break;
+                        }
                         container.append(template);
                     }
                     if(container.html()=="")
