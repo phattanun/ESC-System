@@ -505,6 +505,7 @@ class RoomController extends Controller
 
         $title = array (
             "type" => "นิสิตคณะวิศวฯ",
+            "type-sign" => "u",
             "approver" => (!is_null($reserve->status) ? (isset($approver)? $approver->name: "ไม่มีข้อมูล") : null),
             "status" => $reserve->status
         );
@@ -537,15 +538,16 @@ class RoomController extends Controller
             "allow_projector" => $reserve->allow_projector,
             "allow_plug" => $reserve->allow_plug,
             "reason" => $reserve->reason,
+            "reason_if_not_approve" => $reserve->reason_if_not_approve,
 
             // Input
             "res_id" => $reserve->res_id,
             "request_room_id" => $reserve->request_room_id
         );
 
-        $title = array_filter($title);
-        $owner = array_filter($owner);
-        $reserve = array_filter($reserve);
+        $title = array_filter($title, function($var){return !is_null($var);});
+        $owner = array_filter($owner, function($var){return !is_null($var);});
+        $reserve = array_filter($reserve, function($var){return !is_null($var);});
 
         return compact('title','reserve','owner');
     }
@@ -569,11 +571,15 @@ class RoomController extends Controller
             return response("notfound", "500");
 
         $room = MeetingRoom::find($reserve->request_room_id);
+        if($reserve->approver_id != NULL)
+            $approver = User::find($reserve->approver_id);
         if(is_null($room))
             return response("noinfo","500");
 
         $title = array (
             "type" => "บุคคลภายนอก",
+            "type-sign" => "g",
+            "approver" => (!is_null($reserve->status) ? (isset($approver)? $approver->name: "ไม่มีข้อมูล") : null),
             "status" => $reserve->status
         );
 
@@ -592,21 +598,26 @@ class RoomController extends Controller
             "res_id" => $reserve->res_id,
             "organization" => $reserve->guest_org,
             "room_name" => $room->name,
+            "number_of_people" => $reserve->number_of_people,
             "request_start_time" => $reserve->request_start_time,
             "request_end_time" => $reserve->request_end_time,
-            "number_of_people" => $reserve->number_of_people,
             "request_projector" => $reserve->request_projector,
             "request_plug" => $reserve->request_plug,
+            "allow_start_time" => $reserve->allow_start_time,
+            "allow_end_time" => $reserve->allow_end_time,
+            "allow_projector" => $reserve->allow_projector,
+            "allow_plug" => $reserve->allow_plug,
             "reason" => $reserve->reason,
+            "reason_if_not_approve" => $reserve->reason_if_not_approve,
 
             // Input
             "res_id" => $reserve->res_id,
             "request_room_id" => $reserve->request_room_id
         );
 
-        $title = array_filter($title);
-        $owner = array_filter($owner);
-        $reserve = array_filter($reserve);
+        $title = array_filter($title, function($var){return !is_null($var);});
+        $owner = array_filter($owner, function($var){return !is_null($var);});
+        $reserve = array_filter($reserve, function($var){return !is_null($var);});
 
         return compact('title','reserve','owner');
     }
@@ -625,13 +636,23 @@ class RoomController extends Controller
         if(is_null($res_id))
             return response("noinfo", "500");
 
-        $reserve = UserReservation::find($res_id);
-        if(is_null($reserve))
+        $type = Input::get('type');
+        if(is_null($type))
             return response("notfound", "500");
 
-        $owner = User::find($reserve->student_id);
-        if(is_null($reserve))
-            return response("noinfo", "500");
+        if($type == "u") {
+            $reserve = UserReservation::find($res_id);
+            if(is_null($reserve))
+                return response("notfound", "500");
+            $owner = User::find($reserve->student_id);
+            if(is_null($reserve))
+                return response("noinfo", "500");
+        }
+        else {
+            $reserve = GuestReservation::find($res_id);
+            if(is_null($reserve))
+                return response("notfound", "500");
+        }
 
         $status = Input::get('status');
         if(is_null($status))
@@ -653,15 +674,25 @@ class RoomController extends Controller
         if(is_null($allow_end_time))
             return response("noinfo", "500");
 
+        $reason = Input::get("reason_if_not_approve");
+
         $reserve->status = $status;
         $reserve->approver_id = $approver_id;
-        $reserve->allow_room_id = $allow_room_id;
-        $reserve->allow_start_time = $allow_start_time;
-        $reserve->allow_end_time = $allow_end_time;
         $reserve->approve_at = date('Y-m-d H:i:s');
+        if($status) {
+            $reserve->allow_room_id = $allow_room_id;
+            $reserve->allow_start_time = $allow_start_time;
+            $reserve->allow_end_time = $allow_end_time;
+        }
+        else {
+            $reserve->reason_if_not_approve = $reason;
+            $reserve->allow_room_id = null;
+            $reserve->allow_start_time = null;
+            $reserve->allow_end_time = null;
+        }
         $reserve->save();
 
-        return ($status == 1 ? "approve":"disapprove");
+        return $type.($status == 1 ? "approve":"disapprove");
     }
 
     public function roomSearchQuery()

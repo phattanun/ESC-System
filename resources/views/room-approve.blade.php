@@ -85,6 +85,7 @@
                         <span id="status" class="text-orange">รอการอนุมัติ</span>
                         <span id="approver"></span>
                     <span style="float:right"><div id="type"></div></span>
+                    <input type="hidden" name="type" id="type-sign">
                 </h4>
                 <!-- TABs -->
                 <ul id="event-tab" class="nav nav-tabs">
@@ -93,7 +94,7 @@
                 </ul>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style="overflow:hidden">
                         <div id="event-info-reserve">
                             <input type="hidden" name="res_id" id="res_id">
                             <input type="hidden" name="status" id="status">
@@ -130,6 +131,10 @@
                                 </div>
                                 <div class="col-sm-12" style="margin-bottom:10px;">
                                     <label>เหตุผล</label><span>&emsp;</span><span id="reason" class="text-blue">ไม่มีข้อมูล</span>
+                                </div>
+                                <div class="col-sm-12" style="margin-bottom:10px;">
+                                    <label>ไม่อนุมัติเนื่องจาก</label>
+                                    <input type="text" name="reason_if_not_approve" id="reason_if_not_approve" placeholder="กรุณาใส่เหตุผลเมื่อไม่อนุมัติ" style="width:80%;padding-left: 10px;margin-left: 15px;" onkeydown="return (event.keyCode != 13);">
                                 </div>
                             </div>
                         </div>
@@ -380,6 +385,7 @@
                 slideBar.addClass("full-height-slide");
             }
             slideBar.animate({"min-height":fullHeight},100).css('height','');
+            slideBar.trigger('resize');
         }
 
         function slide(columnId, columnSize, contentId, contentType, event) {
@@ -423,23 +429,30 @@
                                         element.html("ต้องการ");
                                     else
                                         element.html("ไม่ต้องการ");
+                                    break;
                                 }
                             });
-                            var slide = $("#slide-bar #event-info-reserve");
-                            {
-                                var allowRoom = slide.find("input[name=allow_room_id]");
-                                var requestRoom = slide.find("input[name=request_room_id]");
-                                var dialog = slide.find("#room_name");
-                                if(allowRoom.val() != event.resourceId)
-                                    allowRoom.val(event.resourceId);
-                                if(requestRoom.val() != event.resourceId) {
-                                    dialog.removeClass("text-blue");
-                                    dialog.addClass("text-red");
-                                    dialog.attr('title',dialog.html());
-                                    dialog.tooltip();
-                                    dialog.html(calendar.fullCalendar('getResourceById',event.resourceId).title);
-                                }
+                            var slide = $("#slide-bar");
+                            var allowRoom = slide.find("input[name=allow_room_id]");
+                            var requestRoom = slide.find("input[name=request_room_id]");
+                            var allowStart = slide.find("input[name=allow_start_time]");
+                            var requestStart = slide.find("input[name=request_start_time]");
+                            var allowEnd = slide.find("input[name=allow_end_time]");
+                            var requestEnd = slide.find("input[name=request_end_time]");
+                            var dialog = slide.find("#room_name");
+                            if(allowRoom.val() != event.resourceId)
+                                allowRoom.val(event.resourceId);
+                            if(requestRoom.val() != event.resourceId) {
+                                dialog.removeClass("text-blue");
+                                dialog.addClass("text-red");
+                                dialog.attr('title',dialog.html());
+                                dialog.tooltip();
+                                dialog.html(calendar.fullCalendar('getResourceById',event.resourceId).title);
                             }
+                            if(allowStart.val() == '')
+                                allowStart.val(requestStart.val());
+                            if(allowEnd.val() == '')
+                                allowEnd.val(requestEnd.val());
                         },
                         error : function(e) {
                             var response = e.responseText;
