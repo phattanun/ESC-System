@@ -40,7 +40,19 @@
                         </div>
                         <!-- panel content -->
                         <div class="panel-body">
+                            <div id="instruction"  class="text-center">
+                                <p>คลิกชื่อห้องเพื่อใช้เครื่องมือจัดห้อง</p>
+                            </div>
+                            <div id="calendar-info" class="text-center">
+                                <div class="row">
+                                    <p class="col-md-offset-2 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>
+                                    <p class="col-md-2"><span style="background-color: #6aa4c1;">สีฟ้า: มีการแก้ไข</span></p>
+                                </div>
+                            </div>
                             <div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>
+
                         </div>
                         <!-- /panel content -->
                     </div>
@@ -69,7 +81,9 @@
             <div class="modal-header">
                 <button type="button" class="close" onclick="hideSlide()">&times;</button>
                 <h4 id="event-info-title" class="modal-title">
-                    <i class="fa fa-calendar"></i> รายละเอียดการจอง: <span id="status"></span>
+                    <i class="fa fa-calendar"></i> รายละเอียดการจอง:
+                        <span id="status" class="text-orange">รอการอนุมัติ</span>
+                        <span id="approver"></span>
                     <span style="float:right"><div id="type"></div></span>
                 </h4>
                 <!-- TABs -->
@@ -83,9 +97,12 @@
                         <div id="event-info-reserve">
                             <input type="hidden" name="res_id" id="res_id">
                             <input type="hidden" name="status" id="status">
-                            <input type="hidden" name="allow_room_id" id="request_room_id">
-                            <input type="hidden" name="allow_start_time" id="request_start_time">
-                            <input type="hidden" name="allow_end_time" id="request_end_time">
+                            <input type="hidden" name="request_room_id" id="request_room_id">
+                            <input type="hidden" name="allow_room_id" id="allow_room_id">
+                            <input type="hidden" name="request_start_time" id="request_start_time">
+                            <input type="hidden" name="allow_start_time" id="allow_start_time">
+                            <input type="hidden" name="request_end_time" id="request_end_time">
+                            <input type="hidden" name="allow_end_time" id="allow_end_time">
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label>กิจกรรม <span id="activity" class="text-blue">ไม่มีข้อมูล</span></label>
@@ -94,7 +111,7 @@
                                     <label>หน่วยงาน <span id="organization" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <label>สถานที่ <span id="room_name" class="text-blue">ไม่มีข้อมูล</span></label>
+                                    <label>สถานที่ <span id="room_name" data-container="body" class="text-blue">ไม่มีข้อมูล</span></label>
                                 </div>
                                 <div class="col-sm-4">
                                     <label>ช่วงเวลา <span id="request_start_time" class="text-blue">ไม่มีข้อมูล</span></label>
@@ -218,8 +235,16 @@
     <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/css/layout-calendar.css')}}" rel="stylesheet" type="text/css" />
     <style>
+        .tooltip {
+            z-index: 99999;
+        }
         #middle {
             padding-top: 0px;
+        }
+        #calendar-info p span {
+            padding: 3px 3px 3px 3px;
+            border-radius: 3px;
+            color: white;
         }
         #slide-bar {
             position: fixed;
@@ -295,8 +320,12 @@
             bottom: 0px;
             z-index: 9998;
         }
+        .fc-resource-cell {
+            background-color: #f2f2f2;
+        }
         .fc-resource-cell:hover {
-            background-color: rgb(236, 236, 236);
+            cursor: pointer;
+            background-color: #d1d1d1;
         }
         .fc-content {
             margin: 3px;
@@ -353,7 +382,7 @@
             slideBar.animate({"min-height":fullHeight},100).css('height','');
         }
 
-        function slide(columnId, columnSize, contentId, contentType) {
+        function slide(columnId, columnSize, contentId, contentType, event) {
             $("#slide-bar")
                 .addClass((columnId < columnSize ? "right-slide" : "left-slide"))
                 .data("side",(columnId < columnSize ? "right-slide" : "left-slide"));
@@ -373,13 +402,15 @@
                         success: function(response) {
                             replace(contentType,response,function(name, element, data) {
                                 switch(name) {
+                                case "approver":
+                                    element.html("(โดย " + data + ")");
+                                    break;
                                 case "status":
+                                    element.removeClass("text-orange");
                                     if(data==0)
                                         element.addClass("text-red").html("ไม่อนุมัติ");
                                     else if(data==1)
                                         element.addClass("text-green").html("อนุมัติ");
-                                    else
-                                        element.addClass("text-orange").html("รอการอนุมัติ");
                                     break;
                                 case "facebook_link":
                                     if(data!="")
@@ -394,6 +425,21 @@
                                         element.html("ไม่ต้องการ");
                                 }
                             });
+                            var slide = $("#slide-bar #event-info-reserve");
+                            {
+                                var allowRoom = slide.find("input[name=allow_room_id]");
+                                var requestRoom = slide.find("input[name=request_room_id]");
+                                var dialog = slide.find("#room_name");
+                                if(allowRoom.val() != event.resourceId)
+                                    allowRoom.val(event.resourceId);
+                                if(requestRoom.val() != event.resourceId) {
+                                    dialog.removeClass("text-blue");
+                                    dialog.addClass("text-red");
+                                    dialog.attr('title',dialog.html());
+                                    dialog.tooltip();
+                                    dialog.html(calendar.fullCalendar('getResourceById',event.resourceId).title);
+                                }
+                            }
                         },
                         error : function(e) {
                             var response = e.responseText;
@@ -468,6 +514,16 @@
                 });
         }
 
+        function checkEdited(event) {
+            var changed = false;
+            if(event.resourceId != event.request_room_id)
+                changed = true;
+            if(changed)
+                event.className[0]="bg-default";
+            else
+                event.className = event.default_className.slice();
+        }
+
         loadScript(plugin_path + "jquery/jquery.cookie.js", function(){
         loadScript(plugin_path + "jquery/jquery-ui.min.js", function(){
         loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function(){
@@ -502,7 +558,7 @@
                 },
                 eventClick: function(event, jsEvent, view) {
                     if(calendar.fullCalendar('getView').name == 'agendaDay') {
-                        slide(event.resourceId, calendar.fullCalendar('getResources').length/2,event.id,'event');
+                        slide(event.resourceId, calendar.fullCalendar('getResources').length/2,event.id,'event',event);
                     }
                 },
                 eventRender: function (event, element, icon) {
@@ -512,18 +568,17 @@
                     }
                     element.attr('title',event.title);
                     element.attr('data-toggle','tooltip');
+                    element.find('.fc-resizer').remove();
                 },
                 eventAfterAllRender: function(){
                     $('[data-toggle="tooltip"]').tooltip();
                 },
-                eventDragStart: function( event, jsEvent, ui, view ) {
-                    console.log("start");
-                },
-                eventDragStop: function( event, jsEvent, ui, view ) {
-                    console.log("stop");
-                },
                 eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) {
-                    console.log("change");
+                    var tmpId = event.resourceId;
+                    revertFunc();
+                    event.resourceId = tmpId;
+                    console.log(event);
+                    checkEdited(event);
                 }
             }).on("click", ".fc-resource-cell",function(e) {
                 slide(
@@ -535,7 +590,6 @@
             });
 
             $("#slide-backdrop").click(hideSlide);
-            $('.fc-center').append('คลิกชื่อห้องเพื่อใช้เครื่องมือจัดห้อง');
             $("#agenda_btn").empty().append($("#" + calendar.fullCalendar('getView').name + " span").html());
             $("#agenda_lb").attr('class',$("#"+calendar.fullCalendar('getView').name).data('label'));
 

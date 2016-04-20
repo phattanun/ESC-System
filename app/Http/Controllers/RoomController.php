@@ -103,7 +103,7 @@ class RoomController extends Controller
                 $title=Activity::where('act_id','=',$queries['act_id'])->select('name')->get()[0]->name;
             }
             else {
-                $title=$queries['other_act'];
+                    $title=$queries['other_act'];
             }
             if($queries['div_id']){
                 $div=Division::where('div_id','=',$queries['div_id'])->select('name')->get()[0]->name;
@@ -128,11 +128,13 @@ class RoomController extends Controller
             array_push($calendarEvents,
                     array(
                         'title' => $title,
-                        'start' => ($statusIsNull||!$queries['status'])?$queries['request_start_time']:$queries['allow_start_time'],
-                        'end' => ($statusIsNull||!$queries['status'])?$queries['request_end_time']:$queries['allow_end_time'],
+                        'start' => (!is_null($queries['allow_start_time']) ? $queries['allow_start_time'] : $queries['request_start_time']),
+                        'end' => (!is_null($queries['allow_end_time']) ? $queries['allow_end_time'] : $queries['request_end_time']),
                         'id' => 'u-'.$queries['res_id'],
-                        'resourceId' =>$queries['request_room_id'],
+                        'request_room_id' => "".$queries['request_room_id'],
+                        'resourceId' => (!is_null($queries['allow_room_id']) ? $queries['allow_room_id'] : $queries['request_room_id']),
                         'allDay' => !(explode(' ',$queries['request_start_time'])[0]==explode(' ',$queries['request_end_time'])[0]),
+                        'default_className' => $status,
                         'className' => $status,
                         'order'=>$order,
                         'description' => MeetingRoom::where('room_id','=',$queries['request_room_id'])->select('name')->get()[0]->name,
@@ -494,15 +496,18 @@ class RoomController extends Controller
         if(is_null($reserve))
             return response("noinfo", "500");
 
-        $title = array (
-            "type" => "นิสิตคณะวิศวฯ",
-            "status" => $reserve->status
-        );
-
         $department = Division::find($owner->department)->name;
         $room = MeetingRoom::find($reserve->request_room_id);
+        if($reserve->approver_id != NULL)
+            $approver = User::find($reserve->approver_id);
         if(is_null($room))
             return response("noinfo","500");
+
+        $title = array (
+            "type" => "นิสิตคณะวิศวฯ",
+            "approver" => (!is_null($reserve->status) ? (isset($approver)? $approver->name: "ไม่มีข้อมูล") : null),
+            "status" => $reserve->status
+        );
 
         $owner = array (
             "student_id" => $owner->student_id,
@@ -522,13 +527,17 @@ class RoomController extends Controller
             "activity" => (!is_null($reserve->act_id)) ? Activity::find($reserve->act_id)->name : $reserve->other_act,
             "organization" => (!is_null($reserve->div_id)) ? Division::find($reserve->div_id)->name : $reserve->other_div,
             "room_name" => $room->name,
+            "number_of_people" => $reserve->number_of_people,
             "request_start_time" => $reserve->request_start_time,
             "request_end_time" => $reserve->request_end_time,
-            "number_of_people" => $reserve->number_of_people,
             "request_projector" => $reserve->request_projector,
             "request_plug" => $reserve->request_plug,
+            "allow_start_time" => $reserve->allow_start_time,
+            "allow_end_time" => $reserve->allow_end_time,
+            "allow_projector" => $reserve->allow_projector,
+            "allow_plug" => $reserve->allow_plug,
             "reason" => $reserve->reason,
-            
+
             // Input
             "res_id" => $reserve->res_id,
             "request_room_id" => $reserve->request_room_id
@@ -649,9 +658,10 @@ class RoomController extends Controller
         $reserve->allow_room_id = $allow_room_id;
         $reserve->allow_start_time = $allow_start_time;
         $reserve->allow_end_time = $allow_end_time;
+        $reserve->approve_at = date('Y-m-d H:i:s');
         $reserve->save();
 
-        return $status == 1 ? "approve":"disapprove";
+        return ($status == 1 ? "approve":"disapprove");
     }
 
     public function roomSearchQuery()
