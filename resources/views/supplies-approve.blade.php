@@ -240,7 +240,7 @@
 @section('js')
     <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script type="text/javascript">
-        var modal = $("#sup-detail");
+        var modal = $("#sup-detail"), page = {{ $page }};
         MagicPagi.init({
             url : '{{ url("supplies/approve")}}',
             ul : $("#page-nav .pagination"),
@@ -249,7 +249,7 @@
             range : 2,
             mode : 'jquery',
             onclick : function(page) { loadList(page); },
-        }).go({{ $page }});
+        }).go(page);
         function replace(data, postCallback) {
             modal.find("*[data-default]").each(function(){ $(this).html($(this).data('default')); });
             modal.find("#sup-tab > li").removeClass('active');
@@ -296,7 +296,6 @@
                   id: id
                 },
                 success: function(response) {
-                    _toastr("Okay", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');
                     $("#sup-detail input[name=list_id]").val(id);
                     var items = Object.getOwnPropertyNames(response['reserve']);
@@ -336,15 +335,33 @@
                             up = $(this).find(".stepper-btn-up"),
                             down = $(this).find(".stepper-btn-dwn");
                         up.click(function() {
-                            input.val(Math.min(parseInt(input.val()) + 1,input.data('max')));
+                            input.val(Math.min(parseFloat(input.val()) + 1,input.data('max')));
                         });
                         down.click(function() {
-                            input.val(Math.max(parseInt(input.val()) - 1,input.data('min')));
+                            input.val(Math.max(parseFloat(input.val()) - 1,input.data('min')));
+                        });
+                        function isInt(n) {
+                            if(isNaN(n))
+                                return true;
+                            return n % 1 === 0;
+                        }
+                        input.on('input',function() {
+                            var min = $(this).data('min'), max = $(this).data('max');
+                            if(input.val() < min || input.val() > max)
+                                input.val(Math.max(Math.min(input.val(),max),min));
+                            if(!isInt(parseFloat(input.val())))
+                                input.val(parseFloat(input.val()).toFixed(2));
                         });
                     });
 
                     replace(response, function(name, element, data) {
                         switch(name) {
+                            case "facebook_link":
+                                if(data!="")
+                                    element.html("<a href='https://"+data+"'><u>Link</u></a>");
+                                else
+                                    element.html("ไม่มีข้อมูล");
+                                break;
                             case "borrow_request":
                                 element.html("จาก " + data);
                                 $(element[0].parentElement).find("#borrow_allow").data('max',data);
@@ -425,6 +442,7 @@
                     console.log(response);
                     _toastr("ยืนยันสำเร็จ", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');
+                    loadList(page);
                 },
                 error : function(e) {
                     _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "success", false);
@@ -438,6 +456,6 @@
             $("#sup-detail div[id*='sup-info-']").addClass('hide').scrollTop(0);
             $("#sup-detail #sup-info-"+$(this).data('tab')).removeClass('hide');
         });
-        loadList({{ $page }});
+        loadList(page);
     </script>
 @endsection

@@ -83,56 +83,48 @@
                         </div>
 
                         <div class="row" style="margin:0">
-                            <div class="col-sm-6">
-                                <label style="text-align:center">รายการพัสดุ (เจ้าหน้าที่)</label>
+                            <div id="sup-info-reserve">
+                                <label style="text-align:center">รายการพัสดุ</label>
                                 <table class="table">
                                     <tr>
-                                        <th style="vertical-align:middle;text-align:center;">ชื่อพัสดุ</th>
-                                        <th colspan="2" style="vertical-align:middle;text-align:center;">จำนวน</th>
+                                        <th style="vertical-align:middle;text-align:center;width:20%">ชื่อพัสดุ</th>
+                                        <th style="vertical-align:middle;text-align:center;">จำนวนคงเหลือ</th>
+                                        <th style="vertical-align:middle;text-align:center;">จำนวนให้ยืม</th>
                                         <th style="vertical-align:middle;text-align:center;">หน่วย</th>
-                                        <th></th>
+                                        <th colspan="3" style="vertical-align:middle;text-align:center;width:30%">จำนวนเปลี่ยนแปลง</th>
                                     </tr>
-                                    <tr id="item-notfound">
-                                        <td colspan="5" style="vetical-align:middle;text-align: center">ไม่พบรายการ</td>
+                                    <tr id="template-item" style="display:none;">
+                                        <input id="item_id" type="hidden" class="required">
+                                        <td id="name"   style="vertical-align:middle;text-align:center;">ไม่มีข้อมูล</td>
+                                        <td id="remain" style="vertical-align:middle;text-align:center;">-</td>
+                                        <td id="give"   style="vertical-align:middle;text-align:center;">-</td>
+                                        <td id="unit"   style="vertical-align:middle;text-align:center;">(หน่วย)</td>
+                                        <td style="vertical-align:middle;text-align:center;">
+                                            <div class="radio">
+                                                <button id="receiving" class="btn btn-green deactivated">รับ</button>
+                                                <input id="type" type="radio" value="receive" style="display:none;"></input>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align:middle;text-align:center;">
+                                            <div class="stepper-wrap">
+                                                <input id="transfer" type="number" class="form-control required" style="margin: 0px;" value="0">
+                                                <div class="stepper-btn-wrap">
+                                                    <a class="stepper-btn-up">▴</a>
+                                                    <a class="stepper-btn-dwn">▾</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align:middle;text-align:center;">
+                                            <div class="radio">
+                                                <button id="giving" class="btn btn-yellow deactivated">ให้</button>
+                                                <input id="type" type="radio" value="give" style="display:none;"></input>
+                                            </div>
+                                        </td>
                                     </tr>
-                                    <tbody id="staff-item-list">
-                                        <tr>
-                                            <input id="give_item_id" type="hidden" class="required">
-                                            <td style="vertical-align:middle;text-align:center;">ไม่มีข้อมูล</td>
-                                            <td style="vertical-align:middle;text-align:center;">-5</td>
-                                            <td style="vertical-align:middle;text-align:center;" class="text-red">3</td>
-                                            <td style="vertical-align:middle;text-align:center;">(หน่วย)</td>
-                                            <td style="vertical-align:middle;text-align:center;">
-                                                <button type="button" class="btn btn-yellow">ให้</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-sm-6">
-                                <label style="text-align:center">รายการพัสดุ (ผู้ยืมของ)</label>
-                                <table class="table nomargin">
-                                    <tr>
-                                        <th style="vertical-align:middle;text-align:center;">ชื่อพัสดุ</th>
-                                        <th colspan="2" style="vertical-align:middle;text-align:center;">จำนวน</th>
-                                        <th style="vertical-align:middle;text-align:center;">หน่วย</th>
-                                        <th></th>
+                                    <tr id="item-notfound" style="display:none;">
+                                        <td colspan="7" style="vetical-align:middle;text-align: center">ไม่พบรายการ</td>
                                     </tr>
-                                    <tr id="item-notfound">
-                                        <td colspan="5" style="vetical-align:middle;text-align: center">ไม่พบรายการ</td>
-                                    </tr>
-                                    <tbody id="user-item-list">
-                                        <tr>
-                                            <input id="reci_item_id" type="hidden" class="required">
-                                            <td style="vertical-align:middle;text-align:center;">ไม่มีข้อมูล</td>
-                                            <td style="vertical-align:middle;text-align:center;">+5</td>
-                                            <td style="vertical-align:middle;text-align:center;" class="text-green">5</td>
-                                            <td style="vertical-align:middle;text-align:center;">(หน่วย)</td>
-                                            <td style="vertical-align:middle;text-align:center;">
-                                                <button type="button" class="btn btn-green">รับ</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody id="items-list"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -145,7 +137,7 @@
                     </div>
 
                     <div id="content" class="modal-body">
-                        <div id="sup-info-reserve">
+                        <div id="sup-info-transaction">
                             <table class="table nomargin" width="100%">
                                 <tr>
                                     <th style="vertical-align:middle;text-align:center;width:5%">วันที่</th>
@@ -155,7 +147,7 @@
                                     <th style="vertical-align:middle;text-align:center;width:5%">ผู้ดำเนินการ</th>
                                     <th style="vertical-align:middle;text-align:center;width:5%">ประเภท</th>
                                 </tr>
-                                <tr id="template-item" style="display:none;">
+                                <tr id="template-transaction" style="display:none;">
                                     <td id="date"         style="vertical-align:middle;text-align:center">--/--/--</td>
                                     <td id="name"         style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
                                     <td id="borrow_allow" style="vertical-align:middle;text-align:center">--</td>
@@ -163,10 +155,10 @@
                                     <td id="action_user"  style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
                                     <td id="type"         style="vertical-align:middle;text-align:center">รับ-ให้</td>
                                 </tr>
-                                <tr id="item-notfound" style="display:none">
-                                    <td colspan="7" style="vetical-align:middle;text-align:center">ไม่พบรายการประวัติ</td>
+                                <tr id="transaction-notfound" style="display:none">
+                                    <td colspan="7" style="vetical-align:middle;text-align:center">ไม่มีรายการประวัติ</td>
                                 </tr>
-                                <tbody id="items-list"></tbody>
+                                <tbody id="transaction-list"></tbody>
                             </table>
                         </div>
 
@@ -209,7 +201,7 @@
                             <i class="fa fa-times"></i><span>ปิดรายการ</span>
                         </button>
                         <button type="button" class="btn btn-green" onclick="sendDetail();">
-                            <i class="fa fa-check"></i><span>ยืนยัน</span>
+                            <i class="fa fa-check"></i><span>บันทึก</span>
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             <i class="fa fa-minus"></i><span>ยกเลิก</span>
@@ -272,6 +264,10 @@
             color: white;
             background-color: #d6d6d6;
         }
+        button.deactivated {
+            color: black !important;
+            background-color: #ddd;
+        }
     </style>
 @endsection
 
@@ -325,6 +321,8 @@
                 }
             }
         }
+        var modalData;
+        var itemsList;
         function loadDetail(id) {
             $.ajax({
                 type: "POST",
@@ -334,29 +332,197 @@
                   id: id
                 },
                 success: function(response) {
-                    _toastr("Okay", "top-right", "success", false);
+                    modalData = response;
                     $("#sup-detail").modal('toggle');
                     $("#sup-detail input[name=list_id]").val(id);
-                    var items = Object.getOwnPropertyNames(response['reserve']);
-                    var itemsList = $("#items-list").empty();
-                    for(i in items) {
-                        var template = $("#template-item").clone(true).attr('id',items[i]).css('display','');
-                        template.find("#item_id").val(items[i]);
-                        template.find("input").each(function() {
-                            $(this).attr('name',$(this).attr('id')+'[' + i + ']');
-                        });
-                        template.appendTo(itemsList);
+                    itemsList = response['reserve'];
+                    var container = $("#sup-info-reserve");
+                    var itemsListE = container.find("#items-list").empty();
+                    if(response['reserve'] != undefined) {
+                        var items = Object.getOwnPropertyNames(response['reserve']);
+                        for(i in items) {
+                            var template = container.find("#template-item").clone(true).attr('id',items[i]).css('display','');
+                            template.find("#item_id").val(items[i]);
+                            template.find("input").each(function() {
+                                $(this).attr('name',$(this).attr('id')+'[' + i + ']');
+                            });
+                            template.find(".radio").each(function() {
+                                var radio = $(this).find("input[type=radio]");
+                                $(this).find("button").click(function(event) {
+                                    event.preventDefault();
+                                    radio.prop('checked', true);
+                                });
+                            });
+                            template.appendTo(itemsListE);
+
+                            itemsList[items[i]]['remain'] = (itemsList[items[i]]['borrow_allow'] != null ? itemsList[items[i]]['borrow_allow']: itemsList[items[i]]['borrow_request']);
+                            itemsList[items[i]]['give'] = 0;
+                            template.find("#transfer").data({
+                                'min': 0,
+                                'max': 0,
+                                'max-give': itemsList[items[i]]['remain'],
+                                'max-receive': itemsList[items[i]]['give']
+                            }).val(0);
+                            console.log(itemsList[items[i]],template.find("#transfer").data());
+                        }
+                        container.find("#item-notfound").hide();
                     }
-                    replace(response);
+                    else container.find("#item-notfound").show();
+                    $.ajax({
+                        type: "POST",
+                        url: '{{ url("/supplies/manage/getTransaction") }}',
+                        data: {
+                          _token: '{{ csrf_token() }}',
+                          id: id
+                        },
+                        success: function(response) {
+                            var container = $("#sup-info-transaction");
+                            var transactionListE = container.find("#transaction-list").empty();
+                            console.log("Transaction",response);
+                            if(response.length > 0) {
+                                var transaction = Object.getOwnPropertyNames(response);
+                                for(i in transaction) {
+                                    var template = container.find("#template-transaction").clone(true).attr('id',transaction[i]).css('display','');
+                                    template.appendTo(itemsListE);
+                                }
+                                container.find("#transaction-notfound").hide();
+                            }
+                            else container.find("#transaction-notfound").show();
+                            replace(modalData, function(name, element, data) {
+                                switch(name) {
+                                    case "facebook_link":
+                                        if(data!="")
+                                            element.html("<a href='https://"+data+"'><u>Link</u></a>");
+                                        else
+                                            element.html("ไม่มีข้อมูล");
+                                        break;
+                                    case "remain":
+                                    case "give":
+                                        element.data({
+                                            'original': parseFloat(data),
+                                            'current': parseFloat(data)
+                                        });
+                                        break;
+                                }
+                            });
+                            $("#sup-info-reserve").find("#items-list").find("tr").each(function() {
+                                var stepper = $(this).find(".stepper-wrap"),
+                                    input = stepper.find("#transfer"),
+                                    up = stepper.find(".stepper-btn-up"),
+                                    down = stepper.find(".stepper-btn-dwn"),
+                                    remain = $(this).find("#remain"),
+                                    give = $(this).find("#give"),
+                                    giveButton = $(this).find("button[id=giving]"),
+                                    giveRadio = giveButton.next(),
+                                    receiveButton = $(this).find("button[id=receiving]"),
+                                    receiveRadio = receiveButton.next();
+                                function highlight(element) {
+                                    if(!isInt(element.data('current')))
+                                        element.data('current',element.data('current').toFixed(2));
+                                    element.removeClass();
+                                    element.html(element.data('current'));
+                                    if(element.data('current') < element.data('original'))
+                                        element.addClass("text-red");
+                                    else if(element.data('current') > element.data('original'))
+                                        element.addClass("text-green");
+                                }
+                                function isInt(n) {
+                                    if(isNaN(n))
+                                        return true;
+                                    return n % 1 === 0;
+                                }
+                                up.click(function() {
+                                    if(input.val() == "NaN")
+                                        input.val(0);
+                                    input.val(Math.min(parseFloat(input.val()) + 1,input.data('max')));
+                                    input.trigger('input');
+                                });
+                                down.click(function() {
+                                    if(input.val() == "NaN")
+                                        input.val(0);
+                                    input.val(Math.max(parseFloat(input.val()) - 1,input.data('min')));
+                                    input.trigger('input');
+                                });
+                                input.on('input',function() {
+                                    var min = $(this).data('min'), max = $(this).data('max');
+                                    if(input.val() < min || input.val() > max)
+                                        input.val(Math.max(Math.min(input.val(),max),min));
+                                    if(!isInt(parseFloat(input.val())))
+                                        input.val(parseFloat(input.val()).toFixed(2));
+                                    var val = parseFloat(input.val());
+                                    switch(input.data('mode')) {
+                                        case "give":
+                                            remain.data('current',remain.data('original') - val);
+                                            give.data('current',give.data('original') + val);
+                                            break;
+                                        case "receive":
+                                            remain.data('current',remain.data('original') + val);
+                                            give.data('current',give.data('original') - val);
+                                            break;
+                                        case "none":
+                                            remain.data('current',remain.data('original'));
+                                            give.data('current',give.data('original'));
+                                            break;
+                                    }
+                                    highlight(remain);
+                                    highlight(give);
+                                }).data('mode','none');
+                                giveButton.click(function() {
+                                    if(giveButton.hasClass("deactivated")) {
+                                        giveButton.removeClass("deactivated");
+                                        receiveButton.addClass("deactivated");
+                                        input.data({
+                                            'max': input.data('max-give'),
+                                            'mode': 'give'
+                                        });
+                                        input.trigger('input');
+                                    }
+                                    else {
+                                        giveRadio.prop('checked',false);
+                                        giveButton.addClass("deactivated");
+                                        input.data({
+                                            'max': 0,
+                                            'mode': 'none'
+                                        });
+                                        input.trigger('input');
+                                    }
+                                });
+                                receiveButton.click(function() {
+                                    if(receiveButton.hasClass("deactivated")) {
+                                        receiveButton.removeClass("deactivated");
+                                        giveButton.addClass("deactivated");
+                                        input.data({
+                                            'max': input.data('max-receive'),
+                                            'mode': 'receive'
+                                        });
+                                        input.trigger('input');
+                                    }
+                                    else {
+                                        receiveRadio.prop('checked',false);
+                                        receiveButton.addClass("deactivated");
+                                        input.data({
+                                            'max': 0,
+                                            'mode': 'none'
+                                        });
+                                        input.trigger('input');
+                                    }
+                                });
+                            });
+                        },
+                        error : function(e) {
+                            var response = e.responseText;
+                            _toastr("Error", "top-right", "ระบบมีปัญหา กรุณาติดต่อผู้ดูแลระบบ", false);
+                            return false;
+                        }
+                    });
                 },
                 error : function(e) {
                     var response = e.responseText;
-                    _toastr("Error", "top-right", "error", false);
+                    _toastr("Error", "top-right", "ระบบมีปัญหา กรุณาติดต่อผู้ดูแลระบบ", false);
                     return false;
                 }
             });
         }
-        var mydebug;
         function loadList(page) {
             $.ajax({
                 type: "POST",
@@ -409,15 +575,25 @@
             $("#sup-detail label[class=checkbox] i").trigger("click");
         }
         function sendDetail() {
+            var hasTransaction = 0;
+            $("#sup-detail").find("input[type=radio]").each(function() {
+                hasTransaction += $(this).prop('checked');
+            });
+            console.log(hasTransaction);
+            if(hasTransaction == 0) {
+                _toastr("ไม่มีการเปลี่ยนแปลงข้อมูล", "top-right", "warning", false);
+                $("#sup-detail").modal('toggle');
+                return;
+            }
             $.ajax({
                 type: "POST",
-                url: '{{ url("/supplies/approve/approve")}}',
+                url: '{{ url("/test")}}',
                 data: (new FormData($("#sup-detail #container")[0])),
                 processData: false,
                 contentType: false,
                 success: function(response) {
                     console.log(response);
-                    _toastr("ยืนยันสำเร็จ", "top-right", "success", false);
+                    _toastr("บันทึกสำเร็จ", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');
                 },
                 error : function(e) {

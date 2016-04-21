@@ -422,7 +422,7 @@
                                     if(data!="")
                                         element.html("<a href='https://"+data+"'><u>Link</u></a>");
                                     else
-                                        element.html("ไม่มี");
+                                        element.html("ไม่มีข้อมูล");
                                     break;
                                 case "request_projector":
                                     if(data)
