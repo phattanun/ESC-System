@@ -64,8 +64,8 @@
             <div class="modal-content">
                 <form id="container" class="validate" method="post" enctype="multipart/form-data" style="margin:0">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="approver_id" value="{{ $user['student_id'] }}">
-                    <input type="hidden" name="list_id">
+                    <input type="hidden" name="actor_id" value="{{ $user['student_id'] }}">
+                    <input id="list_id" type="hidden" name="list_id">
 
                     <div id="head" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -107,7 +107,7 @@
                                         </td>
                                         <td style="vertical-align:middle;text-align:center;">
                                             <div class="stepper-wrap">
-                                                <input id="transfer" type="number" class="form-control required" style="margin: 0px;" value="0">
+                                                <input id="amount" type="number" class="form-control required" style="margin: 0px;" value="0">
                                                 <div class="stepper-btn-wrap">
                                                     <a class="stepper-btn-up">▴</a>
                                                     <a class="stepper-btn-dwn">▾</a>
@@ -324,6 +324,7 @@
         var modalData;
         var itemsList;
         function loadDetail(id) {
+            $("#sup-detail").find("#list_id").val(id);
             $.ajax({
                 type: "POST",
                 url: '{{ url("/supplies/approve/modal") }}',
@@ -357,13 +358,13 @@
 
                             itemsList[items[i]]['remain'] = (itemsList[items[i]]['borrow_allow'] != null ? itemsList[items[i]]['borrow_allow']: itemsList[items[i]]['borrow_request']);
                             itemsList[items[i]]['give'] = 0;
-                            template.find("#transfer").data({
+                            template.find("#amount").data({
                                 'min': 0,
                                 'max': 0,
                                 'max-give': itemsList[items[i]]['remain'],
                                 'max-receive': itemsList[items[i]]['give']
                             }).val(0);
-                            console.log(itemsList[items[i]],template.find("#transfer").data());
+                            console.log(itemsList[items[i]],template.find("#amount").data());
                         }
                         container.find("#item-notfound").hide();
                     }
@@ -407,7 +408,7 @@
                             });
                             $("#sup-info-reserve").find("#items-list").find("tr").each(function() {
                                 var stepper = $(this).find(".stepper-wrap"),
-                                    input = stepper.find("#transfer"),
+                                    input = stepper.find("#amount"),
                                     up = stepper.find(".stepper-btn-up"),
                                     down = stepper.find(".stepper-btn-dwn"),
                                     remain = $(this).find("#remain"),
