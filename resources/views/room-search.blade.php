@@ -207,25 +207,25 @@
 
                         var tabledata = '<tr class = "clickrowcss" >'+
                         '<td>' + (counter + 1) + '</td>'+
-                        '<td>' + (input[counter]["act_id"]==null?input[counter]["other_act"]:input[counter]["act_id"]) + '</td>'+
-                        '<td>' + (input[counter]["div_id"]==null?input[counter]["other_div"]:input[counter]["div_id"]) + '</td>' +
+                        '<td>' + (input[counter]["act_name"]==null?input[counter]["other_act"]:input[counter]["act_name"]) + '</td>'+
+                        '<td>' + (input[counter]["div_name"]==null?input[counter]["other_div"]:input[counter]["div_name"]) + '</td>' +
                         '<td>' + input[counter]["reason"] + '</td>' +
                         '<td>' + input[counter]["number_of_people"] + '</td>' +
                         '<td>' + input[counter]["request_start_time"] + '</td>' +
                         '<td>' + input[counter]["request_end_time"] + '</td>' +
                         '<td>' + input[counter]["status"] + '</td>' +
-                        '<td>' + input[counter]["allow_room_id"] + '</td>' +
-                        '<td>' + input[counter]["reason_if_not_approve"] + '</td>' +
-                        '<td>' + input[counter]["allow_projector"] + '/' + input[counter]["request_projector"] + '</td>' +
-                        '<td>' + input[counter]["allow_plug"] + '/' + input[counter]["request_plug"] + '</td>';
+                        '<td>' + (input[counter]["mt_name"]==null?"-":input[counter]["mt_name"]) + '</td>' +
+                        '<td>' + (input[counter]["reason_if_not_approve"]==null?"-":input[counter]["reason_if_not_approve"]) + '</td>' +
+                        '<td>' + (input[counter]["allow_projector"]==null?"-":input[counter]["allow_projector"]) + '/' + input[counter]["request_projector"] + '</td>' +
+                        '<td>' + (input[counter]["allow_plug"]==null?"-":input[counter]["allow_plug"]) + '/' + input[counter]["request_plug"] + '</td>';
 
                         @if($type == 'report')
                                 tabledata +=
+                                '<td>' +  input[counter]["user_name"]  + '</td>' +
+                                '<td>' +  input[counter]["surname"]  + '</td>' +
                                 '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>';
+                                '<td>' +  (input[counter]["nickname"]?"วิศวกรรมศาสตร์":input[counter]["faculty"])  + '</td>' +
+                                '<td>' +  input[counter]["phone_number"]  + '</td>';
                         @endif
                                 tabledata += '</tr>';
 
