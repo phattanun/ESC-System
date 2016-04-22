@@ -290,7 +290,6 @@
             modal.find("#sup-tab > li:first-child").addClass('active');
             modal.find("div[id*='sup-info']").addClass('hide').scrollTop(0);
             modal.find("div[id*='sup-info']:first-child").removeClass('hide');
-            // console.log(data);
 
             var infoTabs = Object.getOwnPropertyNames(data);
             for(i in infoTabs) {
@@ -305,7 +304,6 @@
                     if(infoTabs[i] == "reserve") {
                         var attr = Object.getOwnPropertyNames(data[infoTabs[i]][names[j]]);
                         for(k in attr) {
-                            // console.log(infoTabs[i], names[j], attr[k], data[infoTabs[i]][names[j]][attr[k]]);
                             modal.find("#sup-info-"+infoTabs[i]+" tr[id="+names[j]+"] td[id="+attr[k]+"]").html(data[infoTabs[i]][names[j]][attr[k]]);
                             modal.find("#sup-info-"+infoTabs[i]+" tr[id="+names[j]+"] input[id="+attr[k]+"]").val(data[infoTabs[i]][names[j]][attr[k]]);
                             if(postCallback != null)
@@ -577,10 +575,12 @@
         }
         function sendDetail() {
             var hasTransaction = 0;
-            $("#sup-detail").find("input[type=radio]").each(function() {
-                hasTransaction += $(this).prop('checked');
+            $("#sup-detail").find("#items-list").find("tr").each(function() {
+                var radio = $(this).find("input[type=radio]"), checked = false;
+                radio.each(function() { checked = $(this).prop('checked'); })
+                hasTransaction += checked;
+                $(this).find("input").prop('disabled', !checked);
             });
-            console.log(hasTransaction);
             if(hasTransaction == 0) {
                 _toastr("ไม่มีการเปลี่ยนแปลงข้อมูล", "top-right", "warning", false);
                 $("#sup-detail").modal('toggle');
