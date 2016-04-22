@@ -513,6 +513,8 @@ class InventoryController extends Controller
             $count++;
         }
 
+        $send_data['head']['borrow_date'] = $borrow_list_detail->borrow_date;
+        $send_data['head']['return_date'] = $borrow_list_detail->return_date;
         $send_data['head']['activity'] = $borrow_list_detail->activity()->first()['name'];
         if ($div_info['type'] == 'Generation')
             $send_data['head']['division'] = 'รุ่น' . " " . $div_info['name'];
@@ -568,6 +570,8 @@ class InventoryController extends Controller
             $send_data[$b['list_id']]['division_name'] = $division[$b['div_id']];
             $send_data[$b['list_id']]['creator_name'] = $student[$b['creator_id']];
             $send_data[$b['list_id']]['create_at'] = $b['create_at'];
+            $send_data[$b['list_id']]['borrow_date'] = $b['borrow_date'];
+            $send_data[$b['list_id']]['return_date'] = $b['return_date'];
             switch ($b['status']) {
                 case 0 :
                     $send_data[$b['list_id']]['status'] = "รออนุมัติ";

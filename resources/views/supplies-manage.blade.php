@@ -75,6 +75,12 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-6">
+                                <label>วันที่ยืม <span id="borrow_date" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>วันที่คืน <span id="return_date" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
+                            </div>
+                            <div class="col-sm-6">
                                 <label>กิจกรรม <span id="activity" class="text-blue" data-default="ไม่มีข้อมูล"></span></label>
                             </div>
                             <div class="col-sm-6">
@@ -107,7 +113,7 @@
                                         </td>
                                         <td style="vertical-align:middle;text-align:center;">
                                             <div class="stepper-wrap">
-                                                <input id="amount" type="number" class="form-control required" style="margin: 0px;" value="0">
+                                                <input id="amount" type="text" class="form-control required" style="margin: 0px;" value="0">
                                                 <div class="stepper-btn-wrap">
                                                     <a class="stepper-btn-up">▴</a>
                                                     <a class="stepper-btn-dwn">▾</a>
@@ -199,7 +205,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-red" style="float:left" onclick="alert('Close');">
+                        <button type="button" class="btn btn-red" style="float:left" onclick="finish(this.id);">
                             <i class="fa fa-times"></i><span>ปิดรายการ</span>
                         </button>
                         <button type="button" class="btn btn-green" onclick="sendDetail();">
@@ -344,6 +350,7 @@
         }
         function loadDetail(id) {
             $("#sup-detail").find("#list_id").val(id);
+            $("#sup-detail").find(".modal-footer").find('button.btn-red').attr('id', id);
             $.ajax({
                 type: "POST",
                 url: '{{ url("/supplies/approve/modal") }}',
@@ -493,6 +500,7 @@
                                         input.val(Math.max(Math.min(input.val(),max),min));
                                     input.val(fixFloatNumber(input.val()));
                                     var val = parseFloat(input.val());
+                                    if(isNaN(val)) val = 0;
                                     switch(input.data('mode')) {
                                         case "give":
                                             remain.data('current',remain.data('original') - val);
@@ -622,7 +630,7 @@
             $("#sup-detail").find("#items-list").find("tr").each(function() {
                 var radio = $(this).find("input[type=radio]"), checked = false;
                 radio.each(function() { checked = checked || $(this).prop('checked'); });
-                if($(this).find("#amount").val() == 0)
+                if($(this).find("#amount").val() == 0 || isNaN($(this).find("#amount").val()))
                     checked = false;
 
                 hasTransaction += checked;
@@ -647,7 +655,23 @@
                 error : function(e) {
                     _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
                 }
-              });
+            });
+        }
+        function finish(list_id) {
+            $.ajax({
+                type: "POST",
+                url: '{{ url("/supplies/manage/finishedBorrowList")}}/' + list_id,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    _toastr("ปิดรายการสำเร็จ", "top-right", "success", false);
+                    $("#sup-detail").modal('toggle');
+                    loadList(page);
+                },
+                error : function(e) {
+                    _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
+                }
+            });
         }
         $("#sup-detail").find("#sup-tab a[data-tab]").click(function(e) {
             e.preventDefault();
