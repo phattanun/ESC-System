@@ -182,10 +182,9 @@
                             '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>';
 
                     @if($type == 'report')
-                            tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้จอง</th>' +
+                            tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้ขอยืม</th>' +
                             '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>' +
                             '<th style="vertical-align:middle" rowspan="1">รหัสนิสิต</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">คณะ</th>' +
                             '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>';
                     @endif
                     $('#search-result-table').append(tableHeader);
@@ -195,22 +194,21 @@
 
                         var tabledata = '<tr class = "clickrowcss" >'+
                                 '<td>' + (counter + 1) + '</td>'+
-                                '<td>' + (input[counter]["act_id"]==null?input[counter]["other_act"]:input[counter]["act_id"]) + '</td>'+
-                                '<td>' + (input[counter]["div_id"]==null?input[counter]["other_div"]:input[counter]["div_id"]) + '</td>' +
-                                '<td>' + input[counter]["reason"] + '</td>' +
-                                '<td>' + input[counter]["number_of_people"] + '</td>' +
-                                '<td>' + input[counter]["request_start_time"] + '</td>' +
-                                '<td>' + input[counter]["request_end_time"] + '</td>' +
-                                '<td>' + input[counter]["status"] + '</td>' +
-                                '<td>' + input[counter]["reason_if_not_approve"] + '</td>';
+                                '<td>' + (input[counter]["act_name"]==null?(input[counter]["other_act"]==null?"-":input[counter]["other_act"]):input[counter]["act_name"]) + '</td>'+
+                                '<td>' + (input[counter]["div_name"]==null?input[counter]["other_div"]:input[counter]["div_name"]) + '</td>' +
+                                '<td>' + input[counter]["inv_name"] + '</td>' +
+                                '<td>' + (input[counter]["borrow_actual_amount"]==null?"-":input[counter]["borrow_actual_amount"]) + '/' + input[counter]["borrow_request_amount"] + '</td>' +
+                                '<td>' + input[counter]["borrow_date"].substring(0,11) + '</td>' +
+                                '<td>' + input[counter]["return_date"].substring(0,11) + '</td>' +
+                                '<td>' + (input[counter]["status"]==null?"รอการอนุมัติ":(input[counter]["status"]==1?"อนุมัติ":"ไม่อนุมัติ")) + '</td>' +
+                                '<td>' + (input[counter]["reason_if_not_approve"]==null?"-":input[counter]["reason_if_not_approve"]) + '</td>';
 
                         @if($type == 'report')
                                 tabledata +=
+                                '<td>' +  input[counter]["name"]  + '</td>' +
+                                '<td>' +  input[counter]["surname"]  + '</td>' +
                                 '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>';
+                                '<td>' +  input[counter]["phone_number"]  + '</td>';
                         @endif
                                 tabledata += '</tr>';
 
