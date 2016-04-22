@@ -207,13 +207,13 @@
 
                         var tabledata = '<tr class = "clickrowcss" >'+
                         '<td>' + (counter + 1) + '</td>'+
-                        '<td>' + (input[counter]["act_name"]==null?input[counter]["other_act"]:input[counter]["act_name"]) + '</td>'+
+                        '<td>' + (input[counter]["act_name"]==null?(input[counter]["other_act"]==null?"-":input[counter]["other_act"]):input[counter]["act_name"]) + '</td>'+
                         '<td>' + (input[counter]["div_name"]==null?input[counter]["other_div"]:input[counter]["div_name"]) + '</td>' +
                         '<td>' + input[counter]["reason"] + '</td>' +
                         '<td>' + input[counter]["number_of_people"] + '</td>' +
                         '<td>' + input[counter]["request_start_time"] + '</td>' +
                         '<td>' + input[counter]["request_end_time"] + '</td>' +
-                        '<td>' + input[counter]["status"] + '</td>' +
+                        '<td>' + (input[counter]["status"]==null?"รอการอนุมัติ":(input[counter]["status"]==1?"อนุมัติ":"ไม่อนุมัติ")) + '</td>' +
                         '<td>' + (input[counter]["mt_name"]==null?"-":input[counter]["mt_name"]) + '</td>' +
                         '<td>' + (input[counter]["reason_if_not_approve"]==null?"-":input[counter]["reason_if_not_approve"]) + '</td>' +
                         '<td>' + (input[counter]["allow_projector"]==null?"-":input[counter]["allow_projector"]) + '/' + input[counter]["request_projector"] + '</td>' +

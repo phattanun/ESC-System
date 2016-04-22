@@ -28,15 +28,21 @@
                             <div class="col-md-12">
                                 <label class="margin-bottom-20"><b>ค้นหาข้อมูลผู้จำหน่ายพัสดุอุปกรณ์</b></label>
                             </div>
-                            <div class="col-md-4">
-                                <input id="supplierSearch" name="supplierSearch" class="form-control typeahead" placeholder="กรอกชื่อร้านค้า" type="text">
+                            <div class="col-md-3">
+                                <input id="nameSearch" name="nameSearch" class="form-control typeahead" placeholder="กรอกชื่อร้านค้า" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <input id="addressSearch" name="addressSearch" class="form-control typeahead" placeholder="กรอกที่อยู่ร้านค้า" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <input id="telSearch" name="telSearch" class="form-control typeahead" placeholder="กรอกหมายเลขโทรศัพท์ร้านค้า" type="text">
                             </div>
                             <div class="col-md-1">
                                 <div class="input-group-btn" id="find-supplier-btn">
                                     <a class="btn btn-success">ค้นหา</a>
                                 </div>
                             </div>
-                            <div class="col-md-7 text-right">
+                            <div class="col-md-2 text-right">
                                 <a id="add-supplier-btn" class="btn btn-3d btn-reveal btn-blue" data-toggle="modal" data-target="#addSupplierDialog">
                                     <i class="fa fa-plus"></i>
                                     <span>เพิ่มร้านค้า</span>
@@ -260,6 +266,55 @@
                     $("#addSupplierName").val("");
                     $("#addSupplierAddr").val("");
                     $("#addSupplierPhone").val("");
+                });
+            });
+            $("#find-supplier-btn").click(function() {
+                var URL_ROOT = '{{Request::root()}}';
+                var name = $("#nameSearch").val();
+                var addr = $("#addressSearch").val();
+                var phone = $("#telSearch").val();
+                $.post(URL_ROOT+'/supplies/supplier/search', {_token: '{{csrf_token()}}', name: name, addr: addr, phone: phone}).success(function(response) {
+                    if(response=='fail') {
+                        $('#supplier-table').html('');
+                        $('#supplier-table').append('<div class = \'text-center\'>ไม่พบข้อมูลร้านค้าที่ต้องการ</div>');
+                        return false;
+                    }
+                    else {
+                        $('#supplier-table').html('');
+                        var tableheader =
+                            '<tr>'+
+                            '<th></th>'+
+                            '<th style="text-align:center">ชื่อร้านค้า</th>'+
+                            '<th style="text-align:center">ที่อยู่</th>'+
+                            '<th style="text-align:center">หมายเลขโทรศัพท์</th>'+
+                            '<th></th>'+
+                            '</tr>';
+                        $('#supplier-table').append(tableheader);
+                        for(var i = 0; i < response.length; i++) {
+                            var tuple =
+                                '<tr id="tuple-'+response[i]['supplier_id']+'">'+
+                                '<td class="text-center">'+
+                                    '<a id="'+response[i]['supplier_id']+'" class="delete-a-tuple social-icon social-icon-sm social-icon-round social-yelp" data-placement="top" title="ลบ" data-toggle="modal" data-target="#confirmDeleteDialog" onclick="prepareDelete(\''+response[i]['supplier_id']+'\',\''+response[i]['name']+'\')">'+
+                                        '<i class="fa fa-minus"></i>'+
+                                        '<i class="fa fa-trash"></i>'+
+                                    '</a>'+
+                                '</td>'+
+                                '<td id="name-'+response[i]['supplier_id']+'">'+response[i]['name']+'</td>'+
+                                '<td id="addr-'+response[i]['supplier_id']+'">'+response[i]['address']+'</td>'+
+                                '<td style="text-align:center" id="phone-'+response[i]['supplier_id']+'">'+response[i]['phone_no']+'</td>'+
+                                '<td class="text-center">'+
+                                    '<a id="'+response[i]['supplier_id']+'" class="btn btn-3d btn-reveal btn-yellow" data-toggle="modal" data-target="#editSupplierDialog" onclick="prepareEdit(\''+response[i]['supplier_id']+'\',\''+response[i]['name']+'\',\''+response[i]['address']+'\',\''+response[i]['phone_no']+'\')">'+
+                                        '<i class="fa fa-gear"></i>'+
+                                        '<span>แก้ไข</span>'+
+                                    '</a>'+
+                                '</td>'+
+                            '</tr>';
+                            $('#supplier-table').append(tuple);
+                        }
+                    }
+                }).fail(function () {
+                    _toastr("ระบบทำงานผิดพลาด กรุณาลองใหม่อีกครั้ง", "top-right", "error", false);
+                    return false;
                 });
             });
         }

@@ -783,7 +783,7 @@ class RoomController extends Controller
                     else if ($request->input('endDate')) $query->where('request_end_time', '<=', $request->input('endDate'));
                 })
                     ->leftjoin('meeting_rooms', 'guest_reservation.allow_room_id', '=', 'meeting_rooms.room_id')
-                    ->select('guest_phone_number as phone_number','guest_faculty as faculty','guest_student_id as student_id','guest_surname','guest_name as user_name','meeting_rooms.name as mt_name','reason','number_of_people','request_start_time','request_end_time','guest_reservation.status','allow_room_id','reason_if_not_approve','allow_projector','allow_plug','request_projector','request_plug')
+                    ->select('guest_surname as surname','guest_org as div_name','guest_phone_number as phone_number','guest_faculty as faculty','guest_student_id as student_id','guest_surname','guest_name as user_name','meeting_rooms.name as mt_name','reason','number_of_people','request_start_time','request_end_time','guest_reservation.status','allow_room_id','reason_if_not_approve','allow_projector','allow_plug','request_projector','request_plug')
                     ->get()->toArray());
         }
 

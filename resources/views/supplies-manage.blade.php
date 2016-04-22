@@ -622,6 +622,9 @@
             $("#sup-detail").find("#items-list").find("tr").each(function() {
                 var radio = $(this).find("input[type=radio]"), checked = false;
                 radio.each(function() { checked = checked || $(this).prop('checked'); });
+                if($(this).find("#amount").val() == 0)
+                    checked = false;
+
                 hasTransaction += checked;
                 $(this).find("input").prop('disabled', !checked);
             });

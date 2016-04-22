@@ -37,11 +37,13 @@
                         <div class="form-group">
                             <div class="row text-center">
                                 <div class="col-md-2">
-                                    <input required id="startDate" name="startDate" required type="text" class="form-control datepicker text-center "
+                                    <input required id="startDate" name="startDate" required type="text"
+                                           class="form-control datepicker text-center "
                                            placeholder="วันเริ่มต้น">
                                 </div>
                                 <div class="col-md-2">
-                                    <input required id="endDate" name="endDate" required type="text" class="form-control datepicker text-center "
+                                    <input required id="endDate" name="endDate" required type="text"
+                                           class="form-control datepicker text-center "
                                            placeholder="วันสิ้นสุด">
                                 </div>
                                 <div class="col-md-4">
@@ -57,7 +59,8 @@
                                     <select name="division" class="form-control select2 required" id="division">
                                         <option selected="selected" value="0">หน่วยงาน</option>
                                         @foreach($generation as $generations)
-                                            <option value="{{$generations['div_id']}}">รุ่น {{$generations['name']}}</option>
+                                            <option value="{{$generations['div_id']}}">
+                                                รุ่น {{$generations['name']}}</option>
                                         @endforeach
                                         @foreach($group as $groups)
                                             <option value="{{$groups['div_id']}}">กรุ๊ป {{$groups['name']}}</option>
@@ -106,18 +109,22 @@
         .table-responsive {
             word-break: keep-all;
         }
-        .form-control,.select2 {
+
+        .form-control, .select2 {
             margin-bottom: 10px;
             width: 100%;
         }
+
         @media only screen and (max-width: 768px) {
             section div.row > div {
-                margin-bottom:0px;
+                margin-bottom: 0px;
             }
         }
+
         .clickrowcss:hover {
             background-color: rgb(237, 237, 237);
         }
+
         .clickrow:hover {
             cursor: pointer !important;
 
@@ -141,11 +148,11 @@
 
         var history;
         $('#search-student-btn').click(function () {
-            history['startDate']= $('#startDate').val();
-            history['endDate']=$('#endDate').val();
-            history['activity']=$('#activity').val();
-            history['division']=$('#division').val();
-            history['userType']=$('#userType').val();
+            history['startDate'] = $('#startDate').val();
+            history['endDate'] = $('#endDate').val();
+            history['activity'] = $('#activity').val();
+            history['division'] = $('#division').val();
+            history['userType'] = $('#userType').val();
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT + '/supplies/result',
                     {
@@ -182,10 +189,9 @@
                             '<th style="vertical-align:middle" rowspan="1">เหตุผลที่ไม่อนุมัติ</th>';
 
                     @if($type == 'report')
-                            tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้จอง</th>' +
+                            tableHeader += '<th style="vertical-align:middle" rowspan="1">ชื่อผู้ขอยืม</th>' +
                             '<th style="vertical-align:middle" rowspan="1">นามสกุล</th>' +
                             '<th style="vertical-align:middle" rowspan="1">รหัสนิสิต</th>' +
-                            '<th style="vertical-align:middle" rowspan="1">คณะ</th>' +
                             '<th style="vertical-align:middle" rowspan="1">หมายเลขโทรศัพท์</th>';
                     @endif
                     $('#search-result-table').append(tableHeader);
@@ -193,24 +199,32 @@
                     //--row data--
                     for (var counter = 0; counter < input.length; counter++) {
 
-                        var tabledata = '<tr class = "clickrowcss" >'+
-                                '<td>' + (counter + 1) + '</td>'+
-                                '<td>' + (input[counter]["act_id"]==null?input[counter]["other_act"]:input[counter]["act_id"]) + '</td>'+
-                                '<td>' + (input[counter]["div_id"]==null?input[counter]["other_div"]:input[counter]["div_id"]) + '</td>' +
-                                '<td>' + input[counter]["reason"] + '</td>' +
-                                '<td>' + input[counter]["number_of_people"] + '</td>' +
-                                '<td>' + input[counter]["request_start_time"] + '</td>' +
-                                '<td>' + input[counter]["request_end_time"] + '</td>' +
-                                '<td>' + input[counter]["status"] + '</td>' +
-                                '<td>' + input[counter]["reason_if_not_approve"] + '</td>';
+                        var tabledata = '<tr class = "clickrowcss" >' +
+                                '<td>' + (counter + 1) + '</td>' +
+                                '<td>' + (input[counter]["act_name"] == null ? (input[counter]["other_act"] == null ? "-" : input[counter]["other_act"]) : input[counter]["act_name"]) + '</td>' +
+                                '<td>' + (input[counter]["div_name"] == null ? input[counter]["other_div"] : input[counter]["div_name"]) + '</td>' +
+                                '<td>' + input[counter]["inv_name"] + '</td>' +
+                                '<td>' + (input[counter]["borrow_actual_amount"] == null ? "-" : input[counter]["borrow_actual_amount"]) + '/' + input[counter]["borrow_request_amount"] + '</td>' +
+                                '<td>' + input[counter]["borrow_date"].substring(0, 11) + '</td>' +
+                                '<td>' + input[counter]["return_date"].substring(0, 11) + '</td>';
+                                if(input[counter]["status"]==0)
+                                    tabledata += '<td>รออนุมัติ</td>';
+                                else if(input[counter]["status"]==1)
+                                    tabledata += '<td>อนุมัติ</td>';
+                                else if(input[counter]["status"]==2)
+                                    tabledata += '<td>กำลังดำเนินการ</td>';
+                                else if(input[counter]["status"]==3)
+                                    tabledata += '<td>เกินกำหนดคืน</td>';
+                                else if(input[counter]["status"]==4)
+                                    tabledata += '<td>ปิดรายการ</td>';
+                                tabledata += '<td>' + (input[counter]["reason_if_not_approve"] == null ? "-" : input[counter]["reason_if_not_approve"]) + '</td>';
 
                         @if($type == 'report')
                                 tabledata +=
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>' +
-                                '<td>' +  input[counter]["student_id"]  + '</td>';
+                                '<td>' + input[counter]["name"] + '</td>' +
+                                '<td>' + input[counter]["surname"] + '</td>' +
+                                '<td>' + input[counter]["student_id"] + '</td>' +
+                                '<td>' + input[counter]["phone_number"] + '</td>';
                         @endif
                                 tabledata += '</tr>';
 
