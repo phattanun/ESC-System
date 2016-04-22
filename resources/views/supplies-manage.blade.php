@@ -661,6 +661,7 @@
             $.ajax({
                 type: "POST",
                 url: '{{ url("/supplies/manage/finishedBorrowList")}}/' + list_id,
+                data:{_token : '{{csrf_token()}}' },
                 processData: false,
                 contentType: false,
                 success: function(response) {
