@@ -146,7 +146,9 @@
                             <span>หมายเลขโทรศัพท์</span>
                         </div>
                         <div class="col-md-8">
-                            <input id="editSupplierPhone" class="form-control" placeholder="กรอกหมายเลขโทรศัพท์ร้านค้า" type="text">
+                            <input  id="editSupplierPhone" type="text" class="form-control masked"
+                                    data-format="(999) 999-9999" data-placeholder="X"
+                                    placeholder="(08X) XXX-XXXX">
                         </div>
                     </div>
                 </div>
@@ -165,9 +167,9 @@
     </div>
     <div id="addSupplierDialog" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
+                <form id="addSupplierDialogForm" class="validate">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">เพิ่มข้อมูลร้านค้า</h4>
@@ -178,7 +180,7 @@
                             <span>ชื่อร้านค้า</span>
                         </div>
                         <div class="col-md-8">
-                            <input id="addSupplierName" class="form-control" placeholder="กรอกชื่อร้านค้า" type="text">
+                            <input required id="addSupplierName" class="form-control required" placeholder="กรอกชื่อร้านค้า" type="text">
                         </div>
                     </div>
                     <div class="row" style="margin-bottom: 10px">
@@ -194,21 +196,23 @@
                             <span>หมายเลขโทรศัพท์</span>
                         </div>
                         <div class="col-md-8">
-                            <input id="addSupplierPhone" class="form-control" placeholder="กรอกหมายเลขโทรศัพท์ร้านค้า" type="text">
+                            <input  id="addSupplierPhone" type="text" class="form-control masked"
+                                    data-format="(999) 999-9999" data-placeholder="X"
+                                    placeholder="(08X) XXX-XXXX">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a id="confirmAdd" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal">
+                    <button type="button" id="confirmAdd" class="btn btn-3d btn-reveal btn-green">
                         <i class="fa fa-check"></i>
                         <span>เพิ่ม</span>
-                    </a>
+                    </button>
                     <a id="cancelAdd" class="btn btn-default" data-dismiss="modal">
                         <span>ยกเลิก</span>
                     </a>
                 </div>
+                </form>
             </div>
-
         </div>
     </div>
 @endsection
@@ -239,10 +243,12 @@
                 $("#addSupplierPhone").val("");
             });
             $("#confirmAdd").click(function () {
+                if($("#addSupplierDialogForm").valid()){
                 var URL_ROOT = '{{Request::root()}}';
                 var name = $("#addSupplierName").val();
                 var addr = $("#addSupplierAddr").val();
                 var phone = $("#addSupplierPhone").val();
+                if(name)
                 $.post(URL_ROOT+'/supplies/add_supplier', {_token: '{{csrf_token()}}', name: name, addr: addr, phone: phone}).success(function(response) {
                     var id = response[0].supplier_id;
                     $('#supplier-table').append(
@@ -266,7 +272,10 @@
                     $("#addSupplierName").val("");
                     $("#addSupplierAddr").val("");
                     $("#addSupplierPhone").val("");
+                    alert('');
+                    $('#addSupplierDialog').modal('hide');
                 });
+                }
             });
             $("#find-supplier-btn").click(function() {
                 var URL_ROOT = '{{Request::root()}}';

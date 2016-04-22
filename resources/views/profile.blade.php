@@ -59,8 +59,8 @@
                                                    type="text">
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <label>วันเกิด (ใช้ปีพุทธศักราช) *</label>
-                                            <input  name="birthdate" type="text" class="form-control masked" data-format="9999-99-99"
+                                            <label>วันเกิด (ปี-เดือน-วัน ใช้ปีพุทธศักราช) *</label>
+                                            <input  name="birthdate" type="text" class="form-control masked required" data-format="9999-99-99"
                                                     data-placeholder="_" value="{{$_user['birthdate']}}" placeholder="ปปปป-ดด-วว">
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6">
-                                            <label>อีเมล์ *</label>
+                                            <label>อีเมล *</label>
                                             <input name="email" value="{{$_user['email']}}" class="form-control required"
                                                    type="email" placeholder="example@example.com">
                                         </div>
@@ -120,7 +120,7 @@
                                             <div class="fancy-form"><!-- input -->
                                                 <i class="fa fa-phone-square"></i>
                                                 <!-- replace here any input from below if you want fancy style (icon + tooltip) -->
-                                                <input name="phone"  type="text" value="{{$_user['phone_number']}}" class="form-control masked"
+                                                <input name="phone"  type="text" value="{{$_user['phone_number']}}" class="form-control masked required"
                                                        data-format="(999) 999-9999" data-placeholder="X"
                                                        placeholder="(08X) XXX-XXXX">
                                             </div>
@@ -140,7 +140,8 @@
                                             <div class="fancy-form"><!-- input -->
                                                 <i class="fa fa-phone-square"></i>
                                                 <!-- replace here any input from below if you want fancy style (icon + tooltip) -->
-                                                <input  name="emergency" type="text" class="form-control" value="{{$_user['emergency_contact']}}"
+                                                <input  name="emergency" type="text" class="form-control masked" value="{{$_user['emergency_contact']}}"
+                                                        data-format="(999) 999-9999" data-placeholder="X"
                                                         placeholder="(08X) XXX-XXXX">
                                             </div>
                                         </div>
@@ -173,7 +174,7 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6">
-                                            <label>Facebook</label>
+                                            <label>Facebook (ใส่เป็น Link)</label>
                                             <div class="fancy-form"><!-- input -->
                                                 <i class="fa fa-facebook"></i>
                                                 <input name="facebook" type="text" class="form-control" value="{{$_user['facebook_link']}}"
