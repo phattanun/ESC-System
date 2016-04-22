@@ -73,6 +73,7 @@ Route::get ('/supplies/manage/{page}', 'InventoryController@viewManage');
 Route::post('/supplies/manage/getTransaction', 'InventoryController@getTransaction');
 Route::post('/supplies/manage/addTransaction', 'InventoryController@addTransaction');
 Route::get ('/supplies/supplier', 'InventoryController@supplierPage');
+Route::post('/supplies/supplier/search', 'InventoryController@searchSupplier');
 Route::post('/supplies/delete_supplier', 'InventoryController@deleteSupplier');
 Route::post('/supplies/edit_supplier', 'InventoryController@editSupplier');
 Route::post('/supplies/add_supplier', 'InventoryController@addSupplier');

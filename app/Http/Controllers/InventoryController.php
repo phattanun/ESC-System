@@ -605,9 +605,8 @@ class InventoryController extends Controller
         for ($i = 0; $i < count($item_id); ++$i) {
 
             $amount = 0;
-            $borrow = BorrowItem::where('list_id', $list_id)->where('inv_id', $item_id[$i])->first();
-            if ($disapprove[$i] === 'false') {
-                if ($borrow_allow[$i] > BorrowItem::where('list_id', $list_id)->where('inv_id', $item_id[$i])->first()['borrow_request_amount']) return "อนุมัติเกินจำนวนไม่ได้ค่ะนิสิต";
+            if($disapprove[$i] === 'false'){
+                if($borrow_allow[$i] > BorrowItem::where('list_id',$list_id)->where('inv_id',$item_id[$i])->first()['borrow_request_amount']) return "อนุมัติเกินจำนวนไม่ได้ค่ะนิสิต";
                 $amount = $borrow_allow[$i];
             }
             $status = $disapprove[$i] ? -1 : 1;
@@ -622,16 +621,31 @@ class InventoryController extends Controller
     public function addTransaction(Request $request)
     {
         $borrowlist_id = $request->input('list_id');
-        $actor_id = $request->input('actor_id');
-        $transaction = $request->input('transaction');
-        $last_transaction = ItemTransaction::where('inv_id', $transaction['item_id'])->ordeyBy('date', 'desc')->take(1)->first();
-        $remain = 0;
-        if ($transaction['type'] == 0 && $last_transaction['amount'] - $transaction['amount'] >= 0) {
-            $remain = $last_transaction['amount'] - $transaction['amount'];
-        } else if ($transaction['type'] == 1) {
-            $remain = $last_transaction['amount'] + $transaction['amount'];
+        $actor_id = $this->getUser()['student_id'];
+        $amount_array = $request->input('amount');
+        $item_id_array = $request->input('item_id');
+        $type_array = $request->input('type');
+
+        for($i = 0;$i < count($type_array);$i++){
+//            $remain = 0;
+//            if($transaction['type']==0 && $last_transaction['amount']-$transaction['amount'] >= 0){
+//                $remain = $last_transaction['amount']-$transaction['amount'];
+//            }
+//            else if ($transaction['type'] == 1){
+//                $remain = $last_transaction['amount']+$transaction['amount'];
+//            }
+            ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$amount_array[$i],'type'=>$type_array[$i],'inv_id'=>$item_id_array[$i],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0]);
         }
-        ItemTransaction::create(['list_id' => $borrowlist_id, 'amount' => $transaction['amount'], 'type' => $transaction['type'], 'inv_id' => $transaction['item_id'], 'staff_id' => $actor_id, 'date' => Carbon::now(), 'remain_qty' => $remain]);
+//        $transaction = $request->input('transaction');
+//        $last_transaction = ItemTransaction::where('inv_id',$transaction['item_id'])->ordeyBy('date','desc')->take(1)->first();
+//        $remain = 0;
+//        if($transaction['type']==0 && $last_transaction['amount']-$transaction['amount'] >= 0){
+//            $remain = $last_transaction['amount']-$transaction['amount'];
+//        }
+//        else if ($transaction['type'] == 1){
+//            $remain = $last_transaction['amount']+$transaction['amount'];
+//        }
+//        ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$transaction['amount'],'type'=>$transaction['type'],'inv_id'=>$transaction['item_id'],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>$remain]);
 
     }
 
@@ -673,14 +687,20 @@ class InventoryController extends Controller
         return view('supplier', compact('all_supplier', 'new_id'));
     }
 
-    public function deleteSupplier(Request $request)
-    {
+    public function deleteSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
         $id = $request['id'];
         Supplier::where('supplier_id', $id)->delete();
     }
 
-    public function editSupplier(Request $request)
-    {
+    public function editSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
         $id = $request['id'];
         $name = $request['name'];
         $addr = $request['addr'];
@@ -688,14 +708,33 @@ class InventoryController extends Controller
         Supplier::where('supplier_id', $id)->update(['name' => $name, 'address' => $addr, 'phone_no' => $phone]);
     }
 
-    public function addSupplier(Request $request)
-    {
+    public function addSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
         $name = $request['name'];
         $addr = $request['addr'];
         $phone = $request['phone'];
         Supplier::insert(['name' => $name, 'address' => $addr, 'phone_no' => $phone]);
         $new_id = Supplier::where(['name' => $name, 'address' => $addr, 'phone_no' => $phone])->select('supplier_id')->get('supplier_id');
         return $new_id;
+    }
+
+    public function searchSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
+        $result = Supplier::where(function ($query) use ($request) {
+            if ($request->input('name')!='') $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+            if ($request->input('addr')!='') $query->where('address', 'LIKE', '%' . $request->input('addr') . '%');
+            if ($request->input('phone')!='') $query->where('phone_no', 'LIKE', '%' . $request->input('phone') . '%');
+        })->get();
+
+        if(sizeof($result)==0)
+            return 'fail';
+        return $result;
     }
 
     public function invSearchQuery()
