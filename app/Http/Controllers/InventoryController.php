@@ -651,11 +651,19 @@ class InventoryController extends Controller
     }
 
     public function deleteSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
         $id = $request['id'];
         Supplier::where('supplier_id',$id)->delete();
     }
 
     public function editSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
         $id = $request['id'];
         $name = $request['name'];
         $addr = $request['addr'];
@@ -664,12 +672,32 @@ class InventoryController extends Controller
     }
 
     public function addSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
         $name = $request['name'];
         $addr = $request['addr'];
         $phone = $request['phone'];
         Supplier::insert(['name'=>$name,'address'=>$addr,'phone_no'=>$phone]);
         $new_id = Supplier::where(['name'=>$name,'address'=>$addr,'phone_no'=>$phone])->select('supplier_id')->get('supplier_id');
         return $new_id;
+    }
+
+    public function searchSupplier(Request $request) {
+        $user = $this->getUser();
+        if(!isset($user['supplies']))
+            return redirect('/');
+
+        $result = Supplier::where(function ($query) use ($request) {
+            if ($request->input('name')!='') $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+            if ($request->input('addr')!='') $query->where('address', 'LIKE', '%' . $request->input('addr') . '%');
+            if ($request->input('phone')!='') $query->where('phone_no', 'LIKE', '%' . $request->input('phone') . '%');
+        })->get();
+
+        if(sizeof($result)==0)
+            return 'fail';
+        return $result;
     }
 
     public function invSearchQuery()
