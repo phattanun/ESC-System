@@ -656,6 +656,11 @@ class InventoryController extends Controller
 
     }
 
+    public function finishedBorrowList(Request $request){
+        $list_id = $request->input('list_id');
+        BorrowList::where('list_id',$list_id)->update(['status'=>4]);
+    }
+
     public function getTransaction(Request $request)
     {
 
