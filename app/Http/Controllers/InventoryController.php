@@ -775,8 +775,8 @@ class InventoryController extends Controller
             return redirect('/');
         $permission = Permission::find($user['supplies']);
 
-        //$trans = [];
-        //if ($request->input('type') == 'search') {
+        $trans = [];
+        if ($request->input('type') == 'search') {
 
             $trans = BorrowItem::join('borrow_lists', 'borrow_items.list_id', '=', 'borrow_lists.list_id')
                 ->join('inventories', 'borrow_items.inv_id', '=', 'inventories.inv_id')
@@ -791,14 +791,25 @@ class InventoryController extends Controller
                 ->leftjoin('activities', 'borrow_lists.act_id', '=', 'activities.act_id')
                 ->leftjoin('divisions', 'borrow_lists.div_id', '=', 'divisions.div_id')
                 ->leftjoin('users','borrow_lists.creator_id','=','users.student_id')
-                ->select('activities.name as act_name','divisions.name as div_name','inventories.name as inv_name','borrow_request_amount','borrow_actual_amount','borrow_date','return_date','borrow_lists.status as status','student_id','users.name as name','surname','phone_number')
-                //->select('users.nickname','phone_number','users.student_id as student_id','users.surname','users.name as user_name','meeting_rooms.name as mt_name','activities.name as act_name','divisions.name as div_name','reason','number_of_people','request_start_time','request_end_time','user_reservation.status','allow_room_id','reason_if_not_approve','allow_projector','allow_plug','request_projector','request_plug','other_div','other_act')
+                ->select('activities.name as act_name','divisions.name as div_name','inventories.name as inv_name','borrow_request_amount','borrow_actual_amount','borrow_date','return_date','borrow_lists.status as status')
                 ->get();
-        //}
-        //if ($request->input('type') == 'report' && $permission && $permission->supplies) {
-
-
-        //}
+        }
+        if ($request->input('type') == 'report' && $permission && $permission->supplies) {
+            $trans = BorrowItem::join('borrow_lists', 'borrow_items.list_id', '=', 'borrow_lists.list_id')
+                ->join('inventories', 'borrow_items.inv_id', '=', 'inventories.inv_id')
+                ->where(function ($query) use ($request, $user) {
+                    if ($request->input('startDate') && $request->input('endDate')) $query->where('date', '>=', $request->input('startDate'), 'AND', 'date', '<=', $request->input('endDate'));
+                    else if ($request->input('startDate')) $query->where('date', '>=', $request->input('startDate'));
+                    else if ($request->input('endDate')) $query->where('date', '<=', $request->input('endDate'));
+                    if ($request->input('activity')) $query->where('act_id', '=', $request->input('activity'));
+                    if ($request->input('division')) $query->where('div_id', '=', $request->input('division'));
+                })
+                ->leftjoin('activities', 'borrow_lists.act_id', '=', 'activities.act_id')
+                ->leftjoin('divisions', 'borrow_lists.div_id', '=', 'divisions.div_id')
+                ->leftjoin('users','borrow_lists.creator_id','=','users.student_id')
+                ->select('activities.name as act_name','divisions.name as div_name','inventories.name as inv_name','borrow_request_amount','borrow_actual_amount','borrow_date','return_date','borrow_lists.status as status','student_id','users.name as name','surname','phone_number')
+                ->get();
+        }
 
         if (sizeof($trans) == 0) return 'fail';
         return $trans;
