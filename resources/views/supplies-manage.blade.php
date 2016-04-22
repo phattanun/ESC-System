@@ -285,7 +285,7 @@
 @section('js')
     <script type="text/javascript" src="{{url('js/magic-pagination.js')}}"></script>
     <script type="text/javascript">
-        var modal = $("#sup-detail");
+        var modal = $("#sup-detail"), page = {{ $page }};
         MagicPagi.init({
             url : '{{ url("supplies/manage") }}',
             ul : $("#page-nav .pagination"),
@@ -294,7 +294,7 @@
             range : 2,
             mode : 'jquery',
             onclick : function(page) { loadList(page); },
-        }).go({{ $page }});
+        }).go(page);
         function replace(data, postCallback) {
             modal.find("*[data-default]").each(function(){ $(this).html($(this).data('default')); });
             modal.find("#sup-tab > li").removeClass('active');
@@ -640,9 +640,9 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log(response);
                     _toastr("บันทึกสำเร็จ", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');
+                    loadList(page);
                 },
                 error : function(e) {
                     _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
@@ -656,6 +656,6 @@
             $("#sup-detail #content div[id*='sup-info-']").addClass('hide').scrollTop(0);
             $("#sup-detail #content #sup-info-"+$(this).data('tab')).removeClass('hide');
         });
-        loadList({{ $page }});
+        loadList(page);
     </script>
 @endsection

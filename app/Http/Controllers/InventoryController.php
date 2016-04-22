@@ -630,7 +630,10 @@ class InventoryController extends Controller
 
         BorrowList::where('list_id',$borrowlist_id)->update(['status'=>2]);
 
-        for($i = 0;$i < count($type_array);$i++){
+        foreach ($type_array as $key => $type) {
+            ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$amount_array[$key],'type'=>$type_array[$key],'inv_id'=>$item_id_array[$key],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0]);
+        }
+//        for($i = 0;$i < count($type_array);$i++){
 //            $remain = 0;
 //            if($transaction['type']==0 && $last_transaction['amount']-$transaction['amount'] >= 0){
 //                $remain = $last_transaction['amount']-$transaction['amount'];
@@ -638,8 +641,8 @@ class InventoryController extends Controller
 //            else if ($transaction['type'] == 1){
 //                $remain = $last_transaction['amount']+$transaction['amount'];
 //            }
-            ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$amount_array[$i],'type'=>$type_array[$i],'inv_id'=>$item_id_array[$i],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0]);
-        }
+//            ItemTransaction::create(['list_id'=>$borrowlist_id,'amount'=>$amount_array[$i],'type'=>$type_array[$i],'inv_id'=>$item_id_array[$i],'staff_id'=>$actor_id,'date'=>Carbon::now(),'remain_qty'=>0]);
+//        }
 //        $transaction = $request->input('transaction');
 //        $last_transaction = ItemTransaction::where('inv_id',$transaction['item_id'])->ordeyBy('date','desc')->take(1)->first();
 //        $remain = 0;
@@ -663,7 +666,7 @@ class InventoryController extends Controller
         // Prepare User
         $stud = User::all();
         $student = [];
-        
+
         foreach($stud as $s){
             $student[$s['student_id']] = $s['name'];
         }
