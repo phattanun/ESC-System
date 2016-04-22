@@ -272,7 +272,6 @@
                     $("#addSupplierName").val("");
                     $("#addSupplierAddr").val("");
                     $("#addSupplierPhone").val("");
-                    alert('');
                     $('#addSupplierDialog').modal('hide');
                 });
                 }
