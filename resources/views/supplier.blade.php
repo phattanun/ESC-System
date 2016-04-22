@@ -180,7 +180,7 @@
                             <span>ชื่อร้านค้า</span>
                         </div>
                         <div class="col-md-8">
-                            <input required id="addSupplierName" class="form-control required" placeholder="กรอกชื่อร้านค้า" type="text">
+                            <input name="supplierName" required id="addSupplierName" class="form-control" placeholder="กรอกชื่อร้านค้า" type="text">
                         </div>
                     </div>
                     <div class="row" style="margin-bottom: 10px">
@@ -188,7 +188,7 @@
                             <span>ที่อยู่</span>
                         </div>
                         <div class="col-md-8">
-                            <textarea id="addSupplierAddr" rows="5" class="form-control" data-maxlength="200" data-info="textarea-words-info" placeholder="กรอกที่อยู่ร้านค้า"></textarea>
+                            <textarea name="supplierAddr" required id="addSupplierAddr" rows="5" class="form-control" data-maxlength="200" data-info="textarea-words-info" placeholder="กรอกที่อยู่ร้านค้า"></textarea>
                         </div>
                     </div>
                     <div class="row" style="margin-bottom: 10px">
