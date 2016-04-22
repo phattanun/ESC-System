@@ -531,7 +531,6 @@
                                         loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
                                             jQuery(document).ready(function () {
                                                 _fullCalendar();
-                                                $('#reserve-form').validate();
                                             });
                                             function _fullCalendar() {
                                                 if (jQuery('#calendar').length > 0) {
