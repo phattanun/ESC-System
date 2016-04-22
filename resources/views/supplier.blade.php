@@ -117,9 +117,9 @@
     </div>
     <div id="editSupplierDialog" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
+                <form id="editSupplierDialogForm" class="validate">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">แก้ไขข้อมูลร้านค้า</h4>
@@ -130,11 +130,11 @@
                             <span>ชื่อร้านค้า</span>
                         </div>
                         <div class="col-md-8">
-                            <input id="editSupplierName" class="form-control" placeholder="กรอกชื่อร้านค้า" type="text">
+                            <input required id="editSupplierName" class="form-control" placeholder="กรอกชื่อร้านค้า" type="text">
                         </div>
                     </div>
                     <div class="row" style="margin-bottom: 10px">
-                        <div class="col-md-4">
+                        <div required class="col-md-4">
                             <span>ที่อยู่</span>
                         </div>
                         <div class="col-md-8">
@@ -153,16 +153,16 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a id="confirmEdit" class="btn btn-3d btn-reveal btn-green" data-dismiss="modal">
+                    <button type="button" id="confirmEdit" class="btn btn-3d btn-reveal btn-green">
                         <i class="fa fa-check"></i>
                         <span>แก้ไข</span>
-                    </a>
+                    </button>
                     <a id="cancelEdit" class="btn btn-default" data-dismiss="modal">
                         <span>ยกเลิก</span>
                     </a>
                 </div>
+                </form>
             </div>
-
         </div>
     </div>
     <div id="addSupplierDialog" class="modal fade" role="dialog">
@@ -227,15 +227,24 @@
                 $('#tuple-'+id).remove();
             });
             $("#confirmEdit").click(function () {
-                var URL_ROOT = '{{Request::root()}}';
-                var id = $("#confirmEdit").attr('num');
-                var name = $("#editSupplierName").val();
-                var addr = $("#editSupplierAddr").val();
-                var phone = $("#editSupplierPhone").val();
-                $.post(URL_ROOT+'/supplies/edit_supplier', {_token: '{{csrf_token()}}', id: id, name: name, addr: addr, phone: phone});
-                $('#name-'+id).text(name);
-                $('#addr-'+id).text(addr);
-                $('#phone-'+id).text(phone);
+                if($("#editSupplierDialogForm").valid()) {
+                    var URL_ROOT = '{{Request::root()}}';
+                    var id = $("#confirmEdit").attr('num');
+                    var name = $("#editSupplierName").val();
+                    var addr = $("#editSupplierAddr").val();
+                    var phone = $("#editSupplierPhone").val();
+                    $.post(URL_ROOT + '/supplies/edit_supplier', {
+                        _token: '{{csrf_token()}}',
+                        id: id,
+                        name: name,
+                        addr: addr,
+                        phone: phone
+                    });
+                    $('#name-' + id).text(name);
+                    $('#addr-' + id).text(addr);
+                    $('#phone-' + id).text(phone);
+                    $("#editSupplierDialog").modal('hide');
+                }
             });
             $("#cancelAdd").click(function () {
                 $("#addSupplierName").val("");
