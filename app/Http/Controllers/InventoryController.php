@@ -637,7 +637,7 @@ class InventoryController extends Controller
         $stud = User::all();
         $student = [];
         foreach($stud as $s){
-            $student[$s['student_id']] = $s['name']." ".$s['surname'];
+            $student[$s['student_id']] = $s['name'];
         }
 
         $send_data = [];

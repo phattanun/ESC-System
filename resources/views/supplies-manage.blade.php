@@ -102,7 +102,7 @@
                                         <td style="vertical-align:middle;text-align:center;">
                                             <div class="radio">
                                                 <button id="receiving" class="btn btn-green deactivated">รับ</button>
-                                                <input id="type" type="radio" value="receive" style="display:none;"></input>
+                                                <input id="type" type="radio" value="0" style="display:none;"></input>
                                             </div>
                                         </td>
                                         <td style="vertical-align:middle;text-align:center;">
@@ -117,7 +117,7 @@
                                         <td style="vertical-align:middle;text-align:center;">
                                             <div class="radio">
                                                 <button id="giving" class="btn btn-yellow deactivated">ให้</button>
-                                                <input id="type" type="radio" value="give" style="display:none;"></input>
+                                                <input id="type" type="radio" value="1" style="display:none;"></input>
                                             </div>
                                         </td>
                                     </tr>
@@ -131,7 +131,7 @@
 
                         <!-- TABs -->
                         <ul id="sup-tab" class="nav nav-tabs">
-                            <li class="active"><a href="#" data-tab="reserve">ประวัติ</a></li>
+                            <li class="active"><a href="#" data-tab="transaction">ประวัติ</a></li>
                             <li><a href="#" data-tab="owner"  >ผู้จอง</a></li>
                         </ul>
                     </div>
@@ -150,10 +150,12 @@
                                 <tr id="template-transaction" style="display:none;">
                                     <td id="date"         style="vertical-align:middle;text-align:center">--/--/--</td>
                                     <td id="name"         style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
-                                    <td id="borrow_allow" style="vertical-align:middle;text-align:center">--</td>
+                                    <td id="amount"       style="vertical-align:middle;text-align:center">--</td>
                                     <td id="unit"         style="vertical-align:middle;text-align:center">(หน่วย)</td>
-                                    <td id="action_user"  style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
-                                    <td id="type"         style="vertical-align:middle;text-align:center">รับ-ให้</td>
+                                    <td id="staff"  style="vertical-align:middle;text-align:center">ไม่มีข้อมูล</td>
+                                    <td style="vertical-align:middle;text-align:center">
+                                        <span id="type" class='status' style='width:60px;'>รับ-ให้</span>
+                                    </td>
                                 </tr>
                                 <tr id="transaction-notfound" style="display:none">
                                     <td colspan="7" style="vetical-align:middle;text-align:center">ไม่มีรายการประวัติ</td>
@@ -264,6 +266,15 @@
             color: white;
             background-color: #d6d6d6;
         }
+        .status-give {
+            color: black;
+            background-color: #ECD078;
+        }
+        .status-receive {
+            color: white;
+            background-color: #59BA41;
+        }
+
         button.deactivated {
             color: black !important;
             background-color: #ddd;
@@ -301,7 +312,7 @@
                         if(postCallback != null)
                             postCallback(names[j],modal.find("#sup-info-"+infoTabs[i]+" *[id="+names[j]+"]"),data[infoTabs[i]][names[j]]);
                     }
-                    if(infoTabs[i] == "reserve") {
+                    if(infoTabs[i] == "reserve" || infoTabs[i] == "transaction") {
                         var attr = Object.getOwnPropertyNames(data[infoTabs[i]][names[j]]);
                         for(k in attr) {
                             modal.find("#sup-info-"+infoTabs[i]+" tr[id="+names[j]+"] td[id="+attr[k]+"]").html(data[infoTabs[i]][names[j]][attr[k]]);
@@ -320,7 +331,17 @@
             }
         }
         var modalData;
-        var itemsList;
+        var itemsList, transactionList;
+        function isInt(n) {
+            if(isNaN(n))
+                return true;
+            return n % 1 === 0;
+        }
+        function fixFloatNumber(n) {
+            if(!isInt(parseFloat(n)))
+                return n = parseFloat(n).toFixed(2);
+            return n;
+        }
         function loadDetail(id) {
             $("#sup-detail").find("#list_id").val(id);
             $.ajax({
@@ -356,13 +377,6 @@
 
                             itemsList[items[i]]['remain'] = (itemsList[items[i]]['borrow_allow'] != null ? itemsList[items[i]]['borrow_allow']: itemsList[items[i]]['borrow_request']);
                             itemsList[items[i]]['give'] = 0;
-                            template.find("#amount").data({
-                                'min': 0,
-                                'max': 0,
-                                'max-give': itemsList[items[i]]['remain'],
-                                'max-receive': itemsList[items[i]]['give']
-                            }).val(0);
-                            console.log(itemsList[items[i]],template.find("#amount").data());
                         }
                         container.find("#item-notfound").hide();
                     }
@@ -377,16 +391,40 @@
                         success: function(response) {
                             var container = $("#sup-info-transaction");
                             var transactionListE = container.find("#transaction-list").empty();
-                            console.log("Transaction",response);
-                            if(response.length > 0) {
+                            transactionList = response;
+                            if(response.length !== 0) {
                                 var transaction = Object.getOwnPropertyNames(response);
                                 for(i in transaction) {
                                     var template = container.find("#template-transaction").clone(true).attr('id',transaction[i]).css('display','');
-                                    template.appendTo(itemsListE);
+                                    template.appendTo(transactionListE);
+                                    transactionList[transaction[i]]['name'] = itemsList[transactionList[transaction[i]]['item_id']]['name'];
+                                    transactionList[transaction[i]]['unit'] = itemsList[transactionList[transaction[i]]['item_id']]['unit'];
+                                    if(transactionList[transaction[i]]['type'] == 1) { // Give
+                                        itemsList[transactionList[transaction[i]]['item_id']]['remain'] -= transactionList[transaction[i]]['amount'];
+                                        itemsList[transactionList[transaction[i]]['item_id']]['give']   += transactionList[transaction[i]]['amount'];
+                                    }
+                                    else { // Receive
+                                        itemsList[transactionList[transaction[i]]['item_id']]['remain'] += transactionList[transaction[i]]['amount'];
+                                        itemsList[transactionList[transaction[i]]['item_id']]['give']   -= transactionList[transaction[i]]['amount'];
+                                    }
+                                    itemsList[transactionList[transaction[i]]['item_id']]['remain'] = fixFloatNumber(itemsList[transactionList[transaction[i]]['item_id']]['remain']);
+                                    itemsList[transactionList[transaction[i]]['item_id']]['give']   = fixFloatNumber(itemsList[transactionList[transaction[i]]['item_id']]['give']);
                                 }
                                 container.find("#transaction-notfound").hide();
                             }
                             else container.find("#transaction-notfound").show();
+                            modalData['transaction'] = transactionList;
+
+                            $("#sup-info-reserve").find("#items-list").find("tr").each(function() {
+                                var id = $(this).attr('id');
+                                $(this).find("#amount").data({
+                                    'min': 0,
+                                    'max': 0,
+                                    'max-give': itemsList[id]['remain'],
+                                    'max-receive': itemsList[id]['give']
+                                }).val(0);
+                            });
+
                             replace(modalData, function(name, element, data) {
                                 switch(name) {
                                     case "facebook_link":
@@ -402,6 +440,19 @@
                                             'current': parseFloat(data)
                                         });
                                         break;
+                                    case "type":
+                                        switch(data) {
+                                            case 1:
+                                                data = "ให้";
+                                                element.addClass('status-give');
+                                            break;
+                                            case 0:
+                                                data = "รับ";
+                                                element.addClass('status-receive');
+                                            break;
+                                        }
+                                        element.html(data);
+                                        break;
                                 }
                             });
                             $("#sup-info-reserve").find("#items-list").find("tr").each(function() {
@@ -416,19 +467,13 @@
                                     receiveButton = $(this).find("button[id=receiving]"),
                                     receiveRadio = receiveButton.next();
                                 function highlight(element) {
-                                    if(!isInt(element.data('current')))
-                                        element.data('current',element.data('current').toFixed(2));
+                                    element.data('current',fixFloatNumber(element.data('current')));
                                     element.removeClass();
                                     element.html(element.data('current'));
                                     if(element.data('current') < element.data('original'))
                                         element.addClass("text-red");
                                     else if(element.data('current') > element.data('original'))
                                         element.addClass("text-green");
-                                }
-                                function isInt(n) {
-                                    if(isNaN(n))
-                                        return true;
-                                    return n % 1 === 0;
                                 }
                                 up.click(function() {
                                     if(input.val() == "NaN")
@@ -446,8 +491,7 @@
                                     var min = $(this).data('min'), max = $(this).data('max');
                                     if(input.val() < min || input.val() > max)
                                         input.val(Math.max(Math.min(input.val(),max),min));
-                                    if(!isInt(parseFloat(input.val())))
-                                        input.val(parseFloat(input.val()).toFixed(2));
+                                    input.val(fixFloatNumber(input.val()));
                                     var val = parseFloat(input.val());
                                     switch(input.data('mode')) {
                                         case "give":
@@ -577,7 +621,7 @@
             var hasTransaction = 0;
             $("#sup-detail").find("#items-list").find("tr").each(function() {
                 var radio = $(this).find("input[type=radio]"), checked = false;
-                radio.each(function() { checked = $(this).prop('checked'); })
+                radio.each(function() { checked = checked || $(this).prop('checked'); });
                 hasTransaction += checked;
                 $(this).find("input").prop('disabled', !checked);
             });
@@ -588,7 +632,7 @@
             }
             $.ajax({
                 type: "POST",
-                url: '{{ url("/test")}}',
+                url: '{{ url("/supplies/manage/addTransaction")}}',
                 data: (new FormData($("#sup-detail #container")[0])),
                 processData: false,
                 contentType: false,
@@ -598,7 +642,7 @@
                     $("#sup-detail").modal('toggle');
                 },
                 error : function(e) {
-                    _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "success", false);
+                    _toastr("กรุณาติดต่อผู้ดูแลระบบ", "top-right", "error", false);
                 }
               });
         }
@@ -606,8 +650,8 @@
             e.preventDefault();
             $("#sup-detail #sup-tab > li").removeClass('active');
             $(this.parentElement).addClass('active');
-            $("#sup-detail div[id*='sup-info-']").addClass('hide').scrollTop(0);
-            $("#sup-detail #sup-info-"+$(this).data('tab')).removeClass('hide');
+            $("#sup-detail #content div[id*='sup-info-']").addClass('hide').scrollTop(0);
+            $("#sup-detail #content #sup-info-"+$(this).data('tab')).removeClass('hide');
         });
         loadList({{ $page }});
     </script>
