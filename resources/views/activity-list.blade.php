@@ -353,9 +353,9 @@
 
                         act_data.act.status =='0' || user['activities'] ? $('#division').prop('disabled',false):$('#division').prop('disabled',true);
 
-                        if(act_data.can_edit.length == 0)
+                        /*if(act_data.can_edit.length == 0)
                             $('#table-div').addClass('hidden');
-                        else if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');
+                        else if($('#table-div').hasClass('hidden')) $('#table-div').removeClass('hidden');*/
 
                         $('#permission-table').empty();
                         $('#permission-table').append(
@@ -364,6 +364,12 @@
                                 + '<th style="vertical-align:middle;" >รหัสนิสิต</th>'
                                 + '<th style="vertical-align:middle;" >ชื่อ</th>'
                                 + '<th style="vertical-align:middle;" >นามสกุล</th>'
+                                + '</tr>'
+                                + '<tr id="tuple-'+act_data.owner.student_id+'">'
+                                + '<td class="text-center"><b>'+'Creator'+'</b></td>'
+                                + '<td>'+act_data.owner.student_id+'</td>'
+                                + '<td>'+act_data.owner.name+'</td>'
+                                + '<td>'+act_data.owner.surname+'</td>'
                                 + '</tr>'
                         );
                         for(i=0;i<act_data.can_edit.length;i++){
