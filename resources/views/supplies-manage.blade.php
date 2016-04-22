@@ -660,7 +660,7 @@
         function finish(list_id) {
             $.ajax({
                 type: "POST",
-                url: '{{ url("5555555555555555555555555555555555555")}}/' + list_id,
+                url: '{{ url("/supplies/manage/finishedBorrowList")}}/' + list_id,
                 processData: false,
                 contentType: false,
                 success: function(response) {
