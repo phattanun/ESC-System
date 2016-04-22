@@ -602,6 +602,8 @@ class InventoryController extends Controller
         $disapprove = $request->input('disapprove');
         $reason = $request->input('reason');
 
+        BorrowList::where('list_id',$list_id)->update(['status'=>1]);
+
         for ($i = 0; $i < count($item_id); ++$i) {
 
             $amount = 0;
@@ -625,6 +627,8 @@ class InventoryController extends Controller
         $amount_array = $request->input('amount');
         $item_id_array = $request->input('item_id');
         $type_array = $request->input('type');
+
+        BorrowList::where('list_id',$borrowlist_id)->update(['status'=>2]);
 
         for($i = 0;$i < count($type_array);$i++){
 //            $remain = 0;
