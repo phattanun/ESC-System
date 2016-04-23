@@ -256,9 +256,10 @@ class ActivityController extends Controller
             return 'fail';
         if (Activity::where('act_id', $act_id)->exists()) {
             $act = Activity::where('act_id', $act_id)->first();
+            $owner = User::where('student_id',$act['creator_id'])->select('student_id','name','surname')->first();
             $can_edit = CanEditActivity::where('act_id', $act_id)->join('users', 'can_edit_activities.student_id', '=', 'users.student_id')->select('users.student_id', 'users.name', 'users.surname')->get();
             $file = ActivityFile::where('act_id', $act_id)->select('file_id','file_name')->orderby('file_id')->get();
-            return json_encode(array('act' => $act, 'can_edit' => $can_edit,'file'=>$file));
+            return json_encode(array('act' => $act, 'can_edit' => $can_edit,'file'=>$file,'owner'=>$owner));
         } else return 'fail';
     }
 

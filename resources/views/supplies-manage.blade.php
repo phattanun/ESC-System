@@ -661,8 +661,9 @@
             $.ajax({
                 type: "POST",
                 url: '{{ url("/supplies/manage/finishedBorrowList")}}/' + list_id,
-                processData: false,
-                contentType: false,
+                data: {
+                  _token: '{{ csrf_token() }}'
+                },
                 success: function(response) {
                     _toastr("ปิดรายการสำเร็จ", "top-right", "success", false);
                     $("#sup-detail").modal('toggle');

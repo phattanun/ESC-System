@@ -68,7 +68,7 @@
                                     <select name="division" class="form-control select2 required" id="studentDept">
                                         <option selected="selected" value="0">ภาควิชา</option>
                                         @foreach($department as $departments)
-                                            <option value="{{$departments['div_id']}}">{{$departments['short_name']}}</option>
+                                            <option value="{{$departments['name']}}">{{$departments['short_name']}}</option>
                                         @endforeach
                                     </select>
                                 </div>

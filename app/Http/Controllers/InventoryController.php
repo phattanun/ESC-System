@@ -663,8 +663,9 @@ class InventoryController extends Controller
 
     }
 
-    public function finishedBorrowList(Request $request){
-        $list_id = $request->input('list_id');
+    public function finishedBorrowList($list_id){
+        if(!isset($list_id))
+            return response("error", "500");
         BorrowList::where('list_id',$list_id)->update(['status'=>4]);
     }
 
