@@ -65,7 +65,7 @@
                                         <div class="col-md-6 col-sm-6">
                                             <label>วันเกิด (ใช้ปีพุทธศักราช) *</label>
                                             <input  name="birthdate" type="text" class="form-control masked" data-format="9999-99-99"
-                                                   data-placeholder="_" value="{{$user['birthdate']}}" placeholder="ปปปป-ดด-วว">
+                                                   data-placeholder="_" value="@if($user['birthdate']!='0000-00-00'){{$user['birthdate']}}@endif" placeholder="ปปปป-ดด-วว">
                                         </div>
                                     </div>
                                 </div>
