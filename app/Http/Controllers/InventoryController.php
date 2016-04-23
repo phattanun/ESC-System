@@ -396,6 +396,9 @@ class InventoryController extends Controller
         foreach ($items as $item) {
             if ($item['amount'] <= 0)
                 return 'amountInvalid';
+            else if($item['amount']>Inventory::find($item['id'])->remain_qty){
+                return 'amountExceeded';
+            }
         }
 
         if ($otherActivityFlag == "true")

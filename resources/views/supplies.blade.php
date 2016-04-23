@@ -1170,6 +1170,10 @@
                             _toastr("โปรดระบุจำนวนพัสดุให้ถูกต้อง", "top-right", "error", false);
                             return false;
                         }
+                        else if (data == 'amountExceeded') {
+                            _toastr("พัสดุในคลังมีไม่เพียงพอ<br>โปรดลดจำนวนพัสดุ", "top-right", "error", false);
+                            return false;
+                        }
                         else {
                             _toastr("ส่งเรื่องยืมสำเร็จ", "top-right", "success", false);
                             updateModalCartSuccess(data);
