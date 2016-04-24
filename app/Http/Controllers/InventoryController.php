@@ -147,9 +147,19 @@ class InventoryController extends Controller
         $user = $this->getUser();
         if (is_null($user) || !isset($user['supplies'])) return redirect('/');
         $inventory = Inventory::find($_POST['editItemID']);
+
         if (!isset($inventory)) {
             return 'fail';
         }
+
+        $amount = $_POST['editItemTotal'] - $inventory['total_qty'];
+        if($amount < 0){
+            ItemTransaction::create(['list_id'=>1,'amount'=>-1*($amount),'type'=>1,'inv_id'=>$_POST['editItemID'],'staff_id'=>$user['student_id'],'date'=>Carbon::now(),'remain_qty'=>0]);
+        }
+        else if($amount > 0){
+            ItemTransaction::create(['list_id'=>1,'amount'=>$amount,'type'=>0,'inv_id'=>$_POST['editItemID'],'staff_id'=>$user['student_id'],'date'=>Carbon::now(),'remain_qty'=>0]);
+        }
+
         $inventory->name = $_POST['editItemName'];
         $inventory->type = $_POST['editItemType'];
         $inventory->image = $_POST['editItemPicCropped'];

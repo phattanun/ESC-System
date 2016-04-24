@@ -19,6 +19,18 @@ class BorrowListSeeder extends Seeder
             'other_div'=> null,
             'act_id'=> 1,
             'other_act'=> null,
+            'reason' => "เพิ่มลดพัสดุของกวศ",
+            'create_at'=> \Carbon\Carbon::now(),
+            'borrow_date'=> \Carbon\Carbon::now(),
+            'return_date'=>\Carbon\Carbon::now()
+        ]);
+        BorrowList::create([
+            'status'=> 0,
+            'creator_id'=> 1,
+            'div_id'=> 97,
+            'other_div'=> null,
+            'act_id'=> 1,
+            'other_act'=> null,
             'reason' => "อยาก",
             'create_at'=> \Carbon\Carbon::now(),
             'borrow_date'=> \Carbon\Carbon::now(),
