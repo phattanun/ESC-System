@@ -93,6 +93,7 @@ Route::post('/students/search', 'StudentController@search');
 // Login/Logout Register
 Route::post('/login', 'PagesController@cas_login');
 Route::get ('/logout', 'PagesController@logout');
+Route::get('/register', 'PagesController@register');
 Route::post('/register', 'PagesController@registerConfirm');
 
 // Setting Page

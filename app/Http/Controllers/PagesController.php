@@ -109,7 +109,7 @@ class PagesController extends Controller
         $group = Division::where('type','=','Group')->get();
         if(is_null($user))
           return redirect('/');
-        return view('register',['department'=>$department,'group'=>$group]);
+        return view('register',['department'=>$department,'group'=>$group,'isRegister'=>true]);
     }
 
     public function registerConfirm() {

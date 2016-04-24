@@ -8,6 +8,7 @@
     <meta name="keywords" content="กวศ.,ระบบกวศ,จองห้อง,จองพัสดุ" />
     <meta name="description" content="" />
     <meta name="Author" content="Clique : Faculty of Engineerng, Chulalongkorn University" />
+    @if(isset($user) && !isset($isRegister) && is_null($user['last_time_attemp'])) <meta http-equiv="refresh" content="0; url={{url('/register')}}" /> @endif
     <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/images/favicon.ico')}}" />
     <link rel="icon" type="image/png" href="{{url('assets/images/favicon.ico')}}" />
     <link rel="apple-touch-icon" href="{{url('assets/images/favicon.ico')}}" />
