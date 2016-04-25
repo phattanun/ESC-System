@@ -28,6 +28,8 @@ class CreateBorrowListsTable extends Migration
             $table->foreign('creator_id')->references('student_id')->on('users');
             $table->foreign('div_id')->references('div_id')->on('divisions');
             $table->foreign('act_id')->references('act_id')->on('activities');
+
+            $table->index(['borrow_date','return_date']);
         });
     }
 

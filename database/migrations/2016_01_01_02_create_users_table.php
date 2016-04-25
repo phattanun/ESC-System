@@ -40,6 +40,10 @@ class CreateUsersTable extends Migration
             $table->foreign('department')->references('div_id')->on('divisions');
             $table->foreign('group')->references('div_id')->on('divisions');
             $table->foreign('generation')->references('div_id')->on('divisions');
+
+            $table->index(['department']);
+            $table->index(['group']);
+            $table->index(['generatoion']);
         });
     }
 
