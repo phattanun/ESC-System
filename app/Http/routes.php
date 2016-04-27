@@ -10,11 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-// Test
-Route::get('/test', function(){ return view('test'); });
-Route::post('/test', function() { return Input::all(); });
-
 // Default
 Route::get('/', 'NewsController@view_home');
 
