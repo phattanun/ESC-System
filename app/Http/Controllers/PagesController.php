@@ -49,8 +49,8 @@ class PagesController extends Controller
             $result = curl_error($ch);
         curl_close($ch);
 
-        //var_dump($remember);
-        if($result->type == 'error') return $this->local_login($studentId,$password,$remember);
+        if(!is_object($result) || $result->type == 'error')
+            return $this->local_login($studentId,$password,$remember);
 
         if($result->content->faculty != 21) return Redirect::back()->with('hasError', true);
 
