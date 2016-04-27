@@ -43,7 +43,7 @@ class CreateUsersTable extends Migration
 
             $table->index(['department']);
             $table->index(['group']);
-            $table->index(['generatoion']);
+            $table->index(['generation']);
         });
     }
 
