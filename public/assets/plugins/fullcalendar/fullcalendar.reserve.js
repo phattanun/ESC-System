@@ -3576,7 +3576,7 @@
 			else if (date < today) {
 				classes.push('fc-past');
 			}
-			else if (parseInt(moment(date).format('YYYYMMDD'))>(parseInt(moment(today).format('YYYYMMDD'))+100)){
+			else if (moment(date).diff(today,'days')>=30){
 				classes.push('fc-future more-than-30');
 			}
 			else {

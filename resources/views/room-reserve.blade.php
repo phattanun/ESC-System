@@ -550,19 +550,18 @@
                                                         events: '{{url('/room/get_room_reservation_schedule')}}',
                                                         dayClick: function(date, jsEvent, view, resource) {
                                                             if (jQuery("#calendar").attr('data-modal-create') == 'true') {
-                                                                var check = moment(date).format('YYYYMMDD');
-                                                                var today = moment(new Date()).format('YYYYMMDD');
-                                                                var next30 = parseInt(today) + 100;
-                                                                if (check <= today) {
+                                                                var check = moment(date);
+                                                                var today = moment(new Date()).stripZone();
+                                                                if (check.isBefore(today)||check.isSame(today)) {
                                                                     $('#calendar').fullCalendar('gotoDate', date );
                                                                     $('#calendar').fullCalendar('changeView', 'agendaDay');
                                                                     $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
                                                                     $("#agenda_lb").attr('class',$("#agendaDay").data('label'));
                                                                     return;
                                                                 }
-                                                                else if (parseInt(check) > next30) {
+                                                                else if (check.diff(today,'days')>=30) {
                                                                     _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
-                                                                    return ;
+                                                                    return;
                                                                 }
                                                                 else {
                                                                     console.log("reserve");
