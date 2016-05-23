@@ -564,7 +564,6 @@
                                                                     return;
                                                                 }
                                                                 else {
-                                                                    console.log("reserve");
                                                                     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
                                                                     day = moment(date).format('ddd, DD MMMM YYYY');
                                                                     dateStart = moment(date).format('YYYY-MM-DD');
