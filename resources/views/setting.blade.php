@@ -209,12 +209,7 @@
                     e.preventDefault();
                 }
             });
-            $('#studentInfo').keyup(function(){
-                $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
-                _autosuggest();
-                $(this).trigger( "focus" );
-            });
+
             $(document).on('click','.delete-a-tuple',function(){
                     var id =  this.id;
                     $('#tuple-'+id).addClass('hidden');
