@@ -148,7 +148,15 @@ form label {
 	cursor: pointer;
 	background-color: rgba(176, 255, 124, 0.29);
 }
-
+.fc-slats,
+.fc-content-skeleton,
+.fc-bgevent-skeleton {
+	pointer-events:none
+}
+.fc-bgevent,
+.fc-event-container{
+	pointer-events:auto;
+}
 .select2 {
 	width: 100% !important;
 }
