@@ -2423,6 +2423,9 @@
 											else if(data == '_incomplete-data_') {
 												_toastr("กรอกข้อมูลไม่ครบ",_Tposition,"error",false);
 											}
+											else if(data == '_wrong-user_') {
+												_toastr("ไม่พบนิสิตในระบบ",_Tposition,"error",false);
+											}
 											else if(data == '_dupplicate-data_') {
 												_toastr("ข้อมูลซ้ำ",_Tposition,"error",false);
 											}

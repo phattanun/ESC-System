@@ -69,7 +69,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span class="title elipsis">
-                        <strong>เพิ่มผู้จัดการข้อมูล</strong> <!-- panel title -->
+                        <strong>ผู้จัดการข้อมูล</strong> <!-- panel title -->
                     </span>
                 </div>
                 <div class="panel-body">
@@ -173,6 +173,64 @@
 
             </div>
         </div>
+        <div class="container" >
+            <div class="panel panel-default">
+                <div class="panel-heading">
+								<span class="title elipsis">
+									<strong>ผู้ดูแลระบบ</strong> <!-- panel title -->
+								</span>
+                </div>
+                <div class="panel-body">
+                    {{--<form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_admin'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!" data-toastr-position="top-right">--}}
+                    <form novalidate="novalidate" class="validate" action="{{url().'/setting/edit_admin'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>window.location='{{url()}}/setting';</script>" data-toastr-position="top-right">
+                        <fieldset>
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                            <div class="row" >
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label class="margin-bottom-20 currentAdmin pull-left">{{$admin}}</label>
+                                        <div id="editAdminButton" class="pull-left">
+                                            <a class="btn btn-3d btn-reveal btn-yellow">
+                                                <i class="fa fa-edit"></i>
+                                                <span>แก้ไข</span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group hideEditAdmin">
+                                                <div class="input-group autosuggest" data-minLength="1"  data-queryURL="{!! url('setting/auto_suggest?limit=10&search=') !!}">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <input id="adminEditBox" name="admin" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+
+                        <div class="row hideEditAdmin">
+                            <div class="col-md-1">
+                                <button id="saveAdminButton" type="submit" class="btn btn-3d btn-reveal btn-green ">
+                                    <i class="fa fa-check"></i>
+                                    <span>บันทึก</span>
+                                </button>
+                            </div>
+                            <div class="col-md-1 text-center">
+                                <span class="loading-icon"></span>
+                            </div>
+                            <div >
+                            </div>
+                            <div class="col-md-1 ">
+                                <a id="cancelAdminButton" class="btn btn-3d btn-reveal btn-red ">
+                                    <i class="fa fa-times"></i>
+                                    <span>ยกเลิก</span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 
@@ -193,6 +251,18 @@
                 $(".currentYear").show();
                 $("#editYearButton").show();
                 $(".hideEditYear").hide();
+            });
+
+            $("#editAdminButton").click(function () {
+                $(".currentAdmin").hide();
+                $("#adminEditBox").val($(".currentAdmin").text());
+                $(".hideEditAdmin").show();
+                $(this).hide();
+            });
+            $("#cancelAdminButton").click(function () {
+                $(".currentAdmin").show();
+                $("#editAdminButton").show();
+                $(".hideEditAdmin").hide();
             });
             $("#cancelPermissionEditButton").click(function () {
                 window.location='{{url()}}/setting';

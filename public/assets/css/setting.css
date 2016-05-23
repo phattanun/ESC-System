@@ -6,10 +6,10 @@
 .currentYear{
     padding-left: 20px;
 }
-#editYearButton {
+#editYearButton,#editAdminButton {
     padding-left: 40px;
 }
-.hideEditYear{
+.hideEditYear, .hideEditAdmin{
     display: none;
 }
 .padding-left-50 {

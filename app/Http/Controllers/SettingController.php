@@ -24,15 +24,16 @@ class SettingController extends Controller
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
 
-        $year = Setting::all()->first();
-        $year = $year['year'];
-
+        $data = Setting::all()->first();
+        $year = $data['year'];
+        $admin = $data->admin_information()->get();
+        $admin = $admin[0]['student_id'].' '.$admin[0]['title'].$admin[0]['name'].' '.$admin[0]['surname'];
         $permission_users = Permission::join('users','permissions.student_id','=','users.student_id')
             ->select('permissions.student_id','users.name','users.surname','permissions.news','permissions.room','permissions.supplies','permissions.activities','permissions.student')
             ->orderBy('permissions.student_id','asc')
             ->get();
 
-        return view('setting',compact('year','permission_users'));
+        return view('setting',compact('year','permission_users','admin'));
     }
     public function editYear()
     {
@@ -43,6 +44,41 @@ class SettingController extends Controller
         $new_year = Input::get('year');
         $new = Setting::first();
         $new->year = $new_year;
+        $new->save();
+        return redirect('/setting');
+    }
+    public function editAdmin(Request $request)
+    {
+        $user = $this->getUser();
+        if(!isset($user['admin'])||!$user['admin']||is_null($user))
+            return redirect('/');
+
+        if($request->input('admin')){
+            $user = explode(' ',$request->input('admin'));
+            if(sizeof($user)<3) return 'echo:ไม่พบนิสิตในระบบ';
+            if(sizeof($user)==3){
+                if(User::where(['student_id'=>$user[0],'name'=>$user[1],'surname'=>$user[2]])->exists()){
+                }
+                else {
+                    return 'echo:ไม่พบนิสิตในระบบ';
+                }
+            }
+            else if (sizeof($user)>3){
+                if(User::where(function ($query) use ($user) {
+                    $query->where(['student_id'=>$user[0],'name'=>$user[1]]);
+                    for($i = 2;$i<sizeof($user);$i++)
+                        $query->where('surname', 'LIKE', '%'.$user[$i].'%');
+                })->exists()){
+                }
+                else {
+                    return 'echo:ไม่พบนิสิตในระบบ';
+                }
+            }
+        }
+        else return 'echo:ไม่พบนิสิตในระบบ';
+
+        $new = Setting::first();
+        $new->admin_id = $user[0];
         $new->save();
         return redirect('/setting');
     }

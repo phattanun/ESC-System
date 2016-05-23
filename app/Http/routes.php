@@ -96,6 +96,7 @@ Route::get ('/setting', 'SettingController@index');
 Route::get ('/setting/auto_suggest', 'SettingController@autoSuggest');
 Route::post('/setting/edit_year', 'SettingController@editYear');
 Route::post('/setting/edit_permission', 'SettingController@editPermission');
+Route::post('/setting/edit_admin', 'SettingController@editAdmin');
 Route::post('/setting/delete_permission', 'SettingController@deletePermission');
 Route::post('/setting/add_new_permission', 'SettingController@addNewPermission');
 
