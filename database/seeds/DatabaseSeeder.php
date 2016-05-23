@@ -83,7 +83,7 @@ class UserTableSeeder extends Seeder
             'anomaly'=>'โรคหัวใจ',
             'religion'=>'พุทธ',
             'blood_type'=>'A',
-            'clothing_size'=>'L']);
+            'clothing_size'=>'26']);
     }
 }
 

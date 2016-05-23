@@ -14,6 +14,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigInteger('student_id')->unsigned()->primary();
+            $table->string('title');
             $table->string('name');
             $table->string('surname');
             $table->string('nickname');
@@ -27,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->date('birthdate');
             $table->string('religion');
             $table->char('blood_type',2);
-            $table->char('clothing_size',5);
+            $table->char('clothing_size',4);
             $table->string('allergy');
             $table->string('anomaly'); # AKA. disease
             $table->timestamp('last_time_attemp')->nullable();

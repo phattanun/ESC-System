@@ -168,9 +168,14 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6">
-                                            <label>ขนาดเสื้อ</label>
-                                            <input name="size" value="{{$user['clothing_size']}}" class="form-control"
-                                                   type="text" placeholder="เช่น S M L XL XXL">
+                                            <label>ขนาดเสื้อ (ความยาวรอบอก หน่วยเป็นนิ้ว)</label>
+                                            <select name="size" class="form-control select2">
+                                                        <option @if($user['clothing_size']=="< 24")selected="selected" @endif value="< 24">< 24</option>
+                                                @for($i=24;$i<=52;$i++)
+                                                        <option @if($user['clothing_size']==$i)selected="selected" @endif value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                                        <option  @if($user['clothing_size']=="> 52")selected="selected" @endif value="> 52">> 52</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
