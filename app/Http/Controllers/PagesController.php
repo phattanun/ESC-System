@@ -111,10 +111,11 @@ class PagesController extends Controller
           return redirect('/');
         return view('register',['department'=>$department,'group'=>$group,'isRegister'=>true]);
     }
-
+    
     public function registerConfirm() {
         $user = Auth::user();
         $input = Input::all();
+        $user->title = $input['title'];
         $user->name = $input['name'];
         $user->surname = $input['surname'];
         $user->nickname = $input['nickname'];
@@ -152,6 +153,7 @@ class PagesController extends Controller
         $user = $user[0];
 
         $input = Input::all();
+        $user->title = $input['title'];
         $user->name = $input['name'];
         $user->surname = $input['surname'];
         $user->nickname = $input['nickname'];
