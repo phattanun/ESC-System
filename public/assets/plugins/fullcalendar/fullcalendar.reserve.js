@@ -3559,7 +3559,11 @@
 			var view = this.view;
 			var today = view.calendar.getNow();
 			var classes = [ 'fc-' + dayIDs[date.day()] ];
-
+			for(var i=0; i<dateTimeSchedule.length;i++){
+				if(dateTimeSchedule[i]['room_closed']&&moment(date).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
+					classes.push('closed');
+				}
+			}
 			if (
 				view.intervalDuration.as('months') == 1 &&
 				date.month() != view.intervalStart.month()

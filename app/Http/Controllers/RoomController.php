@@ -41,9 +41,10 @@ class RoomController extends Controller
         $generation = Division::select('div_id', 'name')->where('type', '=', 'Generation')->get();
         $group = Division::select('div_id', 'name')->where('type', '=', 'Group')->get();
         $room = MeetingRoom::select('room_id', 'name')->get();
+        $dateTimeSchedule = AllowSchedule::all();
         if (is_null($user))
-            return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement]);
+            return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);
     }
 
     public function getMap()

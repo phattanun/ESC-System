@@ -517,6 +517,8 @@
                 });
             }
         });
+
+        var dateTimeSchedule = <?php echo $dateTimeSchedule ?>;
         loadScript(plugin_path + "jquery/jquery.cookie.js", function () {
             loadScript(plugin_path + "jquery/jquery-ui.min.js", function () {
                 loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {
@@ -552,16 +554,20 @@
                                                             if (jQuery("#calendar").attr('data-modal-create') == 'true') {
                                                                 var check = moment(date);
                                                                 var today = moment(new Date()).stripZone();
+                                                                for(var i=0; i<dateTimeSchedule.length;i++){
+                                                                    if(dateTimeSchedule[i]['room_closed']&&moment(check).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
+                                                                        _toastr("ห้องปิดระหว่าง "+dateTimeSchedule[i]['start_date']+" ถึง " +dateTimeSchedule[i]['end_date'] , "top-right", "error", false);
+                                                                        return false;
+                                                                    }
+                                                                }
                                                                 if (check.isBefore(today)||check.isSame(today)) {
                                                                     $('#calendar').fullCalendar('gotoDate', date );
                                                                     $('#calendar').fullCalendar('changeView', 'agendaDay');
                                                                     $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
                                                                     $("#agenda_lb").attr('class',$("#agendaDay").data('label'));
-                                                                    return;
                                                                 }
-                                                                else if (check.diff(today,'days')>=30) {
+                                                                else if (check.diff(today,'days')>=30||$(this).closest('div[class~="fc-day"]').hasClass("closed")) {
                                                                     _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
-                                                                    return;
                                                                 }
                                                                 else {
                                                                     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
