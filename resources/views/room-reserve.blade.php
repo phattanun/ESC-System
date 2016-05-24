@@ -509,6 +509,7 @@
                     else {
                         _toastr("ส่งคำจองสำเร็จ", "top-right", "success", false);
                         $('#calendar').fullCalendar( 'refetchEvents' );
+                        $('#myModal').modal('hide');
                         return false;
                     }
                 }).fail(function () {
