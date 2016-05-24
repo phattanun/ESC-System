@@ -134,7 +134,7 @@
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6">
                                         <label class="margin-bottom-20 ">เพิ่มผู้จัดการกิจกรรม</label>
-                                        <div class="input-group autosuggest" data-minLength="1" >
+                                        <div class="input-group autosuggest" data-minLength="1" data-queryURL="{!! url('setting/auto_suggest?limit=10&search=') !!}">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="studentInfo" name="studentInfo" class="form-control typeahead" placeholder="กรอกรหัสนิสิต/ชื่อ/นามสกุล" type="text">
                                             <span class="input-group-btn" id="add-new-editor-btn">
@@ -208,12 +208,6 @@
                 $('#delete-'+id).val(true);
                 editor--;
                 if(editor == 0) $('#table-div').addClass('hidden');
-            });
-            $('#studentInfo').keyup(function(){
-                $('.typeahead').typeahead('destroy');
-                $('.autosuggest').attr('data-queryURL','{!! url('setting/auto_suggest?limit=10&search=') !!}'+$(this).val());
-                _autosuggest();
-                $(this).trigger( "focus" );
             });
             $(document).on('click','#add-new-editor-btn',function(){
                 var URL_ROOT = '{{Request::root()}}';
