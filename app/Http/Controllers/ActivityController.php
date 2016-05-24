@@ -32,6 +32,7 @@ class ActivityController extends Controller
             else if ($d['type'] == 'Group') $new_division['name'] = 'กรุ๊ป ' . $d['name'];
             else if ($d['type'] == 'Department') $new_division['name'] = 'ภาควิชา ' . $d['name'];
             else if ($d['type'] == 'Club') $new_division['name'] = 'ชมรม ' . $d['name'];
+            else if ($d['type'] == 'ESC') $new_division['name'] = $d['name'];
             array_push($division, $new_division);
         }
 
@@ -222,6 +223,7 @@ class ActivityController extends Controller
             else if ($d['type'] == 'Group') $new_division['name'] = 'กรุ๊ป ' . $d['name'];
             else if ($d['type'] == 'Department') $new_division['name'] = 'ภาควิชา ' . $d['name'];
             else if ($d['type'] == 'Club') $new_division['name'] = 'ชมรม ' . $d['name'];
+            else if($d['type'] == 'ESC') $new_division['name'] = $d['name'];
             array_push($division, $new_division);
         }
         if (isset($user['activities'])) {
@@ -434,6 +436,7 @@ class ActivityController extends Controller
             else if ($d['type'] == 'Group') $division_name[$d['div_id']] = 'กรุ๊ป ' . $d['name'];
             else if ($d['type'] == 'Department') $division_name[$d['div_id']] = 'ภาควิชา ' . $d['name'];
             else if ($d['type'] == 'Club') $division_name[$d['div_id']] = 'ชมรม ' . $d['name'];
+            else if ($d['type'] == 'ESC') $division_name[$d['div_id']] = $d['name'];
         }
         return view('activity-report',compact('count','tqf','act_year','act_this_year','this_year','division_name'));
     }
@@ -500,6 +503,7 @@ class ActivityController extends Controller
             if($act_div['type']=='Club')  $act['div_id'] = 'ชมรม '.$act_div['name'];
             if($act_div['type']=='Department')  $act['div_id'] = 'ภาควิชา '.$act_div['name'];
             if($act_div['type']=='Generation')  $act['div_id'] = 'รุ่น '.$act_div['name'];
+            if($act_div['type']=='ESC')  $act['div_id'] = $act_div['name'];
         }
         Excel::create('รายงานกิจกรรมประจำปี ' . $select_year, function ($excel) use ($act_select_year,$select_year) {
             $excel->setTitle('รายงานกิจกรรมประจำปี' . $select_year);
