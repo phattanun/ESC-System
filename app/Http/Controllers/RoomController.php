@@ -40,7 +40,7 @@ class RoomController extends Controller
         $department = Division::select('div_id', 'name')->where('type', '=', 'Department')->get();
         $generation = Division::select('div_id', 'name')->where('type', '=', 'Generation')->get();
         $group = Division::select('div_id', 'name')->where('type', '=', 'Group')->get();
-        $room = MeetingRoom::select('room_id', 'name')->where(['closed'=>'0','deleted'=>'0'])->get();
+        $room = MeetingRoom::select('room_id', 'name','size')->where(['closed'=>'0','deleted'=>'0'])->get();
         $dateTimeSchedule = AllowSchedule::all();
         if (is_null($user))
             return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);

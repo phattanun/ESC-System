@@ -180,7 +180,7 @@
                                    placeholder="จำนวนคน"/>
                         <select name="room" class="form-control select2 required" id="room-selection">
                             @foreach($room as $rooms)
-                                <option value="{{$rooms['room_id']}}">{{$rooms['name']}}</option>
+                                <option value="{{$rooms['room_id']}}">{{$rooms['name'].' ขนาด '.$rooms['size']}}</option>
                             @endforeach
                         </select>
                         <textarea required name="objective" class="form-control margin-top-20" id="apptEventDescription"
