@@ -175,9 +175,9 @@
                                 <a id="back-to-division" class="underline-hover">กลับไปยังลิสต์รายการเดิม</a>
                             </div>
                         @endif
-                        <input required type="text" class="calendar_event_input_add form-control number-only"
-                               name="numberOfPeople" id="numberOfPeople"
-                               placeholder="จำนวนคน"/>
+                           <input required min="0" max="1000" type="text" class="calendar_event_input_add form-control stepper"
+                                   name="numberOfPeople" id="numberOfPeople"
+                                   placeholder="จำนวนคน"/>
                         <select name="room" class="form-control select2 required" id="room-selection">
                             @foreach($room as $rooms)
                                 <option value="{{$rooms['room_id']}}">{{$rooms['name']}}</option>
@@ -517,7 +517,6 @@
                 });
             }
         });
-
         var dateTimeSchedule = <?php echo $dateTimeSchedule ?>;
         loadScript(plugin_path + "jquery/jquery.cookie.js", function () {
             loadScript(plugin_path + "jquery/jquery-ui.min.js", function () {
