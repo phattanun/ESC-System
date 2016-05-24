@@ -559,16 +559,20 @@
                                                                     $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
                                                                     $("#agenda_lb").attr('class',$("#agendaDay").data('label'));
                                                                 }
-                                                                else if (check.diff(today,'days')>=30||$(this).closest('div[class~="fc-day"]').hasClass("closed")) {
-                                                                    _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
-                                                                }
-                                                                else {
-                                                                    for(var i=0; i<dateTimeSchedule.length;i++){
-                                                                        if(dateTimeSchedule[i]['room_closed']&&moment(check).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
-                                                                            _toastr("ห้องปิดระหว่าง "+dateTimeSchedule[i]['start_date']+" ถึง " +dateTimeSchedule[i]['end_date'] , "top-right", "error", false);
-                                                                            return false;
-                                                                        }
+                                                                @if(!($permission&&$permission->room))
+                                                                    else if (check.diff(today,'days')>=30||$(this).closest('div[class~="fc-day"]').hasClass("closed")) {
+                                                                        _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
                                                                     }
+                                                                @endif
+                                                                else {
+                                                                    @if(!($permission&&$permission->room))
+                                                                        for(var i=0; i<dateTimeSchedule.length;i++){
+                                                                            if(dateTimeSchedule[i]['room_closed']&&moment(check).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
+                                                                                _toastr("ห้องปิดระหว่าง "+dateTimeSchedule[i]['start_date']+" ถึง " +dateTimeSchedule[i]['end_date'] , "top-right", "error", false);
+                                                                                return false;
+                                                                            }
+                                                                        }
+                                                                    @endif
                                                                     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
                                                                     day = moment(date).format('ddd, DD MMMM YYYY');
                                                                     dateStart = moment(date).format('YYYY-MM-DD');
