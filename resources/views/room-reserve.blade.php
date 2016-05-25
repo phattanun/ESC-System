@@ -160,6 +160,9 @@
                                 @foreach($department as $departments)
                                     <option value="{{$departments['div_id']}}">ภาควิชา{{$departments['name']}}</option>
                                 @endforeach
+                                @foreach($club as $clubs)
+                                    <option value="{{$clubs['div_id']}}">ชมรม{{$clubs['name']}}</option>
+                                @endforeach
                             </select>
                             <div id="no-needed-division-div" class="margin-bottom-20 text-right">
                                 <a id="no-needed-division"

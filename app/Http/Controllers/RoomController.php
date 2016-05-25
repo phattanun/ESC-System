@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Activity;
+use App\Setting;
 use App\AllowSchedule;
 use App\Division;
 use App\GuestReservation;
@@ -37,15 +38,16 @@ class RoomController extends Controller
         $user = Auth::user();
         $announcement = ScheduleSetting::first();
         $permission = Permission::find($user['student_id']);
-        $activity = Activity::select('act_id', 'name')->get();
+        $activity = Activity::select('act_id', 'name')->where('avail_year','<=',substr(Setting::select('year')->first()->year, 2,2) - substr($user['student_id'], 0,2) + 1)->orwhere('creator_id',$user['student_id'])->get();
         $department = Division::select('div_id', 'name')->where('type', '=', 'Department')->get();
         $generation = Division::select('div_id', 'name')->where('type', '=', 'Generation')->get();
         $group = Division::select('div_id', 'name')->where('type', '=', 'Group')->get();
+        $club = Division::select('div_id', 'name')->where('type', '=', 'Club')->get();
         $room = MeetingRoom::select('room_id', 'name','size')->where(['closed'=>'0','deleted'=>'0'])->get();
         $dateTimeSchedule = AllowSchedule::where('end_date','>', new \DateTime('today'))->get();
         if (is_null($user))
-            return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);
+            return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club]);
     }
 
     public function getMap()
