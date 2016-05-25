@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Activity;
 use App\AllowSchedule;
 use App\Division;
@@ -41,7 +42,7 @@ class RoomController extends Controller
         $generation = Division::select('div_id', 'name')->where('type', '=', 'Generation')->get();
         $group = Division::select('div_id', 'name')->where('type', '=', 'Group')->get();
         $room = MeetingRoom::select('room_id', 'name','size')->where(['closed'=>'0','deleted'=>'0'])->get();
-        $dateTimeSchedule = AllowSchedule::all();
+        $dateTimeSchedule = AllowSchedule::where('end_date','>', new \DateTime('today'))->get();
         if (is_null($user))
             return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);
         return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule]);
@@ -111,17 +112,23 @@ class RoomController extends Controller
             } else {
                 $div = $queries['other_div'];
             }
-            $title .= " " . $div;
+            $title .= ", " . $div .", ";
             $statusIsNull = is_null($queries['status']);
             if ($statusIsNull) {
                 $status = ["bg-warning"];
                 $order = 1;
+                $title .= ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $title .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
             } else if ($queries['status']) {
                 $status = ["bg-success"];
                 $order = 0;
+                $title .= ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'';
+                $title .= ($queries['allow_projector']==0&&$queries['request_plug']!=0) ? ', ไม่ให้ยืมโปรเจกเตอร์':($queries['allow_plug']==0&&$queries['request_plug']==0)?', ไม่ยืมโปรเจกเตอร์':'';
             } else {
                 $status = ["bg-danger"];
                 $order = 2;
+                $title .= ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $title .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
             }
             array_push($calendarEvents,
                 array(
@@ -136,7 +143,7 @@ class RoomController extends Controller
                     'default_className' => $status,
                     'className' => $status,
                     'order' => $order,
-                    'description' => MeetingRoom::where('room_id', '=', $queries['request_room_id'])->select('name')->get()[0]->name,
+                    'description' => MeetingRoom::where('room_id', '=', (!is_null($queries['allow_room_id']) ? $queries['allow_room_id'] : $queries['request_room_id']))->select('name')->get()[0]->name,
                     'icon' => 'fa-clock-o',
                 )
             );
@@ -170,7 +177,7 @@ class RoomController extends Controller
                     'allDay' => false,
                     'className' => $status,
                     'order' => $order,
-                    'description' => MeetingRoom::where('room_id', '=', $queries['request_room_id'])->select('name')->get()[0]->name,
+                    'description' => MeetingRoom::where('room_id', '=', (!is_null($queries['allow_room_id']) ? $queries['allow_room_id'] : $queries['request_room_id']))->select('name')->get()[0]->name,
                     'icon' => 'fa-clock-o',
                 )
             );
