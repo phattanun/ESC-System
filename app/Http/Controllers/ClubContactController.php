@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
+use App\ClubContact;
 use App\Setting;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
-class ContactController extends Controller
+class ClubContactController extends Controller
 {
     public function contactPage() {
         $user = $this->getUser();
@@ -20,11 +20,11 @@ class ContactController extends Controller
         $year = Setting::all()->first();
         $year = $year['year'];
 
-        $all_contact = Contact::join('users','contacts.student_id','=','users.student_id')
-            ->select('contacts.contact_id','contacts.student_id','contacts.position','users.name','users.surname','users.nickname','users.phone_number',
+        $all_contact = ClubContact::join('users','club_contacts.student_id','=','users.student_id')
+            ->select('club_contacts.contact_id','club_contacts.student_id','club_contacts.position','users.name','users.surname','users.nickname','users.phone_number',
                 'users.email','users.facebook_link','users.line_id')
             ->get();
-        return view('contact',compact('admin','year','all_contact'));
+        return view('club_contact',compact('admin','year','all_contact'));
     }
 
     public function addNewContact(Request $request) {
@@ -62,14 +62,14 @@ class ContactController extends Controller
         $user = $this->getUser();
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
-        Contact::truncate();
+        ClubContact::truncate();
         if(sizeof(Input::get('contact'))!=0) {
             $contact = Input::get('contact');
             foreach($contact as $staff) {
                 $sharp = strpos($staff, '#');
                 $id = substr($staff, 0, $sharp);
                 $pos = substr($staff, $sharp+1);
-                Contact::create(['student_id'=>$id,'position'=>$pos]);
+                ClubContact::create(['student_id'=>$id,'position'=>$pos]);
             }
         }
     }
@@ -78,6 +78,6 @@ class ContactController extends Controller
         $user = $this->getUser();
         if(!isset($user['admin'])||!$user['admin']||is_null($user))
             return redirect('/');
-        Contact::truncate();
+        ClubContact::truncate();
     }
 }
