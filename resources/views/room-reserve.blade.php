@@ -522,11 +522,7 @@
                 loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {
                     loadScript(plugin_path + "moment.min.js", function () {
                         loadScript(plugin_path + "bootstrap.dialog/dist/js/bootstrap-dialog.min.js", function () {
-                            @if($permission&&$permission->room)
-                            loadScript(plugin_path + "fullcalendar/fullcalendar.min.js", function () {
-                                @else
                                 loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.min.js", function () {
-                                    @endif
                                     loadScript(plugin_path + "fullcalendar/add-on/scheduler.min.js", function () {
                                         loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
                                             jQuery(document).ready(function () {
