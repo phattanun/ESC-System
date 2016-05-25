@@ -38,7 +38,7 @@ class RoomController extends Controller
         $user = Auth::user();
         $announcement = ScheduleSetting::first();
         $permission = Permission::find($user['student_id']);
-        $activity = Activity::select('act_id', 'name')->where('avail_year','<=',substr(Setting::select('year')->first()->year, 2,2) - substr($user['student_id'], 0,2) + 1)->orwhere('creator_id',$user['student_id'])->get();
+        $activity = Activity::select('act_id', 'name')->where('avail_year','<=',substr(Setting::select('year')->first()->year, 2,2) - substr($user['student_id'], 0,2) + 1)->where('year',Setting::select('year')->first()->year)->orwhere(['creator_id'=>$user['student_id'],'year'=>Setting::select('year')->first()->year])->get();
         $department = Division::select('div_id', 'name')->where('type', '=', 'Department')->get();
         $generation = Division::select('div_id', 'name')->where('type', '=', 'Generation')->get();
         $group = Division::select('div_id', 'name')->where('type', '=', 'Group')->get();
