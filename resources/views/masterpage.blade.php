@@ -198,10 +198,14 @@
                                     ช่วยเหลือ
                                 </a>
                             </li>
-                            <li class="@yield('contactNavToggle')"><!-- CONTACT US -->
-                                <a href="{{URL::to('/contact')}}">
+                            <li class="dropdown @yield('contactNavToggle')"><!-- CONTACT US -->
+                                <a class="dropdown-toggle" href="#">
                                     ติดต่อเรา
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{URL::to('/contact')}}">กรรมการนิสิต</a></li>
+                                    <li><a href="{{URL::to('/club_contact')}}">ประธานชมรม</a></li>
+                                </ul>
                             </li>
                         </ul>
 

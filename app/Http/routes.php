@@ -123,6 +123,12 @@ Route::post('/contact/add_new_contact', 'ContactController@addNewContact');
 Route::post('/contact/update_contact', 'ContactController@updateContact');
 Route::post('/contact/drop_contact', 'ContactController@dropContact');
 
+// Club Contact Page
+Route::get ('/club_contact', 'ClubContactController@contactPage');
+Route::post('/club_contact/add_new_contact', 'ClubContactController@addNewContact');
+Route::post('/club_contact/update_contact', 'ClubContactController@updateContact');
+Route::post('/club_contact/drop_contact', 'ClubContactController@dropContact');
+
 // Profile Page
 Route::get ('/profile', 'PagesController@profilePage');
 Route::get ('/profile/{user_id}', 'PagesController@editProfilePage');

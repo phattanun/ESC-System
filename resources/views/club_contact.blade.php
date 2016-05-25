@@ -1,7 +1,7 @@
 @extends('masterpage')
 
 @section('title')
-    ติดต่อ กวศ.
+    ติดต่อชมรม
 @endsection
 
 @section('body-attribute')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('bodyTitle')
-    กรรมการนิสิตคณะวิศวกรรมศาสตร์ ปีการศึกษา {{$year}}
+    ประธานชมรม ปีการศึกษา {{$year}}
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
-                    <form novalidate="novalidate" class="validate" action="{{url().'/contact/update_contact'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงข้อมูลสำเร็จ" data-toastr-position="top-right">
+                    <form novalidate="novalidate" class="validate" action="{{url().'/club_contact/update_contact'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="เปลี่ยนแปลงข้อมูลสำเร็จ" data-toastr-position="top-right">
 
                         @if($admin)
                         {{-- begin add box --}}
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="margin-bottom-20">เพิ่มกรรมการนิสิต</label>
+                                    <label class="margin-bottom-20">เพิ่มประธานชมรม</label>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group autosuggest" data-minLength="1" data-queryURL="{!! url('setting/auto_suggest?limit=10&search=') !!}">
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <input id="position" name="position" class="form-control typeahead" placeholder="กรอกตำแหน่ง" type="text">
+                                    <input id="position" name="position" class="form-control typeahead" placeholder="กรอกชมรม" type="text">
                                 </div>
                                 <span class="input-group-btn" id="add-new-permission-btn">
                                     <a class="btn btn-success">เพิ่ม</a>
@@ -54,7 +54,7 @@
                             <table class="table nomargin" id="contact-table">
                                 <tr >
                                     @if($admin)<th></th>@endif
-                                    <th style="text-align:center">ตำแหน่ง</th>
+                                    <th style="text-align:center">ชมรม</th>
                                     <th style="text-align:center">ชื่อ</th>
                                     <th style="text-align:center">นามสกุล</th>
                                     <th style="text-align:center">ชื่อเล่น</th>
@@ -130,7 +130,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">ยืนยันการลบข้อมูลกรรมการนิสิตทั้งหมด</h4>
+                    <h4 class="modal-title">ยืนยันการลบข้อมูลประธานชมรมทั้งหมด</h4>
                     <h4 class="modal-title">(เมื่อกด "ลบทั้งหมด" แล้วจะไม่สามารถย้อนกลับได้)</h4>
                 </div>
                 <div class="modal-footer">
@@ -152,12 +152,12 @@
     <script>
         function main () {
             $("#cancelContactEditButton").click(function () {
-                window.location='{{url()}}/contact';
+                window.location='{{url()}}/club_contact';
             });
             $("#confirmDeleteAll").click(function () {
                 var URL_ROOT = '{{Request::root()}}';
-                $.post(URL_ROOT+'/contact/drop_contact', {_token: '{{csrf_token()}}'});
-                window.location='{{url()}}/contact';
+                $.post(URL_ROOT+'/club_contact/drop_contact', {_token: '{{csrf_token()}}'});
+                window.location='{{url()}}/club_contact';
             });
             $(document).on('click','.delete-a-tuple',function(){
                 var id =  this.id;
@@ -166,7 +166,7 @@
             $(document).on('click','#add-new-permission-btn',function(){
                 var URL_ROOT = '{{Request::root()}}';
                 var position = $('#position').val();
-                $.post(URL_ROOT+'/contact/add_new_contact',
+                $.post(URL_ROOT+'/club_contact/add_new_contact',
                         {data:  $('#studentInfo').val(), _token: '{{csrf_token()}}'}).done(function (input) {
                     if(input=='fail'){
                         _toastr("ไม่พบนิสิตในระบบ","top-right","error",false);
@@ -176,7 +176,7 @@
                         position = position.trim();
                         var position_nospace = position.replace(/ /g,'_');
                         if(position == "") {
-                            _toastr("ระบุตำแหน่งไม่ถูกต้อง","top-right","warning",false);
+                            _toastr("ระบุชมรมไม่ถูกต้อง","top-right","warning",false);
                         }
                         else if(document.getElementById('tuple-'+position_nospace+'-'+input["student_id"])){
                             _toastr("ข้อมูลซ้ำ","top-right","warning",false);
