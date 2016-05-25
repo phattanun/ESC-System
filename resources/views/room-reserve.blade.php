@@ -14,8 +14,6 @@
 @endsection
 @section('content')
     <section  id="middle">
-
-
         <div id="content" class="padding-40">
             @if($permission&&$permission->room||$announcement['announcement']!='')
             <div class="row">
