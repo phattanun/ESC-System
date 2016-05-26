@@ -45,9 +45,10 @@ class RoomController extends Controller
         $club = Division::select('div_id', 'name')->where('type', '=', 'Club')->get();
         $room = MeetingRoom::select('room_id', 'name','size')->where(['closed'=>'0','deleted'=>'0'])->get();
         $dateTimeSchedule = AllowSchedule::where('end_date','>', new \DateTime('today'))->get();
+        $normalSchedule = ScheduleSetting::select('start','end')->first();
         if (is_null($user))
-            return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club]);
-        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club]);
+            return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club,'normalSchedule'=>$normalSchedule]);
+        return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club,'normalSchedule'=>$normalSchedule]);
     }
 
     public function getMap()

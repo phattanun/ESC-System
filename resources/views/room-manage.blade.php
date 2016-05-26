@@ -964,11 +964,15 @@
                 loadScript(plugin_path + 'timepicki/timepicki.min.js', function() {
 
                     if(jQuery().timepicki) {
-
-                        _container_3.timepicki();
-
+                        _container_3.timepicki({
+                            show_meridian:false,
+                            min_hour_value:0,
+                            max_hour_value:23,
+                            step_size_minutes:15,
+                            overflow_minutes:true,
+                            increase_direction:'up',
+                            disable_keyboard_mobile: true});
                     }
-
                 });
             }
 

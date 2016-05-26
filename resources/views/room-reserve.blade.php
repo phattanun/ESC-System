@@ -199,7 +199,7 @@
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
                                             <input required id="startTime" name="startTime" type="text"
-                                                   class="form-control timepicker valid">
+                                                   class="form-control timepickerr valid">
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                                         </div>
                                         <div class="col-md-9 col-sm-9 no-margin">
                                             <input required name="endTime" id="endTime" type="text"
-                                                   class="form-control timepicker valid">
+                                                   class="form-control timepickerr valid">
                                         </div>
                                     </div>
                                 </div>
@@ -520,6 +520,9 @@
             }
         });
         var dateTimeSchedule = <?php echo $dateTimeSchedule ?>;
+        var normalSchedule = <?php echo $normalSchedule ?>;
+        var normalminhour = moment(normalSchedule['start'],'HH : mm').format('HH');
+        var normalmaxhour = moment(normalSchedule['end'],'HH : mm').format('HH');
         loadScript(plugin_path + "jquery/jquery.cookie.js", function () {
             loadScript(plugin_path + "jquery/jquery-ui.min.js", function () {
                 loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {
@@ -571,19 +574,37 @@
                                                                             }
                                                                         }
                                                                     @endif
-//                                                                        loadScript(plugin_path + 'timepicki/timepicki.min.js', function() {
-//                                                                        if(jQuery().timepicki) {
-//                                                                            $('.timepickerr').timepicki({
-//                                                                                show_meridian:false,
-//                                                                                min_hour_value:0,
-//                                                                                max_hour_value:23,
-//                                                                                step_size_minutes:15,
-//                                                                                overflow_minutes:true,
-//                                                                                increase_direction:'up',
-//                                                                                disable_keyboard_mobile: true});
-//                                                                        }
-//                                                                    });
-//                                                                    console.log($(window).data('timepicki'));
+                                                                    var minhour = normalminhour;
+                                                                    var maxhour = normalmaxhour;
+                                                                    for(var i=0; i<dateTimeSchedule.length;i++){
+                                                                        if(!dateTimeSchedule[i]['room_closed']&&moment(check).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
+                                                                            minhour = moment(dateTimeSchedule[i]['start_time'],'HH : mm').format('HH');
+                                                                            maxhour = moment(dateTimeSchedule[i]['end_time'],'HH : mm').format('HH');
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                    $('.time_pick').each(function() {
+                                                                        $( this ).after($(this).html());
+                                                                    });
+                                                                    $('.time_pick').remove();
+                                                                    $('.timepicker_wrap').remove();
+                                                                    $('.timepickerr').unbind();
+                                                                        loadScript(plugin_path + 'timepicki/timepicki.min.js', function() {
+                                                                        if(jQuery().timepicki) {
+                                                                            $('.timepickerr').timepicki({
+                                                                                show_meridian:false,
+                                                                                min_hour_value:minhour,
+                                                                                max_hour_value:maxhour,
+                                                                                step_size_minutes:15,
+                                                                                overflow_minutes:false,
+                                                                                increase_direction:'up',
+                                                                                disable_keyboard_mobile: true});
+                                                                        }
+                                                                    });
+                                                                    $('#startTime').attr({'data-timepicki-tim':minhour,'data-timepicki-mini':'00'});
+                                                                    $('#startTime').val(minhour+' : 00');
+                                                                    $('#endTime').attr({'data-timepicki-tim':maxhour,'data-timepicki-mini':'00'});
+                                                                    $('#endTime').val(maxhour+' : 00');
                                                                     $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
                                                                     day = moment(date).format('ddd, DD MMMM YYYY');
                                                                     dateStart = moment(date).format('YYYY-MM-DD');
