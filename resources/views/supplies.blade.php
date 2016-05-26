@@ -1561,10 +1561,10 @@
                 var tmp;
                 for (tmp in allItem) {
                     @if($user['supplies'])
-                        var icon = (allItem[tmp]['isVisible'])?'fa-eye-slash':'fa-eye';
-                        var hideOrShowTitle = (allItem[tmp]['isVisible'])?'ซ่อนพัสดุนี้':'แสดงพัสดุนี้';
-                        var tranparentClass = (allItem[tmp]['isVisible'])?'':'item-transparent';
-                        var tranparentClassMain = (allItem[tmp]['isVisible'])?'':'each-item-transparent';
+                        var icon = (allItem[tmp]['isVisible']==1)?'fa-eye-slash':'fa-eye';
+                        var hideOrShowTitle = (allItem[tmp]['isVisible']==1)?'ซ่อนพัสดุนี้':'แสดงพัสดุนี้';
+                        var tranparentClass = (allItem[tmp]['isVisible']==1)?'':'item-transparent';
+                        var tranparentClassMain = (allItem[tmp]['isVisible']==1)?'':'each-item-transparent';
                     @endif
 //                    alert(input[tmp]['name']);
                     var txt = '<li class="col-lg-3 col-sm-3 each-item @if($user['supplies']) '+tranparentClassMain+'   @endif">'
