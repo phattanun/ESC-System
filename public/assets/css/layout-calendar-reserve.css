@@ -153,6 +153,7 @@ form label {
 .fc-bgevent-skeleton {
 	pointer-events:none
 }
+.fc-more-cell,
 .fc-bgevent,
 .fc-event-container{
 	pointer-events:auto;
