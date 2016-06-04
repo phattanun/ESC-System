@@ -132,6 +132,9 @@
     }
     .news-image{
         height: 250px;
+        max-width: 728px;
+        margin-right: auto;
+        margin-left: auto;
     }
 }
 
