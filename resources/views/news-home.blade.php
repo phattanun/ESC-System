@@ -23,7 +23,10 @@
                         <h2 class="modal-news-box-head"></h2>
                     </div>
                     <div class="row news-box-date">
-                        <div><span class="created modal-created"></span><span class="updated modal-updated"></span></div>
+                        <div><span class="created modal-created"></span>
+                            <span class="bar modal-bar">|</span><br class="bar-br modal-bar-br">
+                            <span class="updated modal-updated"></span>
+                        </div>
                     </div>
                     <div class="row news-box-content">
                         <p class="modal-news-box-content"></p>
@@ -64,7 +67,9 @@
                                 <h2>{{$new->title}}</h2>
                             </div>
                             <div class="row news-box-date">
-                                <div><span class="created">Created at : {{$new->created_at}}</span>|<span class="updated">Updated at : {{$new->updated_at}}</span>
+                                <div><span class="created">Created at : {{$new->created_at}}</span>
+                                    <span class="bar">|</span><br class="bar-br">
+                                    <span class="updated">Updated at : {{$new->updated_at}}</span>
                                 </div>
                             </div>
                             <div class="row news-box-content">
