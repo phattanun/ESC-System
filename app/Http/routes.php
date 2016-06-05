@@ -28,8 +28,8 @@ Route::post('/save_news', 'NewsController@save_news');
 
 // Meeting Room
 Route::get ('/room/map', 'RoomController@getMap');
-Route::get ('/room/result', 'RoomController@viewResultPage');
 Route::get ('/room/reserve', 'RoomController@viewReservePage');
+Route::get ('/room/reserve/mobile', 'RoomController@viewReserveMobilePage');
 Route::get ('/room/approve', 'RoomController@viewApprovePage');
 Route::post('/room/approve', 'RoomController@approveReservation');
 Route::post('/room/edit_announcement', 'RoomController@editAnnouncement');

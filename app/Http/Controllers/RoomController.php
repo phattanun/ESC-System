@@ -28,11 +28,6 @@ use Illuminate\Support\Facades\Hash;
 class RoomController extends Controller
 {
 
-    public function viewResultPage()
-    {
-        return view('room-result');
-    }
-
     public function viewReservePage()
     {
         $user = Auth::user();
@@ -49,6 +44,23 @@ class RoomController extends Controller
         if (is_null($user))
             return view('room-reserve', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club,'normalSchedule'=>$normalSchedule]);
         return view('room-reserve', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club,'normalSchedule'=>$normalSchedule]);
+    }
+    public function viewReserveMobilePage()
+    {
+        $user = Auth::user();
+        $announcement = ScheduleSetting::first();
+        $permission = Permission::find($user['student_id']);
+        $activity = Activity::select('act_id', 'name')->where('avail_year','<=',substr(Setting::select('year')->first()->year, 2,2) - substr($user['student_id'], 0,2) + 1)->where('year',Setting::select('year')->first()->year)->orwhere(['creator_id'=>$user['student_id'],'year'=>Setting::select('year')->first()->year])->get();
+        $department = Division::select('div_id', 'name')->where('type', '=', 'Department')->get();
+        $generation = Division::select('div_id', 'name')->where('type', '=', 'Generation')->get();
+        $group = Division::select('div_id', 'name')->where('type', '=', 'Group')->get();
+        $club = Division::select('div_id', 'name')->where('type', '=', 'Club')->get();
+        $room = MeetingRoom::select('room_id', 'name','size')->where(['closed'=>'0','deleted'=>'0'])->get();
+        $dateTimeSchedule = AllowSchedule::where('end_date','>', new \DateTime('today'))->get();
+        $normalSchedule = ScheduleSetting::select('start','end')->first();
+        if (is_null($user))
+            return view('room-reserve-mobile', ['permission' => $permission, 'user' => $user, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club,'normalSchedule'=>$normalSchedule]);
+        return view('room-reserve-mobile', ['permission' => $permission, 'user' => $user, 'activity' => $activity, 'department' => $department, 'generation' => $generation, 'group' => $group, 'room' => $room, 'announcement' => $announcement,'dateTimeSchedule'=>$dateTimeSchedule,'club'=>$club,'normalSchedule'=>$normalSchedule]);
     }
 
     public function getMap()
