@@ -135,14 +135,28 @@
 
 @media (max-width: 767px){
     .news-container{
-        padding-right: 10px;
-        padding-left: 10px;
+        padding-right: 0px;
+        padding-left: 0px;
     }
     .news-image{
         height: 180px;
     }
     .news-box-card{
-        padding: 5px;
+        padding: 0px 20px 20px 20px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    .news-box-content {
+        font-size: 16px;
+        min-height: 0px
+    }
+    .news-box-date {
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+    p {
+        margin-bottom: 0px;
     }
 }
 
