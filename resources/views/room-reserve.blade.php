@@ -543,6 +543,7 @@
                                                         minTime: '8:00',
                                                         maxTime: '18:00',
                                                         slotDuration: '00:15',
+                                                        height: "auto",
                                                         eventOrder: 'start',
                                                         displayEventEnd: true,
                                                         allDaySlot: false,
