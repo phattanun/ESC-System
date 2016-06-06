@@ -28,6 +28,42 @@
     <link href="{{url('assets/css/header-1.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/css/color_scheme/red.css')}}" rel="stylesheet" type="text/css" id="color_scheme" />
     @yield('css')
+
+    <style>
+        #header a.logo>img {
+            height: 70px;
+        }
+        #header.fixed #topNav a.logo>img {
+            height: 60px;
+        }
+        #header a.logo > #logo_dark,
+        #header a.logo > #logo_dark_small{
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left:5px;
+            padding-right: 10px;
+        }
+        #header a.logo > #logo_dark_small{
+            display: none;
+        }
+        @media (max-width: 522px) {
+            #header a.logo > img:last-child {
+                display: none;
+            }
+        }
+        @media (max-width: 320px) {
+            #header a.logo > #logo_dark{
+                display: none;
+            }
+            #header a.logo > #logo_dark_small{
+                display: block;
+                padding-right: 0px;
+            }
+        }
+        .nav>li>a {
+             padding: 10px 12px;
+        }
+    </style>
     <!-- JAVASCRIPT FILES -->
     <script type="text/javascript">var plugin_path = '{{url('assets/plugins/')}}/';</script>
     <script type="text/javascript" src="{{url('assets/plugins/jquery/jquery-2.1.4.min.js')}}"></script>
@@ -124,7 +160,8 @@
 
                 <!-- Logo -->
                 <a class="logo pull-left" href="{{ URL::to('/')}}">
-                    <img src="{{url('assets/images/logo_dark.png')}}" alt="" style="padding-top: 5px; padding-bottom: 5px;">
+                    <img id="logo_dark" src="{{url('assets/images/logo_dark.png')}}" alt="">
+                    <img id="logo_dark_small" src="{{url('assets/images/logo_dark_small.png')}}" alt="">
                     <img src="{{url('assets/images/logo_dark_text.png')}}" alt="" >
                 </a>
 
