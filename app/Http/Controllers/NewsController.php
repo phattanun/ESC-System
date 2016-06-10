@@ -34,7 +34,9 @@ class NewsController extends Controller
         $count = sizeof(News::get());
 
         foreach ($news as &$x) {
+            $x->title = strip_tags($x->title,null);
             $x->content = str_limit($x->content, $limit = 300, $end = '...');
+            $x->content = strip_tags($x->content,null);
         }
 
         if (count($news) == 0 || $page <=0) {
@@ -52,7 +54,9 @@ class NewsController extends Controller
         $news = News::orderBy('updated_at', 'desc')->where('at_home',true)->get();
 
         foreach ($news as &$x) {
+            $x->title = strip_tags($x->title,null);
             $x->content = str_limit($x->content, $limit = 300, $end = '...');
+            $x->content = strip_tags($x->content,null);
         }
 
         if (count($news) == 0) {
