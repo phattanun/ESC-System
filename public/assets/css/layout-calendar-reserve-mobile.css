@@ -433,3 +433,43 @@ section div.row > div {
 	margin-bottom: 0px;
 
 }
+.table-responsive {
+	border-top: 0;
+	font-size: 14px;
+	overflow-x: hidden;
+}
+.table-bordered > thead > tr > th {
+	border-bottom-width: 1px;
+}
+.table-bordered > tbody > tr > td {
+	border-right: none;
+	border-top: 1px solid #ddd;
+}
+.table > thead:first-child > tr:first-child > th {
+	border-top: 1px;
+	border-top-color: rgb(221, 221, 221);
+	border-top-style: solid;
+}
+.reserve-time {
+	font-size: 14px;
+	border-right: 3px solid #ddd;
+}
+.table > tbody > tr > td {
+	vertical-align: middle;
+	border-left: 0;
+}
+.panel > .table-responsive > .table-bordered:last-child > tbody > tr:last-child > td {
+	border-bottom: 1px solid #ddd !important;
+}
+.end-time {
+	color: #909090;
+}
+.pending {
+	border-color: #f0ad4e;
+}
+.approved {
+	border-color: #5CB85C;
+}
+.rejected {
+	border-color: #F15757;
+}

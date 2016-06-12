@@ -71,10 +71,99 @@
 								</span>
                             </div>
                             <!-- panel content -->
-                            <div class="panel-body">
-
+                                <div class="table-responsive margin-top-20 margin-bottom-20">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2">วันอาทิตย์ ที่ 12 มิถุนายน พ.ศ.2559</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td width="60px" ><div class="reserve-time pending">17:40<br><span class="end-time">18:50</span></div></td>
+                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="reserve-time approved">17:40<br><span class="end-time">18:50</span></div></td>
+                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="reserve-time rejected">17:40<br><span class="end-time">18:50</span></div></td>
+                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2">วันอาทิตย์ ที่ 12 มิถุนายน พ.ศ.2559</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td width="60px" ><div class="reserve-time pending">17:40<br><span class="end-time">18:50</span></div></td>
+                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="reserve-time approved">17:40<br><span class="end-time">18:50</span></div></td>
+                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="reserve-time rejected">17:40<br><span class="end-time">18:50</span></div></td>
+                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2">Column name</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td width="20px">Value 1</td>
+                                            <td><span class="label label-success">Approved </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Value 1</td>
+                                            <td><span class="label label-info">Pending </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Value 1</td>
+                                            <td>
+                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit white"></i> Edit </a>
+                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-times white"></i> Delete </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2">Column name</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td width="20px">Value 1</td>
+                                            <td><span class="label label-success">Approved </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Value 1</td>
+                                            <td><span class="label label-info">Pending </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Value 1</td>
+                                            <td>
+                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit white"></i> Edit </a>
+                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-times white"></i> Delete </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             <!-- /panel content -->
-                            </div>
                          </div>
                         <!-- /Panel -->
                     </div>
