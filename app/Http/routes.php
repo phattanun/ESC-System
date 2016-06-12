@@ -10,6 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+// Test
+Route::get('/testLoginResponseForDebugNaja', function(){ return view('test'); });
+Route::post('/testLoginResponseForDebugNaja/loginWithResponse', 'PagesController@debug_login');
+
 // Default
 Route::get('/', 'NewsController@view_home');
 
