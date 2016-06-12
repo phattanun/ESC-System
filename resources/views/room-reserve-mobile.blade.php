@@ -61,57 +61,24 @@
                     </div>
                 </div>
             @endif
-            {{--<div class="row">--}}
-            {{--<div class="col-sm-12 col-md-12 col-lg-12">--}}
-            {{--<!-- Panel -->--}}
-            {{--<div id="panel-calendar" class="panel panel-default">--}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <!-- Panel -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+								<span class="title elipsis">
+									<strong>ปฏิทิน</strong> <!-- panel title -->
+								</span>
+                            </div>
+                            <!-- panel content -->
+                            <div class="panel-body">
 
-            {{--<div class="panel-heading">--}}
-
-            {{--<span class="title elipsis">--}}
-            {{--<strong>ปฏิทิน</strong> <!-- panel title -->--}}
-            {{--</span>--}}
-            {{--<div class="panel-options pull-right"><!-- panel options -->--}}
-            {{--<ul class="options list-unstyled">--}}
-            {{--<li>--}}
-            {{--<a href="#" class="opt dropdown-toggle" data-toggle="dropdown"><span id="agenda_lb"><span id="agenda_btn"></span> <span class="caret"></span></span></a>--}}
-            {{--<ul class="dropdown-menu pull-right" role="menu">--}}
-            {{--<li><a id="month" data-widget="calendar-view" data-label="label label-success"><i class="fa fa-calendar-o color-green"></i> <span>เดือน</span></a></li>--}}
-            {{--<li><a id="agendaWeek" data-widget="calendar-view" data-label="label label-danger"><i class="fa fa-calendar-o color-red"></i> <span>แผนงาน</span></a></li>--}}
-            {{--<li><a id="agendaDay" data-widget="calendar-view" data-label="label label-warning"><i class="fa fa-calendar-o color-yellow"></i> <span>วันนี้</span></a></li>--}}
-            {{--<li><a id="basicWeek" data-widget="calendar-view" data-label="label label-default"><i class="fa fa-calendar-o color-gray"></i> <span>สัปดาห์</span></a></li>--}}
-            {{--</ul>--}}
-            {{--</li>--}}
-            {{--<li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>--}}
-            {{--</ul>--}}
-            {{--</div><!-- /panel options -->--}}
-            {{--<a class="pull-right" data-toggle="modal" data-target="#mapModal" id="map-btn">ดูแผนที่ห้อง</a>--}}
-            {{--</div>--}}
-
-            {{--<!-- panel content -->--}}
-            {{--<div class="panel-body">--}}
-            {{--<div id="instruction"  class="text-center">--}}
-            {{--<p>วิธีจองห้อง: คลิกวันที่ต้องการเพื่อทำการจองห้อง</p>--}}
-            {{--</div>--}}
-            {{--<div id="calendar-info" class="text-center">--}}
-            {{--<div class="row">--}}
-            {{--<p class="col-md-offset-3 col-md-2"><span style="background-color: #f0ad4e;">สีส้ม: รอการอนุมัติ</span></p>--}}
-            {{--<p class="col-md-2"><span style="background-color: #5cb85c;">สีเขียว: ได้รับการอนุมัติ</span></p>--}}
-            {{--<p class="col-md-2"><span style="background-color: #d9534f;">สีแดง: ไม่ได้รับการอนุมัติ</span></p>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div id="calendar" data-modal-create="true"><!-- CALENDAR CONTAINER --></div>--}}
-
-            {{--</div>--}}
-            {{--<!-- /panel content -->--}}
-
-            {{--</div>--}}
-            {{--<!-- /Panel -->--}}
-
-            {{--</div>--}}
-
-            {{--</div>--}}
-
+                            <!-- /panel content -->
+                            </div>
+                         </div>
+                        <!-- /Panel -->
+                    </div>
+                </div>
         </div>
     </section>
     <div id="myModal" class="modal type-danger fade size-normal" role="dialog">

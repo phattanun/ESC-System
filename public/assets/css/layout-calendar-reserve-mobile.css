@@ -426,3 +426,10 @@ form {
 	font-size: 16px;
 
 }
+section div.row > div {
+	margin-bottom: 20px !important;;
+}
+.panel {
+	margin-bottom: 0px;
+
+}
