@@ -118,36 +118,42 @@ class RoomController extends Controller
             if (MeetingRoom::find($queries['request_room_id']) == null || MeetingRoom::find($queries['request_room_id'])->closed)
                 continue;
             if ($queries['act_id']) {
-                $title = Activity::where('act_id', '=', $queries['act_id'])->select('name')->get()[0]->name;
+                $realTitle = Activity::where('act_id', '=', $queries['act_id'])->select('name')->get()[0]->name;
             } else {
-                $title = $queries['other_act'];
+                $realTitle = $queries['other_act'];
             }
             if ($queries['div_id']) {
                 $div = Division::where('div_id', '=', $queries['div_id'])->select('name')->get()[0]->name;
             } else {
                 $div = $queries['other_div'];
             }
-            $title .= ", " . $div .", ";
+            $title = $realTitle.", " . $div .", ";
             $statusIsNull = is_null($queries['status']);
             if ($statusIsNull) {
                 $status = ["bg-warning"];
                 $order = 1;
-                $title .= ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
-                $title .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $title .= $borrowing;
             } else if ($queries['status']) {
                 $status = ["bg-success"];
                 $order = 0;
-                $title .= ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน');
-                $title .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง');
+                $borrowing = ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน');
+                $borrowing .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง');
+                $title .= $borrowing;
             } else {
                 $status = ["bg-danger"];
                 $order = 2;
-                $title .= ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
-                $title .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $title .= $borrowing;
             }
             array_push($calendarEvents,
                 array(
                     'title' => $title,
+                    'realTitle' => $realTitle,
+                    'borrowing' => $borrowing,
+                    'div'=>$div,
                     'start' => (!is_null($queries['allow_start_time']) ? $queries['allow_start_time'] : $queries['request_start_time']),
                     'end' => (!is_null($queries['allow_end_time']) ? $queries['allow_end_time'] : $queries['request_end_time']),
                     'id' => 'u-' . $queries['res_id'],
@@ -175,22 +181,27 @@ class RoomController extends Controller
             if ($statusIsNull) {
                 $status = ["bg-warning"];
                 $order = 1;
-                $title .= ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
-                $title .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $title .= $borrowing;
             } else if ($queries['status']) {
                 $status = ["bg-success"];
                 $order = 0;
-                $title .= ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน');
-                $title .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง');
+                $borrowing = ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน');
+                $borrowing .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง');
+                $title .= $borrowing;
             } else {
                 $status = ["bg-danger"];
                 $order = 2;
-                $title .= ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
-                $title .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
+                $title .= $borrowing;
             }
             array_push($calendarEvents,
                 array(
                     'title' => $title,
+                    'realTitle' => $queries['guest_org'],
+                    'borrowing' => $borrowing,
                     'start' => ($statusIsNull || !$queries['status']) ? $queries['request_start_time'] : $queries['allow_start_time'],
                     'end' => ($statusIsNull || !$queries['status']) ? $queries['request_end_time'] : $queries['allow_end_time'],
                     'id' => 'g-' . $queries['res_id'],

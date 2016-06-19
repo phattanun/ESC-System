@@ -69,99 +69,12 @@
 								<span class="title elipsis">
 									<strong>ปฏิทิน</strong> <!-- panel title -->
 								</span>
+                                <div class="pull-right"><a id="room-reserve-btn" class="btn btn-3d btn-aqua margin-bottom-20" data-toggle="modal" data-target="#dateSelectionModal"><i class="et-pencil"></i>จองห้อง</a></div>
+
+                                <a class="pull-right" data-toggle="modal" data-target="#mapModal" id="map-btn">ดูแผนที่ห้อง</a>
                             </div>
                             <!-- panel content -->
-                                <div class="table-responsive margin-top-20 margin-bottom-20">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th colspan="2">วันอาทิตย์ ที่ 12 มิถุนายน พ.ศ.2559</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td width="60px" ><div class="reserve-time pending">17:40<br><span class="end-time">18:50</span></div></td>
-                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="reserve-time approved">17:40<br><span class="end-time">18:50</span></div></td>
-                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="reserve-time rejected">17:40<br><span class="end-time">18:50</span></div></td>
-                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th colspan="2">วันอาทิตย์ ที่ 12 มิถุนายน พ.ศ.2559</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td width="60px" ><div class="reserve-time pending">17:40<br><span class="end-time">18:50</span></div></td>
-                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="reserve-time approved">17:40<br><span class="end-time">18:50</span></div></td>
-                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="reserve-time rejected">17:40<br><span class="end-time">18:50</span></div></td>
-                                            <td>ค่ายวิษณุกรรมบุตร <br>รุ่น 97<br>ปลั๊กพ่วง 1 อัน, โปรเจกเตอร์ 1 เครื่อง<br>ห้องประชุมใหญ่</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th colspan="2">Column name</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td width="20px">Value 1</td>
-                                            <td><span class="label label-success">Approved </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Value 1</td>
-                                            <td><span class="label label-info">Pending </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Value 1</td>
-                                            <td>
-                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit white"></i> Edit </a>
-                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-times white"></i> Delete </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th colspan="2">Column name</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td width="20px">Value 1</td>
-                                            <td><span class="label label-success">Approved </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Value 1</td>
-                                            <td><span class="label label-info">Pending </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Value 1</td>
-                                            <td>
-                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit white"></i> Edit </a>
-                                                <a href="#" class="btn btn-default btn-xs"><i class="fa fa-times white"></i> Delete </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <div id="calendar-container" class="table-responsive margin-top-20 margin-bottom-20">
                                 </div>
                             <!-- /panel content -->
                          </div>
@@ -308,12 +221,6 @@
                         <div class="margin-bottom-20">
                             <label style="margin-bottom: 10px;">อุปกรณ์ที่ต้องการยืมเพิ่มเติม</label>
                             <div class="row">
-                                {{--<div class="col-sm-6">--}}
-                                {{--<label class="checkbox">--}}
-                                {{--<input id="whiteboard" name="borrow[]" type="checkbox" value="whiteboard">--}}
-                                {{--<i></i> ปากกาไวท์บอร์ด--}}
-                                {{--</label>--}}
-                                {{--</div>--}}
                                 <div class="col-sm-3">
                                     <label class="checkbox">
                                         <input id="projector" name="borrow[]" type="checkbox" value="projector">
@@ -331,19 +238,7 @@
                                            placeholder="ระบุจำนวนที่ต้องการ"/>
                                 </div>
                             </div>
-                            {{--<div class="row">--}}
-                            {{--<div class="col-sm-6">--}}
-                            {{--<label class="checkbox">--}}
-                            {{--<input id="other" name="borrow[]" type="checkbox" value="other" class="pull-right">--}}
-                            {{--<i></i> อื่นๆ:--}}
-                            {{--</label>--}}
-                            {{--<input  name="otherBorrow" type="text" class="form-control" id="otherBorrow"--}}
-                            {{--placeholder="ระบุอุปกรณ์ที่ต้องการ"/>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
                         </div>
-                        {{--<input type="text" class="form-control" id="postscript" name="postscript"--}}
-                        {{--placeholder="หมายเหตุ: รายละเอียดเพิ่มเติมอื่น ๆ ที่ต้องการแจ้งผู้ดูแล"/>--}}
                         @if(!$user)
                             <hr>
                             <p><i class="fa fa-user"></i> รายละเอียดผู้จอง</p>
@@ -429,15 +324,40 @@
             </div>
         </div>
     </div>
+
+
+    <div id="dateSelectionModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="dateSelectionModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- header modal -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myLargeModalLabel">กรุณาระบุวันที่ต้องการจอง</h4>
+                </div>
+
+                <!-- body modal -->
+                <div class="modal-body">
+                    <input name="dateSelectionInput" id="dateSelectionInput" type="text"
+                           class="form-control datepicker" data-format="yyyy-mm-dd" placeholder="ปปปป-ดด-วว"
+                           data-lang="en" data-RTL="false">
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button id="dateSelectionSubmitBtn" type="button" class="btn btn-success">ตกลง</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('css')
-    <link href="{{url('assets/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/plugins/fullcalendar/add-on/scheduler.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/css/layout-calendar-reserve-mobile.min.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('js')
-    <script type="text/javascript" src="{{url('assets/plugins/moment/moment.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/plugins/moment/moment-with-locales.min.js')}}"></script>
     <script type="text/javascript">
         $('#map-btn').click(function () {
             $.get( "{{url('/room/map')}}").done(function(data) {
@@ -534,12 +454,8 @@
                             dateStart: $('#dateStart').val(),
                             dateEnd: $('#dateEnd').val(),
                             @endif
-                            //                            whiteboard: $('#whiteboard').is(':checked'),
                             projector: $('#projector').is(':checked'),
                             cord: $('#cord').is(':checked'),
-//                            other: $('#other').is(':checked'),
-//                            otherBorrow: $('#otherBorrow').val(),
-//                            postscript: $('#postscript').val(),
                             numberOfCord: $('#numberOfCord').val(),
                             _token: '{{csrf_token()}}'
                         }).done(function (input) {
@@ -579,149 +495,268 @@
         var normalSchedule = <?php echo $normalSchedule ?>;
         var normalminhour = moment(normalSchedule['start'],'HH : mm').format('HH');
         var normalmaxhour = moment(normalSchedule['end'],'HH : mm').format('HH');
-        loadScript(plugin_path + "jquery/jquery.cookie.js", function () {
-            loadScript(plugin_path + "jquery/jquery-ui.min.js", function () {
-                loadScript(plugin_path + "jquery/jquery.ui.touch-punch.min.js", function () {
-                    loadScript(plugin_path + "moment.min.js", function () {
-                        loadScript(plugin_path + "bootstrap.dialog/dist/js/bootstrap-dialog.min.js", function () {
-                            loadScript(plugin_path + "fullcalendar/fullcalendar.reserve.min.js", function () {
-                                loadScript(plugin_path + "fullcalendar/add-on/scheduler.min.js", function () {
-                                    loadScript(plugin_path + "fullcalendar/lang/th.min.js", function () {
-                                        jQuery(document).ready(function () {
-                                            _fullCalendar();
-                                        });
-                                        function _fullCalendar() {
-                                            if (jQuery('#calendar').length > 0) {
-                                                var _calendarInstance = jQuery('#calendar').fullCalendar({
-                                                    lang: 'th',
-                                                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                                                    defaultView: 'month',
-                                                    minTime: '8:00',
-                                                    maxTime: '18:00',
-                                                    slotDuration: '00:15',
-                                                    eventOrder: 'start',
-                                                    displayEventEnd: true,
-                                                    allDaySlot: false,
-                                                    editable: false,
-                                                    eventLimit: 6,
-                                                    resources: '{{url('/room/get_room')}}',
-                                                    events: '{{url('/room/get_room_reservation_schedule')}}',
-                                                    dayClick: function(date, jsEvent, view, resource) {
-                                                        if (jQuery("#calendar").attr('data-modal-create') == 'true') {
-                                                            var check = moment(date);
-                                                            var today = moment(new Date()).stripZone();
-                                                            if (check.isBefore(today)||check.isSame(today)) {
-                                                                $('#calendar').fullCalendar('gotoDate', date );
-                                                                $('#calendar').fullCalendar('changeView', 'agendaDay');
-                                                                $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
-                                                                $("#agenda_lb").attr('class',$("#agendaDay").data('label'));
-                                                            }
-                                                                    @if(!($permission&&$permission->room))
-                                                            else if (check.diff(today,'days')>=30||$(this).closest('div[class~="fc-day"]').hasClass("closed")) {
-                                                                _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
-                                                            }
-                                                                    @endif
-                                                            else {
-                                                                        @if(!($permission&&$permission->room))
-                                                                for(var i=0; i<dateTimeSchedule.length;i++){
-                                                                    if(dateTimeSchedule[i]['room_closed']&&moment(check).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
-                                                                        _toastr("ห้องปิดระหว่าง "+dateTimeSchedule[i]['start_date']+" ถึง " +dateTimeSchedule[i]['end_date'] , "top-right", "error", false);
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                                        @endif
-                                                                var minhour = normalminhour;
-                                                                var maxhour = normalmaxhour;
-                                                                for(var i=0; i<dateTimeSchedule.length;i++){
-                                                                    if(!dateTimeSchedule[i]['room_closed']&&moment(check).isBetween(dateTimeSchedule[i]['start_date'],moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')){
-                                                                        minhour = moment(dateTimeSchedule[i]['start_time'],'HH : mm').format('HH');
-                                                                        maxhour = moment(dateTimeSchedule[i]['end_time'],'HH : mm').format('HH');
-                                                                        break;
-                                                                    }
-                                                                }
-                                                                $('.time_pick').each(function() {
-                                                                    $( this ).after($(this).html());
-                                                                });
-                                                                $('.time_pick').remove();
-                                                                $('.timepicker_wrap').remove();
-                                                                $('.timepickerr').unbind();
-                                                                loadScript(plugin_path + 'timepicki/timepicki.min.js', function() {
-                                                                    if(jQuery().timepicki) {
-                                                                        $('.timepickerr').timepicki({
-                                                                            show_meridian:false,
-                                                                            min_hour_value:minhour,
-                                                                            max_hour_value:maxhour,
-                                                                            step_size_minutes:15,
-                                                                            overflow_minutes:false,
-                                                                            increase_direction:'up',
-                                                                            disable_keyboard_mobile: true});
-                                                                    }
-                                                                });
-                                                                $('#startTime').attr({'data-timepicki-tim':minhour,'data-timepicki-mini':'00'});
-                                                                $('#startTime').val(minhour+' : 00');
-                                                                $('#endTime').attr({'data-timepicki-tim':maxhour,'data-timepicki-mini':'00'});
-                                                                $('#endTime').val(maxhour+' : 00');
-                                                                $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
-                                                                day = moment(date).format('ddd, DD MMMM YYYY');
-                                                                dateStart = moment(date).format('YYYY-MM-DD');
-                                                                // dateEnd = moment(end).format('YYYY-MM-DD');
-                                                                @if($permission&&$permission->room)
-                                                                $("#dateStart").val(dateStart);
-                                                                $("#dateEnd").val(dateStart);
-                                                                @endif
-                                                                $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
-                                                                $("#apptDate").val(dateStart);
-                                                                $('#myModal').modal();
-                                                            }
-                                                        }
-                                                    },
-                                                    resourceRender: function(resource, label, body) {
-                                                        label.append("<br>("+resource.size+")");
-                                                    },
-                                                    eventRender: function (event, element, icon) {
-                                                        if (!event.description == '') {
-                                                            element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
-                                                        }
-                                                        element.attr('title',event.title);
-                                                        element.attr('data-toggle','tooltip');
-//
-                                                    },
-                                                    eventAfterAllRender: function(){
-                                                        $('[data-toggle="tooltip"]').tooltip();
-                                                    }
-                                                });
-                                            }
-                                        }
-
-                                        $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
-                                        $("#agenda_lb").attr('class',$("#" + $("#calendar").fullCalendar('getView').name).data('label'));
-
-                                        $("a[data-widget=calendar-view]").bind("click", function (e) {
-                                            e.preventDefault();
-                                            var _view = $(this).attr('id'),
-                                                    _name = $('span', this).html(),
-                                                    _label = $(this).data('label');
-                                            if (_view) {
-                                                $("#calendar").fullCalendar('changeView', _view.trim()); // month  , basicWeek , basicDay , agendaWeek , agendaDay
-                                                $("#agenda_btn").empty().append(_name);
-                                                $("#agenda_lb").attr('class',_label);
-                                            }
-                                        });
-                                        // jQuery(document).ready(function () {
-                                        //     var calendar_view = jQuery.cookie('calendar_view');
-                                        //     var calendar_view_name = jQuery.cookie('calendar_view_name');
-                                        //     if (calendar_view && calendar_view_name) {
-                                        //         jQuery('#calendar').fullCalendar('changeView', calendar_view.trim());
-                                        //         jQuery("#agenda_btn").empty().append(calendar_view_name);
-                                        //     }
-                                        // });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
+        jQuery(document).ready(function () {
+            refreshEvent();
         });
+        function refreshEvent(){
+            var today = moment();
+            $.get( "{{url('/room/get_room_reservation_schedule')}}?start="+ today.format("YYYY-MM-DD") +"&end="+today.add(30,'days').format("YYYY-MM-DD")).done(function(data) {
+                data = JSON.parse(data);
+                var closeStatement = '</tbody></table>';
+                var calendar = {};
+                for(var i = 0; i < data.length; i++){
+                    var startMoment = moment(data[i]['start'],'YYYY-MM-DD HH:mm:ss').add(543,"years");
+                    var endMoment = moment(data[i]['end'],'YYYY-MM-DD HH:mm:ss').add(543,"years");
+                    var div="";
+                    var status ="";
+                    if(data[i]['div']){
+                        div = data[i]['div']+"<br>";
+                    }
+                    else {
+                        div = "";
+                    }
+                    switch(data[i]['order']) {
+                        case 0:
+                            status = "approved";
+                            break;
+                        case 1:
+                            status = "pending";
+                            break;
+                        case 2:
+                            status = "rejected";
+                            break;
+                    }
+                    do {
+                        var tmp_date = startMoment.format('YYYY-MM-DD');
+                        if(!calendar[tmp_date]){
+                            calendar[tmp_date]={};
+                            calendar[tmp_date]["openStatement"]='<table class="table table-bordered">'
+                                    + '<thead>'
+                                    + '<tr>'
+                                    + '<th colspan="2">'+startMoment.locale("th").format('วันddd ที่ D MMMM พ.ศ. YYYY')+'</th>'
+                                    + '</tr>'
+                                    + '</thead>'
+                                    + '<tbody>';
+                            calendar[tmp_date]["data"] = []
+                        }
+                        calendar[tmp_date]["data"].push({"data":'<tr>'
+                                + '<td width="60px" ><div class="reserve-time '+status+'">'+ startMoment.format('HH:mm')+'<br><span class="end-time">'+ endMoment.format('HH:mm')+'</span></div></td>'
+                                + '<td><b>'+data[i]['realTitle']+'</b><br>'+div+data[i]['borrowing']+'<br>'+data[i]['description']+'</td>'
+                                + '</tr>',
+                            "order":data[i]['order']
+                        });
+                        if (startMoment.isSame(endMoment)){
+                                break;
+                        }
+                        else {
+                            startMoment = startMoment.add(1,'days');
+                        }
+                    }
+                    while(startMoment.isSameOrBefore(endMoment))
+            }
+                calendar = sortOnKeys(calendar);
+                for (var key in calendar){
+                    var event = calendar[key]["openStatement"];
+                    for(var j=0; j < calendar[key]["data"].length; j++){
+                        event += calendar[key]["data"][j]["data"];
+                    }
+                    event += closeStatement;
+                    $("#calendar-container").append(event);
+                }
+
+
+            });
+
+        }
+        function sortOnKeys(dict) {
+
+            var sorted = [];
+            for(var key in dict) {
+                sorted[sorted.length] = key;
+            }
+            sorted.sort(
+                    function(a, b) {
+                        if (a < b) return -1;
+                        if (a > b) return 1;
+                        return 0;
+                    });
+            var tempDict = {};
+            for(var i = 0; i < sorted.length; i++) {
+                dict[sorted[i]]['data'].sort(
+                        function (a, b) {
+                            if (a.order < b.order) return -1;
+                            if (a.order > b.order) return 1;
+                            return 0;
+                        });
+                tempDict[sorted[i]] = dict[sorted[i]];
+            }
+
+            return tempDict;
+        }
+        $("#myModal").on('hidden.bs.modal', function () {
+            $("body").css("overflow", "visible");
+        }).on('show.bs.modal', function () {
+            $("body").css("overflow", "hidden");
+        });
+        $("#dateSelectionSubmitBtn").click(function () {
+            $("#dateSelectionModal").modal("hide");
+            $("body").css("overflow", "hidden");
+            var check = moment();
+            var today = moment();
+                    @if(!($permission&&$permission->room))
+            for (var i = 0; i < dateTimeSchedule.length; i++) {
+                if (dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
+                    _toastr("ห้องปิดระหว่าง " + dateTimeSchedule[i]['start_date'] + " ถึง " + dateTimeSchedule[i]['end_date'], "top-right", "error", false);
+                    return false;
+                }
+            }
+                    @endif
+            var minhour = normalminhour;
+            var maxhour = normalmaxhour;
+            for (var i = 0; i < dateTimeSchedule.length; i++) {
+                if (!dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
+                    minhour = moment(dateTimeSchedule[i]['start_time'], 'HH : mm').format('HH');
+                    maxhour = moment(dateTimeSchedule[i]['end_time'], 'HH : mm').format('HH');
+                    break;
+                }
+            }
+            $('.time_pick').each(function () {
+                $(this).after($(this).html());
+            });
+            $('.time_pick').remove();
+            $('.timepicker_wrap').remove();
+            $('.timepickerr').unbind();
+            loadScript(plugin_path + 'timepicki/timepicki.min.js', function () {
+                if (jQuery().timepicki) {
+                    $('.timepickerr').timepicki({
+                        show_meridian: false,
+                        min_hour_value: minhour,
+                        max_hour_value: maxhour,
+                        step_size_minutes: 15,
+                        overflow_minutes: false,
+                        increase_direction: 'up',
+                        disable_keyboard_mobile: true
+                    });
+                }
+            });
+            $('#startTime').attr({'data-timepicki-tim': minhour, 'data-timepicki-mini': '00'});
+            $('#startTime').val(minhour + ' : 00');
+            $('#endTime').attr({'data-timepicki-tim': maxhour, 'data-timepicki-mini': '00'});
+            $('#endTime').val(maxhour + ' : 00');
+            $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
+            day = today.format('ddd, DD MMMM YYYY');
+            dateStart = today.format('YYYY-MM-DD');
+            // dateEnd = moment(end).format('YYYY-MM-DD');
+            @if($permission&&$permission->room)
+            $("#dateStart").val(dateStart);
+            $("#dateEnd").val(dateStart);
+            @endif
+            $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
+            $("#apptDate").val(dateStart);
+            $('#myModal').modal();
+        });
+        function _fullCalendar() {
+            if (jQuery('#calendar').length > 0) {
+                var _calendarInstance = jQuery('#calendar').fullCalendar({
+                    lang: 'th',
+                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                    defaultView: 'month',
+                    minTime: '8:00',
+                    maxTime: '18:00',
+                    slotDuration: '00:15',
+                    eventOrder: 'start',
+                    displayEventEnd: true,
+                    allDaySlot: false,
+                    editable: false,
+                    eventLimit: 6,
+                    resources: '{{url('/room/get_room')}}',
+                    events: '{{url('/room/get_room_reservation_schedule')}}',
+                    dayClick: function (date, jsEvent, view, resource) {
+                        if (jQuery("#calendar").attr('data-modal-create') == 'true') {
+                            var check = moment(date);
+                            var today = moment(new Date()).stripZone();
+                            if (check.isBefore(today) || check.isSame(today)) {
+                                $('#calendar').fullCalendar('gotoDate', date);
+                                $('#calendar').fullCalendar('changeView', 'agendaDay');
+                                $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
+                                $("#agenda_lb").attr('class', $("#agendaDay").data('label'));
+                            }
+                                    @if(!($permission&&$permission->room))
+                            else if (check.diff(today, 'days') >= 30 || $(this).closest('div[class~="fc-day"]').hasClass("closed")) {
+                                _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
+                            }
+                                    @endif
+                            else {
+                                        @if(!($permission&&$permission->room))
+                                for (var i = 0; i < dateTimeSchedule.length; i++) {
+                                    if (dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
+                                        _toastr("ห้องปิดระหว่าง " + dateTimeSchedule[i]['start_date'] + " ถึง " + dateTimeSchedule[i]['end_date'], "top-right", "error", false);
+                                        return false;
+                                    }
+                                }
+                                        @endif
+                                var minhour = normalminhour;
+                                var maxhour = normalmaxhour;
+                                for (var i = 0; i < dateTimeSchedule.length; i++) {
+                                    if (!dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
+                                        minhour = moment(dateTimeSchedule[i]['start_time'], 'HH : mm').format('HH');
+                                        maxhour = moment(dateTimeSchedule[i]['end_time'], 'HH : mm').format('HH');
+                                        break;
+                                    }
+                                }
+                                $('.time_pick').each(function () {
+                                    $(this).after($(this).html());
+                                });
+                                $('.time_pick').remove();
+                                $('.timepicker_wrap').remove();
+                                $('.timepickerr').unbind();
+                                loadScript(plugin_path + 'timepicki/timepicki.min.js', function () {
+                                    if (jQuery().timepicki) {
+                                        $('.timepickerr').timepicki({
+                                            show_meridian: false,
+                                            min_hour_value: minhour,
+                                            max_hour_value: maxhour,
+                                            step_size_minutes: 15,
+                                            overflow_minutes: false,
+                                            increase_direction: 'up',
+                                            disable_keyboard_mobile: true
+                                        });
+                                    }
+                                });
+                                $('#startTime').attr({'data-timepicki-tim': minhour, 'data-timepicki-mini': '00'});
+                                $('#startTime').val(minhour + ' : 00');
+                                $('#endTime').attr({'data-timepicki-tim': maxhour, 'data-timepicki-mini': '00'});
+                                $('#endTime').val(maxhour + ' : 00');
+                                $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
+                                day = moment(date).format('ddd, DD MMMM YYYY');
+                                dateStart = moment(date).format('YYYY-MM-DD');
+                                // dateEnd = moment(end).format('YYYY-MM-DD');
+                                @if($permission&&$permission->room)
+                                $("#dateStart").val(dateStart);
+                                $("#dateEnd").val(dateStart);
+                                @endif
+                                $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
+                                $("#apptDate").val(dateStart);
+                                $('#myModal').modal();
+                            }
+                        }
+                    },
+                    resourceRender: function (resource, label, body) {
+                        label.append("<br>(" + resource.size + ")");
+                    },
+                    eventRender: function (event, element, icon) {
+                        if (!event.description == '') {
+                            element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
+                        }
+                        element.attr('title', event.title);
+                        element.attr('data-toggle', 'tooltip');
+//
+                    },
+                    eventAfterAllRender: function () {
+                        $('[data-toggle="tooltip"]').tooltip();
+                    }
+                });
+            }
+        }
     </script>
 @endsection

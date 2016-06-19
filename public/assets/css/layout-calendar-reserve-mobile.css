@@ -473,3 +473,12 @@ section div.row > div {
 .rejected {
 	border-color: #F15757;
 }
+#room-reserve-btn {
+	margin-top: -5px;
+	margin-left: 15px;
+	height: 35px;
+	line-height: 19px;
+}
+#myModal {
+	overflow-y: scroll;
+}
