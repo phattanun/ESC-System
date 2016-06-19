@@ -132,19 +132,19 @@ class RoomController extends Controller
             if ($statusIsNull) {
                 $status = ["bg-warning"];
                 $order = 1;
-                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_plug'].' อัน';
                 $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
                 $title .= $borrowing;
             } else if ($queries['status']) {
                 $status = ["bg-success"];
                 $order = 0;
-                $borrowing = ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน');
-                $borrowing .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง');
+                $borrowing = ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['allow_plug'].' อัน');
+                $borrowing .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['allow_projector'].' เครื่อง');
                 $title .= $borrowing;
             } else {
                 $status = ["bg-danger"];
                 $order = 2;
-                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_plug'].' อัน';
                 $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
                 $title .= $borrowing;
             }
@@ -181,19 +181,19 @@ class RoomController extends Controller
             if ($statusIsNull) {
                 $status = ["bg-warning"];
                 $order = 1;
-                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_plug'].' อัน';
                 $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
                 $title .= $borrowing;
             } else if ($queries['status']) {
                 $status = ["bg-success"];
                 $order = 0;
-                $borrowing = ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน');
-                $borrowing .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง');
+                $borrowing = ($queries['allow_plug']==0&&$queries['request_plug']!=0) ? 'ไม่ให้ยืมปลั๊กพ่วง':(($queries['allow_plug']==0&&$queries['request_plug']==0)?'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['allow_plug'].' อัน');
+                $borrowing .= ($queries['allow_projector']==null&&$queries['request_projector']) ? ', ไม่ให้ยืมโปรเจกเตอร์':(($queries['allow_projector']==0&&$queries['request_projector']==0)?', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['allow_projector'].' เครื่อง');
                 $title .= $borrowing;
             } else {
                 $status = ["bg-danger"];
                 $order = 2;
-                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_projector'].' อัน';
+                $borrowing = ($queries['request_plug']==0) ? 'ไม่ยืมปลั๊กพ่วง':'ยืมปลั๊กพ่วง '. $queries['request_plug'].' อัน';
                 $borrowing .= ($queries['request_projector']==0) ? ', ไม่ยืมโปรเจกเตอร์':', ยืมโปรเจกเตอร์ '. $queries['request_projector'].' เครื่อง';
                 $title .= $borrowing;
             }

@@ -12,6 +12,13 @@
 @section('bodyTitle')
     จองห้องประชุม/ผลการจองห้องประชุม
 @endsection
+@section('js-top')
+    <script>
+        if ($(window).width() <=768){
+            window.location="{{url('/room/reserve/mobile')}}";
+        }
+    </script>
+@endsection
 @section('content')
     <section  id="middle">
         <div id="content" class="padding-40">
