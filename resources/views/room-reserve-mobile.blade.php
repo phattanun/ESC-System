@@ -339,7 +339,7 @@
                 <!-- body modal -->
                 <div class="modal-body">
                     <input name="dateSelectionInput" id="dateSelectionInput" type="text"
-                           class="form-control datepicker" data-format="yyyy-mm-dd" placeholder="ปปปป-ดด-วว"
+                           class="form-control datepicker" data-format="yyyy-mm-dd" placeholder="ปปปป-ดด-วว" readonly="readonly" style="background:white;"
                            data-lang="en" data-RTL="false">
                 </div>
 
