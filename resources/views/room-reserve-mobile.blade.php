@@ -481,7 +481,7 @@
                     }
                     else {
                         _toastr("ส่งคำจองสำเร็จ", "top-right", "success", false);
-                        $('#calendar').fullCalendar( 'refetchEvents' );
+                        refreshEvent();
                         $('#myModal').modal('hide');
                         return false;
                     }
@@ -499,6 +499,7 @@
             refreshEvent();
         });
         function refreshEvent(){
+            $("#calendar-container").empty();
             var today = moment();
             $.get( "{{url('/room/get_room_reservation_schedule')}}?start="+ today.format("YYYY-MM-DD") +"&end="+today.add(30,'days').format("YYYY-MM-DD")).done(function(data) {
                 data = JSON.parse(data);
@@ -599,18 +600,27 @@
             $("body").css("overflow", "hidden");
         });
         $("#dateSelectionSubmitBtn").click(function () {
-            $("#dateSelectionModal").modal("hide");
-            $("body").css("overflow", "hidden");
-            var check = moment();
+            var check = moment($("#dateSelectionInput").val());
             var today = moment();
-                    @if(!($permission&&$permission->room))
-            for (var i = 0; i < dateTimeSchedule.length; i++) {
-                if (dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
-                    _toastr("ห้องปิดระหว่าง " + dateTimeSchedule[i]['start_date'] + " ถึง " + dateTimeSchedule[i]['end_date'], "top-right", "error", false);
-                    return false;
-                }
+            if (check.isBefore(today) || check.isSame(today)) {
+                _toastr("กรุณาจองตั้งแต่วันพรุ่งนี้เป็นต้นไป", "top-right", "error", false);
+                return false;
             }
-                    @endif
+            @if(!($permission&&$permission->room))
+                 if (check.diff(today,'days')>=30||$(this).closest('div[class~="fc-day"]').hasClass("closed")) {
+                    _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
+                 return false;
+                }
+            @endif
+            @if(!($permission&&$permission->room))
+                for (var i = 0; i < dateTimeSchedule.length; i++) {
+                    if (dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']), null, '[]')) {
+                        _toastr("ห้องปิดระหว่าง " + dateTimeSchedule[i]['start_date'] + " ถึง " + dateTimeSchedule[i]['end_date'], "top-right", "error", false);
+                        return false;
+                    }
+                }
+            @endif
+            $("#dateSelectionModal").modal("hide");
             var minhour = normalminhour;
             var maxhour = normalmaxhour;
             for (var i = 0; i < dateTimeSchedule.length; i++) {
@@ -644,8 +654,8 @@
             $('#endTime').attr({'data-timepicki-tim': maxhour, 'data-timepicki-mini': '00'});
             $('#endTime').val(maxhour + ' : 00');
             $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
-            day = today.format('ddd, DD MMMM YYYY');
-            dateStart = today.format('YYYY-MM-DD');
+            day = check.locale("th").format('ddd, DD MMMM YYYY');
+            dateStart = check.format('YYYY-MM-DD');
             // dateEnd = moment(end).format('YYYY-MM-DD');
             @if($permission&&$permission->room)
             $("#dateStart").val(dateStart);
@@ -655,108 +665,5 @@
             $("#apptDate").val(dateStart);
             $('#myModal').modal();
         });
-        function _fullCalendar() {
-            if (jQuery('#calendar').length > 0) {
-                var _calendarInstance = jQuery('#calendar').fullCalendar({
-                    lang: 'th',
-                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                    defaultView: 'month',
-                    minTime: '8:00',
-                    maxTime: '18:00',
-                    slotDuration: '00:15',
-                    eventOrder: 'start',
-                    displayEventEnd: true,
-                    allDaySlot: false,
-                    editable: false,
-                    eventLimit: 6,
-                    resources: '{{url('/room/get_room')}}',
-                    events: '{{url('/room/get_room_reservation_schedule')}}',
-                    dayClick: function (date, jsEvent, view, resource) {
-                        if (jQuery("#calendar").attr('data-modal-create') == 'true') {
-                            var check = moment(date);
-                            var today = moment(new Date()).stripZone();
-                            if (check.isBefore(today) || check.isSame(today)) {
-                                $('#calendar').fullCalendar('gotoDate', date);
-                                $('#calendar').fullCalendar('changeView', 'agendaDay');
-                                $("#agenda_btn").empty().append($("#" + $("#calendar").fullCalendar('getView').name + " span").html());
-                                $("#agenda_lb").attr('class', $("#agendaDay").data('label'));
-                            }
-                                    @if(!($permission&&$permission->room))
-                            else if (check.diff(today, 'days') >= 30 || $(this).closest('div[class~="fc-day"]').hasClass("closed")) {
-                                _toastr("ไม่สามารถจองล่วงหน้าเกิน 30 วันได้", "top-right", "error", false);
-                            }
-                                    @endif
-                            else {
-                                        @if(!($permission&&$permission->room))
-                                for (var i = 0; i < dateTimeSchedule.length; i++) {
-                                    if (dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
-                                        _toastr("ห้องปิดระหว่าง " + dateTimeSchedule[i]['start_date'] + " ถึง " + dateTimeSchedule[i]['end_date'], "top-right", "error", false);
-                                        return false;
-                                    }
-                                }
-                                        @endif
-                                var minhour = normalminhour;
-                                var maxhour = normalmaxhour;
-                                for (var i = 0; i < dateTimeSchedule.length; i++) {
-                                    if (!dateTimeSchedule[i]['room_closed'] && moment(check).isBetween(dateTimeSchedule[i]['start_date'], moment(dateTimeSchedule[i]['end_date']).add(1, 'd'), null, '[]')) {
-                                        minhour = moment(dateTimeSchedule[i]['start_time'], 'HH : mm').format('HH');
-                                        maxhour = moment(dateTimeSchedule[i]['end_time'], 'HH : mm').format('HH');
-                                        break;
-                                    }
-                                }
-                                $('.time_pick').each(function () {
-                                    $(this).after($(this).html());
-                                });
-                                $('.time_pick').remove();
-                                $('.timepicker_wrap').remove();
-                                $('.timepickerr').unbind();
-                                loadScript(plugin_path + 'timepicki/timepicki.min.js', function () {
-                                    if (jQuery().timepicki) {
-                                        $('.timepickerr').timepicki({
-                                            show_meridian: false,
-                                            min_hour_value: minhour,
-                                            max_hour_value: maxhour,
-                                            step_size_minutes: 15,
-                                            overflow_minutes: false,
-                                            increase_direction: 'up',
-                                            disable_keyboard_mobile: true
-                                        });
-                                    }
-                                });
-                                $('#startTime').attr({'data-timepicki-tim': minhour, 'data-timepicki-mini': '00'});
-                                $('#startTime').val(minhour + ' : 00');
-                                $('#endTime').attr({'data-timepicki-tim': maxhour, 'data-timepicki-mini': '00'});
-                                $('#endTime').val(maxhour + ' : 00');
-                                $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
-                                day = moment(date).format('ddd, DD MMMM YYYY');
-                                dateStart = moment(date).format('YYYY-MM-DD');
-                                // dateEnd = moment(end).format('YYYY-MM-DD');
-                                @if($permission&&$permission->room)
-                                $("#dateStart").val(dateStart);
-                                $("#dateEnd").val(dateStart);
-                                @endif
-                                $("#request-date").html('<i class="fa fa-clock-o"></i> ' + day);
-                                $("#apptDate").val(dateStart);
-                                $('#myModal').modal();
-                            }
-                        }
-                    },
-                    resourceRender: function (resource, label, body) {
-                        label.append("<br>(" + resource.size + ")");
-                    },
-                    eventRender: function (event, element, icon) {
-                        if (!event.description == '') {
-                            element.find('.fc-title').append("<br /><span class='font300 fsize11'>" + event.description + "</span>");
-                        }
-                        element.attr('title', event.title);
-                        element.attr('data-toggle', 'tooltip');
-//
-                    },
-                    eventAfterAllRender: function () {
-                        $('[data-toggle="tooltip"]').tooltip();
-                    }
-                });
-            }
-        }
     </script>
 @endsection
