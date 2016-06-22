@@ -506,8 +506,8 @@
                 var closeStatement = '</tbody></table>';
                 var calendar = {};
                 for(var i = 0; i < data.length; i++){
-                    var startMoment = moment(data[i]['start'],'YYYY-MM-DD HH:mm:ss').add(543,"years");
-                    var endMoment = moment(data[i]['end'],'YYYY-MM-DD HH:mm:ss').add(543,"years");
+                    var startMoment = moment(data[i]['start'],'YYYY-MM-DD HH:mm:ss');
+                    var endMoment = moment(data[i]['end'],'YYYY-MM-DD HH:mm:ss');
                     var div="";
                     var status ="";
                     if(data[i]['div']){
@@ -534,7 +534,7 @@
                             calendar[tmp_date]["openStatement"]='<table class="table table-bordered">'
                                     + '<thead>'
                                     + '<tr>'
-                                    + '<th colspan="2">'+startMoment.locale("th").format('วันddd ที่ D MMMM พ.ศ. YYYY')+'</th>'
+                                    + '<th colspan="2">'+startMoment.locale("th").format('วันddd ที่ D MMMM YYYY')+'</th>'
                                     + '</tr>'
                                     + '</thead>'
                                     + '<tbody>';
