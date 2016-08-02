@@ -446,11 +446,19 @@ class RoomController extends Controller
 //            }
 //        }
 
-        ScheduleSetting::truncate();
+        /*ScheduleSetting::truncate();
         ScheduleSetting::insert([
             'start' => date('H:i:s', strtotime(str_replace(" ", '', $timeStartDefault))),
             'end' => date('H:i:s', strtotime(str_replace(" ", '', $timeEndDefault)))
+        ]);*/
+
+        DB::table('schedule_settings')
+            ->update([
+            'start' => date('H:i:s', strtotime(str_replace(" ", '', $timeStartDefault))),
+            'end' => date('H:i:s', strtotime(str_replace(" ", '', $timeEndDefault)))
         ]);
+
+
 
         AllowSchedule::truncate();
         for ($i = 1; $i <= count($event); $i++) {
