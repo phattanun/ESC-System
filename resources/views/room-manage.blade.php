@@ -126,7 +126,7 @@
         <div class="container" >
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>setTimeout(function(){location.reload();},5000);</script>" {{--data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ"--}} data-toastr-position="top-right">
+                    <form class="validate" action="{{url().'/room/room-manage/edit_room'}}" method="post" enctype="multipart/form-data" data-error="เกิดความผิดพลาด กรุณาลองใหม่อีกครั้ง" data-success="บันทึกสำเร็จ!<script>$('#edit-room-submit-button').attr('disabled','disabled'); setTimeout(function(){location.reload();},1000);</script>" {{--data-success="เปลี่ยนแปลงสิทธิ์สำเร็จ"--}} data-toastr-position="top-right">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
 
 {{--เพิ่มลดแก้ไขห้องประชุม--------------------------------------------------------------------------------------------}}
@@ -388,7 +388,7 @@
 
                         <div class="row">
                             <div class="col-xs-5 col-md-1 col-sm-2">
-                                <button type="submit" class="btn btn-3d btn-reveal btn-green">
+                                <button id="edit-room-submit-button" type="submit" class="btn btn-3d btn-reveal btn-green">
                                     <i class="fa fa-check"></i>
                                     <span>บันทึก</span>
                                 </button>
